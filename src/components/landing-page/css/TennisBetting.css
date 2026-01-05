@@ -1,0 +1,122 @@
+.section-tennis-betting {
+  position: relative;
+  z-index: 1;
+  background: #02040C;
+  padding: 80px 40px;
+;
+}
+
+.tennis-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin: 40px;
+}
+
+/* CARD */
+.tennis-step-card {
+  background:
+    linear-gradient(0deg, #1c2128, #1c2128),
+    linear-gradient(
+      170.59deg,
+      rgba(255, 255, 255, 0.05) 26.08%,
+      rgba(255, 255, 255, 0.02) 83%,
+      rgba(255, 255, 255, 0) 137.69%
+    );
+
+  border-radius: 20px;
+  padding: 34px;
+  color: #e6e8ec;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+
+/* HEADER */
+.step-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .tennis-steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+.tennis-step-card {
+  position: relative;
+  background: #1c2128;
+  border-radius: 20px;
+  padding: 28px;
+  text-align: left;
+}
+
+/* Header row */
+.step-header {
+  display: flex;
+  align-items: flex-start;
+}
+
+/* Step number circle (top-left) */
+.step-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #1f6bff;
+  color: #fff;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* TAG — top right floating */
+.step-tag {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* Tag colors */
+.tag-blue {
+  background: rgba(68, 155, 255, 0.15);
+  color: #449bff;
+  border: 1px solid rgba(68, 155, 255, 0.3);
+}
+
+.tag-gold {
+  background: rgba(255, 209, 102, 0.15);
+  color: #ffd166;
+  border: 1px solid rgba(255, 209, 102, 0.3);
+}
+
+/* Text spacing */
+.step-title {
+  margin-top: 20px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.step-description {
+  margin-top: 10px;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #b6bcc8;
+}

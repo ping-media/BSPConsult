@@ -1,0 +1,299 @@
+body {
+  font-family: 'Figtree', sans-serif;
+}
+/* =======================
+   HEADINGS
+======================= */
+
+.heading-h5 {
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+
+.heading-h5 span {
+  color: #449BFF;
+}
+
+.heading-h2 {
+  color: #b6bcc8;
+}
+
+/* =======================
+   SECTION & CARD WRAPPER
+======================= */
+
+.section-enroll-now {
+  position: relative;
+  z-index: 1;
+  padding: 80px 0px;
+  background:
+    radial-gradient(
+      700px 700px at top right,
+      rgba(0, 122, 255, 0.06),
+      transparent 65%
+    ),
+    radial-gradient(
+      700px 700px at bottom left,
+      rgba(0, 122, 255, 0.06),
+      transparent 65%
+    ),
+    #090B15;
+}
+
+
+
+.enroll-items-bg {
+  background:
+    linear-gradient(0deg, #090B15, #090B15),
+    linear-gradient(
+      170.59deg,
+      rgba(255, 255, 255, 0.03) 26.08%,
+      rgba(255, 255, 255, 0.012) 83%,
+      rgba(255, 255, 255, 0) 137.69%
+    );
+
+  border: 1px solid rgba(243, 243, 243, 0.023);
+  border-radius: 24px;
+  padding: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+
+  width: 100%;
+  height: 100%;
+  color: #f9fafb;
+}
+
+
+/* =======================
+   SCROLL TRACK
+======================= */
+
+.container-2 {
+  width: 100%;
+  position: relative;
+}
+
+.enroll-track {
+  display: flex;
+  gap: 32px;
+  width: max-content;
+  animation: scrollX 60s linear infinite;
+}
+
+@keyframes scrollX {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.container-2::-webkit-scrollbar {
+  display: none;
+}
+
+/* =======================
+   LEFT CONTENT
+======================= */
+
+.enroll-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: left;
+}
+
+/* ICON GREY BOX */
+.enroll-icon-box {
+  width: 48px;
+  height: 48px;
+  background: #1c2128;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-main {
+  color: #9aa4b2;
+}
+
+/* =======================
+   TEXT
+======================= */
+
+.heading-h3 {
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #ffffff;
+}
+
+.heading-h4 {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.5;
+  font-weight: 200;
+   color: #b6bcc8;
+  padding: 0;
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* =======================
+   EXTRA INFO (GREY BUTTON)
+======================= */
+
+.enroll-extra-box {
+  margin-top: 8px;
+  padding: 14px 16px;
+  background: #1c2128;
+  border-radius: 14px;
+  width: fit-content;
+}
+
+.enroll-extra-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 20px;
+}
+
+.enroll-extra-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #c7ccd4;
+}
+
+.icon-small {
+  color: #7d8794;
+}
+
+/* =======================
+   RIGHT IMAGE
+======================= */
+
+.enroll-right {
+  flex-shrink: 0;
+}
+
+.enroll-image {
+  max-width: 360px;
+  height: auto;
+  border-radius: 16px;
+}
+
+/* =======================
+   UTILITIES
+======================= */
+
+.mt-56 {
+  margin-top: 56px;
+}
+
+.pt-15 {
+  padding-top: 15px;
+}
+
+.mr-10 {
+  margin-right: 15px;
+}
+
+/* =======================
+   MOBILE RESPONSIVE
+======================= */
+
+@media (max-width: 767px) {
+  .heading-h5 {
+    font-size: 18px;
+  }
+
+  .heading-h2 {
+    font-size: 28px;
+    line-height: 35px;
+  }
+
+  .enroll-items {
+    min-width: 100%;
+  }
+
+  .enroll-items-bg {
+    flex-direction: column-reverse;
+    text-align: center;
+    gap: 24px;
+  }
+
+  .enroll-left {
+    align-items: center;
+    text-align: center;
+  }
+
+  .heading-h3 {
+    font-size: 28px;
+    line-height: 1.3;
+  }
+
+  .heading-h4 {
+    font-size: 20px;
+    line-height: 30px;
+  }
+
+  .enroll-extra-box {
+    width: 100%;
+  }
+
+  .enroll-image {
+    max-width: 100%;
+  }
+
+  .xs-mt-25 {
+    margin-top: 25px;
+  }
+
+  .xs-mb-92 {
+    margin-bottom: 92px;
+  }
+}
+
+.enroll-left {
+  flex: 1;
+  max-width: 520px;
+}
+
+.heading-h4 {
+  white-space: normal;
+  word-break: break-word;
+  line-height: 1.6;
+}
+
+.enroll-extra-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.enroll-extra-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: #1c2128;
+  border-radius: 14px;
+  font-size: 13px;
+  color: #c7ccd4;
+  white-space: nowrap;
+}
+
+.icon-small {
+  color: #7d8794;
+}
