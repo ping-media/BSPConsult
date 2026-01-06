@@ -23,9 +23,9 @@
 .footer-container {
   position: relative;
   z-index: 2;
-  max-width: 1200px;
+  /* max-width: 1200px; */
   margin: auto;
-  padding: 80px 20px 50px;
+  padding: 80px 80px 50px;
   display: grid;
   grid-template-columns: 4fr 1fr 1fr;
   gap: 80px;
@@ -93,8 +93,8 @@ background: linear-gradient(180deg, #007AFF 0%, #0C53C8 100%);
 .footer-links h4,
 .footer-apps h4 {
   margin-bottom: 18px;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 400;
 }
 
 .footer-links ul {
