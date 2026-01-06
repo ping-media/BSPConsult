@@ -47,7 +47,7 @@ const Footer = () => (
       </div>
     </div>
 
-    <div className="footer-bottom container">
+    <div className="footer-bottom">
       © 2026 BSP Consult. All rights reserved.
     </div>
   </footer>
