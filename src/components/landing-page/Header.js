@@ -255,16 +255,16 @@ const Header = () => (
 
   <div className="cta-rating">
     <div className="stars">
-       <span className="star full">★</span>
-    <span className="star full">★</span>
-    <span className="star full">★</span>
-    <span className="star full">★</span>
-
+      <span className="star full"><img src="img/star.svg" alt="star" /></span>
+      <span className="star full"><img src="img/star.svg" alt="star" /></span>
+      <span className="star full"><img src="img/star.svg" alt="star" /></span>
+      <span className="star full"><img src="img/star.svg" alt="star" /></span>
+      <span className="star full"><img src="img/star-alt.svg" alt="star" /></span>
     {/* last star = 80% filled */}
-    <span className="star partial">
-      ★
-      <span className="star-fill">★</span>
-    </span>
+    {/* <span className="star partial">
+      <img src="img/star.svg" alt="star" />
+      <span className="star-fill"><img src="img/star.svg" alt="star" /></span>
+    </span> */}
     </div>
     <div className="rating-text">
       <strong>4.8 | </strong> <strong>487 </strong>Reviews

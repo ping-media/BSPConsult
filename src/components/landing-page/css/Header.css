@@ -142,7 +142,7 @@ div#wistia-player-container-1 {
   }
 .bg-effect {
   height: 1611px;
-  background:
+  /* background:
     radial-gradient(
       314% 163.52% at -25% -50%,
       #030511 36%,
@@ -175,7 +175,7 @@ div#wistia-player-container-1 {
       rgba(3, 5, 17, 0) 33%,
       #0316a3 51%,
       rgba(3, 5, 17, 0) 72%
-    );
+    ); */
 }
 
 

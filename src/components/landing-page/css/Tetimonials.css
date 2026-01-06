@@ -172,4 +172,7 @@
   .testimonial-footer{
     padding: 12px 20px;
   }
+  .testimonial-label{
+    font-size: 14px;
+  }
 }
