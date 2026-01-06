@@ -2,7 +2,7 @@
   position: relative;
   z-index: 1;
   background: #02040C;
-  padding: 80px 40px;
+  padding: 80px;
 ;
 }
 .section-tennis-betting::before{
@@ -20,7 +20,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
-  margin: 40px;
+  /* margin: 40px; */
 }
 
 /* CARD */
@@ -67,7 +67,7 @@
   position: relative;
   background: #1c2128;
   border-radius: 20px;
-  padding: 28px;
+  padding: 28px 24px;
   text-align: left;
 }
 
@@ -79,8 +79,8 @@
 
 /* Step number circle (top-left) */
 .step-circle {
-  width: 36px;
-  height: 36px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
 
   background: linear-gradient(135deg, #155DFC 0%, #0092B8 100%);
@@ -91,7 +91,7 @@
 
   color: #fff;
   font-weight: 700;
-
+font-size: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -138,4 +138,13 @@
   line-height: 1.6;
   font-weight: 400;
   color: #b6bcc8;
+}
+
+@media (max-width: 768px) {
+  .section-tennis-betting{
+    padding: 24px;
+  }
+  .tennis-steps{
+    margin: 0;
+  }
 }

@@ -19,13 +19,14 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 32px;
-  max-width: 1200px;
+  /* max-width: 1200px; */
   margin: 0 auto;
+  padding: 0 80px;
 }
 
 .price-card {
-  background: #1c2128;
-  border-radius: 24px;
+  /* background: #1c2128; */
+  /* border-radius: 24px; */
   padding: 12px;
 
   display: flex;
@@ -35,6 +36,10 @@
   box-shadow:
     inset 7px 4px 26px 0px rgba(255, 255, 255, 0.09), /* #FFFFFF17 */
     0px 8.91px 14.3px 0px rgba(0, 0, 0, 0.25);       /* #00000040 */
+
+  border-radius: 28px;
+background: linear-gradient(166deg, #3A3C43 0%, #11131C 15.61%, #11131C 100%);
+box-shadow: 0 8.911px 14.296px 0 rgba(0, 0, 0, 0.25), 7px 4px 26px 0 rgba(255, 255, 255, 0.09) inset;
 }
 
 /* INNER BLACK BOX */
@@ -97,6 +102,7 @@
 /* INCLUDES */
 .program-includes {
   margin-top: 24px;
+  padding-left: 16px;
 }
 
 .program-includes h4 {
@@ -117,7 +123,7 @@
   align-items: center;
   gap: 8px;
   font-size: 14px;
-  margin-bottom: 10px;
+  margin-bottom: 7px;
   padding: 6px 0;
 }
 
@@ -157,6 +163,14 @@
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 768px) {
+  .section-price{
+    padding: 24px;
+  }
+}
+
+
 .program-price {
   display: flex;
   align-items: baseline;
@@ -176,7 +190,7 @@
 }
 .best-value-badge {
   position: absolute;
-  top: 18px;
+  top: 22px;
   right: 18px;
 
   padding: 6px 12px;

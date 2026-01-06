@@ -36,7 +36,7 @@ when executed with discipline over time.`,
 ];
 
 export default function FaqSection() {
-  const [openIndex, setOpenIndex] = useState(null);
+  const [openIndex, setOpenIndex] = useState(0);
 
   const toggle = (index) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -65,7 +65,7 @@ export default function FaqSection() {
           aria-expanded={isOpen}
         >
           <span>{item.q}</span>
-          <span className={`faq-icon ${isOpen ? 'open' : ''}`}>+</span>
+          <span className={`faq-icon ${isOpen ? 'open' : ''}`}>{isOpen ? '−' : '+'}</span>
         </button>
 
         {isOpen && (

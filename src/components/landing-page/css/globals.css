@@ -8,6 +8,7 @@
   --Oswald: 'Oswald', sans-serif;
   --PublicSans: 'Public Sans', sans-serif;
    --font-figtree: 'Figtree', sans-serif;
+  --Figtree: 'Figtree', sans-serif;
 }
 
 * {
@@ -20,7 +21,7 @@ html {
 html,
 body {
   margin: 0px;
-  font-family: 'Figtree', sans-serif;
+  font-family: 'Figtree', sans-serif !important;
 }
 img {
   max-width: 100%;

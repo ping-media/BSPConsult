@@ -43,7 +43,7 @@ const Header = () => (
        Structured Bettors
       </h1>
       <div className="watch-video-text">
-  <Play className="play-icon" />
+  <img src="img/play.svg" alt="Play" className="play-icon" />
   <span>Watch the 8-minute video to understand how it actually works</span>
   </div>
       <WistiaPlayer videoId="s9dfisq9e7" wrapper="wistia-player-container-1" />

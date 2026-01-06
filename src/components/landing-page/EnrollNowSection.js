@@ -2,20 +2,87 @@ import './css/EnrollNow.css';
 
 /* eslint-disable react/no-unescaped-entities */
 
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { ICON_MAP } from './Icons';
 
 
 const EnrollNowSection = () => {
   const scrollRef = useRef(null);
+  const singleSetWidthRef = useRef(0);
+  const isScrollingRef = useRef(false);
+
+  // Calculate single set width
+  useEffect(() => {
+    if (scrollRef.current) {
+      const firstSlide = scrollRef.current.querySelector('.enroll-items');
+      if (firstSlide) {
+        const slideWidth = firstSlide.offsetWidth;
+        const gap = 32;
+        singleSetWidthRef.current = enrollItems.length * (slideWidth + gap);
+      }
+    }
+  }, []);
+
+  // Set initial scroll position and handle infinite scroll
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) {
+      return undefined;
+    }
+
+    // Set initial scroll position to start of first set
+    container.scrollLeft = 0;
+
+    const handleScroll = () => {
+      if (isScrollingRef.current) return;
+
+      const scrollLeft = container.scrollLeft;
+      const singleSetWidth = singleSetWidthRef.current;
+
+      // If scrolled past the first set (reached duplicate set), jump back to start of first set
+      if (scrollLeft >= singleSetWidth) {
+        isScrollingRef.current = true;
+        container.scrollTo({
+          left: scrollLeft - singleSetWidth,
+          behavior: 'auto',
+        });
+        setTimeout(() => {
+          isScrollingRef.current = false;
+        }, 50);
+      }
+      // If scrolled before the start (scrolling left from beginning), jump to end of first set
+      else if (scrollLeft <= 0) {
+        isScrollingRef.current = true;
+        container.scrollTo({
+          left: singleSetWidth - (container.querySelector('.enroll-items')?.offsetWidth || 0),
+          behavior: 'auto',
+        });
+        setTimeout(() => {
+          isScrollingRef.current = false;
+        }, 50);
+      }
+    };
+
+    container.addEventListener('scroll', handleScroll);
+    return () => {
+      container.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const scroll = (direction) => {
-    const scrollAmount = 400; // Adjust based on card width + gap
     if (scrollRef.current) {
-      scrollRef.current.scrollBy({
-        left: direction === 'left' ? -scrollAmount : scrollAmount,
-        behavior: 'smooth',
-      });
+      // Get the first slide element to calculate its width
+      const firstSlide = scrollRef.current.querySelector('.enroll-items');
+      if (firstSlide) {
+        const slideWidth = firstSlide.offsetWidth;
+        const gap = 32; // Gap between slides as defined in CSS
+        const scrollAmount = slideWidth + gap;
+        
+        scrollRef.current.scrollBy({
+          left: direction === 'left' ? -scrollAmount : scrollAmount,
+          behavior: 'smooth',
+        });
+      }
     }
   };
 
@@ -30,7 +97,7 @@ const EnrollNowSection = () => {
       <h2 className="heading-h2 hide-mob">A complete method designed to transform your betting approach</h2>
     </div>
     <div className="enroll-wrapper">
-      <div className="container pt-0 pb-0" ref={scrollRef}>
+      <div className="container-slider pt-0 pb-0" ref={scrollRef}>
         <div className="enroll-track">
     {[...enrollItems, ...enrollItems].map((item, index) => (
       <div className="enroll-items" key={index}>
@@ -93,22 +160,6 @@ const EnrollNowSection = () => {
 
 const enrollItems = [
   {
-    imgSrc: 'img/tele1.png',
-    alt: 'Telegram Live Channel',
-    title: 'Telegram Live Channel',
-    description:
-      'Access live betting opportunities with real-time context. Learn why we enter, skip, or exit matches in real time, identify momentum shifts and act before odds adjust. Master hedging strategies on tennis without emotional pressure.',
-    icon: 'chat',
-     extraInfo: {
-      label: 'Includes',
-      items: [
-        { icon: 'chat1', text: 'Predefined Entries' },
-        { icon: 'chat2', text: 'Live Market Edge' },
-        { icon: 'chat3', text: 'Timing & Execution' },
-      ],
-    },
-    },
-  {
     imgSrc: 'img/tele2.png',
     alt: 'BSP Tennis Betting Model',
     title: 'BSP Tennis Betting Model',
@@ -124,7 +175,41 @@ const enrollItems = [
         { icon: 'tennis4', text: 'EV+ Bets' },
       ],
     },
+  },
+  {
+    imgSrc: 'img/tele5.png',
+    alt: 'BSP Application',
+    title: 'BSP Application',
+    description:
+      "Follow a structured ATP betting strategy directly inside the app. Every betting opportunity is supported by clear analysis and a personalized staking system, removing emotion from decision-making and allowing users to fully understand the logic behind each bet, complemented by advanced tournament-level insights.",
+    icon: 'applications', 
+    extraInfo: {
+      label: 'Includes',
+      items: [
+        { icon: 'app1', text: 'Advanced Data Insights' },
+        { icon: 'app2', text: 'High ROI-focused bets' },
+        { icon: 'app3', text: 'Detailed Bet Analysi' },
+        { icon: 'app4', text: 'Tournament Previews & Context' },
+      ],
     },
+  },
+  {
+    imgSrc: 'img/tele1.png',
+    alt: 'Telegram Live Channel',
+    title: 'Telegram Live Channel',
+    description:
+      'Access live betting opportunities with real-time context. Learn why we enter, skip, or exit matches in real time, identify momentum shifts and act before odds adjust. Master hedging strategies on tennis without emotional pressure.',
+    icon: 'chat',
+     extraInfo: {
+      label: 'Includes',
+      items: [
+        { icon: 'chat1', text: 'Predefined Entries' },
+        { icon: 'chat2', text: 'Live Market Edge' },
+        { icon: 'chat3', text: 'Timing & Execution' },
+      ],
+    },
+    },
+  
   {
     imgSrc: 'img/tele3.png',
     alt: 'Masterclass Channel',
@@ -158,24 +243,7 @@ const enrollItems = [
         { icon: 'video4', text: 'Live Scaling Frameworks' },
       ],
     },
-    },
-  {
-    imgSrc: 'img/tele5.png',
-    alt: 'BSP Application',
-    title: 'BSP Application',
-    description:
-      "Follow a structured ATP betting strategy directly inside the app. Every betting opportunity is supported by clear analysis and a personalized staking system, removing emotion from decision-making and allowing users to fully understand the logic behind each bet, complemented by advanced tournament-level insights.",
-    icon: 'applications', 
-    extraInfo: {
-      label: 'Includes',
-      items: [
-        { icon: 'app1', text: 'Advanced Data Insights' },
-        { icon: 'app2', text: 'High ROI-focused bets' },
-        { icon: 'app3', text: 'Detailed Bet Analysi' },
-        { icon: 'app4', text: 'Tournament Previews & Context' },
-      ],
-    },
-    },
+    }
 ];
 
 export default EnrollNowSection;

@@ -90,6 +90,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid #3F434B;
 }
 
 
@@ -140,6 +141,9 @@
 
 /* MOBILE */
 @media (max-width: 768px) {
+  .section-faq{
+    padding: 24px;
+  }
   .faq-cta {
     min-height: 300px;
     background-image: url('../../../assets/ctam.png');

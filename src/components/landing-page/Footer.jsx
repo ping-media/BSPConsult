@@ -32,7 +32,7 @@ const Footer = () => (
       <div className="footer-links">
         <h4>Company</h4>
         <ul>
-          <li><a href="#">Instagram</a></li>
+          <li><a href="https://www.instagram.com/bspconsult/">Instagram</a></li>
           <li><a href="#">Terms & Conditions</a></li>
           <li><a href="#">Privacy Policy</a></li>
           <li><a href="#">Contact Us</a></li>
