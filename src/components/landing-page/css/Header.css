@@ -124,7 +124,7 @@ div#wistia-player-container-1 {
 }
 @media (max-width: 767px) {
   .container{
-    padding: 24px;
+    padding: 60px 24px;
   }
   .hero-subtitle {
     font-size: 18px;
@@ -180,7 +180,7 @@ div#wistia-player-container-1 {
 
 
   div#wistia-player-container-1 {
-    margin-bottom: 57px;
+    margin-bottom: 32px;
   }
   .btn-lg {
     padding: 17px 20px;
@@ -503,7 +503,7 @@ div#wistia-player-container-1 {
     font-size: 12px;
     gap: 6px;
     padding-bottom: 28px;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     text-align: center;
   }
 
@@ -514,20 +514,22 @@ div#wistia-player-container-1 {
 
   /* ===== FEATURES LIST ===== */
   .features-list {
-    gap: 14px 16px;
+    gap: 8px;
+    margin-top: 0;
   }
 
   .feature-item {
-    width: 45%; /* 2 per row */
+
     justify-content: flex-start;
     font-size: 14px;
+    gap: 5px
   }
 
   /* very small phones → 1 per row */
   @media (max-width: 480px) {
     .feature-item {
-      width: 100%;
-      justify-content: center;
+      /* width: 100%; */
+      /* justify-content: center; */
     }
   }
 
@@ -549,5 +551,8 @@ div#wistia-player-container-1 {
 
   .rating-text {
     font-size: 14px;
+  }
+  .hero-badge-wrapper{
+    margin-top: 0px;
   }
 }

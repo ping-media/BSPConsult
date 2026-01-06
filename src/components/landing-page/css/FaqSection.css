@@ -151,13 +151,34 @@
 
   .faq-cta h3 {
     font-size: 22px;
+    line-height: 32px;
   }
 
   .faq-cta p {
     font-size: 14px;
+    line-height: 24px;
   }
   .cta-btn {
-    width: 100%;
+    /* width: 100%; */
     justify-content: center;
+    font-weight: 400;
+  }
+  .faq-box{
+    margin-top: 32px;
+  }
+  .faq-question-row{
+    font-size: 14px;
+    text-align: left;
+    line-height: 24px;
+  }
+  .faq-answer{
+    font-size: 14px;
+    padding: 12px;
+  }
+  .faq-item{
+    padding: 16px;
+  }
+  .faq-cta{
+    margin-top: 32px;
   }
 }

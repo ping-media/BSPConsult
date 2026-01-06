@@ -151,20 +151,25 @@
   .testimonials-wrapper {
     width: 100%;
     overflow: hidden;
+    padding-left: 0;
   }
 
   .testimonials-row {
     width: 100%;
-    padding: 20px 20px;
+    padding: 20px 0;
     gap: 16px;
   }
 
   .testimonial-card {
-    min-width: calc(100vw - 80px);
-    max-width: calc(100vw - 80px);
+    /* min-width: calc(100vw - 80px);
+    max-width: calc(100vw - 80px); */
   }
 
   .scroll-btn {
     display: none;
+  }
+
+  .testimonial-footer{
+    padding: 12px 20px;
   }
 }

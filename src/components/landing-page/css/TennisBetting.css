@@ -142,9 +142,22 @@ font-size: 20px;
 
 @media (max-width: 768px) {
   .section-tennis-betting{
-    padding: 24px;
+    padding: 60px 24px;
   }
   .tennis-steps{
     margin: 0;
+  }
+  .step-circle{
+    width: 42px;
+    height: 42px;
+  }
+  .step-title{
+    font-size: 20px;
+  }
+  .step-description{
+    font-size: 14px;
+  }
+  .step-tag{
+    font-size: 12px;
   }
 }

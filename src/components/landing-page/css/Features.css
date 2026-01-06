@@ -98,6 +98,9 @@ body {
 
 
  @media (max-width: 767px) {
+  .section-features{
+    padding: 0;
+  }
   .features-badge {
     font-size: 13px;
     padding: 8px 16px;
@@ -108,6 +111,9 @@ body {
   }
 
   .features-description {
-    font-size: 15px;
+    font-size: 20px;
+  }
+  .mb-65{
+    margin-bottom: 32px;
   }
 }

@@ -134,5 +134,6 @@ background: linear-gradient(180deg, #007AFF 0%, #0C53C8 100%);
   .footer-container {
     grid-template-columns: 1fr;
     gap: 40px;
+    padding: 60px 24px 32px;
   }
 }

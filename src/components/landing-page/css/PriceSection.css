@@ -161,12 +161,13 @@ box-shadow: 0 8.911px 14.296px 0 rgba(0, 0, 0, 0.25), 7px 4px 26px 0 rgba(255, 2
 @media (max-width: 900px) {
   .price-grid {
     grid-template-columns: 1fr;
+    padding: 0;
   }
 }
 
 @media (max-width: 768px) {
   .section-price{
-    padding: 24px;
+    padding: 60px 24px;
   }
 }
 

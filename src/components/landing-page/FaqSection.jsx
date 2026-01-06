@@ -50,7 +50,7 @@ export default function FaqSection() {
               FAQS
         </div>
       <h5 className="heading-h5">Before You Get Started</h5>
-      <h2 className="heading-h2 hide-mob">Frequently Asked Questions Regarding BSP Consult</h2>
+      <h2 className="heading-h2">Frequently Asked Questions Regarding BSP Consult</h2>
 
         <div className="faq-box">
   {faqs.map((item, index) => {

@@ -94,7 +94,7 @@ const EnrollNowSection = () => {
           From Structure to Clarity
         </div>
       <h5 className="heading-h5">Here's What <span>You Get</span></h5>
-      <h2 className="heading-h2 hide-mob">A complete method designed to transform your betting approach</h2>
+      <h2 className="heading-h2">A complete method designed to transform your betting approach</h2>
     </div>
     <div className="enroll-wrapper">
       <div className="container-slider pt-0 pb-0" ref={scrollRef}>

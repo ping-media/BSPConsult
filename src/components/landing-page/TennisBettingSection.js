@@ -35,7 +35,7 @@ const TennisBettingSection = () => (
           From Clarity to Execution
         </div>
       <h5 className="heading-h5">How it Works</h5>
-      <h2 className="heading-h2 hide-mob">A simple 3-step framework for profitable betting</h2>
+      <h2 className="heading-h2">A simple 3-step framework for profitable betting</h2>
     </div>
 
       <div className="tennis-steps">

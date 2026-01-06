@@ -132,7 +132,7 @@ const TestimonialsSection = () => {
           Messages from members applying the <br /> method day to day
         </h5>
 
-        <h2 className="heading-h2 hide-mob">
+        <h2 className="heading-h2">
           This is what happens when you replace emotional betting with structure.
         </h2>
       </div>
