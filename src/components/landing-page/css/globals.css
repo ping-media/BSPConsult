@@ -7,7 +7,7 @@
   --Montserrat: 'Montserrat', sans-serif;
   --Oswald: 'Oswald', sans-serif;
   --PublicSans: 'Public Sans', sans-serif;
-  --Arial: Arial, sans-serif;
+   --font-figtree: 'Figtree', sans-serif;
 }
 
 * {
@@ -20,6 +20,7 @@ html {
 html,
 body {
   margin: 0px;
+  font-family: 'Figtree', sans-serif;
 }
 img {
   max-width: 100%;
@@ -129,7 +130,7 @@ ul {
   align-items: center;
   background: linear-gradient(180deg, #047efc 0%, #12488f 100%);
   border-radius: 11px;
-  font-family: var(--Arial);
+  font-family: var(--font-figtree);
   font-weight: 700;
   color: #f3f3f3;
 }
@@ -140,7 +141,7 @@ ul {
 }
 .btn-secondary {
   width: 100%;
-  font-family: var(--PublicSans);
+   font-family: var(--font-figtree);
   font-weight: 700;
   font-size: 16px;
   line-height: 27px;

@@ -1,0 +1,144 @@
+.section-faq {
+  position: relative;
+  padding: 80px;
+}
+
+/* MAIN FAQ BOX */
+.faq-box {
+  margin: 40px auto 0;
+  max-width: 716px;
+  width: 100%;
+}
+
+.faq-item {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 16px;
+  padding: 18px 20px;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.faq-item + .faq-item {
+  margin-top: 14px;
+}
+
+.faq-item.open {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+
+.faq-question-row {
+  all: unset;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+
+.faq-icon {
+  font-size: 26px;
+  transition: transform 0.25s ease;
+  opacity: 0.8;
+}
+
+.faq-icon.open {
+  transform: rotate(45deg);
+}
+
+
+.faq-answer {
+  margin-top: 14px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 16px;
+  color: #cfd6e4;
+  font-size: 14.5px;
+  line-height: 1.6;
+  text-align: left;
+}
+
+/* CTA BOX */
+.faq-cta {
+  margin-top: 60px;
+  border-radius: 28px;
+  overflow: hidden;
+
+  background-image: url('../../../assets/cta.png'); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  min-height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+.faq-cta h3 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 16px;
+}
+
+.faq-cta p {
+  max-width: 720px;
+  margin: 0 auto;
+  font-size: 15px;
+  color: #cfd6e4;
+  line-height: 1.6;
+}
+
+.cta-btn {
+  margin-top: 25px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  background-color: #ffffff;
+  color: #639cf1;
+  font-family: 'Figtree', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.cta-btn img {
+  width: 28px;
+  height: auto;
+}
+
+.cta-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .faq-cta {
+    min-height: 300px;
+    background-image: url('../../../assets/ctam.png');
+  }
+
+  .faq-cta h3 {
+    font-size: 22px;
+  }
+
+  .faq-cta p {
+    font-size: 14px;
+  }
+  .cta-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

@@ -1,5 +1,6 @@
-import React from 'react';
-import './css/Features.css';
+import React from "react";
+import "./css/Features.css";
+import RevealText from "./RevealText";
 
 const FeaturesSection = () => (
   <section className="section-features">
@@ -11,22 +12,30 @@ const FeaturesSection = () => (
         </div>
 
       <div className="features-text">
-  <p className="features-highlight">
-    Chasing losses. Following random tips. Betting on instinct.
-  </p>
 
-  <p className="features-description">
-    The pattern is always the same: you win, you lose, you tilt and you bet again to
-    recover. Most bettors don’t fail because they’re unlucky. They fail because they
-    bet emotionally without structure and without properly evaluating the odds.
-     Knowing a sport is not the same as beating the market.
-  </p>
+  <RevealText
+    className="features-description"
+    text={`Chasing losses. Following random tips. Betting on instinct.
 
-  <p className="features-description">
-    This is where our method replaces emotion. Not feelings. Not random bets.
-    Betting becomes a process backed by a clear structure and the right tools.
-     This is the foundation of how BSP works.
-  </p>
+The pattern is always the same: you win, you lose, you tilt and you bet again to recover.
+
+Most bettors don’t fail because they’re unlucky. They fail because they bet 
+
+emotionally without structure and without properly evaluating the odds.
+
+Knowing a sport is not the same as beating the market.
+
+
+This is where our method replaces emotion. Not feelings. Not random bets.
+
+Betting becomes a process backed by a clear structure and the right tools.
+
+This is the foundation of how BSP works.
+
+`}
+  />
+
+ 
 
 </div>
 
@@ -37,6 +46,3 @@ const FeaturesSection = () => (
 );
 
 export default FeaturesSection;
-
-
-

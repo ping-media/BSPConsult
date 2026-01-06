@@ -6,9 +6,7 @@ import useResponsive from 'src/hooks/useResponsive';
 import { useAuthContext } from '../../../auth/useAuthContext';
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the Stripe object on every render.
-const stripePromise = loadStripe(
-  'pk_live_51NAUESCf4YXq1rsyBMpbCD1Yqi5kocGdjxYqcqknpppNXXnUKKCVxar7NqInLJRCJTCEVkbqQPppP7nvve8E053I00P0pVQI8d'
-);
+const stripePromise = loadStripe("pk_live_51NAUESCf4YXq1rsyBMpbCD1Yqi5kocGdjxYqcqknpppNXXnUKKCVxar7NqInLJRCJTCEVkbqQPppP7nvve8E053I00P0pVQI8d");
 
 // ----------------------------------------------------------------------
 
@@ -871,7 +869,7 @@ export default function Subscriptions() {
                       }}
                     />
                     <Typography sx={{ px: 1, color: 'primary.contrastText', fontSize: '15px' }}>
-                      Essential Video Content 
+                      Essential Video Content
                     </Typography>
                   </Box>
 
@@ -1327,7 +1325,7 @@ export default function Subscriptions() {
                       }}
                     />
                     <Typography sx={{ px: 1, color: 'primary.contrastText', fontSize: '15px' }}>
-                      Essential Video Content 
+                      Essential Video Content
                     </Typography>
                   </Box>
                   <Box

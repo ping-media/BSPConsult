@@ -11,6 +11,8 @@ import {
   SectionPrice,
   TestimonialsSection,
 } from 'src/components/landing-page';
+import FaqSection from 'src/components/landing-page/FaqSection';
+import Footer from 'src/components/landing-page/Footer';
 
 // ----------------------------------------------------------------------
 
@@ -24,7 +26,8 @@ export default function LandingView() {
         <TennisBettingSection />
         <SectionPrice />
         <TestimonialsSection />
-        <SectionConnect />
+        <FaqSection />
+        <Footer/>
       </div>
       <ScrollProgress />
     </>

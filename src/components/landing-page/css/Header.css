@@ -12,8 +12,8 @@ body {
   background:
     radial-gradient(
       60% 40% at 50% 0%,
-      rgba(0, 82, 204, 0.55) 0%,
-      rgba(0, 82, 204, 0.25) 25%,
+      rgba(2, 73, 105, 0.436) 0%,
+      rgba(2, 74, 110, 0.433) 25%,
       rgba(3, 5, 17, 0) 60%
     ),
     #030511;
@@ -30,7 +30,6 @@ body {
 .btn-white {
   border-radius: 8px;
   border: 1px solid #fff;
-  font-family: var(--PublicSans);
   font-weight: 700;
   font-size: 14px;
   line-height: 24px;
@@ -40,10 +39,7 @@ body {
   color: #fff;
   padding: 10px 26px;
 }
-.hero-subtitle {
-  font-family: var(--Oswald);
- 
-}
+
 .hero-subtitle {
   font-weight: 500;
   font-size: 22px;
@@ -77,20 +73,21 @@ body {
   gap: 10px;
   font-family: var(--Figtree);
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 400;
   color: #cfd6e4;
   opacity: 0.9;
   padding-bottom: 45px;
 }
 
 .play-icon {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
+   fill: #ffffff;
+ 
 }
 
 
 .text-variation1 {
-  font-family: var(--Montserrat);
   font-style: italic;
   font-weight: 400;
   font-size: 12px;
@@ -110,6 +107,7 @@ body {
 }
 .container{
   position: relative;
+  padding: 80px;
 }
 @keyframes slideDown {
   from {
@@ -204,26 +202,26 @@ div#wistia-player-container-1 {
   top: 0;
   left: 0;
   right: 0;
-  height: 72px;
+  height: 80px;
 
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(14px) saturate(180%);
   -webkit-backdrop-filter: blur(14px) saturate(180%);
 
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
   z-index: 1000;
 }
 
 
 .navbar-inner {
   height: 100%;
-  max-width: 1200px;   
-  margin: 0 auto;
-  padding: 0 24px;
+  width: 100%;
+  padding: 0 80px; 
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
+
 
 /* BRAND (logo + text) */
 .brand-link {
@@ -239,8 +237,7 @@ div#wistia-player-container-1 {
 }
 
 .brand-text {
-  font-family: var(--Oswald);
-  font-size: 18px;
+  font-size: 20px;
   letter-spacing: 1px;
   color: #fff;
   text-transform: uppercase;
@@ -253,16 +250,11 @@ div#wistia-player-container-1 {
   display: flex;
   align-items: center;
   gap: 6px;
-
-  padding: 6px 12px;
+  padding: 4px 6px 4px 16px;
   border-radius: 50px;
-
-  font-family: var(--PublicSans);
-  font-size: 14px;
-  font-weight: 700;
-
+  font-size: 16px;
+  font-weight: 600;
   color: #fff;
-
   background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(10px) saturate(160%);
   -webkit-backdrop-filter: blur(10px) saturate(160%);
@@ -273,8 +265,8 @@ div#wistia-player-container-1 {
 }
 
 .btn-icon {
-  width: 26px;
-  height: 26px;
+  width: 36px;
+  height: 36px;
 }
 
 .btn-white:hover {
@@ -304,37 +296,32 @@ div#wistia-player-container-1 {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-
-  padding: 8px 16px;
-  border-radius: 50px;
-
+  padding: 8px 16px 8px 8px;
+  border-radius: 20px;
   background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(12px) saturate(160%);
   -webkit-backdrop-filter: blur(12px) saturate(160%);
 
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.138);
 }
 
 /* LEFT BLUE MINI BUTTON */
 .hero-badge-tag {
   padding: 6px 12px;
   border-radius: 50px;
-
-  font-family: var(--PublicSans);
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 500;
   text-transform: uppercase;
 
   color: #fff;
-  background: linear-gradient(135deg, #2f6bff, #0052cc);
+  background: linear-gradient(135deg, #51A2FF, #51A2FF);
   box-shadow: 0 4px 12px rgba(0, 82, 204, 0.45);
 }
 
 /* RIGHT TEXT */
 .hero-badge-text {
-  font-family: var(--PublicSans);
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   color: #fff;
   white-space: nowrap;
 }
@@ -351,63 +338,12 @@ div#wistia-player-container-1 {
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 400;
   color: #d6d6d6;
 }
 
-.feature-icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.15);
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  position: relative;
-  overflow: hidden;
-
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-}
-.feature-icon::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-
-  /* vertical gradient: strong top → fade */
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0.9),
-    rgba(255, 255, 255, 0)
-  );
-
-  /* EXACT 1px border ring + top-half only */
-  -webkit-mask:
-    radial-gradient(circle, transparent 13px, #fff 14px),
-    linear-gradient(#fff 0 45%, transparent 55%);
-  -webkit-mask-composite: intersect;
-
-  mask:
-    radial-gradient(circle, transparent 13px, #fff 14px),
-    linear-gradient(#fff 0 45%, transparent 55%);
-  mask-composite: intersect;
-
-  pointer-events: none;
-}
-
-
-
-.feature-icon svg {
-  color: #0C53C8;
-   stroke-width: 3.8;
-  position: relative;
-}
 
 /* =========================
    CTA WRAPPER
@@ -427,12 +363,20 @@ div#wistia-player-container-1 {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  padding: 10px 18px;
+  padding: 10px 8px 10px 20px;
   border-radius: 50px;
 
-  background: linear-gradient(135deg, #2f80ff, #0c53c8);
+  background: linear-gradient(
+    180deg,
+    #007AFF 0%,
+    #0C53C8 100%
+  );
+
+  /* soft blue border */
+  border: 1px solid rgba(81, 162, 255, 0.30);
+
   color: #fff;
-  font-weight: 700;
+  font-weight: 400;
   font-size: 16px;
   text-decoration: none;
 
@@ -452,8 +396,8 @@ div#wistia-player-container-1 {
 
 /* button right icon */
 .cta-icon {
-  width: 34px;
-  height: 34px;
+  width: 38px;
+  height: 38px;
 }
 
 /* =========================
@@ -470,7 +414,7 @@ div#wistia-player-container-1 {
 .stars {
   display: flex;
   gap: 4px;
-  font-size: 20px;
+  font-size: 24px;
   line-height: 1;
 }
 
@@ -499,6 +443,7 @@ div#wistia-player-container-1 {
 /* rating text */
 .rating-text {
   font-size: 16px;
+  font-weight: 300;
   color: #bdbdbd;
 }
 

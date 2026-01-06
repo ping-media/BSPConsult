@@ -39,34 +39,29 @@ body {
 .features-badge {
   display: inline-block;
   margin-bottom: 36px;
-  padding: 10px 20px;
-
+  padding: 8px 16px 8px 16px;
   border-radius: 50px;
 
-  background: rgba(154, 161, 226, 0.12);
+  /* background: #51A2FF @ 13% */
+  background: rgba(81, 162, 255, 0.13);
   backdrop-filter: blur(12px) saturate(160%);
   -webkit-backdrop-filter: blur(12px) saturate(160%);
 
-  border: 1px solid rgba(127, 161, 228, 0.25);
-
+  /* required for border-image */
+  border: 1px solid #2850959a;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 500;
   color: #ffffff;
 }
 
-/* White strong line */
-.features-highlight {
-  font-size: 25px;
-  font-weight: 600;
-  color: #ffffff;
-  margin-bottom: 18px;
-}
+
 
 /* Grey paragraph text */
 .features-description {
   font-size: 25px;
-  line-height: 1.7;
-  color: #b6bcc8;
+  line-height: 42px;
+  font-weight: 100;
+  color: rgba(255, 255, 255, 0.5);
   margin-bottom: 22px;
 }
 

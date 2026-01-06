@@ -8,7 +8,7 @@ import { useAuthContext } from '../../../auth/useAuthContext';
 import { paths } from '../../../routes/paths';
 
 // ----------------------------------------------------------------------
-const stripePromise = loadStripe('pk_live_51NAUESCf4YXq1rsyBMpbCD1Yqi5kocGdjxYqcqknpppNXXnUKKCVxar7NqInLJRCJTCEVkbqQPppP7nvve8E053I00P0pVQI8d');
+const stripePromise = loadStripe("pk_live_51NAUESCf4YXq1rsyBMpbCD1Yqi5kocGdjxYqcqknpppNXXnUKKCVxar7NqInLJRCJTCEVkbqQPppP7nvve8E053I00P0pVQI8d");
 
 export default function Enrolling() {
   const isDesktop = useResponsive('up', 'md');
@@ -86,11 +86,11 @@ export default function Enrolling() {
     >
       <Box sx={{ mt: 3, mx: 'auto', maxWidth: 1103, textAlign: 'center' }}>
         <Typography variant="h5" sx={{ color: 'primary.highlight', fontWeight: 700 }}>
-        HERE&apos;S WHAT YOU GET
+          HERE&apos;S WHAT YOU GET
         </Typography>
-        <Typography variant="h1" sx={{ my: 3, color: 'primary.contrastText'}}>
-          {isDesktop?
-        "Enroll now for immediate access to":"Get immediate acces to"}
+        <Typography variant="h1" sx={{ my: 3, color: 'primary.contrastText' }}>
+          {isDesktop ?
+            "Enroll now for immediate access to" : "Get immediate acces to"}
         </Typography>
         <Box
           sx={{
@@ -112,8 +112,8 @@ export default function Enrolling() {
               width: '100%',
               height: '100%',
               display: 'flex',
-              flexDirection: isDesktop?'row':'column',
-              borderRadius: 3,  
+              flexDirection: isDesktop ? 'row' : 'column',
+              borderRadius: 3,
               padding: 3,
               boxShadow: '0 2px 7px rgba(20, 20, 43, .06)',
             }}
@@ -123,8 +123,8 @@ export default function Enrolling() {
               alt="Copy & Paste Concept"
               src="/assets/images/home/copy_paste_concept.png"
               sx={{
-                width: isDesktop?'344px':'100%',
-                height: isDesktop?'379px':'100%'
+                width: isDesktop ? '344px' : '100%',
+                height: isDesktop ? '379px' : '100%'
               }}
             />
             <Box sx={{
@@ -135,11 +135,11 @@ export default function Enrolling() {
               justifyContent: 'center',
               alignItems: 'center'
             }}>
-              <Typography variant="h2" sx={{ color: 'primary.contrastText', mt: isDesktop?0:3}}>
+              <Typography variant="h2" sx={{ color: 'primary.contrastText', mt: isDesktop ? 0 : 3 }}>
                 Copy & Paste Concept
               </Typography>
 
-              <Typography variant="h4" sx={{ color: 'primary.contrastText', fontWeight: 200, textAlign: isDesktop?'left':'center', px: isDesktop?'30px':0, pt: isDesktop?4:2}}>
+              <Typography variant="h4" sx={{ color: 'primary.contrastText', fontWeight: 200, textAlign: isDesktop ? 'left' : 'center', px: isDesktop ? '30px' : 0, pt: isDesktop ? 4 : 2 }}>
                 Gain access to our app, where we regularly share multiple bets each week along with comprehensive analyses. Our bankroll calculator tool automatically determines the optimal stake based on your chosen bankroll, enabling you to build a steady, consistent income with just one click per day.
               </Typography>
               <Box sx={{
@@ -209,7 +209,7 @@ export default function Enrolling() {
             position: 'relative',
             transform: 'none',
             boxShadow: '0 0 70px rgba(9, 134, 251, .19)',
-            mt: isDesktop?7:3,
+            mt: isDesktop ? 7 : 3,
           }}
         >
           <Paper
@@ -220,7 +220,7 @@ export default function Enrolling() {
               width: '100%',
               height: '100%',
               display: 'flex',
-              flexDirection: isDesktop?'row':'column',
+              flexDirection: isDesktop ? 'row' : 'column',
               borderRadius: 3,
               padding: 3,
               boxShadow: '0 2px 7px rgba(20, 20, 43, .06)',
@@ -231,8 +231,8 @@ export default function Enrolling() {
               alt="Telegram Live Channel"
               src="/assets/images/home/telegram_live_channel.png"
               sx={{
-                width: isDesktop?'344px':'100%',
-                height: isDesktop?'379px':'100%'
+                width: isDesktop ? '344px' : '100%',
+                height: isDesktop ? '379px' : '100%'
               }}
             />
             <Box sx={{
@@ -243,11 +243,11 @@ export default function Enrolling() {
               justifyContent: 'center',
               alignItems: 'center'
             }}>
-              <Typography variant="h2" sx={{ color: 'primary.contrastText', mt: isDesktop?0:3}}>
+              <Typography variant="h2" sx={{ color: 'primary.contrastText', mt: isDesktop ? 0 : 3 }}>
                 Telegram Live Channel
               </Typography>
 
-              <Typography variant="h4" sx={{ color: 'primary.contrastText', fontWeight: 200, textAlign: isDesktop?'left':'center', px: isDesktop?'30px':0, pt: isDesktop?4:2}}>
+              <Typography variant="h4" sx={{ color: 'primary.contrastText', fontWeight: 200, textAlign: isDesktop ? 'left' : 'center', px: isDesktop ? '30px' : 0, pt: isDesktop ? 4 : 2 }}>
                 Inside the Telegram live channel, you will have access to multiple weekly live calls on high-opportunity days, allowing you to profit from our live betting strategy.
               </Typography>
               <Box sx={{
@@ -317,7 +317,7 @@ export default function Enrolling() {
             position: 'relative',
             transform: 'none',
             boxShadow: '0 0 70px rgba(9, 134, 251, .19)',
-            mt: isDesktop?7:3,
+            mt: isDesktop ? 7 : 3,
           }}
         >
           <Paper
@@ -329,7 +329,7 @@ export default function Enrolling() {
               width: '100%',
               height: '100%',
               display: 'flex',
-              flexDirection: isDesktop?'row':'column',
+              flexDirection: isDesktop ? 'row' : 'column',
               borderRadius: 3,
               padding: 3,
               boxShadow: '0 2px 7px rgba(20, 20, 43, .06)',
@@ -340,8 +340,8 @@ export default function Enrolling() {
               alt="BSP Tennis Betting Model"
               src="/assets/images/home/sports_betting_models.png"
               sx={{
-                width: isDesktop?'344px':'100%',
-                height: isDesktop?'379px':'100%'
+                width: isDesktop ? '344px' : '100%',
+                height: isDesktop ? '379px' : '100%'
               }}
             />
             <Box sx={{
@@ -352,11 +352,11 @@ export default function Enrolling() {
               justifyContent: 'center',
               alignItems: 'center'
             }}>
-              <Typography variant="h2" sx={{ color: 'primary.contrastText', mt: isDesktop?0:3}}>
+              <Typography variant="h2" sx={{ color: 'primary.contrastText', mt: isDesktop ? 0 : 3 }}>
                 BSP Tennis Betting Model
               </Typography>
 
-              <Typography variant="h4" sx={{ color: 'primary.contrastText', fontWeight: 200, textAlign: isDesktop?'left':'center', px: isDesktop?'30px':0, pt: isDesktop?4:2}}>
+              <Typography variant="h4" sx={{ color: 'primary.contrastText', fontWeight: 200, textAlign: isDesktop ? 'left' : 'center', px: isDesktop ? '30px' : 0, pt: isDesktop ? 4 : 2 }}>
                 With this model, you will be able to identify mispriced opportunities and errors made by bookmakers. Our brains often mislead us based on what we see and feel, but this model consolidates all the critical data you need to make accurate predictions and avoid mistakes. It also includes a complete video course on how to use the model effectively. Remember, perception can lie, but data doesn&apos;t.
               </Typography>
               <Box sx={{
@@ -424,8 +424,8 @@ export default function Enrolling() {
             transition: 'all .2s',
             position: 'relative',
             transform: 'none',
-            boxShadow: '0 0 70px rgba(9, 134, 251, .19)',            
-            mt: isDesktop?7:3,
+            boxShadow: '0 0 70px rgba(9, 134, 251, .19)',
+            mt: isDesktop ? 7 : 3,
           }}
         >
           <Paper
@@ -437,7 +437,7 @@ export default function Enrolling() {
               width: '100%',
               height: '100%',
               display: 'flex',
-              flexDirection: isDesktop?'row':'column',
+              flexDirection: isDesktop ? 'row' : 'column',
               borderRadius: 3,
               padding: 3,
               boxShadow: '0 2px 7px rgba(20, 20, 43, .06)',
@@ -448,8 +448,8 @@ export default function Enrolling() {
               alt="Masterclass Channel"
               src="/assets/images/home/masterclass_channel.png"
               sx={{
-                width: isDesktop?'344px':'100%',
-                height: isDesktop?'379px':'100%'
+                width: isDesktop ? '344px' : '100%',
+                height: isDesktop ? '379px' : '100%'
               }}
             />
             <Box sx={{
@@ -460,11 +460,11 @@ export default function Enrolling() {
               justifyContent: 'center',
               alignItems: 'center'
             }}>
-              <Typography variant="h2" sx={{ color: 'primary.contrastText', mt: isDesktop?0:3}}>
+              <Typography variant="h2" sx={{ color: 'primary.contrastText', mt: isDesktop ? 0 : 3 }}>
                 Masterclass Channel
               </Typography>
 
-              <Typography variant="h4" sx={{ color: 'primary.contrastText', fontWeight: 200, textAlign: isDesktop?'left':'center', px: isDesktop?'30px':0, pt: isDesktop?4:3}}>
+              <Typography variant="h4" sx={{ color: 'primary.contrastText', fontWeight: 200, textAlign: isDesktop ? 'left' : 'center', px: isDesktop ? '30px' : 0, pt: isDesktop ? 4 : 3 }}>
                 In the masterclass channel, we provide our Gold members with weekly previews of tournament court conditions, detailed player insights, and potential value opportunities throughout the week. Our goal through this channel is to give ambitious bettors all the essential information needed to succeed in this industry. Personal high-stakes bets are only shared exclusively here.
               </Typography>
               <Box sx={{
@@ -533,7 +533,7 @@ export default function Enrolling() {
             position: 'relative',
             transform: 'none',
             boxShadow: '0 0 70px rgba(9, 134, 251, .19)',
-            mt: isDesktop?7:3,
+            mt: isDesktop ? 7 : 3,
           }}
         >
           <Paper
@@ -545,7 +545,7 @@ export default function Enrolling() {
               width: '100%',
               height: '100%',
               display: 'flex',
-              flexDirection: isDesktop?'row':'column',
+              flexDirection: isDesktop ? 'row' : 'column',
               borderRadius: 3,
               padding: 3,
               alignItems: 'center',
@@ -557,8 +557,8 @@ export default function Enrolling() {
               alt="Masterclass Video Content"
               src="/assets/images/home/masterclass_video_content.png"
               sx={{
-                width: isDesktop?'344px':'100%',
-                height: isDesktop?'379px':'100%'
+                width: isDesktop ? '344px' : '100%',
+                height: isDesktop ? '379px' : '100%'
               }}
 
             />
@@ -570,11 +570,11 @@ export default function Enrolling() {
               justifyContent: 'center',
               alignItems: 'center'
             }}>
-              <Typography variant="h2" sx={{ color: 'primary.contrastText', mt: isDesktop?0:4}}>
+              <Typography variant="h2" sx={{ color: 'primary.contrastText', mt: isDesktop ? 0 : 4 }}>
                 Masterclass Video Content
               </Typography>
 
-              <Typography variant="h4" sx={{ color: 'primary.contrastText', fontWeight: 200, textAlign: isDesktop?'left':'center', px: isDesktop?'30px':0, pt: isDesktop?4:3}}>
+              <Typography variant="h4" sx={{ color: 'primary.contrastText', fontWeight: 200, textAlign: isDesktop ? 'left' : 'center', px: isDesktop ? '30px' : 0, pt: isDesktop ? 4 : 3 }}>
                 This video course includes over 20 hours of expertise, where we reveal all the secrets of our strategy, sharing our sources, knowledge, and tools. At the end, we’ve included a proof of concept for our strategy, demonstrating its use in real time as we scaled our account to a €14,000 profit in just two weeks. Every step, including both wins and losses, is documented to help you understand how to start from scratch and effectively scale your betting account using our strategy and tools.
               </Typography>
               <Box sx={{
@@ -643,7 +643,7 @@ export default function Enrolling() {
             position: 'relative',
             transform: 'none',
             boxShadow: '0 0 70px rgba(9, 134, 251, .19)',
-            mt: isDesktop?7:3,
+            mt: isDesktop ? 7 : 3,
           }}
         >
           <Paper
@@ -654,7 +654,7 @@ export default function Enrolling() {
               width: '100%',
               height: '100%',
               display: 'flex',
-              flexDirection: isDesktop?'row':'column',
+              flexDirection: isDesktop ? 'row' : 'column',
               borderRadius: 3,
               padding: 3,
               boxShadow: '0 2px 7px rgba(20, 20, 43, .06)',
@@ -665,8 +665,8 @@ export default function Enrolling() {
               alt="Masterclass zone"
               src="/assets/images/home/photopreview.png"
               sx={{
-                width: isDesktop?'344px':'100%',
-                height: isDesktop?'379px':'100%'
+                width: isDesktop ? '344px' : '100%',
+                height: isDesktop ? '379px' : '100%'
               }}
             />
             <Box sx={{
@@ -677,11 +677,11 @@ export default function Enrolling() {
               justifyContent: 'center',
               alignItems: 'center'
             }}>
-              <Typography variant="h2" sx={{ color: 'primary.contrastText', mt: isDesktop?0:3}}>
+              <Typography variant="h2" sx={{ color: 'primary.contrastText', mt: isDesktop ? 0 : 3 }}>
                 Masterclass zone
               </Typography>
 
-              <Typography variant="h4" sx={{ color: 'primary.contrastText', fontWeight: 200, textAlign: isDesktop?'left':'center', px: isDesktop?'30px':0, pt: isDesktop?4:2}}>
+              <Typography variant="h4" sx={{ color: 'primary.contrastText', fontWeight: 200, textAlign: isDesktop ? 'left' : 'center', px: isDesktop ? '30px' : 0, pt: isDesktop ? 4 : 2 }}>
                 The most important games of the day will be previewed in this section, providing you with detailed, in-depth information that you won&apos;t find anywhere else ; insights that can help you avoid mistakes and spot opportunities before others. Remember, the more niche your focus, the better your sources, and the faster you can access key information that bookmakers don&apos;t have.
               </Typography>
               <Box sx={{

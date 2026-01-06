@@ -1,4 +1,8 @@
 /* App.css */
+body {
+  font-family: 'Figtree', sans-serif;
+}
+
 .timezoneSelect {
   width: 280px;
   font-size: 13px;

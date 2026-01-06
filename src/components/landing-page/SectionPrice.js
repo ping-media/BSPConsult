@@ -7,9 +7,7 @@ import { useNavigate } from 'react-router';
 import { paths } from 'src/routes/paths';
 
 // Stripe must stay OUTSIDE component
-const stripePromise = loadStripe(
-  'pk_live_51NAUESCf4YXq1rsyBMpbCD1Yqi5kocGdjxYqcqknpppNXXnUKKCVxar7NqInLJRCJTCEVkbqQPppP7nvve8E053I00P0pVQI8d'
-);
+const stripePromise = loadStripe("pk_live_51NAUESCf4YXq1rsyBMpbCD1Yqi5kocGdjxYqcqknpppNXXnUKKCVxar7NqInLJRCJTCEVkbqQPppP7nvve8E053I00P0pVQI8d");
 
 const programs = [
   {
@@ -76,13 +74,13 @@ export default function PriceSection() {
 
   return (
     <section className="section-price" id="SectionPrice">
-        <div className="container-1 mx-auto pl-2 pr-2 text-center mb-65">
-       <div className="features-badge">
+      <div className="container-1 mx-auto pl-2 pr-2 text-center mb-65">
+        <div className="features-badge">
           Betting Programs
         </div>
-      <h5 className="heading-h5">Choose Your Program</h5>
-      <h2 className="heading-h2 hide-mob">There is real opportunity in tennis betting only through structure,<br/><br/> discipline and a clear strategy.</h2>
-    </div>
+        <h5 className="heading-h5">Choose Your Program</h5>
+        <h2 className="heading-h2 hide-mob">There is real opportunity in tennis betting only through structure,<br /><br /> discipline and a clear strategy.</h2>
+      </div>
       <div className="price-grid">
         {programs.map((program) => (
           <div
@@ -99,9 +97,9 @@ export default function PriceSection() {
               <p className="program-desc">{program.description}</p>
 
               <div className="program-price">
-              <span className="price-amount">{program.priceAmount}</span>
-              <span className="price-period">{program.pricePeriod}</span>
-            </div>
+                <span className="price-amount">{program.priceAmount}</span>
+                <span className="price-period">{program.pricePeriod}</span>
+              </div>
 
               <div className="program-note">{program.note}</div>
 
@@ -119,13 +117,13 @@ export default function PriceSection() {
               <h4>{program.name.split(' ')[0]} Includes</h4>
               <ul>
                 {includes.map((item, i) => (
-               <li
-                key={item}
-                className={i < program.highlightCount ? 'active' : 'inactive'}
-              >
-                <CircleCheck size={14} />
-                <span className="include-text">{item}</span>
-              </li>
+                  <li
+                    key={item}
+                    className={i < program.highlightCount ? 'active' : 'inactive'}
+                  >
+                    <CircleCheck size={14} />
+                    <span className="include-text">{item}</span>
+                  </li>
 
                 ))}
               </ul>

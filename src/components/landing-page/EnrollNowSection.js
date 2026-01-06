@@ -68,7 +68,7 @@ const EnrollNowSection = () => (
 
 const enrollItems = [
   {
-    imgSrc: 'img/enroll1.png',
+    imgSrc: 'img/tele1.png',
     alt: 'Telegram Live Channel',
     title: 'Telegram Live Channel',
     description:
@@ -84,7 +84,7 @@ const enrollItems = [
     },
     },
   {
-    imgSrc: 'img/tennis.png',
+    imgSrc: 'img/tele2.png',
     alt: 'BSP Tennis Betting Model',
     title: 'BSP Tennis Betting Model',
     description:
@@ -101,7 +101,7 @@ const enrollItems = [
     },
     },
   {
-    imgSrc: 'img/channel.png',
+    imgSrc: 'img/tele3.png',
     alt: 'Masterclass Channel',
     title: 'Masterclass Channel',
     description:
@@ -118,7 +118,7 @@ const enrollItems = [
     },
     },
   {
-    imgSrc: 'img/video.png',
+    imgSrc: 'img/tele4.png',
     alt: 'BSP Masterclass Video Course',
     title: 'BSP Masterclass Video Course',
     description:
@@ -135,7 +135,7 @@ const enrollItems = [
     },
     },
   {
-    imgSrc: 'img/app.png',
+    imgSrc: 'img/tele5.png',
     alt: 'BSP Application',
     title: 'BSP Application',
     description:
