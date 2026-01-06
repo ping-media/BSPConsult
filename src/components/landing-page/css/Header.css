@@ -9,14 +9,7 @@ body {
   z-index: 0;
   pointer-events: none;
 
-  background:
-    radial-gradient(
-      60% 40% at 50% 0%,
-      rgba(2, 73, 105, 0.436) 0%,
-      rgba(2, 74, 110, 0.433) 25%,
-      rgba(3, 5, 17, 0) 60%
-    ),
-    #030511;
+  background: radial-gradient(60% 40% at 50% 0%, #007aff2b 0%, #007aff2e 25%, rgba(3, 5, 17, 0) 60%), #030511;
     height: 1660px;
 }
 
@@ -141,7 +134,15 @@ div#wistia-player-container-1 {
     display: none;
   }
 .bg-effect {
-  height: 1611px;
+  background: #007AFF;
+  filter: blur(212px);
+  top: -160px;
+  width: 60%;
+  height: 240px !important;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  /* height: 1611px; */
   /* background:
     radial-gradient(
       314% 163.52% at -25% -50%,
