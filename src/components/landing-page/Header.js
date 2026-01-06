@@ -20,7 +20,7 @@ const Header = () => (
     <div className="login">
       <a href="https://app.bspconsult.com/login" className="btn-white">
         Login
-        <img src="img/loginLogo.png" alt="" className="btn-icon" />
+        <img src="img/loginLogo.svg" alt="" className="btn-icon" />
       </a>
     </div>
   </div>
@@ -247,7 +247,7 @@ const Header = () => (
   <a href="#SectionPrice" className="cta-gradient-btn">
     <span className="cta-text">View the Programs</span>
     <img
-      src="img/viewbtn.png"   
+      src="img/viewbtn.svg"   
       alt=""
       className="cta-icon"
     />
@@ -267,7 +267,7 @@ const Header = () => (
     </span>
     </div>
     <div className="rating-text">
-      <strong>4.8</strong> | <strong>487 </strong>Reviews
+      <strong>4.8 | </strong> <strong>487 </strong>Reviews
     </div>
   </div>
 </div>

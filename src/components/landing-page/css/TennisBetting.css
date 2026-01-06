@@ -5,6 +5,16 @@
   padding: 80px 40px;
 ;
 }
+.section-tennis-betting::before{
+  content: '';
+    background: radial-gradient(50% 40.02% at 50% 50%, #0993fd9c 0, #1847b3 33%, rgba(17, 81, 200, 0.723813) 51.5%, rgba(0, 107, 255, 0) 100%);
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    bottom: auto;
+    top: 0;
+}
 
 .tennis-steps {
   display: grid;
@@ -30,7 +40,7 @@
 
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
 
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
@@ -90,27 +100,28 @@
 /* TAG — top right floating */
 .step-tag {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 10px;
+  right: 10px;
 
-  padding: 6px 14px;
-  font-size: 12px;
-  font-weight: 600;
+  padding: 7px 11px;
+  font-size: 14px;
+  font-weight: 400;
   border-radius: 999px;
   white-space: nowrap;
 }
 
 /* Tag colors */
 .tag-blue {
-  background: rgba(68, 155, 255, 0.15);
-  color: #449bff;
-  border: 1px solid rgba(68, 155, 255, 0.3);
+  background: #007AFF1A;
+  color: #B6BCC8;
+  /* border: 1px solid rgba(68, 155, 255, 0.3); */
 }
 
 .tag-gold {
-  background: rgba(255, 209, 102, 0.15);
-  color: #ffd166;
-  border: 1px solid rgba(255, 209, 102, 0.3);
+  border-radius: 30px;
+  border: 1px solid rgba(253, 199, 0, 0.30);
+  background: linear-gradient(90deg, rgba(240, 177, 0, 0.20) 0%, rgba(208, 135, 0, 0.20) 100%);
+  color: #FDC700;
 }
 
 /* Text spacing */
@@ -122,7 +133,7 @@
 }
 
 .step-description {
-  margin-top: 10px;
+  /* margin-top: 10px; */
   font-size: 18px;
   line-height: 1.6;
   font-weight: 400;

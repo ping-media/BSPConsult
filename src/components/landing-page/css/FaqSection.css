@@ -1,11 +1,22 @@
 .section-faq {
   position: relative;
   padding: 80px;
+  background: #090B15;
+}
+.section-faq::before{
+  content: '';
+    background: radial-gradient(50% 40.02% at 50% 50%, #0993fd9c 0, #1847b3 33%, rgba(17, 81, 200, 0.723813) 51.5%, rgba(0, 107, 255, 0) 100%);
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    bottom: auto;
+    top: 0;
 }
 
 /* MAIN FAQ BOX */
 .faq-box {
-  margin: 40px auto 0;
+  margin: 64px auto 0;
   max-width: 716px;
   width: 100%;
 }
@@ -13,7 +24,7 @@
 .faq-item {
   background: rgba(255, 255, 255, 0.04);
   border-radius: 16px;
-  padding: 18px 20px;
+  padding: 24px;
   cursor: pointer;
   transition: background 0.25s ease;
 }
@@ -23,7 +34,7 @@
 }
 
 .faq-item.open {
-  background: rgba(255, 255, 255, 0.06);
+  background: #13151E;
 }
 
 
@@ -34,8 +45,8 @@
   justify-content: space-between;
   align-items: center;
   color: #ffffff;
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 20px;
+  font-weight: 600;
   cursor: pointer;
 }
 
@@ -43,23 +54,25 @@
 .faq-icon {
   font-size: 26px;
   transition: transform 0.25s ease;
-  opacity: 0.8;
+  /* opacity: 0.8; */
+  color: #007AFF;
 }
 
 .faq-icon.open {
-  transform: rotate(45deg);
+  /* transform: rotate(45deg); */
 }
 
 
 .faq-answer {
   margin-top: 14px;
-  padding: 14px;
-  background: rgba(255, 255, 255, 0.04);
+  padding: 16px;
+  background: #1C1E27;
   border-radius: 16px;
-  color: #cfd6e4;
+  color: #B6BCC8;
   font-size: 14.5px;
   line-height: 1.6;
   text-align: left;
+  font-weight: 300;
 }
 
 /* CTA BOX */
@@ -82,17 +95,19 @@
 
 
 .faq-cta h3 {
-  font-size: 28px;
-  font-weight: 700;
+  font-size: 48px;
+  font-weight: 400;
   color: #ffffff;
+  line-height: 58px;
   margin-bottom: 16px;
 }
 
 .faq-cta p {
-  max-width: 720px;
+  max-width: 850px;
   margin: 0 auto;
-  font-size: 15px;
-  color: #cfd6e4;
+  font-size: 20px;
+  font-weight: 300;
+  color: #B6BCC8;
   line-height: 1.6;
 }
 
@@ -101,11 +116,11 @@
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  padding: 10px;
+  padding: 5px 8px 5px 20px;
   background-color: #ffffff;
-  color: #639cf1;
+  color: #1B7EF3;
   font-family: 'Figtree', sans-serif;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 16px;
   border-radius: 50px;
   text-decoration: none;
@@ -113,7 +128,7 @@
 }
 
 .cta-btn img {
-  width: 28px;
+  width: 38px;
   height: auto;
 }
 

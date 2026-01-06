@@ -47,10 +47,10 @@ export default function FaqSection() {
       <div className="container-3 mx-auto text-center mb-30">
 
               <div className="features-badge">
-          From Clarity to Execution
+              FAQS
         </div>
-      <h5 className="heading-h5">How it Works</h5>
-      <h2 className="heading-h2 hide-mob">A simple 3-step framework for profitable betting</h2>
+      <h5 className="heading-h5">Before You Get Started</h5>
+      <h2 className="heading-h2 hide-mob">Frequently Asked Questions Regarding BSP Consult</h2>
 
         <div className="faq-box">
   {faqs.map((item, index) => {
@@ -98,7 +98,7 @@ export default function FaqSection() {
     {/* CTA Button */}
     <a href="#" className="cta-btn">
       <span>Apply the BSP Method</span>
-      <img src="/img/loginLogo.png" alt="arrow" />
+      <img src="/img/cta-btn-icon.svg" alt="arrow" />
     </a>
   </div>
 </div>

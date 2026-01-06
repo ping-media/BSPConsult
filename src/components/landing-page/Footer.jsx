@@ -9,12 +9,12 @@ const Footer = () => (
       {/* Left */}
       <div className="footer-left">
         <div className="footer-logo">
-          <img src="/img/sitelogo.png" alt="BSP Consult" />
-          <span>BSP CONSULT</span>
+          <img src="/img/logo-icon.svg" alt="BSP Consult" />
+          {/* <span>BSP CONSULT</span> */}
         </div>
 
         <p className="footer-desc">
-          We build high-level bettors.
+        BSP CONSULT – We build high-level bettors.
         </p>
 
         <h4 className="footer-title">Get BSP Insights</h4>
@@ -23,7 +23,7 @@ const Footer = () => (
           <input type="email" placeholder="Enter your email" />
           <button type="button">
             Subscribe
-            <span>→</span>
+            <img src="/img/viewbtn.svg" alt="arrow" />
           </button>
         </div>
       </div>
@@ -47,7 +47,7 @@ const Footer = () => (
       </div>
     </div>
 
-    <div className="footer-bottom">
+    <div className="footer-bottom container">
       © 2026 BSP Consult. All rights reserved.
     </div>
   </footer>

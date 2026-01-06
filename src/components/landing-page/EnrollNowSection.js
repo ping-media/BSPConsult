@@ -2,11 +2,24 @@ import './css/EnrollNow.css';
 
 /* eslint-disable react/no-unescaped-entities */
 
-import React from 'react';
+import React, { useRef } from 'react';
 import { ICON_MAP } from './Icons';
 
 
-const EnrollNowSection = () => (
+const EnrollNowSection = () => {
+  const scrollRef = useRef(null);
+
+  const scroll = (direction) => {
+    const scrollAmount = 400; // Adjust based on card width + gap
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth',
+      });
+    }
+  };
+
+  return (
   <section className="section-enroll-now">
   
     <div className="container-1 mx-auto pl-2 pr-2 text-center mb-65">
@@ -16,10 +29,11 @@ const EnrollNowSection = () => (
       <h5 className="heading-h5">Here's What <span>You Get</span></h5>
       <h2 className="heading-h2 hide-mob">A complete method designed to transform your betting approach</h2>
     </div>
-<div className="container-2">
-  <div className="enroll-track">
+    <div className="enroll-wrapper">
+      <div className="container pt-0 pb-0" ref={scrollRef}>
+        <div className="enroll-track">
     {[...enrollItems, ...enrollItems].map((item, index) => (
-      <div className="enroll-items mt-56 xs-mt-25" key={index}>
+      <div className="enroll-items" key={index}>
         <div className="enroll-items-bg">
         <div className="enroll-left">
   {/* ICON BOX */}
@@ -60,11 +74,22 @@ const EnrollNowSection = () => (
         </div>
       
     ))}
-  </div>
-</div>
+        </div>
+      </div>
+
+      <div className="scroll-controls">
+        <button type="button" className="scroll-btn prev" onClick={() => scroll('left')}>
+          <img src="/img/prev-scroll.svg" alt="Previous" />
+        </button>
+        <button type="button" className="scroll-btn next" onClick={() => scroll('right')}>
+          <img src="/img/next-scroll.svg" alt="Next" />
+        </button>
+      </div>
+    </div>
 
   </section>
-);
+  );
+};
 
 const enrollItems = [
   {

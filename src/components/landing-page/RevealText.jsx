@@ -11,7 +11,9 @@ const RevealText = ({ text, className }) => {
     offset: ["start 80%", "end 30%"],
   });
 
-  const letters = text.split("");
+  // Preserve newlines, normalize other whitespace (spaces and tabs)
+  const normalizedText = text.trim().replace(/[ \t]+/g, ' ');
+  const letters = normalizedText.split("");
 
   // ✅ Listen to scroll progress safely
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
@@ -20,21 +22,26 @@ const RevealText = ({ text, className }) => {
   });
 
   return (
-    <p ref={ref} className={className}>
-      {letters.map((char, i) => (
-        <m.span
-          key={i}
-          animate={{
-            color:
-              i <= revealedCount
-                ? "#ffffff"
-                : "rgba(255,255,255,0.4)",
-          }}
-          transition={{ duration: 0.25, ease: "easeOut" }}
-        >
-          {char === " " ? "\u00A0" : char}
-        </m.span>
-      ))}
+    <p ref={ref} className={className} style={{ textAlign: 'center' }}>
+      {letters.map((char, i) => {
+        if (char === '\n') {
+          return <br key={i} />;
+        }
+        return (
+          <m.span
+            key={i}
+            animate={{
+              color:
+                i <= revealedCount
+                  ? "#ffffff"
+                  : "rgba(255,255,255,0.4)",
+            }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+          >
+            {char}
+          </m.span>
+        );
+      })}
     </p>
   );
 };

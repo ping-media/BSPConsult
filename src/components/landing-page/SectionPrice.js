@@ -90,10 +90,11 @@ export default function PriceSection() {
 
             {/* BLACK INNER BOX */}
             <div className="price-inner">
-              <h3 className="program-title">{program.name}</h3>
+              <h3 className="program-title">{program.name}
               {program.id === 'advanced' && (
                 <span className="best-value-badge">Best Value</span>
               )}
+              </h3>
               <p className="program-desc">{program.description}</p>
 
               <div className="program-price">
@@ -121,7 +122,7 @@ export default function PriceSection() {
                     key={item}
                     className={i < program.highlightCount ? 'active' : 'inactive'}
                   >
-                    <CircleCheck size={14} />
+                    <img src="img/check-circle.svg" alt="check" />
                     <span className="include-text">{item}</span>
                   </li>
 

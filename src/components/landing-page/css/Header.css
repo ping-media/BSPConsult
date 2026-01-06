@@ -297,21 +297,44 @@ div#wistia-player-container-1 {
   align-items: center;
   gap: 12px;
   padding: 8px 16px 8px 8px;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.12);
+  border-radius: 50px;
+  background: #51A2FF21;
   backdrop-filter: blur(12px) saturate(160%);
   -webkit-backdrop-filter: blur(12px) saturate(160%);
+  /* border: 1px solid rgba(255, 255, 255, 0.138); */
+  /* Gradient border for .hero-badge */
+  position: relative;
+  z-index: 1;
+}
 
-  border: 1px solid rgba(255, 255, 255, 0.138);
+.hero-badge::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  padding: 1px; /* thickness of the border */
+  background: linear-gradient(95deg, #51a2ff9e 14%, rgb(255 255 255 / 5%) 100%);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.hero-badge {
+  position: relative;
+  z-index: 1;
 }
 
 /* LEFT BLUE MINI BUTTON */
 .hero-badge-tag {
   padding: 6px 12px;
   border-radius: 50px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 
   color: #fff;
   background: linear-gradient(135deg, #51A2FF, #51A2FF);
@@ -340,7 +363,7 @@ div#wistia-player-container-1 {
   gap: 12px;
   font-size: 14px;
   font-weight: 400;
-  color: #d6d6d6;
+  color: #fff;
 }
 
 
@@ -363,7 +386,7 @@ div#wistia-player-container-1 {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  padding: 10px 8px 10px 20px;
+  padding: 5px 8px 5px 20px;
   border-radius: 50px;
 
   background: linear-gradient(
@@ -416,6 +439,7 @@ div#wistia-player-container-1 {
   gap: 4px;
   font-size: 24px;
   line-height: 1;
+  margin-bottom: 5px;
 }
 
 /* full yellow stars */
@@ -442,13 +466,15 @@ div#wistia-player-container-1 {
 
 /* rating text */
 .rating-text {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 300;
-  color: #bdbdbd;
+  color: #818288;
 }
 
 .rating-text strong {
   color: #fff;
+  font-weight: 500;
+  font-size: 16px;
 }
 
 /* =========================

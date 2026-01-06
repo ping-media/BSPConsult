@@ -7,9 +7,10 @@ const TestimonialItem = ({ src, label }) => (
     <div className="testimonial-image-box">
       <img src={src} alt={label} />
     </div>
-
-    {/* LABEL BELOW IMAGE */}
-    <div className="testimonial-label">{label}</div>
+    <div className="testimonial-footer">
+      {/* LABEL BELOW IMAGE */}
+      <div className="testimonial-label">{label}</div>
+    </div>
   </div>
 );
 
@@ -55,7 +56,7 @@ const TestimonialsSection = () => {
 
   return (
     <section className="section-testimonials pb-65">
-      <div className="container-3 mx-auto text-center mb-30">
+      <div className="container-3 mx-auto text-center mb-65">
         <div className="features-badge">Testimonials From Members</div>
 
         <h5 className="heading-h5">
@@ -79,11 +80,11 @@ const TestimonialsSection = () => {
         </div>
 
         <div className="scroll-controls">
-          <button type="button" className="scroll-btn" onClick={() => scroll('left')}>
-            ‹
+          <button type="button" className="scroll-btn prev" onClick={() => scroll('left')}>
+            <img src="/img/prev-scroll.svg" alt="Previous" />
           </button>
-          <button type="button" className="scroll-btn" onClick={() => scroll('right')}>
-            ›
+          <button type="button" className="scroll-btn next" onClick={() => scroll('right')}>
+            <img src="/img/next-scroll.svg" alt="Next" />
           </button>
         </div>
       </div>
