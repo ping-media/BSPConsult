@@ -38,7 +38,7 @@ const Header = () => (
 </div>
 
       <h1 className="heading-h1 text-center">
-        Step-by-Step Method Built for Elite Tennis <br />
+        Step-by-Step Method Built for Elite Tennis- <br />
         Betting That Explains <span>How Money Flows</span> to <br />
        Structured Bettors
       </h1>
