@@ -33,7 +33,7 @@ body {
 .features-badge {
   display: inline-block;
   margin-bottom: 22px;
-  padding: 10px 16px 10px 16px;
+  padding: 8px 16px 8px 16px;
   border-radius: 50px;
 
   /* background: #51A2FF @ 13% */
