@@ -103,7 +103,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 36px;
+  gap: 24px;
 
   width: 100%;
   height: 100%;
@@ -200,8 +200,8 @@ body {
 
 /* ICON GREY BOX */
 .enroll-icon-box {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   background: #1c2128;
 
   display: flex;
@@ -428,7 +428,7 @@ body {
 }
 
 .enroll-left {
-  flex-basis: 60%;
+  flex-basis: 55%;
   max-width: 520px;
 }
 
@@ -491,12 +491,13 @@ body {
 /* ARROW */
 .scroll-btn::before {
   content: "";
-  width: 8px;
-  height: 8px;
+  width: 12px;
+  height: 12px;
   border-right: 2px solid #007AFF;
   border-bottom: 2px solid #007AFF;
   transform: rotate(-45deg);
   transition: all 0.25s ease;
+  border-radius: 2px;
 }
 
 /* LEFT */
