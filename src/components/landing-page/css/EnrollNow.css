@@ -29,20 +29,45 @@ body {
 .section-enroll-now {
   position: relative;
   z-index: 1;
-  padding: 80px 0px;
-  background:#090B15; 
+  padding: 80px 0;
+  background: #090B15;
+  overflow: hidden; /* important for glow cropping */
 }
 
-.section-enroll-now::before{
-  content: '';
-    background: radial-gradient(50% 40.02% at 50% 50%, #0993fd9c 0, #1847b3 33%, rgba(17, 81, 200, 0.723813) 51.5%, rgba(0, 107, 255, 0) 100%);
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 1px;
-    bottom: auto;
-    top: 0;
+/* TOP RIGHT GLOW */
+.section-enroll-now::before {
+  content: "";
+  position: absolute;
+  top: -25%;
+  right: -10%;
+  width: 420px;
+  height: 420px;
+  background: rgba(0, 122, 255, 0.1); /* #007AFF1A */
+  border-radius: 50%;
+  filter: blur(194px);
+  z-index: 0;
 }
+
+/* BOTTOM LEFT GLOW */
+.section-enroll-now::after {
+  content: "";
+  position: absolute;
+  bottom: -30%;
+  left: -20%;
+  width: 480px;
+  height: 480px;
+  background: rgba(0, 122, 255, 0.1); /* #007AFF1A */
+  border-radius: 50%;
+  filter: blur(194px);
+  z-index: 0;
+}
+
+/* CONTENT SHOULD STAY ABOVE GLOWS */
+.section-enroll-now > * {
+  position: relative;
+  z-index: 1;
+}
+
 .enroll-items{
   width: 1040px;
   flex: 0 0 1040px;
@@ -51,17 +76,14 @@ body {
 
 
 .enroll-items-bg {
-  /* background:
-    linear-gradient(0deg, #0a0d18, #0f1222),
+  background:
+    linear-gradient(0deg, #090B15, #090B15),
     linear-gradient(
       170.59deg,
-      rgba(255, 255, 255, 0.293) 26.08%,
-      rgba(255, 255, 255, 0.334) 83%,
-      rgb(255, 255, 255) 137.69%
-    ); */
-
-background: linear-gradient(171deg, rgba(255, 255, 255, 0.03) 26.08%, rgba(255, 255, 255, 0.01) 83%, rgba(255, 255, 255, 0.00) 137.69%), #171A23;
-
+      rgba(255, 255, 255, 0.03) 26.08%,
+      rgba(255, 255, 255, 0.012) 83%,
+      rgba(255, 255, 255, 0) 137.69%
+    );
 
   border: 1px solid rgba(243, 243, 243, 0.023);
   border-radius: 24px;
@@ -76,6 +98,7 @@ background: linear-gradient(171deg, rgba(255, 255, 255, 0.03) 26.08%, rgba(255, 
   height: 100%;
   color: #f9fafb;
 }
+
 
 
 
@@ -470,16 +493,21 @@ background: linear-gradient(171deg, rgba(255, 255, 255, 0.03) 26.08%, rgba(255, 
 }
 
 /* HOVER */
+/* HOVER */
 .scroll-btn:hover:not(:disabled) {
   background: linear-gradient(180deg, #007AFF 0%, #0C53C8 100%);
   box-shadow: 0px 6px 20px 0px #FFC8374D;
   transform: translateY(-1px);
-  border: none;
 }
 
-.scroll-btn:hover:not(:disabled)::before,
-.scroll-btn:hover:not(:disabled)::after {
+/* Arrow turns white */
+.scroll-btn:hover:not(:disabled)::before {
   border-color: #ffffff;
+}
+
+/* Ring disappears on hover */
+.scroll-btn:hover:not(:disabled)::after {
+  opacity: 0;
 }
 
 /* DISABLED */
