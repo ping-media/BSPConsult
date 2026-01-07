@@ -71,6 +71,10 @@
   max-width: 300px;
 }
 
+.footer-subscribe input::placeholder {
+  color: #B6BCC8;
+}
+
 .footer-subscribe button {
   display: flex;
   align-items: center;
