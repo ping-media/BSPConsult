@@ -117,7 +117,7 @@
 }
 .scroll-btn.active {
   /* background: linear-gradient(180deg, #007AFF 0%, #0C53C8 100%); */
-  border: 1px solid #51A2FF4D;
+  /* border: 1px solid #51A2FF4D; */
   color: #ffffff;
 
   box-shadow:
