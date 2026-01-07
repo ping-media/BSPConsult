@@ -147,7 +147,7 @@
 /* Mobile */
 @media (max-width: 768px) {
   .section-testimonials {
-    padding: 40px 20px;
+    padding: 60px 24px;
   }
 
   .testimonials-wrapper {
@@ -158,8 +158,11 @@
 
   .testimonials-row {
     width: 100%;
-    padding: 20px 0;
+    padding: 0;
     gap: 16px;
+  }
+  .section-testimonials .heading-h5{
+    margin-bottom: 8px;
   }
 
   .testimonial-card {
@@ -168,10 +171,22 @@
     width: 140px;
     min-width: 274px !important;
     height: auto !important;
+    box-shadow: none;
   }
 
   .scroll-btn {
-    display: none;
+    /* display: none; */
+  }
+  .scroll-btn{
+    height: 34px;
+    width: 34px;
+  }
+  .scroll-btn::before{
+    width: 8px;
+    height: 8px;
+  }
+  .scroll-controls{
+    margin-top: 24px;
   }
 
   .testimonial-footer {

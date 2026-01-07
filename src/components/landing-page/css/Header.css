@@ -604,6 +604,7 @@ div#wistia-player-container-1 {
   /* ===== RATING ===== */
   .stars {
     font-size: 18px;
+    margin-bottom: 2px;
   }
   .star img{
     width: 12px;

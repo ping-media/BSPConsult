@@ -150,13 +150,13 @@
 /* MOBILE */
 @media (max-width: 768px) {
   .section-faq {
-    padding: 52px 24px 52px 24px;
+    padding: 60px 24px;
   }
 
   .faq-cta {
     min-height: 300px;
     margin-top: 32px;
-    padding: 22px !important;
+    padding: 24px !important;
     border-radius: 15px;
   }
 
@@ -167,7 +167,7 @@
 
   .faq-cta p {
     font-size: 14px;
-    line-height: 24px;
+    line-height: 20px;
   }
   .cta-btn {
     /* width: 100%; */
