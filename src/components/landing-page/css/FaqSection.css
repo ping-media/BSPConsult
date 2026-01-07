@@ -5,13 +5,13 @@
 }
 .section-faq::before{
   content: '';
-    background: radial-gradient(50% 40.02% at 50% 50%, #0993fd9c 0, #1847b3 33%, rgba(17, 81, 200, 0.723813) 51.5%, rgba(0, 107, 255, 0) 100%);
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 1px;
-    bottom: auto;
-    top: 0;
+  background: radial-gradient(50% 40.02% at 50% 50%, #0993fd9c 0, #1847b3 33%, rgba(17, 81, 200, 0.723813) 51.5%, rgba(0, 107, 255, 0) 100%);
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  bottom: auto;
+  top: 0;
 }
 
 /* MAIN FAQ BOX */
@@ -46,7 +46,7 @@
   align-items: center;
   color: #ffffff;
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
 }
 
@@ -69,10 +69,10 @@
   background: #1C1E27;
   border-radius: 16px;
   color: #B6BCC8;
-  font-size: 14.5px;
+  font-size: 16px;
   line-height: 1.6;
   text-align: left;
-  font-weight: 300;
+  font-weight: 200;
 }
 
 /* CTA BOX */
@@ -80,12 +80,14 @@
   margin-top: 60px;
   border-radius: 28px;
   overflow: hidden;
-
-  background-image: url('../../../assets/cta.png'); 
+  background:
+    radial-gradient(circle at top left, #004897 0%, transparent 24%),
+    radial-gradient(circle at bottom right, #004897 0%, transparent 24%),
+    #161721 !important;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-
+  background: #161721;
   min-height: 360px;
   display: flex;
   align-items: center;
@@ -128,6 +130,10 @@
   transition: all 0.3s ease;
 }
 
+.view-program {
+  margin-top: 20px;
+}
+
 .cta-btn img {
   width: 38px;
   height: auto;
@@ -141,12 +147,15 @@
 
 /* MOBILE */
 @media (max-width: 768px) {
-  .section-faq{
-    padding: 24px;
+  .section-faq {
+    padding: 52px 24px 52px 24px;
   }
+
   .faq-cta {
     min-height: 300px;
-    background-image: url('../../../assets/ctam.png');
+    margin-top: 32px;
+    padding: 22px !important;
+    border-radius: 15px;
   }
 
   .faq-cta h3 {
@@ -177,8 +186,5 @@
   }
   .faq-item{
     padding: 16px;
-  }
-  .faq-cta{
-    margin-top: 32px;
   }
 }

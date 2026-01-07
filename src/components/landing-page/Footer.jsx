@@ -14,7 +14,7 @@ const Footer = () => (
         </div>
 
         <p className="footer-desc">
-        BSP CONSULT – We build high-level bettors.
+          BSP CONSULT – We build high-level bettors.
         </p>
 
         <h4 className="footer-title">Get BSP Insights</h4>
@@ -42,11 +42,22 @@ const Footer = () => (
       {/* Right */}
       <div className="footer-apps">
         <h4>Apps</h4>
-        <img src="/img/gp.png" alt="Google Play" />
-        <img src="/img/ap.png" alt="App Store" />
+        <a
+          href="https://play.google.com/store/apps/details?id=com.istarii.bsppronos&pcampaignid=web_share"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img src="/img/gp.svg" alt="Google Play" width={145} height={50} />
+        </a>
+        <a
+          href="https://apps.apple.com/us/app/bsp-consult/id1531281216"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img src="/img/ap.svg" alt="App Store" width={145} height={50} />
+        </a>
       </div>
-    </div>
-
+      </div>
     <div className="footer-bottom">
       © 2026 BSP Consult. All rights reserved.
     </div>

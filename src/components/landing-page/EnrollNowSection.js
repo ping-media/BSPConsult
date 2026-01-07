@@ -11,6 +11,18 @@ const EnrollNowSection = () => {
   const singleSetWidthRef = useRef(0);
   const isScrollingRef = useRef(false);
 
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+
   // Calculate single set width
   useEffect(() => {
     if (scrollRef.current) {
@@ -77,7 +89,7 @@ const EnrollNowSection = () => {
         const slideWidth = firstSlide.offsetWidth;
         const gap = 32; // Gap between slides as defined in CSS
         const scrollAmount = slideWidth + gap;
-        
+
         scrollRef.current.scrollBy({
           left: direction === 'left' ? -scrollAmount : scrollAmount,
           behavior: 'smooth',
@@ -87,74 +99,74 @@ const EnrollNowSection = () => {
   };
 
   return (
-  <section className="section-enroll-now">
-  
-    <div className="container-1 mx-auto pl-2 pr-2 text-center mb-65">
-       <div className="features-badge">
+    <section className="section-enroll-now">
+
+      <div className="container-1 mx-auto pl-2 pr-2 text-center mb-65">
+        <div className="features-badge">
           From Structure to Clarity
         </div>
-      <h5 className="heading-h5">Here's What <span>You Get</span></h5>
-      <h2 className="heading-h2">A complete method designed to transform your betting approach</h2>
-    </div>
-    <div className="enroll-wrapper">
-      <div className="container-slider pt-0 pb-0" ref={scrollRef}>
-        <div className="enroll-track">
-    {[...enrollItems, ...enrollItems].map((item, index) => (
-      <div className="enroll-items" key={index}>
-        <div className="enroll-items-bg">
-        <div className="enroll-left">
-  {/* ICON BOX */}
-  {item.icon && ICON_MAP[item.icon] && (
-    <div className="enroll-icon-box">
-      {React.createElement(ICON_MAP[item.icon], {
-        size: 22,
-        className: 'icon-main',
-      })}
-    </div>
-  )}
-
-  <h3 className="heading-h3">{item.title}</h3>
-  <h4 className="heading-h4">{item.description}</h4>
-{item.extraInfo && (
-  <div className="enroll-extra-list">
-    {item.extraInfo.items.map((info, i) => (
-      <div key={i} className="enroll-extra-box">
-        {ICON_MAP[info.icon] &&
-          React.createElement(ICON_MAP[info.icon], {
-            size: 14,
-            className: 'icon-small',
-          })}
-        <span>{info.text}</span>
+        <h5 className="heading-h5">Here's What <span>You Get</span></h5>
+        <h2 className="heading-h2">A complete method designed to transform your betting approach</h2>
       </div>
-    ))}
-  </div>
-)}
+      <div className="enroll-wrapper">
+        <div className="container-slider pt-0 pb-0" ref={scrollRef}>
+          <div className="enroll-track">
+            {(isMobile ? enrollItems : [...enrollItems, ...enrollItems]).map((item, index) => (
+              <div className="enroll-items" key={index}>
+                <div className="enroll-items-bg">
+                  <div className="enroll-left">
+                    {/* ICON BOX */}
+                    {item.icon && ICON_MAP[item.icon] && (
+                      <div className="enroll-icon-box">
+                        {React.createElement(ICON_MAP[item.icon], {
+                          size: 22,
+                          className: 'icon-main',
+                        })}
+                      </div>
+                    )}
 
-</div>
+                    <h3 className="heading-h3">{item.title}</h3>
+                    <h4 className="heading-h4">{item.description}</h4>
+                    {item.extraInfo && (
+                      <div className="enroll-extra-list">
+                        {item.extraInfo.items.map((info, i) => (
+                          <div key={i} className="enroll-extra-box">
+                            {ICON_MAP[info.icon] &&
+                              React.createElement(ICON_MAP[info.icon], {
+                                size: 14,
+                                className: 'icon-small',
+                              })}
+                            <span>{info.text}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
 
-<div className="enroll-right">
-  <img alt={item.alt} src={item.imgSrc} className="enroll-image" />
-</div>
+                  </div>
+
+                  <div className="enroll-right">
+                    <img alt={item.alt} src={item.imgSrc} className="enroll-image" />
+                  </div>
 
 
+                </div>
+              </div>
+
+            ))}
           </div>
         </div>
-      
-    ))}
+
+        <div className="scroll-controls">
+          <button type="button" className="scroll-btn prev" onClick={() => scroll('left')}>
+            <img src="/img/prev-scroll.svg" alt="Previous" />
+          </button>
+          <button type="button" className="scroll-btn next" onClick={() => scroll('right')}>
+            <img src="/img/next-scroll.svg" alt="Next" />
+          </button>
         </div>
       </div>
 
-      <div className="scroll-controls">
-        <button type="button" className="scroll-btn prev" onClick={() => scroll('left')}>
-          <img src="/img/prev-scroll.svg" alt="Previous" />
-        </button>
-        <button type="button" className="scroll-btn next" onClick={() => scroll('right')}>
-          <img src="/img/next-scroll.svg" alt="Next" />
-        </button>
-      </div>
-    </div>
-
-  </section>
+    </section>
   );
 };
 
@@ -177,12 +189,12 @@ const enrollItems = [
     },
   },
   {
-    imgSrc: 'img/tele5.png',
+    imgSrc: 'img/tele1.png',
     alt: 'BSP Application',
     title: 'BSP Application',
     description:
       "Follow a structured ATP betting strategy directly inside the app. Every betting opportunity is supported by clear analysis and a personalized staking system, removing emotion from decision-making and allowing users to fully understand the logic behind each bet, complemented by advanced tournament-level insights.",
-    icon: 'applications', 
+    icon: 'applications',
     extraInfo: {
       label: 'Includes',
       items: [
@@ -194,13 +206,13 @@ const enrollItems = [
     },
   },
   {
-    imgSrc: 'img/tele1.png',
+    imgSrc: 'img/enroll1.png',
     alt: 'Telegram Live Channel',
     title: 'Telegram Live Channel',
     description:
       'Access live betting opportunities with real-time context. Learn why we enter, skip, or exit matches in real time, identify momentum shifts and act before odds adjust. Master hedging strategies on tennis without emotional pressure.',
     icon: 'chat',
-     extraInfo: {
+    extraInfo: {
       label: 'Includes',
       items: [
         { icon: 'chat1', text: 'Predefined Entries' },
@@ -208,8 +220,7 @@ const enrollItems = [
         { icon: 'chat3', text: 'Timing & Execution' },
       ],
     },
-    },
-  
+  },
   {
     imgSrc: 'img/tele3.png',
     alt: 'Masterclass Channel',
@@ -226,9 +237,9 @@ const enrollItems = [
         { icon: 'channel4', text: 'Profit Optimization' },
       ],
     },
-    },
+  },
   {
-    imgSrc: 'img/tele4.png',
+    imgSrc: 'img/video.png',
     alt: 'BSP Masterclass Video Course',
     title: 'BSP Masterclass Video Course',
     description:
@@ -243,7 +254,7 @@ const enrollItems = [
         { icon: 'video4', text: 'Live Scaling Frameworks' },
       ],
     },
-    }
+  }
 ];
 
 export default EnrollNowSection;

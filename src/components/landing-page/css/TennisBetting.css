@@ -3,7 +3,6 @@
   z-index: 1;
   background: #02040C;
   padding: 80px;
-;
 }
 .section-tennis-betting::before{
   content: '';
@@ -42,7 +41,7 @@
   flex-direction: column;
   gap: 12px;
 
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid #1c2738;
 }
 
 
@@ -61,11 +60,14 @@
   .tennis-steps {
     grid-template-columns: 1fr;
   }
+  .tennis-step-card {
+  padding: 16px !important;
+}
 }
 
 .tennis-step-card {
   position: relative;
-  background: #1c2128;
+  background: #161922;
   border-radius: 20px;
   padding: 28px 24px;
   text-align: left;
@@ -90,7 +92,7 @@
     0px 7.5px 11.25px -2.25px #0000001A;
 
   color: #fff;
-  font-weight: 700;
+  font-weight: 400;
 font-size: 20px;
   display: flex;
   align-items: center;
@@ -126,7 +128,7 @@ font-size: 20px;
 
 /* Text spacing */
 .step-title {
-  margin-top: 20px;
+  margin-top: 22px;
   font-size: 24px;
   font-weight: 500;
   color: #fff;

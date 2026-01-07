@@ -63,7 +63,7 @@ div.innerHTML = `
           controlsVisibleOnLoad=false
           endVideoBehavior=reset
           stillUrl=img/Herovideo.png"
-        style="height:100%;width:100%;">
+          style="height:100%;width:100%;">
       </div>
     </div>
   </div>

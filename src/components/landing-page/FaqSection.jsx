@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './css/FaqSection.css';
+import { paths } from 'src/routes/paths'; 
 
 const faqs = [
   {
@@ -46,62 +47,68 @@ export default function FaqSection() {
     <section className="section-faq pb-85">
       <div className="container-3 mx-auto text-center mb-30">
 
-              <div className="features-badge">
-              FAQS
+        <div className="features-badge">
+          FAQS
         </div>
-      <h5 className="heading-h5">Before You Get Started</h5>
-      <h2 className="heading-h2">Frequently Asked Questions Regarding BSP Consult</h2>
+        <h5 className="heading-h5">Before You Get Started</h5>
+        <h2 className="heading-h2">Frequently Asked Questions Regarding BSP Consult</h2>
 
         <div className="faq-box">
-  {faqs.map((item, index) => {
-    const isOpen = openIndex === index;
+          {faqs.map((item, index) => {
+            const isOpen = openIndex === index;
 
-    return (
-      <div key={index} className={`faq-item ${isOpen ? 'open' : ''}`}>
-        <button
-          type="button"
-          className="faq-question-row"
-          onClick={() => toggle(index)}
-          aria-expanded={isOpen}
-        >
-          <span>{item.q}</span>
-          <span className={`faq-icon ${isOpen ? 'open' : ''}`}>{isOpen ? '−' : '+'}</span>
-        </button>
+            return (
+              <div key={index} className={`faq-item ${isOpen ? 'open' : ''}`}>
+                <button
+                  type="button"
+                  className="faq-question-row"
+                  onClick={() => toggle(index)}
+                  aria-expanded={isOpen}
+                >
+                  <span>{item.q}</span>
+                  <span className={`faq-icon ${isOpen ? 'open' : ''}`}>{isOpen ? '−' : '+'}</span>
+                </button>
 
-        {isOpen && (
-          <div className="faq-answer">
-            {item.a}
+                {isOpen && (
+                  <div className="faq-answer">
+                    {item.a}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+
+
+        {/* CTA BOX */}
+        <div className="faq-cta">
+          <div className="faq-cta-overlay">
+            <h3>
+              Stop Betting Emotionally.
+              <br />
+              Start Betting With Structure.
+            </h3>
+
+            <p>
+              If you keep betting based on emotions, impulse and frustration,
+              the outcome will always be the same: loss of hard-earned money and no progress.
+              Change it now or accept the same results.
+            </p>
+
+            {/* CTA Button */}
+            <div className='view-program'>
+              <a href={paths.login} className="cta-gradient-btn">
+                <span className="cta-text">Apply the BSP Method</span>
+                <img
+                  src="img/viewbtn.svg"
+                  alt=""
+                  className="cta-icon"
+                />
+              </a>
+            </div>
           </div>
-        )}
-      </div>
-    );
-  })}
-</div>
-
-
-
-{/* CTA BOX */}
-<div className="faq-cta">
-  <div className="faq-cta-overlay">
-    <h3>
-      Stop Betting Emotionally.
-      <br />
-      Start Betting With Structure.
-    </h3>
-
-    <p>
-      If you keep betting based on emotions, impulse and frustration,
-      the outcome will always be the same: loss of hard-earned money and no progress.
-      Change it now or accept the same results.
-    </p>
-
-    {/* CTA Button */}
-    <a href="#" className="cta-btn">
-      <span>Apply the BSP Method</span>
-      <img src="/img/cta-btn-icon.svg" alt="arrow" />
-    </a>
-  </div>
-</div>
+        </div>
 
 
 

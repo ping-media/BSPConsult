@@ -79,7 +79,7 @@ export default function PriceSection() {
           Betting Programs
         </div>
         <h5 className="heading-h5">Choose Your Program</h5>
-        <h2 className="heading-h2">There is real opportunity in tennis betting only through structure,<br /><br /> discipline and a clear strategy.</h2>
+        <h2 className="heading-h2">There is real opportunity in tennis betting only through structure,discipline and a clear strategy.</h2>
       </div>
       <div className="price-grid">
         {programs.map((program) => (

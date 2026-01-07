@@ -11,7 +11,7 @@ body {
 }
 .section-features {
   position: relative;
-  padding: 40px 0;
+  padding: 0px 0;
   background: #030511;
 }
 .section-features:before {
@@ -32,7 +32,7 @@ body {
 
 .features-badge {
   display: inline-block;
-  margin-bottom: 32px;
+  margin-bottom: 22px;
   padding: 10px 16px 10px 16px;
   border-radius: 50px;
 
@@ -86,7 +86,7 @@ body {
   margin-right: auto;
 }
 .mb-65{
-  margin-bottom: 65px;
+  margin-bottom: 38px;
 }
 .pt-0{
   padding-top: 0 !important;
@@ -102,8 +102,9 @@ body {
     padding: 0;
   }
   .features-badge {
-    font-size: 13px;
+    font-size: 14px;
     padding: 8px 16px;
+     margin-bottom: 14px;
   }
 
   .features-highlight {
@@ -112,8 +113,9 @@ body {
 
   .features-description {
     font-size: 20px;
+    line-height: 28px;
   }
   .mb-65{
-    margin-bottom: 32px;
+    margin-bottom: 14px;
   }
 }
