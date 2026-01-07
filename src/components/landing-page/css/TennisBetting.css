@@ -64,6 +64,9 @@
   }
   .tennis-step-card {
   padding: 16px !important;
+  border-radius: 16px;
+  border-top: 1px solid rgba(81, 162, 255, 0.00);
+  background: linear-gradient(171deg, rgba(255, 255, 255, 0.05) 26.08%, rgba(255, 255, 255, 0.02) 83%, rgba(255, 255, 255, 0.00) 137.69%);
 }
 }
 
@@ -162,5 +165,8 @@ font-size: 20px;
   }
   .step-tag{
     font-size: 12px;
+    padding: 4px 12px;
+    line-height: 16px;
+    font-weight: 400;
   }
 }

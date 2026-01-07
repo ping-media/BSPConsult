@@ -16,7 +16,7 @@ const programs = [
     description:
       'For bettors who want a simple, disciplined foundation built on structured bets, clear analysis and repeatable execution. Designed to replace emotional decisions and bad habits with consistency.',
     priceAmount: '€397',
-    pricePeriod: '/ year',
+    pricePeriod: '/year',
     note: 'Best for starting with structure.',
     button: 'Get Silver Program',
     highlightCount: 4,

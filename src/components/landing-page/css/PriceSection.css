@@ -230,7 +230,8 @@
   }
 
   .program-includes li {
-    margin-bottom: 2px !important;
+    /* margin-bottom: 2px !important; */
+    font-size: 14px;
   }
   .program-headers {
 
@@ -303,3 +304,8 @@
   background-size: cover;
 }
 
+@media (max-width: 768px) {
+  .program-price {
+    margin-bottom: 4px;
+  }
+}
