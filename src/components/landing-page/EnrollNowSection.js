@@ -215,7 +215,7 @@ const EnrollNowSection = () => {
   };
 
   return (
-    <section className="section-enroll-now">
+    <section className="section-enroll-now section-top-divider">
       <div className="container-1 mx-auto pl-2 pr-2 text-center mb-65">
         <div className="features-badge">From Structure to Clarity</div>
         <h5 className="heading-h5">

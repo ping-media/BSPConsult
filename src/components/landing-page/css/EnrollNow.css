@@ -33,19 +33,29 @@ body {
   background: #090B15;
   overflow: hidden; /* important for glow cropping */
 }
+/* .section-enroll-now .section-top-divider::before {
+  content: '';
+    background: radial-gradient(50% 40.02% at 50% 50%, #0993fd9c 0, #1847b3 33%, rgba(17, 81, 200, 0.723813) 51.5%, rgba(0, 107, 255, 0) 100%);
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    bottom: auto;
+    top: 0;
+} */
+
 
 /* TOP RIGHT GLOW */
 .section-enroll-now::before {
-  content: "";
-  position: absolute;
-  top: -25%;
-  right: -10%;
-  width: 329px;
-  height: 329px;
-  background: rgba(0, 122, 255, 0.1); /* #007AFF1A */
-  border-radius: 50%;
-  filter: blur(194px);
-  z-index: 0;
+ content: '';
+    background: radial-gradient(50% 40.02% at 50% 50%, #0993fd9c 0, #1847b3 33%, rgba(17, 81, 200, 0.723813) 51.5%, rgba(0, 107, 255, 0) 100%);
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    bottom: auto;
+    top: 0;
+  
 }
 
 /* BOTTOM LEFT GLOW */
@@ -61,6 +71,7 @@ body {
   filter: blur(194px);
   z-index: 0;
 }
+
 
 /* CONTENT SHOULD STAY ABOVE GLOWS */
 .section-enroll-now > * {

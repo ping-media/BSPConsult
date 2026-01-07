@@ -28,18 +28,19 @@ const RevealText = ({ text, className }) => {
           return <br key={i} />;
         }
         return (
-          <m.span
-            key={i}
-            animate={{
-              color:
-                i <= revealedCount
-                  ? "#ffffff"
-                  : "rgba(255,255,255,0.4)",
-            }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
-          >
-            {char}
-          </m.span>
+       <m.span
+        key={i}
+        animate={{
+            color: i <= revealedCount
+            ? "#ffffff"
+            : "rgba(255,255,255,0.4)",
+            fontWeight: i <= revealedCount ? 600 : 400,
+        }}
+        transition={{ duration: 0.25, ease: "easeOut" }}
+        >
+        {char}
+        </m.span>
+
         );
       })}
     </p>
