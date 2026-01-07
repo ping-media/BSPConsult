@@ -117,6 +117,7 @@
   border: 1px solid #348AF7;
   background: rgba(52, 138, 247, 0.20);
   box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.07);
+  font-family: 'Figtree', sans-serif;
 }
 
 .program-btn:hover {

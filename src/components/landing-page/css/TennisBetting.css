@@ -60,6 +60,7 @@
 @media (max-width: 768px) {
   .tennis-steps {
     grid-template-columns: 1fr;
+    padding: 0;
   }
   .tennis-step-card {
   padding: 16px !important;

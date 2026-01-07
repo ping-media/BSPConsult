@@ -39,10 +39,11 @@
 }
 
 .footer-desc {
-  margin: 15px 0 35px;
+  margin: 15px 0 32px;
   color: rgba(255, 255, 255, 0.60);
   font-size: 18px;
   font-weight: 400;
+  line-height: 25px;
 }
 
 .footer-title {
@@ -97,6 +98,7 @@
   margin-bottom: 20px !important;
   font-size: 20px;
   font-weight: 500;
+  line-height: 30px;
 }
 
 .footer-links ul {
@@ -137,7 +139,7 @@
 @media (max-width: 768px) {
   .footer-container {
     grid-template-columns: 1fr 1fr;
-    gap: 40px;
+    gap: 42px 0;
     padding: 60px 24px 32px;
   }
 
@@ -147,6 +149,7 @@
 
   .footer-bottom{
     padding: 20px 24px;
+    font-size: 14px;
   }
 
   .footer-subscribe input {
