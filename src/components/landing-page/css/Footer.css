@@ -150,4 +150,7 @@
   .footer-subscribe button{
     padding: 6px 8px 6px 12px;
   }
+  .footer-apps img{
+    margin-bottom: 12px;
+  }
 }
