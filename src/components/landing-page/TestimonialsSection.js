@@ -149,13 +149,22 @@ const TestimonialsSection = () => {
         </div>
 
         <div className="scroll-controls">
-          <button type="button" className="scroll-btn prev" onClick={() => scroll('left')}>
-            <img src="/img/prev-scroll.svg" alt="Previous" />
-          </button>
-          <button type="button" className="scroll-btn next" onClick={() => scroll('right')}>
-            <img src="/img/next-scroll.svg" alt="Next" />
-          </button>
-        </div>
+  <button
+    type="button"
+    className="scroll-btn prev"
+    onClick={() => scroll("left")}
+  
+    aria-label="Previous"
+  />
+
+  <button
+    type="button"
+    className="scroll-btn next"
+    onClick={() => scroll("right")}
+   
+    aria-label="Next"
+  />
+</div>
       </div>
     </section>
   );
