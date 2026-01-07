@@ -5,34 +5,56 @@ import { paths } from 'src/routes/paths';
 const faqs = [
   {
     q: 'How many betting opportunities will I receive?',
-    a: `You’ll receive regular ATP betting opportunities — only when the strategy aligns and a clear edge is present.
-We don’t push 5 bets per day like Telegram groups.
-Expect 20–40 high-quality plays per month, with long-term consistency as the goal.`,
+    a: `You’ll receive regular ATP betting opportunities, but understand that we are not like most Telegram signal groups that push five bets a day. We only share plays that align with our strategy and where a clear edge and value are present. Expect between 15 and 40 high-quality bets per month, with long-term consistency as the primary objective.
+The best traders in the market do not bet five times a day. Forget the old “volume-first” betting mindset and adopt a more selective, disciplined strategy focused on sustainable results.
+`,
   },
   {
     q: 'How much bankroll do I need to start?',
-    a: `You can start with a modest bankroll. What matters most is disciplined staking and consistency.
-The strategy scales with your bankroll — not the other way around.`,
+    a: `We recommend a minimum bankroll of around €500 to start the right way. It’s better to save and begin properly than to start undercapitalized and in a rush.`,
   },
   {
-    q: 'What is the difference between Silver and Gold Membership?',
-    a: `Silver gives you structure, core betting logic and consistency.
-Gold unlocks advanced data, high-stakes frameworks, real study cases and full mastery of the method.`,
+    q: 'What is the difference between the Silver, Advanced and Gold Programs?',
+    a: `Silver Program\n\n
+Silver is the perfect starting point for bettors who want to eliminate emotional betting and follow a structured, disciplined approach. You’ll gain access to the bets we take ourselves, with detailed explanations. You will have access to the bets section of the BSP app, where the most interesting betting opportunities are posted, along with our Telegram live channel, where you receive real-time betting opportunities ready to copy and place. This program is designed for simplicity, clarity and execution.
+Advanced Program
+Advanced includes everything in the Silver Program, plus data-driven insights backed by market context in the second part of the BSP app. These insights allow you to stay informed before the mass market reacts, giving you a strategic edge. You’ll receive advanced statistical analysis, round-by-round tournament data to identify current betting trends, and access to the BSP Tennis Betting Model, which centralizes the most important metrics to identify bookmaker inefficiencies and monetize them.
+Gold Program
+Gold is designed for those who want an elite understanding of betting. It is ideal for those who want to make betting a real source of income, aiming to master the strategy in depth. This program includes access to private sources, daily market metrics, elite video education, real case-study recordings, and advanced techniques such as bypassing bookmaker limits, emerging crypto betting methods and personal walkthroughs of high-volume betting accounts. Gold is about long-term mastery, scalability and operating like a professional bettor.`,
   },
   {
     q: 'What is your strategy based on?',
-    a: `The strategy is based on structured market inefficiencies, disciplined bankroll management,
-advanced data modeling and long-term EV+ decision making.`,
+    a: `Our strategy combines objective data, subjective tennis knowledge, and player momentum and form. Value is important to target, but first you need to be able to follow a clear strategy before spotting value in the market. We apply 8 confirmations before entering a market. We only bet when everything in our strategy aligns — not based on emotions or intuition.`,
   },
   {
     q: 'Do you only bet on tennis?',
-    a: `Yes. Tennis offers the most repeatable inefficiencies when approached with structure.
-Specialization is the reason the method works.`,
+    a: `Yes, we exclusively focus on the ATP tennis market. Niche betting provides a stronger edge: deeper information, faster access to insights and more exploitable mistakes. Bookmakers concentrate on big sports where the people are; we focus on niche markets where bookmakers make mistakes.`,
+  },
+  {
+    q: 'Should I update the BSP Tennis Betting Model myself?',
+    a: `No. You will receive a copy linked to my master model, and I am the one who maintains and updates it. This means your version is automatically updated as well. You will always have access to the latest data and the most important ATP metrics of the moment.`,
+  },
+  {
+    q: 'Can I cancel anytime?',
+    a: `Yes, you can cancel your subscription whenever you want. No long-term obligation, no lock-in.`,
+  },
+  {
+    q: 'What makes BSP Consult different from tipsters?',
+    a: `The betting space is full of hype, fake screenshots and people betting purely on what they see, without evaluating the prices and odds they receive.
+
+We do it differently:
+Full transparency (screen recordings, bookmaker switching, proof of withdrawals, real execution)
+One niche, one sport, one proven framework
+Real study cases, recorded live — not just claims
+We don’t just give bets — we show the entire process behind them.`,
   },
   {
     q: 'What about the €14K study case — is it real?',
-    a: `Yes. It’s a documented real-money study case showing how the strategy performs
-when executed with discipline over time.`,
+    a: `Yes, the €14K run is fully recorded step-by-step using our strategy. Every win, loss, and adjustment is shown transparently with live screen refresh — nothing filtered, nothing hidden.`,
+  },
+  {
+    q: 'Do I need a specific bookmaker to follow your bets?',
+    a: `No, you don’t. Our betting opportunities are mainly on the ATP market and we target only high-liquidity lines that are available on 95% of bookmakers. We also help our members by recommending the bookmakers that consistently offer the best odds in our markets.`,
   },
 ];
 

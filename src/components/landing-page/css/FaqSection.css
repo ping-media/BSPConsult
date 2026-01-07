@@ -48,6 +48,8 @@
   font-size: 20px;
   font-weight: 500;
   cursor: pointer;
+  text-align: left;
+  line-height: 30px;
 }
 
 
