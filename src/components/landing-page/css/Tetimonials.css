@@ -61,6 +61,7 @@
   color: #fff;
   /* text-align: center; */
   letter-spacing: 0.2px;
+  line-height: 24px;
 }
 
 
@@ -78,8 +79,8 @@
 
 
 .testimonial-image-box img {
-  width: 100%;
-  height: 100%;
+  width: 284px;
+  height: 421px;
   object-fit: cover;
 }
 
