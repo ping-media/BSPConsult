@@ -7,7 +7,7 @@
 
 /* TOP GRADIENT OVERLAY */
 .footer-gradient {
-  position: absolute;
+  /* position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -15,7 +15,7 @@
   background: linear-gradient(180deg,
       rgba(0, 122, 255, 0.09) 0%,
       rgba(0, 122, 255, 0) 100%);
-  pointer-events: none;
+  pointer-events: none; */
 }
 
 .footer-container {
@@ -27,6 +27,7 @@
   display: grid;
   grid-template-columns: 4fr 1fr 1fr;
   gap: 80px;
+  background: linear-gradient(180deg, rgba(0, 122, 255, 0.09) 0%, rgba(0, 122, 255, 0.00) 100%), #090B15;
 }
 
 /* LEFT */
@@ -141,6 +142,7 @@
     grid-template-columns: 1fr 1fr;
     gap: 42px 0;
     padding: 60px 24px 32px;
+    background: linear-gradient(180deg, rgba(0, 122, 255, 0.09) 0%, rgba(0, 122, 255, 0.00) 100%), #090B15;
   }
 
   .footer-left{
@@ -156,7 +158,10 @@
     max-width: 178px !important;
   }
   .footer-subscribe button{
-    padding: 6px 8px 6px 12px;
+    padding: 4px 4px 4px 12px;
+  }
+  .footer-subscribe button img{
+    width: 32px;
   }
   .footer-apps img{
     margin-bottom: 12px;
@@ -166,5 +171,12 @@
   }
   .footer-apps h4 {
     margin-bottom: 16px !important;
+    font-size: 16px;
+  }
+  .footer-links h4{
+    font-size: 16px;
+  }
+  .footer-links a{
+    font-size: 14px;
   }
 }
