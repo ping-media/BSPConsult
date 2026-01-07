@@ -180,7 +180,8 @@
   .faq-question-row{
     font-size: 14px;
     text-align: left;
-    line-height: 24px;
+    line-height: 18px;
+    font-weight: 600;
   }
   .faq-answer{
     font-size: 14px;
@@ -188,5 +189,10 @@
   }
   .faq-item{
     padding: 16px;
+  }
+  .faq-item + .faq-item{
+    margin-top: 16px;
+    border-radius: 12px;
+background: #13151E;
   }
 }

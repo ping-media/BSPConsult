@@ -189,6 +189,7 @@
   .price-grid {
     grid-template-columns: 1fr;
     padding: 0;
+    gap: 24px;
   }
 }
 
@@ -208,6 +209,7 @@
 
   .price-inner {
     padding: 16px !important;
+    border-radius: 20px;
   }
 
   .price-amount {
@@ -232,6 +234,9 @@
   .program-includes li {
     /* margin-bottom: 2px !important; */
     font-size: 14px;
+  }
+  .program-includes li img{
+    width: 13.5px;
   }
   .program-headers {
 
@@ -307,5 +312,19 @@
 @media (max-width: 768px) {
   .program-price {
     margin-bottom: 4px;
+  }
+  .program-includes h4{
+    margin-bottom: 8px;
+  }
+  .program-includes{
+    margin-top: 12px;
+  }
+  .price-card{
+    padding: 12px;
+    border-radius: 24px;
+    
+  }
+  .program-includes{
+    padding-right: 16px;
   }
 }
