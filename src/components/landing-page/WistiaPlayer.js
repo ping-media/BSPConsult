@@ -14,7 +14,7 @@ style.innerHTML = `
 
   /* VIDEO stays normal */
   .wistia_embed video {
-    object-fit: cover !important;
+    object-fit: none !important;
     width: 100% !important;
     height: 100% !important;
     transform: none !important;
@@ -24,12 +24,11 @@ style.innerHTML = `
   .wistia_embed img,
   .wistia_embed .wistia_poster,
   .wistia_embed .wistia_placeholder {
-    object-fit: cover !important;
     width: 100% !important;
     height: 100% !important;
-
-    transform: scale(1.18);   /* increase thumbnail size */
+   /* increase thumbnail size */
     transform-origin: center;
+    object-fit: fill !important;
   }
 
   /* background safety */
