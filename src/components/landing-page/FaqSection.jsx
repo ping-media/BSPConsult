@@ -50,7 +50,7 @@ export default function FaqSection() {
         <div className="features-badge">
           FAQS
         </div>
-        <h5 className="heading-h5">Before You Get Started</h5>
+        <h5 className="heading-h5" style={{ fontWeight: '600' }}>Before You Get Started</h5>
         <h2 className="heading-h2">Frequently Asked Questions Regarding BSP Consult</h2>
 
         <div className="faq-box">
