@@ -74,6 +74,12 @@
   line-height: 100%;
   margin-bottom: 12px;
 }
+.is-featured .program-title {
+  margin-bottom: 0;
+}
+.is-featured .program-headers {
+  margin-bottom: 10px;
+}
 
 .program-desc {
   font-size: 16px;
@@ -269,7 +275,7 @@
   font-size: 14px;
   font-weight: 400;
   color: #fff;
-  margin-bottom: 13px;
+  /* margin-bottom: 13px; */
 
   /* background: rgba(0, 122, 255, 0.12);
   border: 1px solid rgba(0, 122, 255, 0.35);
