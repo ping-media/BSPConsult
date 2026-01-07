@@ -225,6 +225,16 @@
   .program-includes li {
     margin-bottom: 2px !important;
   }
+  .program-headers {
+
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .best-value-badge {
+    position: static; 
+    margin-bottom: 8px;
+  }
 }
 
 
@@ -259,6 +269,7 @@
   font-size: 14px;
   font-weight: 400;
   color: #fff;
+  margin-bottom: 13px;
 
   /* background: rgba(0, 122, 255, 0.12);
   border: 1px solid rgba(0, 122, 255, 0.35);

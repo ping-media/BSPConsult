@@ -1,19 +1,22 @@
-import React, { useRef, useEffect } from 'react';
+// eslint-disable-next-line consistent-return
+
+import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './css/Tetimonials.css';
 
 const TestimonialItem = ({ src, label }) => (
   <div className="testimonial-card">
-    <div className="testimonial-image-box">
-      <img src={src} alt={label} />
-    </div>
+    <div className="testimonial-image-wrapper">
+  <div className="testimonial-image-box">
+    <img src={src} alt={label} />
+  </div>
+</div>
+
     <div className="testimonial-footer">
-      {/* LABEL BELOW IMAGE */}
       <div className="testimonial-label">{label}</div>
     </div>
   </div>
 );
-
 
 TestimonialItem.propTypes = {
   src: PropTypes.string.isRequired,
@@ -21,106 +24,67 @@ TestimonialItem.propTypes = {
 };
 
 const testimonials = [
-  {
-    src: '/img/test1.png',
-    label: 'Feb 2025 · Silver Member',
-  },
-  {
-    src: '/img/test2.png',
-    label: 'Mar 2025 · Gold Member',
-  },
-  {
-    src: '/img/test3.png',
-    label: 'Feb 2025 · Gold Member',
-  },
-  {
-    src: '/img/test4.png',
-    label: 'Jan 2025 · Silver Member',
-  },
-  {
-    src: '/img/test1.png',
-    label: 'Mar 2025 · Gold Member',
-  },
+{ src: '/img/t1.png', label: 'July 2025 · Advanced Member' },
+  { src: '/img/t2.png', label: 'April 2025 · Gold Member' },
+  { src: '/img/t3.png', label: 'April 2025 · Gold Member' },
+  { src: '/img/t4.png', label: 'Aug 2025 · Gold Member' },
+  { src: '/img/t5.png', label: 'Feb 2025 · Gold Member' },
+  { src: '/img/t6.png', label: 'Feb 2025 · Silver Member' },
+  { src: '/img/t7.png', label: 'Feb 2025 · Silver Member' },
+  { src: '/img/t8.png', label: 'Jan 2025 · Gold Member' },
+  { src: '/img/t9.png', label: 'March 2025 · Gold Member' },
+  { src: '/img/t10.png', label: 'Mar 2025 · Gold Member' },
+  { src: '/img/t11.png', label: 'May 2025 · Silver Member' },
+  { src: '/img/t12.png', label: 'Nov 2025 · Advanced Member' },
+  { src: '/img/t13.png', label: 'Nov 2025 · Gold Member' },
+  { src: '/img/t14.png', label: 'Nov 2025 · Silver Member' },
+  { src: '/img/t15.png', label: 'Oct 2025 · Advanced Member' },
+  { src: '/img/t16.png', label: 'Sep 2025 · Gold Member' },
 ];
 
 const TestimonialsSection = () => {
   const scrollRef = useRef(null);
-  const singleSetWidthRef = useRef(0);
-  const isScrollingRef = useRef(false);
 
-  // Calculate single set width
-  useEffect(() => {
-    if (scrollRef.current) {
-      const firstCard = scrollRef.current.querySelector('.testimonial-card');
-      if (firstCard) {
-        const cardWidth = firstCard.offsetWidth;
-        const gap = 20;
-        singleSetWidthRef.current = testimonials.length * (cardWidth + gap);
-      }
-    }
-  }, []);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
 
-  // Set initial scroll position and handle infinite scroll
-  useEffect(() => {
-    const container = scrollRef.current;
-    if (!container) {
-      return undefined;
-    }
+  // Update arrow states
+useEffect(() => {
+  const container = scrollRef.current;
+  if (!container) {
+    return () => {}; // ✅ satisfies ESLint
+  }
 
-    // Set initial scroll position to start of first set
-    container.scrollLeft = 0;
+  const updateButtons = () => {
+    const { scrollLeft, scrollWidth, clientWidth } = container;
+    setCanScrollLeft(scrollLeft > 0);
+    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 5);
+  };
 
-    const handleScroll = () => {
-      if (isScrollingRef.current) return;
+  updateButtons();
+  container.addEventListener('scroll', updateButtons);
 
-      const scrollLeft = container.scrollLeft;
-      const singleSetWidth = singleSetWidthRef.current;
+  return () => {
+    container.removeEventListener('scroll', updateButtons);
+  };
+}, []);
 
-      // If scrolled past the first set (reached duplicate set), jump back to start of first set
-      if (scrollLeft >= singleSetWidth) {
-        isScrollingRef.current = true;
-        container.scrollTo({
-          left: scrollLeft - singleSetWidth,
-          behavior: 'auto',
-        });
-        setTimeout(() => {
-          isScrollingRef.current = false;
-        }, 50);
-      }
-      // If scrolled before the start (scrolling left from beginning), jump to end of first set
-      else if (scrollLeft <= 0) {
-        isScrollingRef.current = true;
-        container.scrollTo({
-          left: singleSetWidth - (container.querySelector('.testimonial-card')?.offsetWidth || 0),
-          behavior: 'auto',
-        });
-        setTimeout(() => {
-          isScrollingRef.current = false;
-        }, 50);
-      }
-    };
 
-    container.addEventListener('scroll', handleScroll);
-    return () => {
-      container.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
+  // Arrow scroll (card by card)
   const scroll = (direction) => {
-    if (scrollRef.current) {
-      // Get the first card element to calculate its width
-      const firstCard = scrollRef.current.querySelector('.testimonial-card');
-      if (firstCard) {
-        const cardWidth = firstCard.offsetWidth;
-        const gap = 20; // Gap between cards as defined in CSS
-        const scrollAmount = cardWidth + gap;
-        
-        scrollRef.current.scrollBy({
-          left: direction === 'left' ? -scrollAmount : scrollAmount,
-          behavior: 'smooth',
-        });
-      }
-    }
+    const container = scrollRef.current;
+    if (!container) return;
+
+    const card = container.querySelector('.testimonial-card');
+    if (!card) return;
+
+    const gap = 20;
+    const scrollAmount = card.offsetWidth + gap;
+
+    container.scrollBy({
+      left: direction === 'left' ? -scrollAmount : scrollAmount,
+      behavior: 'smooth',
+    });
   };
 
   return (
@@ -139,32 +103,28 @@ const TestimonialsSection = () => {
 
       <div className="testimonials-wrapper">
         <div className="testimonials-row" ref={scrollRef}>
-          {[...testimonials, ...testimonials].map((item, index) => (
-            <TestimonialItem
-              key={index}
-              src={item.src}
-              label={item.label}
-            />
+          {testimonials.map((item, index) => (
+            <TestimonialItem key={index} {...item} />
           ))}
         </div>
 
         <div className="scroll-controls">
-  <button
-    type="button"
-    className="scroll-btn prev"
-    onClick={() => scroll("left")}
-  
-    aria-label="Previous"
-  />
+          <button
+            type="button"
+            className={`scroll-btn prev ${canScrollLeft ? 'active' : ''}`}
+            onClick={() => scroll('left')}
+            disabled={!canScrollLeft}
+            aria-label="Previous"
+          />
 
-  <button
-    type="button"
-    className="scroll-btn next"
-    onClick={() => scroll("right")}
-   
-    aria-label="Next"
-  />
-</div>
+          <button
+            type="button"
+            className={`scroll-btn next ${canScrollRight ? 'active' : ''}`}
+            onClick={() => scroll('right')}
+            disabled={!canScrollRight}
+            aria-label="Next"
+          />
+        </div>
       </div>
     </section>
   );
