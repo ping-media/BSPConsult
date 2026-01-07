@@ -147,14 +147,14 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 14px;
+  font-size: 16px;
   margin-bottom: 0;
   padding: 6px 0;
   font-weight: 100;
 }
 
 .program-includes li.active {
-  color: #e6e8ec;
+  color: #F0F1F3;
 }
 
 .program-includes li.inactive img {
