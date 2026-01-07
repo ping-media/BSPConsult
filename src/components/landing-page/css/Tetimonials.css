@@ -39,7 +39,7 @@
 
 /* Card */
 .testimonial-card {
-  min-width: 260px;
+  min-width: 333px;
   background: #1c2128;
   border-radius: 20px;
   /* padding: 16px; */
@@ -67,7 +67,7 @@
 
 /* Image box */
 .testimonial-image-box {
-  height: 445px;              /* ← lock visual size */
+  height: 474px;              /* ← lock visual size */
   padding: 12px;
   display: flex;
   align-items: center;
@@ -79,8 +79,8 @@
 
 
 .testimonial-image-box img {
-  width: 284px;
-  height: 421px;
+  width: 301px;
+  height: 445px;
   object-fit: cover;
 }
 

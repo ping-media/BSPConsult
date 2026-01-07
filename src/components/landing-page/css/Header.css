@@ -342,6 +342,7 @@ div#wistia-player-container-1 {
 .hero-badge {
   position: relative;
   z-index: 1;
+  padding: 4px 12px 4px 4px;
 }
 
 /* LEFT BLUE MINI BUTTON */
@@ -383,6 +384,10 @@ div#wistia-player-container-1 {
   font-size: 14px;
   font-weight: 400;
   color: #fff;
+}
+.feature-item img{
+  width: 25px;
+  margin-right: 8px;
 }
 
 
@@ -504,7 +509,7 @@ div#wistia-player-container-1 {
   }
 
   .brand-logo {
-    height: 34px;
+    height: 41px;
   }
 
 
@@ -563,7 +568,7 @@ div#wistia-player-container-1 {
     font-size: 12px;
     gap: 2px;
   }
-  .feature-item svg{
+  .feature-item img{
     width: 20px;
     height: 20px;
   }
@@ -598,5 +603,6 @@ div#wistia-player-container-1 {
 
   .hero-badge-wrapper {
     margin-top: 0px;
+    margin-bottom: 24px;
   }
 }
