@@ -135,5 +135,6 @@ body {
 
   .mobile-only {
     display: block;
+    margin-bottom: 0;
   }
 }

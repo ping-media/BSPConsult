@@ -507,6 +507,9 @@ div#wistia-player-container-1 {
     display: none;
     /* hide BSP CONSULT text */
   }
+  .rating-text strong{
+    font-size: 12px;
+  }
 
   .brand-logo {
     height: 41px;
@@ -522,6 +525,12 @@ div#wistia-player-container-1 {
     background: rgba(255, 255, 255, 0.12);
     border: 1px solid rgba(255, 255, 255, 0.2);
    
+  }
+
+  .cta-gradient-btn{
+    font-size: 14px;
+    font-weight: 500;
+    padding: 4px 4px 4px 12px;
   }
 
 
@@ -584,7 +593,7 @@ div#wistia-player-container-1 {
   /* ===== CTA WRAPPER ===== */
   .cta-wrapper {
     flex-direction: column;
-    gap: 12px;
+    gap: 16px;
   }
 
   .cta-icon {
@@ -596,9 +605,12 @@ div#wistia-player-container-1 {
   .stars {
     font-size: 18px;
   }
+  .star img{
+    width: 12px;
+  }
 
   .rating-text {
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .hero-badge-wrapper {
