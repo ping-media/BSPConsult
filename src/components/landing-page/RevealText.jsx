@@ -33,8 +33,8 @@ const RevealText = ({ text, className }) => {
         animate={{
             color: i <= revealedCount
             ? "#ffffff"
-            : "rgba(255,255,255,0.4)",
-            fontWeight: i <= revealedCount ? 600 : 400,
+            : "#818288",
+            fontWeight: i <= revealedCount ? 400 : 400,
         }}
         transition={{ duration: 0.25, ease: "easeOut" }}
         >
