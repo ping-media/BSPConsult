@@ -125,7 +125,7 @@
 }
 
 .program-includes h4 {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   color: #fff;
   margin-bottom: 12px;
@@ -142,7 +142,7 @@
   align-items: center;
   gap: 8px;
   font-size: 14px;
-  margin-bottom: 7px;
+  margin-bottom: 0;
   padding: 6px 0;
   font-weight: 100;
 }
