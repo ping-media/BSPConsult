@@ -33,6 +33,9 @@ body {
   background: #090B15;
   overflow: hidden; /* important for glow cropping */
 }
+.section-enroll-now .heading-h5{
+  font-weight: 600;
+}
 /* .section-enroll-now .section-top-divider::before {
   content: '';
     background: radial-gradient(50% 40.02% at 50% 50%, #0993fd9c 0, #1847b3 33%, rgba(17, 81, 200, 0.723813) 51.5%, rgba(0, 107, 255, 0) 100%);
@@ -98,7 +101,7 @@ body {
 
 
   border-radius: 24px;
-  padding: 34px;
+  padding: 44px;
 
   display: flex;
   align-items: center;
