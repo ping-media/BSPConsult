@@ -1,121 +1,238 @@
+// import './css/EnrollNow.css';
+
+// /* eslint-disable react/no-unescaped-entities */
+
+// import React, { useRef, useEffect } from 'react';
+// import { ICON_MAP } from './Icons';
+
+
+// const EnrollNowSection = () => {
+//   const scrollRef = useRef(null);
+//   const singleSetWidthRef = useRef(0);
+//   const isScrollingRef = useRef(false);
+
+//   const [isMobile, setIsMobile] = React.useState(false);
+
+//   useEffect(() => {
+//     const checkMobile = () => {
+//       setIsMobile(window.innerWidth <= 768);
+//     };
+//     checkMobile();
+//     window.addEventListener('resize', checkMobile);
+//     return () => window.removeEventListener('resize', checkMobile);
+//   }, []);
+
+
+//   // Calculate single set width
+//   useEffect(() => {
+//     if (scrollRef.current) {
+//       const firstSlide = scrollRef.current.querySelector('.enroll-items');
+//       if (firstSlide) {
+//         const slideWidth = firstSlide.offsetWidth;
+//         const gap = 32;
+//         singleSetWidthRef.current = enrollItems.length * (slideWidth + gap);
+//       }
+//     }
+//   }, []);
+
+//   // Set initial scroll position and handle infinite scroll
+//   useEffect(() => {
+//     const container = scrollRef.current;
+//     if (!container) {
+//       return undefined;
+//     }
+
+//     // Set initial scroll position to start of first set
+//     container.scrollLeft = 0;
+
+//     const handleScroll = () => {
+//       if (isScrollingRef.current) return;
+
+//       const scrollLeft = container.scrollLeft;
+//       const singleSetWidth = singleSetWidthRef.current;
+
+//       // If scrolled past the first set (reached duplicate set), jump back to start of first set
+//       if (scrollLeft >= singleSetWidth) {
+//         isScrollingRef.current = true;
+//         container.scrollTo({
+//           left: scrollLeft - singleSetWidth,
+//           behavior: 'auto',
+//         });
+//         setTimeout(() => {
+//           isScrollingRef.current = false;
+//         }, 50);
+//       }
+//       // If scrolled before the start (scrolling left from beginning), jump to end of first set
+//       else if (scrollLeft <= 0) {
+//         isScrollingRef.current = true;
+//         container.scrollTo({
+//           left: singleSetWidth - (container.querySelector('.enroll-items')?.offsetWidth || 0),
+//           behavior: 'auto',
+//         });
+//         setTimeout(() => {
+//           isScrollingRef.current = false;
+//         }, 50);
+//       }
+//     };
+
+//     container.addEventListener('scroll', handleScroll);
+//     return () => {
+//       container.removeEventListener('scroll', handleScroll);
+//     };
+//   }, []);
+
+//   const scroll = (direction) => {
+//     if (scrollRef.current) {
+//       // Get the first slide element to calculate its width
+//       const firstSlide = scrollRef.current.querySelector('.enroll-items');
+//       if (firstSlide) {
+//         const slideWidth = firstSlide.offsetWidth;
+//         const gap = 32; // Gap between slides as defined in CSS
+//         const scrollAmount = slideWidth + gap;
+
+//         scrollRef.current.scrollBy({
+//           left: direction === 'left' ? -scrollAmount : scrollAmount,
+//           behavior: 'smooth',
+//         });
+//       }
+//     }
+//   };
+
+//   return (
+//     <section className="section-enroll-now">
+
+//       <div className="container-1 mx-auto pl-2 pr-2 text-center mb-65">
+//         <div className="features-badge">
+//           From Structure to Clarity
+//         </div>
+//         <h5 className="heading-h5">Here's What <span>You Get</span></h5>
+//         <h2 className="heading-h2">A complete method designed to transform your betting approach</h2>
+//       </div>
+//       <div className="enroll-wrapper">
+//         <div className="container-slider pt-0 pb-0" ref={scrollRef}>
+//           <div className="enroll-track">
+//             {(isMobile ? enrollItems : [...enrollItems, ...enrollItems]).map((item, index) => (
+//               <div className="enroll-items" key={index}>
+//                 <div className="enroll-items-bg">
+//                   <div className="enroll-left">
+//                     {/* ICON BOX */}
+//                     {item.icon && ICON_MAP[item.icon] && (
+//                       <div className="enroll-icon-box">
+//                         {React.createElement(ICON_MAP[item.icon], {
+//                           size: 22,
+//                           className: 'icon-main',
+//                         })}
+//                       </div>
+//                     )}
+
+//                     <h3 className="heading-h3">{item.title}</h3>
+//                     <h4 className="heading-h4">{item.description}</h4>
+//                     {item.extraInfo && (
+//                       <div className="enroll-extra-list">
+//                         {item.extraInfo.items.map((info, i) => (
+//                           <div key={i} className="enroll-extra-box">
+//                             {ICON_MAP[info.icon] &&
+//                               React.createElement(ICON_MAP[info.icon], {
+//                                 size: 14,
+//                                 className: 'icon-small',
+//                               })}
+//                             <span>{info.text}</span>
+//                           </div>
+//                         ))}
+//                       </div>
+//                     )}
+
+//                   </div>
+
+//                   <div className="enroll-right">
+//                     <img alt={item.alt} src={item.imgSrc} className="enroll-image" />
+//                   </div>
+
+
+//                 </div>
+//               </div>
+
+//             ))}
+//           </div>
+//         </div>
+
+//         <div className="scroll-controls">
+//           <button type="button" className="scroll-btn prev" onClick={() => scroll('left')}>
+//             <img src="/img/prev-scroll.svg" alt="Previous" />
+//           </button>
+//           <button type="button" className="scroll-btn next" onClick={() => scroll('right')}>
+//             <img src="/img/next-scroll.svg" alt="Next" />
+//           </button>
+//         </div>
+//       </div>
+
+//     </section>
+//   );
+// };
+
 import './css/EnrollNow.css';
 
 /* eslint-disable react/no-unescaped-entities */
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { ICON_MAP } from './Icons';
-
 
 const EnrollNowSection = () => {
   const scrollRef = useRef(null);
-  const singleSetWidthRef = useRef(0);
-  const isScrollingRef = useRef(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [slideWidth, setSlideWidth] = useState(0);
 
-  const [isMobile, setIsMobile] = React.useState(false);
-
+  // Calculate slide width once
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+    if (!scrollRef.current) return;
 
-
-  // Calculate single set width
-  useEffect(() => {
-    if (scrollRef.current) {
-      const firstSlide = scrollRef.current.querySelector('.enroll-items');
-      if (firstSlide) {
-        const slideWidth = firstSlide.offsetWidth;
-        const gap = 32;
-        singleSetWidthRef.current = enrollItems.length * (slideWidth + gap);
-      }
+    const slide = scrollRef.current.querySelector('.enroll-items');
+    if (slide) {
+      const gap = 32;
+      setSlideWidth(slide.offsetWidth + gap);
     }
-  }, []);
-
-  // Set initial scroll position and handle infinite scroll
-  useEffect(() => {
-    const container = scrollRef.current;
-    if (!container) {
-      return undefined;
-    }
-
-    // Set initial scroll position to start of first set
-    container.scrollLeft = 0;
-
-    const handleScroll = () => {
-      if (isScrollingRef.current) return;
-
-      const scrollLeft = container.scrollLeft;
-      const singleSetWidth = singleSetWidthRef.current;
-
-      // If scrolled past the first set (reached duplicate set), jump back to start of first set
-      if (scrollLeft >= singleSetWidth) {
-        isScrollingRef.current = true;
-        container.scrollTo({
-          left: scrollLeft - singleSetWidth,
-          behavior: 'auto',
-        });
-        setTimeout(() => {
-          isScrollingRef.current = false;
-        }, 50);
-      }
-      // If scrolled before the start (scrolling left from beginning), jump to end of first set
-      else if (scrollLeft <= 0) {
-        isScrollingRef.current = true;
-        container.scrollTo({
-          left: singleSetWidth - (container.querySelector('.enroll-items')?.offsetWidth || 0),
-          behavior: 'auto',
-        });
-        setTimeout(() => {
-          isScrollingRef.current = false;
-        }, 50);
-      }
-    };
-
-    container.addEventListener('scroll', handleScroll);
-    return () => {
-      container.removeEventListener('scroll', handleScroll);
-    };
   }, []);
 
   const scroll = (direction) => {
-    if (scrollRef.current) {
-      // Get the first slide element to calculate its width
-      const firstSlide = scrollRef.current.querySelector('.enroll-items');
-      if (firstSlide) {
-        const slideWidth = firstSlide.offsetWidth;
-        const gap = 32; // Gap between slides as defined in CSS
-        const scrollAmount = slideWidth + gap;
+    if (!scrollRef.current || !slideWidth) return;
 
-        scrollRef.current.scrollBy({
-          left: direction === 'left' ? -scrollAmount : scrollAmount,
-          behavior: 'smooth',
-        });
-      }
+    let nextIndex = currentIndex;
+
+    if (direction === 'right' && currentIndex < enrollItems.length - 1) {
+      nextIndex += 1;
     }
+
+    if (direction === 'left' && currentIndex > 0) {
+      nextIndex -= 1;
+    }
+
+    scrollRef.current.scrollTo({
+      left: nextIndex * slideWidth,
+      behavior: 'smooth',
+    });
+
+    setCurrentIndex(nextIndex);
   };
 
   return (
     <section className="section-enroll-now">
-
       <div className="container-1 mx-auto pl-2 pr-2 text-center mb-65">
-        <div className="features-badge">
-          From Structure to Clarity
-        </div>
-        <h5 className="heading-h5">Here's What <span>You Get</span></h5>
-        <h2 className="heading-h2">A complete method designed to transform your betting approach</h2>
+        <div className="features-badge">From Structure to Clarity</div>
+        <h5 className="heading-h5">
+          Here's What <span>You Get</span>
+        </h5>
+        <h2 className="heading-h2">
+          A complete method designed to transform your betting approach
+        </h2>
       </div>
+
       <div className="enroll-wrapper">
-        <div className="container-slider pt-0 pb-0" ref={scrollRef}>
+        <div className="container-slider" ref={scrollRef}>
           <div className="enroll-track">
-            {(isMobile ? enrollItems : [...enrollItems, ...enrollItems]).map((item, index) => (
+            {enrollItems.map((item, index) => (
               <div className="enroll-items" key={index}>
                 <div className="enroll-items-bg">
                   <div className="enroll-left">
-                    {/* ICON BOX */}
                     {item.icon && ICON_MAP[item.icon] && (
                       <div className="enroll-icon-box">
                         {React.createElement(ICON_MAP[item.icon], {
@@ -127,6 +244,7 @@ const EnrollNowSection = () => {
 
                     <h3 className="heading-h3">{item.title}</h3>
                     <h4 className="heading-h4">{item.description}</h4>
+
                     {item.extraInfo && (
                       <div className="enroll-extra-list">
                         {item.extraInfo.items.map((info, i) => (
@@ -141,55 +259,49 @@ const EnrollNowSection = () => {
                         ))}
                       </div>
                     )}
-
                   </div>
 
                   <div className="enroll-right">
-                    <img alt={item.alt} src={item.imgSrc} className="enroll-image" />
+                    <img
+                      src={item.imgSrc}
+                      alt={item.alt}
+                      className="enroll-image"
+                    />
                   </div>
-
-
                 </div>
               </div>
-
             ))}
           </div>
         </div>
 
-        <div className="scroll-controls">
-          <button type="button" className="scroll-btn prev" onClick={() => scroll('left')}>
-            <img src="/img/prev-scroll.svg" alt="Previous" />
-          </button>
-          <button type="button" className="scroll-btn next" onClick={() => scroll('right')}>
-            <img src="/img/next-scroll.svg" alt="Next" />
-          </button>
-        </div>
-      </div>
+        {/* ARROWS */}
+       <div className="scroll-controls">
+  <button
+    type="button"
+    className="scroll-btn prev"
+    onClick={() => scroll("left")}
+    disabled={currentIndex === 0}
+    aria-label="Previous"
+  />
 
+  <button
+    type="button"
+    className="scroll-btn next"
+    onClick={() => scroll("right")}
+    disabled={currentIndex === enrollItems.length - 1}
+    aria-label="Next"
+  />
+</div>
+
+      </div>
     </section>
   );
 };
 
+
 const enrollItems = [
-  {
-    imgSrc: 'img/tele2.png',
-    alt: 'BSP Tennis Betting Model',
-    title: 'BSP Tennis Betting Model',
-    description:
-      "Access our in-house statistical model that centralizes key ATP metrics to identify mispriced lines and bookmaker inefficiencies. Every bet is supported by a clear Expected Value (EV), removing bias and emotion in favor of objective, data-driven decisions. Built and refined across multiple ATP seasons",
-    icon: 'tenniss',
-    extraInfo: {
-      label: 'Includes',
-      items: [
-        { icon: 'tennis1', text: 'Essential Video Content' },
-        { icon: 'tennis2', text: 'Edge Identification' },
-        { icon: 'tennis3', text: 'Data Modeling' },
-        { icon: 'tennis4', text: 'EV+ Bets' },
-      ],
-    },
-  },
-  {
-    imgSrc: 'img/tele1.png',
+    {
+    imgSrc: 'img/scroll1.png',
     alt: 'BSP Application',
     title: 'BSP Application',
     description:
@@ -206,7 +318,25 @@ const enrollItems = [
     },
   },
   {
-    imgSrc: 'img/enroll1.png',
+    imgSrc: 'img/scroll3.png',
+    alt: 'BSP Tennis Betting Model',
+    title: 'BSP Tennis Betting Model',
+    description:
+      "Access our in-house statistical model that centralizes key ATP metrics to identify mispriced lines and bookmaker inefficiencies. Every bet is supported by a clear Expected Value (EV), removing bias and emotion in favor of objective, data-driven decisions. Built and refined across multiple ATP seasons",
+    icon: 'tenniss',
+    extraInfo: {
+      label: 'Includes',
+      items: [
+        { icon: 'tennis1', text: 'Essential Video Content' },
+        { icon: 'tennis2', text: 'Edge Identification' },
+        { icon: 'tennis3', text: 'Data Modeling' },
+        { icon: 'tennis4', text: 'EV+ Bets' },
+      ],
+    },
+  },
+
+  {
+    imgSrc: 'img/scroll2.png',
     alt: 'Telegram Live Channel',
     title: 'Telegram Live Channel',
     description:
@@ -222,7 +352,7 @@ const enrollItems = [
     },
   },
   {
-    imgSrc: 'img/tele3.png',
+    imgSrc: 'img/scroll4.png',
     alt: 'Masterclass Channel',
     title: 'Masterclass Channel',
     description:
@@ -239,7 +369,7 @@ const enrollItems = [
     },
   },
   {
-    imgSrc: 'img/video.png',
+    imgSrc: 'img/scroll5.png',
     alt: 'BSP Masterclass Video Course',
     title: 'BSP Masterclass Video Course',
     description:

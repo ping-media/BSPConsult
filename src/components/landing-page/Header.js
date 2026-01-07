@@ -10,7 +10,7 @@ const Header = () => (
   <div className="navbar-inner">
     <div className="brand">
       <a href="https://bspconsult.com/" className="brand-link">
-        <img src="img/sitelogo.png" alt="BSP Consult" className="brand-logo" />
+        <img src="img/bsplogo.svg" alt="BSP Consult" className="brand-logo" />
         <span className="brand-text">
           <strong>BSP</strong> CONSULT
         </span>
@@ -29,7 +29,7 @@ const Header = () => (
 
     <div className="bg-effect" />
    
-    <div className="container pl-5 pr-5 pt-65 d-flex flex-column xs-pl-8 xs-pr-8">
+    <div className="container pl-5 pr-5 pt-65 d-flex flex-column xs-pl-24 xs-pr-24">
     <div className="hero-badge-wrapper">
   <div className="hero-badge">
     <span className="hero-badge-tag">Proven</span>

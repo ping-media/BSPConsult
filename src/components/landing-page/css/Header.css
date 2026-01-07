@@ -19,18 +19,6 @@ body {
 .login {
   z-index: 1;
 }
-.btn-white {
-  border-radius: 8px;
-  border: 1px solid #fff;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 24px;
-  display: flex;
-  align-items: center;
-  text-transform: capitalize;
-  color: #fff;
-  padding: 10px 26px;
-}
 
 .hero-subtitle {
   font-weight: 500;
@@ -142,8 +130,8 @@ div#wistia-player-container-1 {
 
   .heading-h1 {
     font-size: 32px;
-    line-height: 42px;
-    letter-spacing: 0.5px;
+    line-height: 40px;
+    letter-spacing: 0px;
     padding-bottom: 30px;
   }
 
@@ -276,17 +264,20 @@ div#wistia-player-container-1 {
 .btn-white {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 5px 6px 5px 16px;
-  border-radius: 50px;
+  gap: 10px;
+  padding: 4px 6px 4px 16px;
+  line-height: 24px;
+  border-radius: 98px;
   font-size: 16px;
-  font-weight: 200;
-  color: #fff;
-  background: rgba(255, 255, 255, 0.12);
+  font-weight: 600;
+  color: #FFFFFF;
+  /* background: rgba(255, 255, 255, 0.12); */
+  background: #2E2F36;
   backdrop-filter: blur(10px) saturate(160%);
   -webkit-backdrop-filter: blur(10px) saturate(160%);
 
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  /* border: 1px solid rgba(255, 255, 255, 0.25); */
+  border: 1px solid #58595E;
 
   transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
 }
@@ -312,6 +303,7 @@ div#wistia-player-container-1 {
 
 .hero-badge-wrapper {
   display: flex;
+  padding: 8px 16px 8px 8px;
   justify-content: center;
   margin-bottom: 30px;
 }
@@ -354,14 +346,16 @@ div#wistia-player-container-1 {
 
 /* LEFT BLUE MINI BUTTON */
 .hero-badge-tag {
-  padding: 6px 12px;
-  border-radius: 50px;
+  padding: 4px 8px 4px 8px;
+  border-radius: 12px;
   font-size: 14px;
   font-weight: 500;
   /* text-transform: uppercase; */
 
   color: #fff;
   background: linear-gradient(135deg, #51A2FF, #51A2FF);
+   background: #51A2FF;
+   line-height: 16.8px;
   box-shadow: 0 4px 12px rgba(0, 82, 204, 0.45);
 }
 
@@ -369,6 +363,7 @@ div#wistia-player-container-1 {
 .hero-badge-text {
   font-size: 14px;
   font-weight: 500;
+  line-height: 16.8px;
   color: #fff;
   white-space: nowrap;
 }
@@ -500,6 +495,9 @@ div#wistia-player-container-1 {
 @media (max-width: 767px) {
 
   /* ===== NAVBAR ===== */
+  .navbar{
+    padding: 20px 18px 20px 18px;
+  }
   .brand-text {
     display: none;
     /* hide BSP CONSULT text */
@@ -509,20 +507,28 @@ div#wistia-player-container-1 {
     height: 34px;
   }
 
+
   .navbar-inner {
     max-width: 100%;
     padding: 0 14px;
   }
 
+  .btn-white{
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+   
+  }
+
+
   /* ===== WATCH VIDEO TEXT ===== */
   .watch-video-text {
     font-size: 12px;
+    line-height: 18px;
     gap: 6px;
     padding-bottom: 28px;
     /* flex-wrap: wrap; */
     text-align: center;
-    margin-left: 18px;
-    margin-right: 18px;
+   
   }
 
   .watch-video-text span {
@@ -541,12 +547,14 @@ div#wistia-player-container-1 {
   .play-icon {
     width: 12px;
     height: 12px;
+    padding-top: 4px;
+    
   }
 
   /* ===== FEATURES LIST ===== */
   .features-list {
     gap: 8px;
-    margin-top: 0;
+    margin: 0;
   }
 
   .feature-item {
@@ -554,6 +562,10 @@ div#wistia-player-container-1 {
     justify-content: flex-start;
     font-size: 12px;
     gap: 2px;
+  }
+  .feature-item svg{
+    width: 20px;
+    height: 20px;
   }
 
   /* very small phones → 1 per row */

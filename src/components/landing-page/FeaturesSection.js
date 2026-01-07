@@ -14,13 +14,20 @@ const FeaturesSection = () => (
       <div className="features-text">
 
   <RevealText
-    className="features-description"
+    className="features-description desktop-only"
     text={`Chasing losses. Following random tips. Betting on instinct.
-  The pattern is always the same: you win, you lose, you tilt and you bet again to recover. Most bettors don’t fail because they’re unlucky. They fail because they bet emotionally without structure and without properly evaluating the odds.Knowing a sport is not the same as beating the market.\n
-      This is where our method replaces emotion. Not feelings. Not random bets. Betting becomes a process backed by a clear structure and the right tools. This is the foundation of how BSP works.
+  The pattern is always the same: you win, you lose, you tilt and you bet again to recover. Most bettors don’t fail because they’re unlucky. They fail because they bet emotionally without structure and without properly evaluating the odds. Knowing a sport is not the same as beating the market.\n
+      This is where our method replaces emotion.\n Not feelings. Not random bets. Betting becomes a process backed by a clear structure and the right tools.\n This is the foundation of how BSP works.
       `}
   />
 
+  <RevealText
+    className="features-description mobile-only"
+    text={`Chasing losses. Following random tips. Betting on instinct.\n
+  The pattern is always the same: you win, you lose, you tilt and you bet again to recover.\n \n Most bettors don’t fail because they’re unlucky.\n \n They fail because they bet emotionally without structure and without properly evaluating the odds.\n \n Knowing a sport is not the same as beating the market.\n
+      This is where our method replaces emotion.\n\n Not feelings. Not random bets. Betting becomes a process backed by a clear structure and the right tools.\n\n This is the foundation of how BSP works.
+      `}
+  />
  
 
 </div>

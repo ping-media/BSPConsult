@@ -15,7 +15,7 @@ const RevealText = ({ text, className }) => {
   const normalizedText = text.trim().replace(/[ \t]+/g, ' ');
   const letters = normalizedText.split("");
 
-  // ✅ Listen to scroll progress safely
+  // Listen to scroll progress safely
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     const count = Math.floor(latest * letters.length);
     setRevealedCount(count);
