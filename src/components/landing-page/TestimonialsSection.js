@@ -94,9 +94,11 @@ useEffect(() => {
       <div className="container-3 mx-auto text-center mb-65">
         <div className="features-badge">Testimonials From Members</div>
 
-        <h5 className="heading-h5">
-          Messages from <br/> members  applying the <br /> method day to day
-        </h5>
+   <h5 className="heading-h5">
+  Messages from members applying the
+  <span className="desktop-line-break"> method day to day</span>
+</h5>
+
 
         <h2 className="heading-h2">
           This is what happens when you replace emotional betting with structure.

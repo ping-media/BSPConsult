@@ -300,6 +300,23 @@ const EnrollNowSection = () => {
 
 
 const enrollItems = [
+   {
+    imgSrc: 'img/scroll1.png',
+    alt: 'BSP Application',
+    title: 'BSP Application',
+    description:
+      "Follow a structured ATP betting strategy directly inside the app. Every betting opportunity is supported by clear analysis and a personalized staking system, removing emotion from decision-making and allowing users to fully understand the logic behind each bet, complemented by advanced tournament-level insights.",
+    icon: 'applications',
+    extraInfo: {
+      label: 'Includes',
+      items: [
+        { icon: 'app1', text: 'Advanced Data Insights' },
+        { icon: 'app2', text: 'High ROI-focused bets' },
+        { icon: 'app3', text: 'Detailed Bet Analysis' },
+        { icon: 'app4', text: 'Tournament Previews & Context' },
+      ],
+    },
+  },
     {
       imgSrc: 'img/scroll3.png',
       alt: 'BSP Tennis Betting Model',
@@ -360,30 +377,13 @@ const enrollItems = [
       extraInfo: {
         label: 'Includes',
         items: [
-          { icon: 'video1', text: 'Advanced Data & Execution Tools' },
-          { icon: 'video2', text: 'Real Profit Case Studies' },
+          { icon: 'video1', text: 'Advanced Data & Tools' },
+          { icon: 'video2', text: 'Case Studies' },
           { icon: 'video3', text: 'Personal Account Walkthroughs' },
-          { icon: 'video4', text: 'Live Scaling Frameworks' },
         ],
       },
     },
-    {
-    imgSrc: 'img/scroll1.png',
-    alt: 'BSP Application',
-    title: 'BSP Application',
-    description:
-      "Follow a structured ATP betting strategy directly inside the app. Every betting opportunity is supported by clear analysis and a personalized staking system, removing emotion from decision-making and allowing users to fully understand the logic behind each bet, complemented by advanced tournament-level insights.",
-    icon: 'applications',
-    extraInfo: {
-      label: 'Includes',
-      items: [
-        { icon: 'app1', text: 'Advanced Data Insights' },
-        { icon: 'app2', text: 'High ROI-focused bets' },
-        { icon: 'app3', text: 'Detailed Bet Analysi' },
-        { icon: 'app4', text: 'Tournament Previews & Context' },
-      ],
-    },
-  }
+   
 ];
 
 export default EnrollNowSection;

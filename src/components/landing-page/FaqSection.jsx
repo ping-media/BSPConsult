@@ -168,7 +168,7 @@ export default function FaqSection() {
 
             {/* CTA Button */}
             <div className='view-program'>
-              <a href={paths.login} className="cta-gradient-btn">
+              <a href="#SectionPrice" className="cta-gradient-btn">
                 <span className="cta-text">Apply the BSP Method</span>
                 <img
                   src="img/viewbtn.svg"
