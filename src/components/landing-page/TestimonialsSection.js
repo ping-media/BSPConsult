@@ -38,7 +38,9 @@ const testimonials = [
   { src: '/img/t12.png', label: 'Nov 2025 · Advanced Member' },
   { src: '/img/t13.png', label: 'Nov 2025 · Gold Member' },
   { src: '/img/t14.png', label: 'Nov 2025 · Silver Member' },
-  { src: '/img/t15.png', label: 'Oct 2025 · Advanced Member' },
+  { src: '/img/t15.png', label: 'Oct 2025 · Gold Member' },
+  { src: '/img/t17.png', label: 'Nov 2025 · Advanced Member' },
+  { src: '/img/t18.png', label: 'Oct 2025 · Advanced Member' },
   { src: '/img/t16.png', label: 'Sep 2025 · Gold Member' },
 ];
 

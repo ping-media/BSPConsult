@@ -3,24 +3,52 @@ import './css/FaqSection.css';
 import { paths } from 'src/routes/paths'; 
 
 const faqs = [
-  {
+    {
     q: 'How many betting opportunities will I receive?',
-    a: `You’ll receive regular ATP betting opportunities, but understand that we are not like most Telegram signal groups that push five bets a day. We only share plays that align with our strategy and where a clear edge and value are present. Expect between 15 and 40 high-quality bets per month, with long-term consistency as the primary objective.
-The best traders in the market do not bet five times a day. Forget the old “volume-first” betting mindset and adopt a more selective, disciplined strategy focused on sustainable results.
-`,
+    a: (
+      <>
+        <p>
+          You’ll receive regular ATP betting opportunities, but understand that we are not like most Telegram signal groups that push five bets a day. We only share plays that align with our strategy and where a clear edge and value are present. Expect between 15 and 40 high-quality bets per month, with long-term consistency as the primary objective.
+        </p>
+
+        <p>
+          The best traders in the market do not bet five times a day. Forget the old “volume-first” betting mindset and adopt a more selective, disciplined strategy focused on sustainable results.
+        </p>
+
+       
+      </>
+    ),
   },
   {
-    q: 'How much bankroll do I need to start?',
+    q: 'What is the difference between Silver and Gold Membership?',
     a: `We recommend a minimum bankroll of around €500 to start the right way. It’s better to save and begin properly than to start undercapitalized and in a rush.`,
   },
-  {
-    q: 'What is the difference between the Silver, Advanced and Gold Programs?',
-    a: `Silver Program\n\n
-Silver is the perfect starting point for bettors who want to eliminate emotional betting and follow a structured, disciplined approach. You’ll gain access to the bets we take ourselves, with detailed explanations. You will have access to the bets section of the BSP app, where the most interesting betting opportunities are posted, along with our Telegram live channel, where you receive real-time betting opportunities ready to copy and place. This program is designed for simplicity, clarity and execution.
-Advanced Program
-Advanced includes everything in the Silver Program, plus data-driven insights backed by market context in the second part of the BSP app. These insights allow you to stay informed before the mass market reacts, giving you a strategic edge. You’ll receive advanced statistical analysis, round-by-round tournament data to identify current betting trends, and access to the BSP Tennis Betting Model, which centralizes the most important metrics to identify bookmaker inefficiencies and monetize them.
-Gold Program
-Gold is designed for those who want an elite understanding of betting. It is ideal for those who want to make betting a real source of income, aiming to master the strategy in depth. This program includes access to private sources, daily market metrics, elite video education, real case-study recordings, and advanced techniques such as bypassing bookmaker limits, emerging crypto betting methods and personal walkthroughs of high-volume betting accounts. Gold is about long-term mastery, scalability and operating like a professional bettor.`,
+ {
+    q: 'How many betting opportunities will I receive?',
+    a: (
+      <>
+      
+        <span>Silver Program</span>
+    
+        <p>
+          
+          Silver is the perfect starting point for bettors who want to eliminate emotional betting and follow a structured, disciplined approach. You’ll gain access to the bets we take ourselves, with detailed explanations. You will have access to the bets section of the BSP app, where the most interesting betting opportunities are posted, along with our Telegram live channel, where you receive real-time betting opportunities ready to copy and place. This program is designed for simplicity, clarity and execution.
+        </p>
+        <span>Advanced Program</span>
+     
+        <p>
+          
+          Advanced includes everything in the Silver Program, plus data-driven insights backed by market context in the second part of the BSP app. These insights allow you to stay informed before the mass market reacts, giving you a strategic edge. You’ll receive advanced statistical analysis, round-by-round tournament data to identify current betting trends, and access to the BSP Tennis Betting Model, which centralizes the most important metrics to identify bookmaker inefficiencies and monetize them.
+        </p>
+ 
+        <span>Gold Program</span>
+     
+       <p>
+        Gold is designed for those who want an elite understanding of betting. It is ideal for those who want to make betting a real source of income, aiming to master the strategy in depth. This program includes access to private sources, daily market metrics, elite video education, real case-study recordings, and advanced techniques such as bypassing bookmaker limits, emerging crypto betting methods and personal walkthroughs of high-volume betting accounts. Gold is about long-term mastery, scalability and operating like a professional bettor.
+      </p>
+       
+      </>
+    ),
   },
   {
     q: 'What is your strategy based on?',
@@ -38,15 +66,35 @@ Gold is designed for those who want an elite understanding of betting. It is ide
     q: 'Can I cancel anytime?',
     a: `Yes, you can cancel your subscription whenever you want. No long-term obligation, no lock-in.`,
   },
-  {
+    {
     q: 'What makes BSP Consult different from tipsters?',
-    a: `The betting space is full of hype, fake screenshots and people betting purely on what they see, without evaluating the prices and odds they receive.
+    a: (
+      <>
+        <p>
+          The betting space is full of hype, fake screenshots and people betting purely on what they see, without evaluating the prices and odds they receive.
+        </p>
+<span>
+    We do it differently:
+</span>
+        <ul className="faq-list">
+  <li>
+    Full transparency (screen recordings, bookmaker switching, proof of withdrawals, real execution)
+  </li>
+  <li>
+    One niche, one sport, one proven framework
+  </li>
+  <li>
+    Real study cases, recorded live — not just claims
+  </li>
+</ul>
 
-We do it differently:
-Full transparency (screen recordings, bookmaker switching, proof of withdrawals, real execution)
-One niche, one sport, one proven framework
-Real study cases, recorded live — not just claims
-We don’t just give bets — we show the entire process behind them.`,
+<p>
+    We don’t just give bets — we show the entire process behind them.
+</p>
+
+       
+      </>
+    ),
   },
   {
     q: 'What about the €14K study case — is it real?',
