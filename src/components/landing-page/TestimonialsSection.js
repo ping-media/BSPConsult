@@ -96,7 +96,7 @@ useEffect(() => {
 
    <h5 className="heading-h5">
   Messages from members applying the
-  <span className="desktop-line-break"> method day to day</span>
+  <span className="desktop-line-break"> method day   <br className="mobile-only-br" />to day</span>
 </h5>
 
 

@@ -80,12 +80,8 @@
 .faq-answer p {
   margin-bottom: 1em;
 }
-.faq-answer span {
-  display: block;         
-  color: #ffffff;           
-  font-weight: 500;
-  font-size: 16px;
-  margin-bottom: 6px;        
+.faq-list-title span {   
+ padding-left: 0;
 }
 
 
@@ -98,7 +94,7 @@
 .faq-list li {
   position: relative;
   padding-left: 18px;
-   margin-bottom: 6px;
+   
 }
 
 .faq-list li::before {

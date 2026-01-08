@@ -27,7 +27,8 @@ style.innerHTML = `
     height: 100% !important;
    /* increase thumbnail size */
     transform-origin: center;
-    object-fit: fill !important;
+    object-fit: cover !important;
+    object-position: top center !important;
   }
 
   /* background safety */
