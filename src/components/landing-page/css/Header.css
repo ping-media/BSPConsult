@@ -639,7 +639,9 @@ div#wistia-player-container-1 {
    .play-icon {
     width: 12px;
     height: 12px;
-   margin-left: 12px;
+    position: relative;
+    left: 5px;
     
   }
+  
 }
