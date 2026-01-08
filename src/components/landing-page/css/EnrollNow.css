@@ -482,7 +482,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-
+ 
   transition: all 0.25s ease;
 }
 
@@ -499,8 +499,8 @@ body {
 /* ARROW */
 .scroll-btn::before {
   content: "";
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-right: 2px solid #007AFF;
   border-bottom: 2px solid #007AFF;
   transform: rotate(-45deg);
@@ -515,7 +515,6 @@ body {
   left: 1px;
 }
 
-/* HOVER */
 /* HOVER */
 .scroll-btn:hover:not(:disabled) {
   background: linear-gradient(180deg, #007AFF 0%, #0C53C8 100%);

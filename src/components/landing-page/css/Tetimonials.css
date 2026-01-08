@@ -1,7 +1,6 @@
 .section-testimonials {
   position: relative;
-
-  padding: 80px 0;
+   padding: 80px 0;
   background: linear-gradient(180deg, #070912 0%, #151924 100%);
 }
 
@@ -20,7 +19,7 @@
   /* display: flex; */
   flex-direction: column;
   align-items: center;
-  padding-left: 80px;
+  
 }
 
 /* Horizontal row */
@@ -29,6 +28,7 @@
   gap: 20px;
   overflow-x: auto;
   scroll-behavior: smooth;
+  padding-left: 80px;
   /* padding: 20px 0; */
   /* ✅ NO LEFT GAP */
 }
@@ -84,71 +84,17 @@
   object-fit: cover;
 }
 
-/* Scroll buttons */
-.scroll-controls {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 32px;
-}
+.desktop-line-break span {
+  display: inline;
 
-.scroll-btn {
-  /* width: 44px; */
-  /* height: 44px; */
-  border-radius: 50%;
-  border-radius: 92px;
-  /* border: 1px solid rgba(81, 162, 255, 0.30); */
-  /* background: var(--Linear, linear-gradient(180deg, #007AFF 0%, #0C53C8 100%)); */
-  /* border: 1px solid #51A2FF4D; */
-  color: #fff;
-  font-size: 26px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.25s ease;
-  padding: 0;
-  border: none;
-  background: transparent;
 }
-
-.scroll-btn:disabled {
-  opacity: 0.5;
-  cursor: default;
+.heading-h5 .desktop-line-break {
+  color: #FFFFFF; 
 }
-.scroll-btn.active {
-  /* background: linear-gradient(180deg, #007AFF 0%, #0C53C8 100%); */
-  /* border: 1px solid #51A2FF4D; */
-  color: #ffffff;
-
-  box-shadow:
-    0px 3px 6px rgba(0, 0, 0, 0.25),
-    inset 0 1px 0 rgba(255, 255, 255, 0.25);
-}
-.scroll-btn.active:hover {
-  filter: brightness(1.1);
-}
-
-.scroll-btn:hover {
-  background: transparent;
-}
-
-.scroll-btn img {
-  width: 40px;
-  height: 40px;
-  display: block;
-}
-
-.scroll-btn.prev img,
-.scroll-btn.next img {
-  pointer-events: none;
-}
-.section-testimonials .heading-h5 br:nth-child(1){
-  display: none;
-}
-.scroll-btn.next::before{
-  position: relative;
-  left: -1px;
+@media (min-width: 992px) {
+  .desktop-line-break {
+    display: block;
+  }
 }
 
 /* Mobile */
@@ -182,21 +128,6 @@
     box-shadow: none;
   }
 
-  .scroll-btn {
-    /* display: none; */
-  }
-  .scroll-btn{
-    height: 34px;
-    width: 34px;
-  }
-  .scroll-btn::before{
-    width: 8px;
-    height: 8px;
-  }
-
-  .scroll-controls{
-    margin-top: 24px;
-  }
 
   .testimonial-footer {
     padding: 12px 20px;
