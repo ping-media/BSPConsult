@@ -116,6 +116,9 @@ body {
 div#wistia-player-container-1 {
   margin-bottom: 45px;
 }
+.heading-h1 br:nth-child(1){
+  display: none;
+}
 
 @media (max-width: 767px) {
   .container {
@@ -137,6 +140,9 @@ div#wistia-player-container-1 {
 
   .heading-h1 br {
     display: none;
+  }
+  .heading-h1 br:nth-child(1){
+    display: block;
   }
 
   .bg-effect {
@@ -512,19 +518,24 @@ div#wistia-player-container-1 {
   }
 
   .brand-logo {
-    height: 41px;
+    height: 42px;
   }
 
 
   .navbar-inner {
     max-width: 100%;
-    padding: 0 14px;
+    padding: 0;
   }
 
   .btn-white{
     background: rgba(255, 255, 255, 0.12);
     border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 4px 4px 4px 16px;
    
+  }
+  .btn-icon{
+    width: 32px;
+    height: 32px;
   }
 
   .cta-gradient-btn{
@@ -617,5 +628,8 @@ div#wistia-player-container-1 {
   .hero-badge-wrapper {
     margin-top: 0px;
     margin-bottom: 24px;
+  }
+  header .container{
+    background: radial-gradient(100% 30% at 50% 0%, #007aff2b 0%, #007aff2e 25%, rgba(3, 5, 17, 0) 90%), #030511;
   }
 }
