@@ -91,6 +91,17 @@
 .heading-h5 .desktop-line-break {
   color: #FFFFFF; 
 }
+/* Desktop → hide line break */
+.mobile-only-br {
+  display: none;
+}
+
+/* Mobile → show line break */
+@media (max-width: 767px) {
+  .mobile-only-br {
+    display: block;
+  }
+}
 @media (min-width: 992px) {
   .desktop-line-break {
     display: block;
