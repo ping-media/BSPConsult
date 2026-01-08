@@ -634,3 +634,14 @@ div#wistia-player-container-1 {
     background: radial-gradient(100% 30% at 50% 0%, #007aff2b 0%, #007aff2e 25%, rgba(3, 5, 17, 0) 90%), #030511;
   }
 }
+
+@media (max-width: 400px) {
+   .play-icon {
+    width: 12px;
+    height: 12px;
+    position: relative;
+    left: 5px;
+    
+  }
+  
+}
