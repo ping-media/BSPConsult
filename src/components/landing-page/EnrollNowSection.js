@@ -215,7 +215,7 @@ const EnrollNowSection = () => {
   };
 
   return (
-    <section className="section-enroll-now">
+    <section className="section-enroll-now section-top-divider">
       <div className="container-1 mx-auto pl-2 pr-2 text-center mb-65">
         <div className="features-badge">From Structure to Clarity</div>
         <h5 className="heading-h5">
@@ -301,6 +301,73 @@ const EnrollNowSection = () => {
 
 const enrollItems = [
     {
+      imgSrc: 'img/scroll3.png',
+      alt: 'BSP Tennis Betting Model',
+      title: 'BSP Tennis Betting Model',
+      description:
+        "Access our in-house statistical model that centralizes key ATP metrics to identify mispriced lines and bookmaker inefficiencies. Every bet is supported by a clear Expected Value (EV), removing bias and emotion in favor of objective, data-driven decisions. Built and refined across multiple ATP seasons",
+      icon: 'tenniss',
+      extraInfo: {
+        label: 'Includes',
+        items: [
+          { icon: 'tennis1', text: 'Essential Video Content' },
+          { icon: 'tennis2', text: 'Edge Identification' },
+          { icon: 'tennis3', text: 'Data Modeling' },
+          { icon: 'tennis4', text: 'EV+ Bets' },
+        ],
+      },
+    },
+    {
+      imgSrc: 'img/scroll2.png',
+      alt: 'Telegram Live Channel',
+      title: 'Telegram Live Channel',
+      description:
+        'Access live betting opportunities with real-time context. Learn why we enter, skip, or exit matches in real time, identify momentum shifts and act before odds adjust. Master hedging strategies on tennis without emotional pressure.',
+      icon: 'chat',
+      extraInfo: {
+        label: 'Includes',
+        items: [
+          { icon: 'chat1', text: 'Predefined Entries' },
+          { icon: 'chat2', text: 'Live Market Edge' },
+          { icon: 'chat3', text: 'Timing & Execution' },
+        ],
+      },
+    },
+    {
+      imgSrc: 'img/scroll4.png',
+      alt: 'Masterclass Channel',
+      title: 'Masterclass Channel',
+      description:
+        'Access deep, high-precision tennis information normally reserved for professional analysts. From elite tennis statistics to advanced betting strategies suited for high-staking profiles, this channel is built for bettors who want a complete advanced understanding of the game.',
+      icon: 'channels',
+      extraInfo: {
+        label: 'Includes',
+        items: [
+          { icon: 'channel1', text: 'High-Staking Strategies' },
+          { icon: 'channel2', text: 'Advanced Statistics' },
+          { icon: 'channel3', text: 'Crypto Bookmaker Dynamics' },
+          { icon: 'channel4', text: 'Profit Optimization' },
+        ],
+      },
+    },
+    {
+      imgSrc: 'img/scroll5.png',
+      alt: 'BSP Masterclass Video Course',
+      title: 'BSP Masterclass Video Course',
+      description:
+        'A complete A→Z breakdown of the Method. Learn the methodology, tools, and decision logic through real case studies showcasing wins and losses, recorded step by step without filters. Built for members who want full access to the secrets of our strategy',
+      icon: 'videos',
+      extraInfo: {
+        label: 'Includes',
+        items: [
+          { icon: 'video1', text: 'Advanced Data & Execution Tools' },
+          { icon: 'video2', text: 'Real Profit Case Studies' },
+          { icon: 'video3', text: 'Personal Account Walkthroughs' },
+          { icon: 'video4', text: 'Live Scaling Frameworks' },
+        ],
+      },
+    },
+    {
     imgSrc: 'img/scroll1.png',
     alt: 'BSP Application',
     title: 'BSP Application',
@@ -314,74 +381,6 @@ const enrollItems = [
         { icon: 'app2', text: 'High ROI-focused bets' },
         { icon: 'app3', text: 'Detailed Bet Analysi' },
         { icon: 'app4', text: 'Tournament Previews & Context' },
-      ],
-    },
-  },
-  {
-    imgSrc: 'img/scroll3.png',
-    alt: 'BSP Tennis Betting Model',
-    title: 'BSP Tennis Betting Model',
-    description:
-      "Access our in-house statistical model that centralizes key ATP metrics to identify mispriced lines and bookmaker inefficiencies. Every bet is supported by a clear Expected Value (EV), removing bias and emotion in favor of objective, data-driven decisions. Built and refined across multiple ATP seasons",
-    icon: 'tenniss',
-    extraInfo: {
-      label: 'Includes',
-      items: [
-        { icon: 'tennis1', text: 'Essential Video Content' },
-        { icon: 'tennis2', text: 'Edge Identification' },
-        { icon: 'tennis3', text: 'Data Modeling' },
-        { icon: 'tennis4', text: 'EV+ Bets' },
-      ],
-    },
-  },
-
-  {
-    imgSrc: 'img/scroll2.png',
-    alt: 'Telegram Live Channel',
-    title: 'Telegram Live Channel',
-    description:
-      'Access live betting opportunities with real-time context. Learn why we enter, skip, or exit matches in real time, identify momentum shifts and act before odds adjust. Master hedging strategies on tennis without emotional pressure.',
-    icon: 'chat',
-    extraInfo: {
-      label: 'Includes',
-      items: [
-        { icon: 'chat1', text: 'Predefined Entries' },
-        { icon: 'chat2', text: 'Live Market Edge' },
-        { icon: 'chat3', text: 'Timing & Execution' },
-      ],
-    },
-  },
-  {
-    imgSrc: 'img/scroll4.png',
-    alt: 'Masterclass Channel',
-    title: 'Masterclass Channel',
-    description:
-      'Access deep, high-precision tennis information normally reserved for professional analysts. From elite tennis statistics to advanced betting strategies suited for high-staking profiles, this channel is built for bettors who want a complete advanced understanding of the game.',
-    icon: 'channels',
-    extraInfo: {
-      label: 'Includes',
-      items: [
-        { icon: 'channel1', text: 'High-Staking Strategies' },
-        { icon: 'channel2', text: 'Advanced Statistics' },
-        { icon: 'channel3', text: 'Crypto Bookmaker Dynamics' },
-        { icon: 'channel4', text: 'Profit Optimization' },
-      ],
-    },
-  },
-  {
-    imgSrc: 'img/scroll5.png',
-    alt: 'BSP Masterclass Video Course',
-    title: 'BSP Masterclass Video Course',
-    description:
-      'A complete A→Z breakdown of the Method. Learn the methodology, tools, and decision logic through real case studies showcasing wins and losses, recorded step by step without filters. Built for members who want full access to the secrets of our strategy',
-    icon: 'videos',
-    extraInfo: {
-      label: 'Includes',
-      items: [
-        { icon: 'video1', text: 'Advanced Data & Execution Tools' },
-        { icon: 'video2', text: 'Real Profit Case Studies' },
-        { icon: 'video3', text: 'Personal Account Walkthroughs' },
-        { icon: 'video4', text: 'Live Scaling Frameworks' },
       ],
     },
   }

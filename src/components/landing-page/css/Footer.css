@@ -7,7 +7,7 @@
 
 /* TOP GRADIENT OVERLAY */
 .footer-gradient {
-  position: absolute;
+  /* position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -15,7 +15,7 @@
   background: linear-gradient(180deg,
       rgba(0, 122, 255, 0.09) 0%,
       rgba(0, 122, 255, 0) 100%);
-  pointer-events: none;
+  pointer-events: none; */
 }
 
 .footer-container {
@@ -27,6 +27,7 @@
   display: grid;
   grid-template-columns: 4fr 1fr 1fr;
   gap: 80px;
+  background: linear-gradient(180deg, rgba(0, 122, 255, 0.09) 0%, rgba(0, 122, 255, 0.00) 100%), #090B15;
 }
 
 /* LEFT */
@@ -39,10 +40,11 @@
 }
 
 .footer-desc {
-  margin: 15px 0 35px;
-  color: #B6BCC8;
+  margin: 15px 0 32px;
+  color: rgba(255, 255, 255, 0.60);
   font-size: 18px;
   font-weight: 400;
+  line-height: 25px;
 }
 
 .footer-title {
@@ -71,6 +73,10 @@
   max-width: 300px;
 }
 
+.footer-subscribe input::placeholder {
+  color: #B6BCC8;
+}
+
 .footer-subscribe button {
   display: flex;
   align-items: center;
@@ -90,20 +96,23 @@
 /* LINKS */
 .footer-links h4,
 .footer-apps h4 {
-  margin-bottom: 24px !important;
+  margin-bottom: 20px !important;
   font-size: 20px;
-  font-weight: 400;
+  font-weight: 500;
+  line-height: 30px;
 }
 
 .footer-links ul {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .footer-links a {
-  color: #9ca3af;
-  font-size: 14px;
+  color: #B6BCC8;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
 }
 
 .footer-links a:hover {
@@ -130,18 +139,51 @@
 /* MOBILE */
 @media (max-width: 768px) {
   .footer-container {
-    grid-template-columns: 1fr;
-    gap: 40px;
+    grid-template-columns: 1fr 1fr;
+    gap: 42px 0;
     padding: 60px 24px 32px;
+    background: linear-gradient(180deg, rgba(0, 122, 255, 0.09) 0%, rgba(0, 122, 255, 0.00) 100%), #090B15;
   }
+
+  .footer-left{
+    grid-column-end: span 3;
+  }
+
   .footer-bottom{
     padding: 20px 24px;
+    font-size: 14px;
   }
 
   .footer-subscribe input {
     max-width: 178px !important;
   }
   .footer-subscribe button{
-    padding: 6px 8px 6px 12px;
+    padding: 4px 4px 4px 12px;
+  }
+  .footer-subscribe button img{
+    width: 32px;
+  }
+  .footer-apps img{
+    margin-bottom: 12px;
+  }
+  .footer-desc{
+    font-size: 16px;
+  }
+  .footer-apps h4 {
+    margin-bottom: 16px !important;
+    font-size: 16px;
+  }
+  .footer-links h4{
+    font-size: 16px;
+    margin-bottom: 16px !important;
+  }
+  .footer-links a{
+    font-size: 14px;
+  }
+  .footer-links ul{
+    gap: 8px;
+  }
+  .footer-links a{
+    line-height: 20px;
   }
 }

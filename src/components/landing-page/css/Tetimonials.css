@@ -29,7 +29,7 @@
   gap: 20px;
   overflow-x: auto;
   scroll-behavior: smooth;
-  padding: 20px 0;
+  /* padding: 20px 0; */
   /* ✅ NO LEFT GAP */
 }
 
@@ -39,7 +39,7 @@
 
 /* Card */
 .testimonial-card {
-  min-width: 260px;
+  min-width: 333px;
   background: #1c2128;
   border-radius: 20px;
   /* padding: 16px; */
@@ -61,12 +61,13 @@
   color: #fff;
   /* text-align: center; */
   letter-spacing: 0.2px;
+  line-height: 24px;
 }
 
 
 /* Image box */
 .testimonial-image-box {
-  height: 445px;              /* ← lock visual size */
+  height: 474px;              /* ← lock visual size */
   padding: 12px;
   display: flex;
   align-items: center;
@@ -78,8 +79,8 @@
 
 
 .testimonial-image-box img {
-  width: 100%;
-  height: 100%;
+  width: 301px;
+  height: 445px;
   object-fit: cover;
 }
 
@@ -88,7 +89,7 @@
   display: flex;
   justify-content: center;
   gap: 16px;
-  margin-top: 20px;
+  margin-top: 32px;
 }
 
 .scroll-btn {
@@ -117,7 +118,7 @@
 }
 .scroll-btn.active {
   /* background: linear-gradient(180deg, #007AFF 0%, #0C53C8 100%); */
-  border: 1px solid #51A2FF4D;
+  /* border: 1px solid #51A2FF4D; */
   color: #ffffff;
 
   box-shadow:
@@ -142,11 +143,18 @@
 .scroll-btn.next img {
   pointer-events: none;
 }
+.section-testimonials .heading-h5 br:nth-child(1){
+  display: none;
+}
+.scroll-btn.next::before{
+  position: relative;
+  left: -1px;
+}
 
 /* Mobile */
 @media (max-width: 768px) {
   .section-testimonials {
-    padding: 40px 20px;
+    padding: 60px 24px;
   }
 
   .testimonials-wrapper {
@@ -157,8 +165,12 @@
 
   .testimonials-row {
     width: 100%;
-    padding: 20px 0;
+    padding: 0;
     gap: 16px;
+  }
+  .section-testimonials .heading-h5{
+    margin-bottom: 8px;
+    font-weight: 500;
   }
 
   .testimonial-card {
@@ -167,10 +179,23 @@
     width: 140px;
     min-width: 274px !important;
     height: auto !important;
+    box-shadow: none;
   }
 
   .scroll-btn {
-    display: none;
+    /* display: none; */
+  }
+  .scroll-btn{
+    height: 34px;
+    width: 34px;
+  }
+  .scroll-btn::before{
+    width: 8px;
+    height: 8px;
+  }
+
+  .scroll-controls{
+    margin-top: 24px;
   }
 
   .testimonial-footer {
@@ -186,6 +211,15 @@
     .testimonial-image-box {
     height: 378px;
     border-radius: 20px;
+  }
+  .section-testimonials .heading-h5 br:nth-child(2){
+    display: none;
+  }
+  .section-testimonials .heading-h5 br:nth-child(1) {
+      display: block;
+  }
+  .section-testimonials .features-badge{
+    margin-bottom: 12px;
   }
 }
 

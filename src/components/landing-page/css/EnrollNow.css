@@ -33,19 +33,32 @@ body {
   background: #090B15;
   overflow: hidden; /* important for glow cropping */
 }
+.section-enroll-now .heading-h5{
+  font-weight: 600;
+}
+/* .section-enroll-now .section-top-divider::before {
+  content: '';
+    background: radial-gradient(50% 40.02% at 50% 50%, #0993fd9c 0, #1847b3 33%, rgba(17, 81, 200, 0.723813) 51.5%, rgba(0, 107, 255, 0) 100%);
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    bottom: auto;
+    top: 0;
+} */
+
 
 /* TOP RIGHT GLOW */
 .section-enroll-now::before {
-  content: "";
-  position: absolute;
-  top: -25%;
-  right: -10%;
-  width: 329px;
-  height: 329px;
-  background: rgba(0, 122, 255, 0.1); /* #007AFF1A */
-  border-radius: 50%;
-  filter: blur(194px);
-  z-index: 0;
+ content: '';
+    background: radial-gradient(50% 40.02% at 50% 50%, #0993fd9c 0, #1847b3 33%, rgba(17, 81, 200, 0.723813) 51.5%, rgba(0, 107, 255, 0) 100%);
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    bottom: auto;
+    top: 0;
+  
 }
 
 /* BOTTOM LEFT GLOW */
@@ -61,6 +74,7 @@ body {
   filter: blur(194px);
   z-index: 0;
 }
+
 
 /* CONTENT SHOULD STAY ABOVE GLOWS */
 .section-enroll-now > * {
@@ -87,12 +101,12 @@ body {
 
 
   border-radius: 24px;
-  padding: 34px;
+  padding: 44px;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 36px;
+  gap: 24px;
 
   width: 100%;
   height: 100%;
@@ -169,7 +183,7 @@ body {
   display: flex;
   justify-content: center;
   gap: 16px;
-  margin-top: 20px;
+  margin-top: 32px;
 }
 
 
@@ -189,8 +203,8 @@ body {
 
 /* ICON GREY BOX */
 .enroll-icon-box {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   background: #1c2128;
 
   display: flex;
@@ -274,7 +288,7 @@ body {
 
 .enroll-right {
   flex-shrink: 1;
-  flex-basis: 50%;
+  flex-basis: 52%;
 }
 
 .enroll-image {
@@ -323,6 +337,9 @@ body {
   .scroll-controls {
     display: none;
   }
+  .section-enroll-now .heading-h5{
+    margin-bottom: 8px;
+  }
 }
 
 
@@ -369,6 +386,8 @@ body {
     text-align: center;
     gap: 24px;
     padding: 16px;
+    border-radius: 16px;
+    background: linear-gradient(171deg, rgba(255, 255, 255, 0.03) 26.08%, rgba(255, 255, 255, 0.01) 83%, rgba(255, 255, 255, 0.00) 137.69%), #090B15;
   }
 
   .enroll-left {
@@ -389,10 +408,10 @@ body {
   .enroll-extra-box {
     /* width: 100%; */
     font-size: 10px !important;
-    padding: 6px 10px;
+    padding: 5px 6px !important;
   }
   .enroll-extra-list{
-    gap: 3px 10px !important;
+    gap: 3px 6px !important;
   }
 
   .enroll-image {
@@ -417,7 +436,7 @@ body {
 }
 
 .enroll-left {
-  flex-basis: 60%;
+  flex-basis: 55%;
   max-width: 520px;
 }
 
@@ -480,17 +499,20 @@ body {
 /* ARROW */
 .scroll-btn::before {
   content: "";
-  width: 8px;
-  height: 8px;
+  width: 12px;
+  height: 12px;
   border-right: 2px solid #007AFF;
   border-bottom: 2px solid #007AFF;
   transform: rotate(-45deg);
   transition: all 0.25s ease;
+  border-radius: 2px;
 }
 
 /* LEFT */
 .scroll-btn.prev::before {
   transform: rotate(135deg);
+  position: relative;
+  left: 1px;
 }
 
 /* HOVER */

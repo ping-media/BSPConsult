@@ -16,7 +16,7 @@ const programs = [
     description:
       'For bettors who want a simple, disciplined foundation built on structured bets, clear analysis and repeatable execution. Designed to replace emotional decisions and bad habits with consistency.',
     priceAmount: '€397',
-    pricePeriod: '/ year',
+    pricePeriod: '/year',
     note: 'Best for starting with structure.',
     button: 'Get Silver Program',
     highlightCount: 4,
@@ -27,7 +27,7 @@ const programs = [
     description:
       'For bettors who want structured bets backed by game-changing data and access to the BSP Betting Model to consistently identify mispriced odds. From year two, maintain full access for €397 annually.',
     priceAmount: '€597',
-    pricePeriod: 'one-time fee',
+    pricePeriod: ' one-time fee',
     note: 'Lock in pricing before the next platform update.',
     button: 'Get Advanced Program',
     highlightCount: 7,
@@ -38,7 +38,7 @@ const programs = [
     description:
       'For bettors who want to master high-level decision-making, advanced strategies and real-world study cases to operate at their highest potential. From year two, maintain full access for just €397 annually.',
     priceAmount: '€997',
-    pricePeriod: 'one-time fee',
+    pricePeriod: ' one-time fee',
     note: 'Secure current Gold pricing.',
     button: 'Get Gold Program',
     highlightCount: 10,

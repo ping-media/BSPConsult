@@ -34,7 +34,7 @@ const TennisBettingSection = () => (
        <div className="features-badge">
           From Clarity to Execution
         </div>
-      <h5 className="heading-h5">How it Works</h5>
+      <h5 className="heading-h5" style={{ fontWeight: '600' }}>How it Works</h5>
       <h2 className="heading-h2">A simple 3-step framework for profitable betting</h2>
     </div>
 

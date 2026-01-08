@@ -18,8 +18,8 @@
 .tennis-steps {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  padding: 28px 24px 28px 24px;
+  gap: 32px;
+  padding: 0px 24px 28px 24px;
   /* margin: 40px; */
 }
 
@@ -60,9 +60,13 @@
 @media (max-width: 768px) {
   .tennis-steps {
     grid-template-columns: 1fr;
+    padding: 0;
   }
   .tennis-step-card {
   padding: 16px !important;
+  border-radius: 16px;
+  border-top: 1px solid rgba(81, 162, 255, 0.00);
+  background: linear-gradient(171deg, rgba(255, 255, 255, 0.05) 26.08%, rgba(255, 255, 255, 0.02) 83%, rgba(255, 255, 255, 0.00) 137.69%);
 }
 }
 
@@ -128,16 +132,17 @@ font-size: 20px;
 
 /* Text spacing */
 .step-title {
-  margin-top: 22px;
+  margin-top: 42px;
   font-size: 24px;
   font-weight: 500;
   color: #fff;
+  line-height: 32px;
 }
 
 .step-description {
   /* margin-top: 10px; */
   font-size: 18px;
-  line-height: 1.6;
+  line-height: 28px;
   font-weight: 400;
   color: #b6bcc8;
 }
@@ -155,11 +160,19 @@ font-size: 20px;
   }
   .step-title{
     font-size: 20px;
+    margin-top: 4px;
+    line-height: 28px;
+    font-weight: 600;
   }
   .step-description{
     font-size: 14px;
+    line-height: 22px;
+    margin-top: -6px;
   }
   .step-tag{
     font-size: 12px;
+    padding: 4px 12px;
+    line-height: 16px;
+    font-weight: 400;
   }
 }
