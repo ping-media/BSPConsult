@@ -226,7 +226,7 @@
 
   .best-value-badge {
     font-size: 10px !important;
-    margin-bottom: 10px !important;
+    /* margin-bottom: 10px !important; */
     position: absolute;
     top: 14px !important;
   }
@@ -246,7 +246,7 @@
 
   .best-value-badge {
     position: static; 
-    margin-bottom: 8px;
+    /* margin-bottom: 8px; */
   }
 }
 
@@ -326,5 +326,9 @@
   }
   .program-includes{
     padding-right: 16px;
+  }
+   .best-value-badge {
+    height: 24px;
+  
   }
 }
