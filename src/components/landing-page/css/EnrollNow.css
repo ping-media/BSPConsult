@@ -514,6 +514,11 @@ body {
   position: relative;
   left: 1px;
 }
+/* LEFT */
+.scroll-btn.next::before {
+  position: relative;
+  left: -1px;
+}
 
 /* HOVER */
 .scroll-btn:hover:not(:disabled) {
