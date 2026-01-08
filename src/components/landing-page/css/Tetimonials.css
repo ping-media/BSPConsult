@@ -146,6 +146,10 @@
 .section-testimonials .heading-h5 br:nth-child(1){
   display: none;
 }
+.scroll-btn.next::before{
+  position: relative;
+  left: -1px;
+}
 
 /* Mobile */
 @media (max-width: 768px) {
@@ -189,6 +193,7 @@
     width: 8px;
     height: 8px;
   }
+
   .scroll-controls{
     margin-top: 24px;
   }

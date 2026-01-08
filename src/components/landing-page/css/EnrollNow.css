@@ -511,6 +511,8 @@ body {
 /* LEFT */
 .scroll-btn.prev::before {
   transform: rotate(135deg);
+  position: relative;
+  left: 1px;
 }
 
 /* HOVER */

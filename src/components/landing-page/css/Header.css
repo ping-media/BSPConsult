@@ -575,7 +575,7 @@ div#wistia-player-container-1 {
 
     justify-content: flex-start;
     font-size: 12px;
-    gap: 2px;
+    gap: 0;
   }
   .feature-item img{
     width: 20px;

@@ -175,8 +175,15 @@
   }
   .footer-links h4{
     font-size: 16px;
+    margin-bottom: 16px !important;
   }
   .footer-links a{
     font-size: 14px;
+  }
+  .footer-links ul{
+    gap: 8px;
+  }
+  .footer-links a{
+    line-height: 20px;
   }
 }
