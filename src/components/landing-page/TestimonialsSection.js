@@ -93,7 +93,7 @@ useEffect(() => {
         <div className="features-badge">Testimonials From Members</div>
 
         <h5 className="heading-h5">
-          Messages from members applying the <br /> method day to day
+          Messages from <br/> members  applying the <br /> method day to day
         </h5>
 
         <h2 className="heading-h2">

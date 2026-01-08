@@ -236,7 +236,7 @@
     font-size: 14px;
   }
   .program-includes li img{
-    width: 13.5px;
+    width: 18px;
   }
   .program-headers {
 
@@ -311,7 +311,7 @@
 
 @media (max-width: 768px) {
   .program-price {
-    margin-bottom: 4px;
+    margin-bottom: 0px;
   }
   .program-includes h4{
     margin-bottom: 8px;

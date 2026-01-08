@@ -18,7 +18,7 @@
 .tennis-steps {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 32px;
   padding: 0px 24px 28px 24px;
   /* margin: 40px; */
 }
@@ -136,6 +136,7 @@ font-size: 20px;
   font-size: 24px;
   font-weight: 500;
   color: #fff;
+  line-height: 32px;
 }
 
 .step-description {
@@ -160,9 +161,13 @@ font-size: 20px;
   .step-title{
     font-size: 20px;
     margin-top: 4px;
+    line-height: 28px;
+    font-weight: 600;
   }
   .step-description{
     font-size: 14px;
+    line-height: 22px;
+    margin-top: -6px;
   }
   .step-tag{
     font-size: 12px;

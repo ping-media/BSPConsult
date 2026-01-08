@@ -508,7 +508,7 @@ div#wistia-player-container-1 {
     /* hide BSP CONSULT text */
   }
   .rating-text strong{
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .brand-logo {
@@ -607,11 +607,11 @@ div#wistia-player-container-1 {
     margin-bottom: 2px;
   }
   .star img{
-    width: 12px;
+    width: 14px;
   }
 
   .rating-text {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .hero-badge-wrapper {
