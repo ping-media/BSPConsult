@@ -12,13 +12,12 @@ style.innerHTML = `
     height: 100%;
   }
 
-  /* VIDEO stays normal */
-  .wistia_embed video {
-    object-fit: none !important;
-    width: 100% !important;
-    height: 100% !important;
-    transform: none !important;
-  }
+ /* VIDEO: preserve original frame */
+.wistia_embed video {
+  object-fit: contain !important;
+  width: 100% !important;
+  height: 100% !important;
+}
 
   /* THUMBNAIL / POSTER gets scaled */
   .wistia_embed img,
