@@ -666,6 +666,7 @@ div#wistia-player-container-1 {
   .navbar {
     /* background-color: rgba(255, 255, 255, 0.08); */
     background-image: radial-gradient(rgba(17, 54, 98, 1), rgba(17, 42, 74, 1));
+    border-bottom: 1px solid rgba(17, 54, 98, 1);
   }
 }
 @supports (-webkit-touch-callout: none) {
