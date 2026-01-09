@@ -508,6 +508,8 @@ div#wistia-player-container-1 {
   /* ===== NAVBAR ===== */
   .navbar{
     padding: 20px 18px 20px 18px;
+    background-image: radial-gradient(rgba(17, 54, 98, 1), rgba(17, 42, 74, 1));
+        border-bottom: 1px solid rgba(17, 54, 98, 1);
   }
   .brand-text {
     display: none;
@@ -646,29 +648,3 @@ div#wistia-player-container-1 {
   
 }
 
-.navbar {
-  position: relative;
-  height: 80px;
-  z-index: 1000;
-
-  background-color: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(14px) saturate(180%);
-  -webkit-backdrop-filter: blur(14px) saturate(180%);
-
-  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
-
-  isolation: isolate;
-  background-clip: padding-box;
-  transform: translateZ(0);
-}
-
-@media (max-width: 767px) {
-  .navbar {
-    background-color: rgba(255, 255, 255, 0.08);
-  }
-}
-@supports (-webkit-touch-callout: none) {
-  .navbar {
-    background-color: rgba(255, 255, 255, 0.08);
-  }
-}

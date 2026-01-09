@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&display=swap');
+* {
+  font-family: 'Figtree', sans-serif;
+}
+
 /* =========================
    MAIN LAYOUT
 ========================= */
@@ -292,4 +297,132 @@
 
 .login-btn.create {
     margin-top: 20px;
+}
+
+/* =========================
+   MOBILE RESPONSIVE FINAL
+========================= */
+@media (max-width: 768px) {
+
+  /* MAIN LAYOUT */
+  .login-layout {
+    grid-template-columns: 1fr;
+    min-height: 100vh;
+    height: auto;
+    overflow-y: auto;
+  }
+
+  /* LEFT PANEL */
+  .login-left {
+    min-height: 100vh;
+    padding: 32px 16px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+  }
+
+/* LOGO CONTAINER */
+ .brand-top {
+    position: static !important;
+    inset: unset !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto 36px;
+    text-align: center;
+  }
+
+  /* LOGO IMAGE */
+  .brand-top img {
+    height: 28px;
+    display: block;
+  }
+
+  /* LOGO TEXT */
+  .brand-top p {
+    margin: 0;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1;
+  }
+  /* LOGIN CARD CENTER */
+  .login-card {
+    width: 100%;
+    max-width: 360px;
+    padding: 24px 16px;
+    margin: 0 auto;
+  }
+
+  /* TITLE */
+  .login-title {
+    font-size: 26px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  /* FORM */
+  .form-group {
+    margin-bottom: 16px;
+  }
+
+  .input-label {
+    font-size: 13px;
+  }
+
+  .input-field {
+    height: 44px;
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  /* PASSWORD EYE */
+  .eye-btn {
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  /* FORGOT */
+  .forgot-btn {
+    font-size: 14px;
+    margin: 8px 0 18px;
+  }
+
+  /* BUTTON */
+  .login-btn {
+    height: 46px;
+    font-size: 15px;
+    border-radius: 24px;
+  }
+
+  /* REGISTER */
+  .register-link {
+    text-align: center;
+    font-size: 13px;
+    margin-top: 18px;
+  }
+
+  /* TERMS */
+  .terms-text {
+    text-align: center;
+    font-size: 13px;
+    margin-top: 18px;
+    padding-bottom: 24px;
+  }
+
+  /* ERROR */
+  .error-alert {
+    font-size: 13px;
+  }
+
+  /* RIGHT IMAGE */
+  .login-right {
+    display: none;
+  }
 }

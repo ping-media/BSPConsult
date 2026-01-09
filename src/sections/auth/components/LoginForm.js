@@ -400,7 +400,7 @@ const EyeOffIcon = () => (
       {/* LEFT */}
       <div className="login-left">
         <div className="brand-top">
-          <img src="/assets/images/home/logo.png" alt="BSP Consult" />
+          <img src="/img/bsplogo.png" alt="BSP Consult" />
           <p>BSP <span>CONSULT</span></p>
         </div>
 
@@ -423,6 +423,7 @@ const EyeOffIcon = () => (
   id="email"
   type="email"
   className="input-field"
+  placeholder="Enter your email address"
   {...register('email')}
 />
 
@@ -439,6 +440,7 @@ const EyeOffIcon = () => (
     id="password"
     type={showPassword ? 'text' : 'password'}
     className="input-field"
+    placeholder="Enter your password"
     {...register('password')}
   />
 <button
