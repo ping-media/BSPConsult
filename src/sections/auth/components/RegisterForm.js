@@ -315,7 +315,7 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
       {/* LEFT */}
       <div className="login-left">
         <div className="brand-top">
-          <img src="/assets/images/home/logo.png" alt="BSP Consult" />
+          <img src="/img/bsplogo.png" alt="BSP Consult" />
           <p>
             BSP <span>CONSULT</span>
           </p>
@@ -335,6 +335,7 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
             <label className="input-label">Username</label>
             <input
               className="input-field"
+              placeholder="Enter your username"
               {...register('userName')}
             />
             {errors.userName && <p className="error-text">{errors.userName.message}</p>}
@@ -344,6 +345,7 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
             <input
               type="email"
               className="input-field"
+              placeholder="Enter your email address"
               {...register('email')}
             />
             {errors.email && <p className="error-text">{errors.email.message}</p>}
@@ -354,6 +356,7 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   <input
     type={showPassword ? 'text' : 'password'}
     className="input-field"
+    placeholder="Enter your password"
     {...register('password')}
   />
   <button
@@ -376,6 +379,7 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   <input
     type={showConfirmPassword ? 'text' : 'password'}
     className="input-field"
+    placeholder="Enter your confirm password"
     {...register('confirmPassword')}
   />
   <button
