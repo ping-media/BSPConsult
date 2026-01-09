@@ -665,8 +665,10 @@ div#wistia-player-container-1 {
 @media (max-width: 767px) {
   .navbar {
     /* background-color: rgba(255, 255, 255, 0.08); */
-    /* background: linear-gradient(to right, rgb(26 47 81 / 87%) 12%, rgb(26 47 81 / 87%) 22%, rgb(26 71 122 / 26%) 45%, rgb(26 47 81 / 87%) 90%); */
-    background: radial-gradient(220% 290% at 50% 50%, rgb(46 81 138 / 74%) 0%, rgb(26 47 81 / 97%) 25%, rgb(26 47 81 / 82%) 60%);
+    background: linear-gradient(to right, rgb(17 42 74) 0%, rgb(17 50 90 / 0%) 49%, rgb(17 42 74) 100%);
+    /* background-clip: unset;
+    backdrop-filter: unset; */
+    /* background: radial-gradient(220% 290% at 50% 50%, rgb(46 81 138 / 74%) 0%, rgb(26 47 81 / 97%) 25%, rgb(26 47 81 / 82%) 60%); */
   }
 }
 @supports (-webkit-touch-callout: none) {
