@@ -1,6 +1,6 @@
 import { useRoutes } from 'react-router-dom';
 import Exclusive from 'src/pages/exclusive/Exclusive';
-
+import PaymentSuccess from 'src/pages/exclusive/paymentSuccess';
 import AuthGuard from '../auth/AuthGuard';
 import GuestGuard from '../auth/GuestGuard';
 // layouts
@@ -115,6 +115,16 @@ export default function Router() {
     },
   ],
 },
+{
+  path: 'payment-success',
+  children: [
+    {
+      element: <PaymentSuccess />,
+      index: true,
+    },
+  ],
+}
+,
 
     {
       path: 'success',
