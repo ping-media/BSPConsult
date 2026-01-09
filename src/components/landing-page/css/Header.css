@@ -664,7 +664,8 @@ div#wistia-player-container-1 {
 
 @media (max-width: 767px) {
   .navbar {
-    background-color: rgba(255, 255, 255, 0.08);
+    /* background-color: rgba(255, 255, 255, 0.08); */
+    background: linear-gradient(to right, rgb(26 47 81 / 87%) 12%, rgb(26 47 81 / 87%) 22%, rgb(26 71 122 / 26%) 45%, rgb(26 47 81 / 87%) 90%);
   }
 }
 @supports (-webkit-touch-callout: none) {
