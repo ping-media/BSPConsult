@@ -1,6 +1,7 @@
 import { useRoutes } from 'react-router-dom';
 import Exclusive from 'src/pages/exclusive/Exclusive';
 import PaymentSuccess from 'src/pages/exclusive/paymentSuccess';
+import ProfileSettings from 'src/pages/exclusive/ProfileSettings';
 import AuthGuard from '../auth/AuthGuard';
 import GuestGuard from '../auth/GuestGuard';
 // layouts
@@ -17,6 +18,7 @@ import {
   LockPage,
   SuccessPage,
 } from './elements';
+
 
 // ----------------------------------------------------------------------
 
@@ -120,6 +122,16 @@ export default function Router() {
   children: [
     {
       element: <PaymentSuccess />,
+      index: true,
+    },
+  ],
+}
+,
+{
+  path: 'profile-settings',
+  children: [
+    {
+      element: <ProfileSettings />,
       index: true,
     },
   ],
