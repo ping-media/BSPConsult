@@ -1,4 +1,6 @@
 import { useRoutes } from 'react-router-dom';
+import Exclusive from 'src/pages/exclusive/Exclusive';
+
 import AuthGuard from '../auth/AuthGuard';
 import GuestGuard from '../auth/GuestGuard';
 // layouts
@@ -100,6 +102,20 @@ export default function Router() {
         },
       ],
     },
+    {
+  path: 'exclusive',
+  children: [
+    {
+      element: (
+       
+          <Exclusive />
+      
+      ),
+      index: true,
+    },
+  ],
+},
+
     {
       path: 'success',
       children: [
