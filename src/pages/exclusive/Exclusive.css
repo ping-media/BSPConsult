@@ -28,14 +28,15 @@
   padding: 16px 20px;
   justify-content: space-between;
   align-items: center;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 20px;
+  font-weight: 600;
+  color: #ffffff;
 }
 
 .lock-close {
   background: transparent;
   border: none;
-  color: #9ca3af;
+  color: #ffffff;
   cursor: pointer;
 }
 
@@ -73,14 +74,17 @@
 /* TEXT */
 .lock-title {
   text-align: center;
-  font-size: 18px;
+  font-size: 20px;
+  font-weight: 500;
   margin-top: 16px;
+  color: #ffffff;
 }
 
 .lock-subtitle {
   text-align: center;
-  font-size: 14px;
-  color: #9ca3af;
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(185, 189, 199, 1);
   margin-top: 8px;
 }
 
@@ -90,25 +94,35 @@
   justify-content: space-between;
   gap: 12px;
   padding: 16px 24px;
+  background: rgba(255, 255, 255, 0.02);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0 0 16px 16px;
 }
+
 
 /* BUTTONS */
 .lock-logout {
   flex: 1;
   height: 40px;
-  background: #111827;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 98px;
   color: #d1d5db;
   cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 4px 6px;
 }
 
 .lock-unlock {
+  font-size: 16px;
+  font-weight: 500;
   flex: 1;
   height: 40px;
-  border-radius: 10px;
-  background: linear-gradient(180deg, #3b82f6, #2563eb);
+  border-radius: 42px;
+  background: linear-gradient(180deg, rgba(0, 122, 255, 1), rgba(12, 83, 200, 1));
   border: none;
+  padding: 17px 20px;
 }
 
 .lock-unlock a {
