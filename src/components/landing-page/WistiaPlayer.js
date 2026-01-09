@@ -143,7 +143,7 @@ function WistiaPlayer({ videoId, wrapper }) {
             class="wistia_embed wistia_async_${videoId}
               seo=false
               videoFoam=true
-              autoPlay=false
+              autoPlay=true
               playButton=true
               controlsVisibleOnLoad=true
               endVideoBehavior=reset"
