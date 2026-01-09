@@ -24,7 +24,6 @@ TestimonialItem.propTypes = {
 };
 
 const testimonials = [
-{ src: '/img/t1.png', label: 'July 2025 · Advanced Member' },
   { src: '/img/t2.png', label: 'April 2025 · Gold Member' },
   { src: '/img/t3.png', label: 'April 2025 · Gold Member' },
   { src: '/img/t4.png', label: 'Aug 2025 · Gold Member' },
@@ -42,6 +41,7 @@ const testimonials = [
   { src: '/img/t17.png', label: 'Nov 2025 · Advanced Member' },
   { src: '/img/t18.png', label: 'Oct 2025 · Advanced Member' },
   { src: '/img/t16.png', label: 'Sep 2025 · Gold Member' },
+  { src: '/img/t1.png', label: 'July 2025 · Advanced Member' },
 ];
 
 const TestimonialsSection = () => {
