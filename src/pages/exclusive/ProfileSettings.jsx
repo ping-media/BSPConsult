@@ -1,76 +1,169 @@
-import React from "react";
+import SideNavbar from "./SideNavbar";
 import "./profile-settings.css";
 
 export default function ProfileSettings() {
-  return (
-    <div className="dashboard">
-      {/* SIDEBAR */}
-      <aside className="sidebar">
-        <div className="logo">BSP <span>CONSULT</span></div>
+    return (
+        <div className="dashboard-layout">
+            <SideNavbar />
 
-        <nav>
-          <p className="menu-title">MAIN</p>
-          <ul>
-            <li className="active">Profile</li>
-            <li>Setups</li>
-            <li>Essential Video Content</li>
-            <li>BSP Masterclass Course</li>
-            <li>Programs</li>
-          </ul>
-        </nav>
+            <main className="dashboard-content">
+                {/* HEADER */}
+                <header className="page-header">
+                    <h1>
+                        BSP Consult <span>- Evolving the approach of Sports Betting</span>
+                    </h1>
+                </header>
 
-        <div className="logout">Logout</div>
-      </aside>
+                {/* CONTENT GRID */}
+                <section className="content-grid">
+                    <div className="all-content">
+                        <p className="manage-profile">Manage Profile</p>
+                        <div className="all-profile-info">
+                            {/* Personal Information */}
+                            <div className="info-box">
+                                <h3>Personal Information</h3>
 
-      {/* CONTENT */}
-      <main className="content">
-        <h1 className="page-title">Choose Your Program</h1>
+                                <div className="info-row">
+                                    <span>Username</span>
+                                    <span className="profile-ans">Upwork</span>
+                                </div>
 
-        <div className="settings-wrapper">
-          {/* LEFT SETTINGS */}
-          <div className="settings-menu">
-            <button type="button" className="menu-btn active">Profile Settings</button>
-            <button type="button" className="menu-btn">Change Password</button>
-            <button type="button" className="menu-btn">Subscription</button>
-            <button type="button" className="menu-btn">Free Training</button>
-            <button type="button" className="menu-btn">Contact Us</button>
-            <button type="button" className="menu-btn">Logout</button>
-          </div>
+                                <div className="info-row">
+                                    <span>E-mail</span>
+                                    <span className="profile-ans">Upwork1234@hotmail.com</span>
+                                </div>
 
-          {/* RIGHT PANEL */}
-          <div className="settings-panel">
-            <h2>Profile Settings</h2>
-            <p className="subtitle">
-              Manage your personal details like name, email, and contact number
-              to your profile up to date.
-            </p>
+                                <div className="info-row">
+                                    <span>Password</span>
+                                    <span className="profile-ans with-icon">
+                                        ********
+                                        <img src="/img/eye-off.svg" alt="arrow" />
+                                    </span>
+                                </div>
 
-            <div className="profile-image">
-              <img
-                src="https://i.pravatar.cc/100"
-                alt="profile"
-              />
-              <div>
-                <p className="image-info">400px, JPG or PNG, max 200kb</p>
-                <button type="button" className="upload-btn">Upload Image</button>
-              </div>
-            </div>
+                                <div className="info-row">
+                                    <span> </span>
+                                    <span className="profile-ans with-icon">
+                                        Reset Password
+                                        <img src="/img/Icon.svg" alt="arrow" />
+                                    </span>
+                                </div>
+                            </div>
 
-            <div className="form">
-              <div className="form-row">
-                <input placeholder="Robert" />
-                <input placeholder="Smith" />
-              </div>
-              <input placeholder="hello@alignui.com" />
-            </div>
+                            {/* Subscription */}
+                            <div className="info-box">
+                                <h3>Subscription</h3>
+                                <div className="program-type">
+                                    <p>Silver Program</p>
+                                    <button type="button" className="upgrade-btn">Upgrade Membership</button>
+                                </div>
+                            </div>
 
-            <div className="actions">
-              <button type="button" className="cancel">Cancel</button>
-              <button type="button"className="save">Save</button>
-            </div>
-          </div>
+                            {/* Risk Management */}
+                            <div className="info-box">
+                                <h3>Risk Management</h3>
+
+                                <div className="info-row">
+                                    <span>Bankroll</span>
+                                    <span className="profile-ans with-icon">0
+                                        <img src="/img/chevron-right.svg" alt="arrow" />
+                                    </span>
+                                </div>
+
+                                <div className="info-row">
+                                    <span>Staking Strategy</span>
+                                    <span className="profile-ans with-icon">Aggressive
+                                        <img src="/img/chevron-right.svg" alt="arrow" />
+                                    </span>
+                                </div>
+                            </div>
+
+                            {/* Free Training */}
+                            <div className="info-box">
+                                <h3>Free Training</h3>
+
+                                <button type="button" className="Strategy-btn">
+                                    <span className="btn-left">
+                                        <img src="/img/bsplogo.png" alt="Strategy" />
+                                        Strategy Models
+                                    </span>
+                                    <img src="/img/Icon.svg" alt="arrow" className="btn-arrow" />
+                                </button>
+
+                                <button type="button" className="Strategy-btn">
+                                    <span className="btn-left">
+                                        <img src="/img/bsp-gold.svg" alt="Masterclass" />
+                                        Strategy Masterclass
+                                    </span>
+                                    <img src="/img/Icon.svg" alt="arrow" className="btn-arrow" />
+                                </button>
+                            </div>
+
+
+                            {/* Contact Us */}
+                            <div className="info-box">
+                                <h3>Contact Us</h3>
+
+                                <div className="contact-buttons">
+                                    <button type="button" className="contact-btn">
+                                        <img src="/img/insta.svg" alt="Instagram" />
+                                        <span>Instagram</span>
+                                    </button>
+
+                                    <button type="button" className="contact-btn">
+                                        <img src="/img/snap.svg" alt="Snapchat" />
+                                        <span>Snapchat</span>
+                                    </button>
+                                </div>
+                            </div>
+
+
+                            {/* Account Settings */}
+                            <div className="info-box">
+                                <h3>Account Setting</h3>
+                                <button type="button" className="Strategy-btn">
+                                    <span className="btn-left">
+                                        <img src="/img/tool-02.svg" alt="Strategy" />
+                                        Terms of Services
+                                    </span>
+
+                                </button>
+
+                                <button type="button" className="Strategy-btn">
+                                    <span className="btn-left">
+                                        <img src="/img/file-shield-02.svg" alt="Masterclass" />
+                                        Privacy Policy
+                                    </span>
+
+                                </button>
+                                <button type="button" className="delete-btn">Delete my Account</button>
+
+                            </div>
+
+                            {/* UPGRADE MEMBERSHIP – FULL WIDTH */}
+                            <div className="info-box upgrade-box">
+                                <h3>Upgrade Membership</h3>
+                                <p className="muted">Upgrade to unlock full access.</p>
+
+                                <h4>Gold Program</h4>
+                                <p className="price">€400 <span>one time fee</span></p>
+
+                                <p className="muted">
+                                    Lock in current pricing before next update.
+                                </p>
+
+                                <button type="button" className="primary-btn">Get Gold Program</button>
+
+                                <ul className="benefits">
+                                    <li>High-Stakes Betting Frameworks</li>
+                                    <li>BSP Masterclass (20+ Hours of Video)</li>
+                                    <li>Real Time Study Cases</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
         </div>
-      </main>
-    </div>
-  );
+    );
 }
