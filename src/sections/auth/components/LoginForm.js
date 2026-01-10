@@ -314,6 +314,8 @@ export default function LoginForm() {
   const [openReset, setOpenReset] = useState(false);
   const [resetEmail, setResetEmail] = useState('');
   const [resetLoading, setResetLoading] = useState(false);
+  const [authError, setAuthError] = useState('');
+
 
   const LoginSchema = Yup.object({
     email: Yup.string().required('Email is required').email('Invalid email'),
@@ -328,17 +330,26 @@ export default function LoginForm() {
     resolver: yupResolver(LoginSchema),
   });
 
-  const onSubmit = async (data) => {
-    try {
-      setLoading(true);
-      await login(data.email, data.password);
-      navigate(paths.home, { replace: true });
-    } catch (error) {
-      setShowError(true);
-    } finally {
-      setLoading(false);
-    }
-  };
+const onSubmit = async (data) => {
+  try {
+    setLoading(true);
+    setAuthError('');
+    setShowError(false);
+
+    await login(data.email, data.password);
+    navigate(paths.home, { replace: true });
+  } catch (error) {
+    const message =
+      error?.message ||
+      'Invalid email or password. Please try again.';
+
+    setAuthError(message);
+    setShowError(true);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   const onResetPassword = async () => {
     if (!resetEmail) return;
@@ -391,6 +402,15 @@ const EyeOffIcon = () => (
 <path d="M7.98859 2.57694C8.32726 2.52687 8.67664 2.50001 9.03648 2.50001C13.2906 2.50001 16.0822 6.25404 17.02 7.73903C17.1336 7.91876 17.1903 8.00863 17.2221 8.14724C17.2459 8.25134 17.2459 8.41556 17.222 8.51966C17.1903 8.65826 17.1331 8.74872 17.0188 8.92965C16.7689 9.32513 16.3879 9.88093 15.8832 10.4837M4.63973 3.92921C2.83801 5.15143 1.61484 6.84949 1.05372 7.73775C0.939704 7.91824 0.882695 8.00848 0.850915 8.14708C0.827047 8.25117 0.827037 8.41538 0.850894 8.51948C0.882657 8.65808 0.939409 8.74794 1.05291 8.92766C1.99075 10.4126 4.78231 14.1667 9.03648 14.1667C10.7518 14.1667 12.2294 13.5563 13.4435 12.7305M1.53648 0.833344L16.5365 15.8333M7.26871 6.56558C6.8163 7.01799 6.53648 7.64299 6.53648 8.33334C6.53648 9.71406 7.65577 10.8333 9.03648 10.8333C9.72684 10.8333 10.3518 10.5535 10.8042 10.1011" stroke="#AFAFAF" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round"/>
 </svg>
 );
+const ErrorIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 16 16">
+    <circle cx="8" cy="8" r="7" fill="none" stroke="#FB3748" strokeWidth="1.2" />
+    <rect x="7.25" y="4" width="1.5" height="6" rx="0.75" fill="#FB3748" />
+    <circle cx="8" cy="11.5" r="0.75" fill="#FB3748" />
+  </svg>
+);
+
+
 
 
 
@@ -418,50 +438,73 @@ const EyeOffIcon = () => (
             </div>
           )}
 
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form noValidate onSubmit={handleSubmit(onSubmit)}>
             {/* EMAIL */}
             
           <label htmlFor="email" className="input-label">
-  Email Address
-</label>
-<input
-  id="email"
-  type="email"
-  className="input-field"
-  placeholder="Enter your email address"
-  {...register('email')}
-/>
+            Email Address
+          </label>
+ <div className="input-wrapper">
+  <input
+    id="email"
+    type="email"
+    className={`input-field ${
+      errors.email || authError ? 'input-error' : ''
+    }`}
+    placeholder="Enter your email address"
+    {...register('email', {
+      onChange: () => {
+        setAuthError('');
+        setShowError(false);
+      },
+    })}
+  />
 
-            {errors.email && (
-              <p className="error-text">{errors.email.message}</p>
-            )}
+  {(errors.email || authError) && (
+    <span className="error-icon">
+      <ErrorIcon />
+    </span>
+  )}
+</div>
+
+{errors.email && (
+  <p className="error-text">{errors.email.message}</p>
+)}
+
+
 
             {/* PASSWORD */}
             <label htmlFor="password" className="input-label">
-  Password
-</label>
-<div className="password-group">
+              Password
+            </label>
+         
+            <div className="password-group input-wrapper">
   <input
     id="password"
     type={showPassword ? 'text' : 'password'}
-    className="input-field"
+    className={`input-field ${
+      errors.password || authError ? 'input-error' : ''
+    }`}
     placeholder="Enter your password"
     {...register('password')}
   />
-<button
-  type="button"
-  className="eye-btn"
-  onClick={() => setShowPassword(!showPassword)}
-  aria-label="Toggle password visibility"
->
-  {showPassword ? <EyeIcon /> : <EyeOffIcon />}
-</button>
 
+
+
+  <button
+    type="button"
+    className="eye-btn"
+    onClick={() => setShowPassword(!showPassword)}
+  >
+    {showPassword ? <EyeIcon /> : <EyeOffIcon />}
+  </button>
+    
 </div>
+{errors.password && (
+  <p className="error-text">{errors.password.message}</p>
+)}
 
-            {errors.password && (
-              <p className="error-text">{errors.password.message}</p>
-            )}
+
 
             <button
               type="button"
