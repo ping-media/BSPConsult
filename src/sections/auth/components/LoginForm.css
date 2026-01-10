@@ -10,7 +10,7 @@
   height: 100vh;
   display: grid;
   grid-template-columns: 42% 58%;
-  background: #02030a;
+  background: #02040C;
   color: #fff;
   overflow: hidden;
 }
@@ -18,7 +18,7 @@
 /* =========================
    LEFT PANEL
 ========================= */
-.login-left {
+/* .login-left {
   position: relative;
   background: radial-gradient(
     circle at top left,
@@ -31,7 +31,44 @@
   display: flex;
   align-items: center;
   justify-content: center;
+} */
+
+.login-left {
+  position: relative;
+  background: rgba(255, 255, 255, 0.02); /* subtle transparent white */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* IMPORTANT */
 }
+.login-left::before,
+.login-left::after {
+  content: '';
+  position: absolute;
+  width: 329px;
+  height: 329px;
+  border-radius: 329px;
+  background: rgba(0, 122, 255, 0.10);
+  filter: blur(97px);
+  z-index: 0;
+}
+
+/* TOP LEFT CIRCLE */
+.login-left::before {
+  top: -120px;
+  left: -120px;
+}
+
+/* BOTTOM RIGHT CIRCLE */
+.login-left::after {
+  bottom: -120px;
+  right: -120px;
+}
+.login-left > * {
+  position: relative;
+  z-index: 1;
+}
+
 
 /* BRAND TOP */
 .brand-top {
@@ -180,8 +217,8 @@
 /* IMAGE — FULLY VISIBLE */
 .login-right img {
  
-  max-height: 90%;
-  width: 600px;
+  max-height: 100%;
+ 
   height: auto;
  
 }

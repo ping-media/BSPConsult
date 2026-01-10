@@ -53,7 +53,7 @@ export default function Exclusive() {
 
 
             {/* TEXT */}
-            <h1 className="lock-title">Purchase Membership</h1>
+            <h1 className="lock-title">Premium Membership</h1>
             <p className="lock-subtitle">
               This content is reserved for Premium members. Upgrade your membership to unlock full access.
             </p>
