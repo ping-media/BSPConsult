@@ -286,6 +286,7 @@ div#wistia-player-container-1 {
   border: 1px solid #58595E;
 
   transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+  text-decoration: none;
 }
 
 .btn-icon {
