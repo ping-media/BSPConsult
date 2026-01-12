@@ -15,8 +15,40 @@
 /* Right content */
 .dashboard-content {
   flex: 1;
-  color: #FFFFFF;
+  color: #FFFFFF; position: relative;
+  overflow: hidden;
 }
+.dashboard-content::before {
+  content: "";
+  position: absolute;
+
+  /* Position: middle right */
+  top: 40%;
+  right: -200px;
+  transform: translateY(-50%);
+
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    rgba(26, 65, 117, 0.35) 0%,
+    rgba(40, 102, 185, 0.25) 25%,
+    rgba(49, 127, 228, 0.15) 45%,
+    rgba(52, 138, 247, 0.05) 60%,
+    transparent 70%
+  );
+
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+}
+.dashboard-content > * {
+  position: relative;
+  z-index: 1;
+}
+
 
 /* Header */
 .page-header {
@@ -243,15 +275,20 @@
 
 /* Upgrade box full row */
 
-.info-box.upgrade-box {
+.upgrade-box {
+  width: 100%;
+  max-width: 800px;
+  border-radius: 16px;
+  padding: 10px 24px;
+  backdrop-filter: blur(10px);
   background: #101117;
-
+  margin-bottom: 20px;
   /* OUTER + INNER SHADOW */
   box-shadow:
     5px 5px 4px 0px #00000024,          /* outer shadow */
     inset 1px 1px 12px 1px #FFFFFF05;  /* inner shadow */
 }
-.info-box.upgrade-box::before {
+.upgrade-box::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -277,24 +314,119 @@
   pointer-events: none;
 
 }
-.upgrade-box {
-  grid-column: 1 / -1;
+.upgrade-content {
+  text-align: center;
+  padding: 16px 0;
 }
-
-.price {
+.upgrade-content h3 {
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 500;
+}
+.upgrade-content p {
+  margin-top: 8px;
+  font-size: 16px;
+  color: #B9BDC7;
+}
+.Gold-btn {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 20px;
+  padding: 10px 14px;
+  background: #FFCB2B33;
+  border: #FFCB2B 1px solid;
+  border-radius: 8px;
+  color: #FFFFFF;
+  cursor: pointer;
+  width: 100%;
+  margin: 10px 0; 
 }
 
-.price span {
-  font-size: 14px;
-  color: #9ca3af;
+.price-card--gold {
+  position: relative;
+  margin: 0 auto;
+  padding:8px;
+border-radius: 14px;
+   background: url('../../assets/gold-bg.png') ;
+  background-size: cover;
+  margin: 20px 0;
+}
+.price-card--gold .price-inner {
+  position: relative;
+  width: 100%;
+  padding: 24px;
+  border-radius: 12px;
+  /* INNER DARK BOX */
+  background: rgba(0, 0, 0, 0.30);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  /* GLASS BLUR */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  /* INNER SHADOW */
+  box-shadow:
+    inset 1px 1px 12px rgba(255, 255, 255, 0.05);
+}
+.price-card--gold .program-headers {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+ 
 }
 
-.benefits {
-  margin-top: 12px;
-  color: #d1d5db;
+.price-card--gold .program-title {
+  font-size: 24px;
+  font-weight: 500;
+  color: #ffffff;
 }
+
+.price-card--gold .program-price {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin: 20px 0 0;
+}
+
+.price-card--gold .price-amount {
+  font-size: 28px;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.price-card--gold .price-period {
+  font-size: 16px;
+  font-weight: 500;
+  color: #D0D3D9;
+}
+.price-card--gold .program-note {
+  font-size: 18px;
+  color: #D0D3D9;
+  margin-bottom: 20px;
+}
+
+
+.price-card--gold .program-includes {
+  margin-top: 24px;
+  padding: 0 16px 16px;
+}
+
+.price-card--gold .program-includes h4 {
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
+  padding: 2px 0;
+  
+}
+
+.price-card--gold .program-includes li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 2px 0;
+  font-size: 16px;
+  font-weight: 300;
+  color: #F0F1F3;
+}
+
 
 
 @media (max-width: 1024px) {

@@ -90,16 +90,16 @@ export default function PriceSection() {
 
             {/* BLACK INNER BOX */}
             <div className="price-inner">
-             <div className="program-headers">
-  <h3 className="program-title">{program.name}</h3>
+              <div className="program-headers">
+                <h3 className="program-title">{program.name}</h3>
 
-  {program.id === 'advanced' && (
-    <span className="best-value-badge">Best Value</span>
-  )}
-</div>
+                {program.id === 'advanced' && (
+                  <span className="best-value-badge">Best Value</span>
+                )}
+              </div>
 
               <p className="program-desc">{program.description}</p>
-              
+
 
               <div className="program-price">
                 <span className="price-amount">{program.priceAmount}</span>

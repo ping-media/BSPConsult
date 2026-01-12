@@ -33,9 +33,9 @@ export default function Exclusive() {
             {/* HEADER */}
             <div className="lock-header">
               <span>Exclusive Content</span>
-             <button type="button" className="lock-close">
-  <CloseIcon />
-</button>
+              <button type="button" className="lock-close">
+                <CloseIcon />
+              </button>
 
             </div>
 
@@ -43,20 +43,20 @@ export default function Exclusive() {
 
             {/* ICON */}
             <div className='membership'>
-           <div className="lock-icon-box">
-  <img
-    src="/img/exclusive.svg"
-    alt="Premium Lock"
-    className="lock-icon-image"
-  />
-</div>
+              <div className="lock-icon-box">
+                <img
+                  src="/img/exclusive.svg"
+                  alt="Premium Lock"
+                  className="lock-icon-image"
+                />
+              </div>
 
 
-            {/* TEXT */}
-            <h1 className="lock-title">Premium Membership</h1>
-            <p className="lock-subtitle">
-              This content is reserved for Premium members. Upgrade your membership to unlock full access.
-            </p>
+              {/* TEXT */}
+              <h1 className="lock-title">Premium Membership</h1>
+              <p className="lock-subtitle">
+                This content is reserved for Premium members. Upgrade your membership to unlock full access.
+              </p>
             </div>
 
             <div className="lock-divider" />

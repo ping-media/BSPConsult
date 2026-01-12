@@ -31,27 +31,27 @@ const TennisBettingSection = () => (
   <section className="section-tennis-betting pb-85">
     <div className="container-1 mx-auto">
       <div className="container-1 mx-auto pl-2 pr-2 text-center mb-65">
-       <div className="features-badge">
+        <div className="features-badge">
           From Clarity to Execution
         </div>
-      <h5 className="heading-h5" style={{ fontWeight: '600' }}>How it Works</h5>
-      <h2 className="heading-h2">A simple 3-step framework for profitable betting</h2>
-    </div>
+        <h5 className="heading-h5" style={{ fontWeight: '600' }}>How it Works</h5>
+        <h2 className="heading-h2">A simple 3-step framework for profitable betting</h2>
+      </div>
 
       <div className="tennis-steps">
         {steps.map((item) => (
-        <div className="tennis-step-card">
-  <div className="step-header">
-    <div className="step-circle">{item.step}</div>
+          <div className="tennis-step-card">
+            <div className="step-header">
+              <div className="step-circle">{item.step}</div>
 
-    <span className={`step-tag ${item.tagClass}`}>
-      {item.tag}
-    </span>
-  </div>
+              <span className={`step-tag ${item.tagClass}`}>
+                {item.tag}
+              </span>
+            </div>
 
-  <h3 className="step-title">{item.title}</h3>
-  <p className="step-description">{item.description}</p>
-</div>
+            <h3 className="step-title">{item.title}</h3>
+            <p className="step-description">{item.description}</p>
+          </div>
 
         ))}
       </div>
