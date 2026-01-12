@@ -560,19 +560,20 @@ export default function LoginForm() {
       {openReset && (
         <div className="modal-backdrop">
           <div className="modal">
-            <img src="/img/round-arrow.svg" alt="Lock" />
-            <h3>Forgot Password</h3>
-            <p>Enter your email address to receive a password reset link.</p>
+            <div className="modal-content">
+              <img src="/img/round-arrow.svg" alt="Lock" />
+              <h3>Forgot Password</h3>
+              <p>Enter your email address to receive a password reset link.</p>
 
-            <label htmlFor="reset-email" className="input-label">Email Address</label>
-            <input
-              type="email"
-              className="input-field"
-              placeholder="Email address"
-              value={resetEmail}
-              onChange={(e) => setResetEmail(e.target.value)}
-            />
-
+              <label htmlFor="reset-email" className="input-label">Email Address</label>
+              <input
+                type="email"
+                className="input-field"
+                placeholder="Email address"
+                value={resetEmail}
+                onChange={(e) => setResetEmail(e.target.value)}
+              />
+            </div>
             <div className="modal-actions">
               <button type="button" className="cancel-btn" onClick={() => setOpenReset(false)}>
                 Cancel

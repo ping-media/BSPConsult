@@ -267,12 +267,14 @@
 
 .modal {
   background: #12141E;
-  padding: 16px 24px;
+  /* padding: 16px 24px; */
   border-radius: 12px;
   width: 360px;
   /* border: 2px solid rgba(7, 106, 244, 0.45); */
   box-shadow: 0 30px 80px #0009;
   width: 411px;
+  /* padding: 16px 24px; */
+  border: 1px solid #383E49;
 }
 .modal img{
   margin: 0 auto;
@@ -400,9 +402,16 @@
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  margin-top: 20px;
+  /* margin-top: 20px; */
   border-top: 1px solid #383E49;
-  padding-top: 15px;
+  /* padding-top: 15px; */
+  padding: 16px 24px;
+}
+
+.modal-content{
+  
+  padding: 16px 24px;
+  padding-top: 40px;
 }
 
 /* =========================
