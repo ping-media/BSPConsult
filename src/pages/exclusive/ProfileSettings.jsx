@@ -141,24 +141,54 @@ export default function ProfileSettings() {
                             </div>
 
                             {/* UPGRADE MEMBERSHIP – FULL WIDTH */}
-                            <div className="info-box upgrade-box">
-                                <h3>Upgrade Membership</h3>
-                                <p className="muted">Upgrade to unlock full access.</p>
+                            <div className="upgrade-box">
+                                <div className="upgrade-content">
+                                    <h3>Upgrade Membership</h3>
+                                    <p>Upgrade to unlock full access.</p>
+                                </div>
+                                <button type="button" className="Gold-btn">Gold</button>
 
-                                <h4>Gold Program</h4>
-                                <p className="price">€400 <span>one time fee</span></p>
+                                <div className="price-card price-card--gold is-featured">
+                                    <div className="price-inner">
 
-                                <p className="muted">
-                                    Lock in current pricing before next update.
-                                </p>
+                                        <div className="program-headers">
+                                            <h3 className="program-title">Gold Program</h3>
+                                        </div>
 
-                                <button type="button" className="primary-btn">Get Gold Program</button>
+                                        <div className="program-price">
+                                            <span className="price-amount">€400</span>
+                                            <span className="price-period">one time fee</span>
+                                        </div>
 
-                                <ul className="benefits">
-                                    <li>High-Stakes Betting Frameworks</li>
-                                    <li>BSP Masterclass (20+ Hours of Video)</li>
-                                    <li>Real Time Study Cases</li>
-                                </ul>
+                                        <div className="program-note">
+                                            Lock in current pricing before next update.
+                                        </div>
+
+                                        <button type="button" className="Gold-btn">
+                                            Get Gold Program
+                                        </button>
+
+                                    </div>
+
+                                    <div className="program-includes">
+                                        <h4>Extra benefits with Gold</h4>
+                                        <ul>
+                                            <li className="active">
+                                                <img src="img/gold-tick.svg" alt="check" />
+                                                <span className="include-text">High-Stakes Betting Frameworks</span>
+                                            </li>
+                                            <li className="active">
+                                                <img src="img/gold-tick.svg" alt="check" />
+                                                <span className="include-text">BSP Masterclass (20+ Hours of Video)</span>
+                                            </li>
+                                            <li className="active">
+                                                <img src="img/gold-tick.svg" alt="check" />
+                                                <span className="include-text">Real Time Study Cases</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
