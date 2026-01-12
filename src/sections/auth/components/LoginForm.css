@@ -290,7 +290,7 @@
   border-radius: 8px;
   border: none;
   background: rgba(255,255,255,0.04);
-  color: rgba(102,112,133,1);
+  color: #FCFCFD;
   font-size: 16px;
   font-weight: 400;
   margin-bottom: 10px;
@@ -509,3 +509,50 @@
   
 }
 
+
+
+
+/* Ghost container */
+.ghost-placeholder {
+  position: absolute;
+  left: 12px;
+  top: 32%;
+  transform: translateY(-32%);
+  pointer-events: none;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+/* Part already typed → invisible */
+.typed-mask {
+  visibility: hidden;
+}
+
+/* Remaining ghost text */
+.ghost-rest {
+  color: rgba(102,112,133,1);
+  transition: opacity 0.2s ease;
+}
+
+/* Hide ghost ONLY when value exists and input is blurred */
+.input-field.has-value:not(:focus) + .ghost-placeholder {
+  opacity: 0;
+}
+
+
+@media (max-width: 768px) {
+
+
+  /* GHOST PLACEHOLDER */
+  .ghost-placeholder {
+    left: 12px;
+    top: 30%;
+    transform: translateY(-20%);
+    font-size: 14px;
+  }
+
+  /* Remaining ghost text */
+  .ghost-rest {
+    font-size: 14px;
+  }
+}

@@ -317,14 +317,25 @@ export default function LoginForm() {
   const [authError, setAuthError] = useState('');
 
 
+
   const LoginSchema = Yup.object({
     email: Yup.string().required('Email is required').email('Invalid email'),
     password: Yup.string().required('Password is required').min(6),
   });
+  const PLACEHOLDER_EMAIL = 'example@gmail.com';
+
+  const [emailValue, setEmailValue] = useState('');
+  const [emailFocused, setEmailFocused] = useState(false);
+  const remainingGhost =
+    emailValue.length > 0
+      ? PLACEHOLDER_EMAIL.slice(emailValue.length)
+      : PLACEHOLDER_EMAIL;
+
 
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(LoginSchema),
@@ -440,6 +451,18 @@ export default function LoginForm() {
 
           <form noValidate onSubmit={handleSubmit(onSubmit)}>
             {/* EMAIL */}
+            {/* <label htmlFor="email" className="input-label"> Email Address </label> 
+            <div className="input-wrapper">
+               <input id="email" 
+               type="email"
+                className={`input-field ${errors.email || authError ? 'input-error' : ''}`}
+                placeholder="example@gmail.com" 
+                {...register('email', { 
+                  onChange: () => { setAuthError(''); setShowError(false); }, })} 
+                  /> 
+                  {(errors.email || authError) && ( <span className="error-icon"> <ErrorIcon /> </span> )}
+                   </div> 
+                   {errors.email && ( <p className="error-text">{errors.email.message}</p> )} */}
 
             <label htmlFor="email" className="input-label">
               Email Address
@@ -448,16 +471,30 @@ export default function LoginForm() {
               <input
                 id="email"
                 type="email"
-                className={`input-field ${errors.email || authError ? 'input-error' : ''
-                  }`}
-                placeholder="example@gmail.com"
-                {...register('email', {
-                  onChange: () => {
-                    setAuthError('');
-                    setShowError(false);
-                  },
-                })}
+                value={emailValue}
+                className={`input-field
+    ${emailValue ? 'has-value' : ''}
+    ${emailFocused && emailValue ? 'input-typing' : ''}
+    ${errors.email || authError ? 'input-error' : ''}
+  `}
+                onFocus={() => setEmailFocused(true)}
+                onBlur={() => setEmailFocused(false)}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setEmailValue(value);
+                  setValue('email', value, { shouldValidate: true });
+                  setAuthError('');
+                  setShowError(false);
+                }}
+
               />
+
+
+              {/* Ghost placeholder */}
+              <span className="ghost-placeholder">
+                <span className="typed-mask">{emailValue}</span>
+                <span className="ghost-rest">{remainingGhost}</span>
+              </span>
 
               {(errors.email || authError) && (
                 <span className="error-icon">
@@ -465,6 +502,7 @@ export default function LoginForm() {
                 </span>
               )}
             </div>
+
 
             {errors.email && (
               <p className="error-text">{errors.email.message}</p>
