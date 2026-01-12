@@ -385,6 +385,7 @@
   line-height: 1.4;
   width: 100%;
   font-weight: 600;
+  font-size: 16px;
 }
 .confirm-btn {
   background: linear-gradient(180deg, #007aff, #0c53c8);
