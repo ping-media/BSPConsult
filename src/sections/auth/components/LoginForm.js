@@ -560,8 +560,11 @@ export default function LoginForm() {
       {openReset && (
         <div className="modal-backdrop">
           <div className="modal">
-            <h3>Reset Password</h3>
+            <img src="/img/round-arrow.svg" alt="Lock" />
+            <h3>Forgot Password</h3>
+            <p>Enter your email address to receive a password reset link.</p>
 
+            <label htmlFor="reset-email" className="input-label">Email Address</label>
             <input
               type="email"
               className="input-field"
@@ -571,10 +574,10 @@ export default function LoginForm() {
             />
 
             <div className="modal-actions">
-              <button type="button" onClick={() => setOpenReset(false)}>
+              <button type="button" className="cancel-btn" onClick={() => setOpenReset(false)}>
                 Cancel
               </button>
-              <button type="button" onClick={onResetPassword}>
+              <button type="button" className="confirm-btn" onClick={onResetPassword}>
                 {resetLoading ? 'Sending...' : 'Confirm'}
               </button>
             </div>
