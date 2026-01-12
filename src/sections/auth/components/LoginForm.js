@@ -450,7 +450,7 @@ export default function LoginForm() {
                 type="email"
                 className={`input-field ${errors.email || authError ? 'input-error' : ''
                   }`}
-                placeholder="Enter your email address"
+                placeholder="example@gmail.com"
                 {...register('email', {
                   onChange: () => {
                     setAuthError('');

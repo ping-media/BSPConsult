@@ -25,7 +25,7 @@ const programs = [
     id: 'advanced',
     name: 'Advanced Program',
     description:
-      'For bettors who want structured bets backed by game-changing data and access to the BSP Betting Model to consistently identify mispriced odds. From year two, maintain full access for €397 annually.',
+      'For bettors who want structured bets backed by game-changing data and access to the BSP Betting Model to consistently identify mispriced odds. From year two, maintain full access for just €397 annually.',
     priceAmount: '€597',
     pricePeriod: ' one-time fee',
     note: 'Lock in pricing before the next platform update.',
@@ -79,7 +79,7 @@ export default function PriceSection() {
           Betting Programs
         </div>
         <h5 className="heading-h5">Choose Your Program</h5>
-        <h2 className="heading-h2">There is real opportunity in tennis betting only through structure,discipline and a clear strategy.</h2>
+        <h2 className="heading-h2">There is real opportunity in tennis betting only through structure, discipline and a clear strategy.</h2>
       </div>
       <div className="price-grid">
         {programs.map((program) => (

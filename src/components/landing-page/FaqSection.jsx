@@ -5,7 +5,18 @@ import { paths } from 'src/routes/paths';
 const faqs = [
       {
     q: 'How much bankroll do I need to start?',
-    a: `We recommend a minimum bankroll of around €500 to start the right way. It’s better to save and begin properly than to start undercapitalized and in a rush.`,
+      a: (
+      <>
+        <p>
+          We recommend a minimum bankroll of around €500 to start the right way.
+        </p>
+
+<p>
+    It’s better to save and begin properly than to start undercapitalized and in a rush.
+</p>
+       
+      </>
+    ),
   },
 //     {
 //     q: 'How many betting opportunities will I receive?',
@@ -56,15 +67,48 @@ const faqs = [
 //   },
   {
     q: 'What is your strategy based on?',
-    a: `Our strategy combines objective data, subjective tennis knowledge, and player momentum and form. Value is important to target, but first you need to be able to follow a clear strategy before spotting value in the market. We apply 8 confirmations before entering a market. We only bet when everything in our strategy aligns — not based on emotions or intuition.`,
+      a: (
+      <>
+        <p>
+          Our strategy combines objective data, subjective tennis knowledge, and player momentum and form. Value is important to target, but first you need to be able to follow a clear strategy before spotting value in the market.
+        </p>
+
+<p>
+    We apply 8 confirmations before entering a market. We only bet when everything in our strategy aligns — not based on emotions or intuition.
+</p>
+       
+      </>
+    ),
   },
   {
     q: 'Do you only bet on tennis?',
-    a: `Yes, we exclusively focus on the ATP tennis market. Niche betting provides a stronger edge: deeper information, faster access to insights and more exploitable mistakes. Bookmakers concentrate on big sports where the people are; we focus on niche markets where bookmakers make mistakes.`,
+          a: (
+      <>
+        <p>
+         Yes, we exclusively focus on the ATP tennis market. Niche betting provides a stronger edge: deeper information, faster access to insights and more exploitable mistakes.
+        </p>
+
+<p>
+    Bookmakers concentrate on big sports where the people are; we focus on niche markets where bookmakers make mistakes.
+</p>
+       
+      </>
+    ),
   },
   {
     q: 'Should I update the BSP Tennis Betting Model myself?',
-    a: `No. You will receive a copy linked to my master model, and I am the one who maintains and updates it. This means your version is automatically updated as well. You will always have access to the latest data and the most important ATP metrics of the moment.`,
+      a: (
+      <>
+        <p>
+        No. You will receive a copy linked to my master model, and I am the one who maintains and updates it.
+        </p>
+
+<p>
+   This means your version is automatically updated as well. You will always have access to the latest data and the most important ATP metrics of the moment.
+</p>
+       
+      </>
+    ),
   },
   {
     q: 'Can I cancel anytime?',
@@ -77,10 +121,10 @@ const faqs = [
         <p>
           The betting space is full of hype, fake screenshots and people betting purely on what they see, without evaluating the prices and odds they receive.
         </p>
-
+ We do it differently:
         <ul className="faq-list">
             
-            We do it differently:
+           
   <li>
     Full transparency (screen recordings, bookmaker switching, proof of withdrawals, real execution)
   </li>
@@ -102,7 +146,19 @@ const faqs = [
   },
   {
     q: 'Do I need a specific bookmaker to follow your bets?',
-    a: `No, you don’t. Our betting opportunities are mainly on the ATP market and we target only high-liquidity lines that are available on 95% of bookmakers. We also help our members by recommending the bookmakers that consistently offer the best odds in our markets.`,
+      a: (
+      <>
+        <p>
+        No, you don’t. Our betting opportunities are mainly on the ATP market and we target only high-liquidity lines that are available on 95% of bookmakers.
+        </p>
+
+<p>
+   We also help our members by recommending the bookmakers that consistently offer the best odds in our markets.
+</p>
+       
+      </>
+    ),
+
   },
 ];
 
