@@ -268,10 +268,21 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
       .oneOf([Yup.ref('password')], 'Passwords do not match'),
   });
 
+  const PLACEHOLDER_EMAIL = 'example@gmail.com';
+
+const [emailValue, setEmailValue] = useState('');
+const [emailFocused, setEmailFocused] = useState(false);
+
+const remainingGhost =
+  emailValue.length > 0
+    ? PLACEHOLDER_EMAIL.slice(emailValue.length)
+    : PLACEHOLDER_EMAIL;
+
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm({
     resolver: yupResolver(RegisterSchema),
   });
@@ -363,20 +374,52 @@ const EyeIcon = () => (
             <label className="input-label">Username</label>
             <input
               className="input-field"
-              placeholder="Enter your username"
+              placeholder="John Deo"
               {...register('userName')}
             />
             {errors.userName && <p className="error-text">{errors.userName.message}</p>}
 
             {/* EMAIL */}
-            <label className="input-label">Email Address</label>
+            {/* <label className="input-label">Email Address</label>
             <input
               type="email"
               className="input-field"
-              placeholder="Enter your email address"
+              placeholder="example@gmail.com"
               {...register('email')}
             />
-            {errors.email && <p className="error-text">{errors.email.message}</p>}
+            {errors.email && <p className="error-text">{errors.email.message}</p>} */}
+
+<label className="input-label">Email Address</label>
+
+<div className="input-wrapper">
+  <input
+    type="email"
+    value={emailValue}
+    className={`input-field
+      ${emailValue ? 'has-value' : ''}
+      ${emailFocused && emailValue ? 'input-typing' : ''}
+      ${errors.email ? 'input-error' : ''}
+    `}
+    onFocus={() => setEmailFocused(true)}
+    onBlur={() => setEmailFocused(false)}
+    onChange={(e) => {
+      const value = e.target.value;
+      setEmailValue(value);
+      setValue('email', value, { shouldValidate: true });
+    }}
+  />
+
+  {/* Ghost placeholder */}
+  <span className="ghost-placeholder">
+    <span className="typed-mask">{emailValue}</span>
+    <span className="ghost-rest">{remainingGhost}</span>
+  </span>
+</div>
+
+{errors.email && (
+  <p className="error-text">{errors.email.message}</p>
+)}
+
 
             {/* PASSWORD */}
            <label className="input-label">Password</label>
