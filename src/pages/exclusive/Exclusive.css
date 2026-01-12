@@ -169,3 +169,11 @@
   color: #fff;
   text-decoration: none;
 }
+
+
+@media (max-width: 768px) {
+  .lock-gradient-box {
+    width: auto;
+    margin: 0 28px;
+  }
+}

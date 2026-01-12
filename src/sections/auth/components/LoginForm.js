@@ -322,14 +322,8 @@ export default function LoginForm() {
     email: Yup.string().required('Email is required').email('Invalid email'),
     password: Yup.string().required('Password is required').min(6),
   });
-  const PLACEHOLDER_EMAIL = 'example@gmail.com';
 
   const [emailValue, setEmailValue] = useState('');
-  const [emailFocused, setEmailFocused] = useState(false);
-  const remainingGhost =
-    emailValue.length > 0
-      ? PLACEHOLDER_EMAIL.slice(emailValue.length)
-      : PLACEHOLDER_EMAIL;
 
 
   const {
@@ -472,29 +466,19 @@ export default function LoginForm() {
                 id="email"
                 type="email"
                 value={emailValue}
+                placeholder="example@gmail.com"
                 className={`input-field
-    ${emailValue ? 'has-value' : ''}
-    ${emailFocused && emailValue ? 'input-typing' : ''}
-    ${errors.email || authError ? 'input-error' : ''}
-  `}
-                onFocus={() => setEmailFocused(true)}
-                onBlur={() => setEmailFocused(false)}
+                  ${emailValue ? 'has-value' : ''}
+                  ${errors.email || authError ? 'input-error' : ''}
+                `}
                 onChange={(e) => {
                   const value = e.target.value;
                   setEmailValue(value);
-                  setValue('email', value, { shouldValidate: true });
+                  setValue('email', value, { shouldValidate: false });
                   setAuthError('');
                   setShowError(false);
                 }}
-
               />
-
-
-              {/* Ghost placeholder */}
-              <span className="ghost-placeholder">
-                <span className="typed-mask">{emailValue}</span>
-                <span className="ghost-rest">{remainingGhost}</span>
-              </span>
 
               {(errors.email || authError) && (
                 <span className="error-icon">

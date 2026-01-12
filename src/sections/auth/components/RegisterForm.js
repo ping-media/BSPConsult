@@ -268,15 +268,7 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
       .oneOf([Yup.ref('password')], 'Passwords do not match'),
   });
 
-  const PLACEHOLDER_EMAIL = 'example@gmail.com';
-
-const [emailValue, setEmailValue] = useState('');
-const [emailFocused, setEmailFocused] = useState(false);
-
-const remainingGhost =
-  emailValue.length > 0
-    ? PLACEHOLDER_EMAIL.slice(emailValue.length)
-    : PLACEHOLDER_EMAIL;
+  const [emailValue, setEmailValue] = useState('');
 
   const {
     register,
@@ -395,25 +387,17 @@ const EyeIcon = () => (
   <input
     type="email"
     value={emailValue}
+    placeholder="example@gmail.com"
     className={`input-field
       ${emailValue ? 'has-value' : ''}
-      ${emailFocused && emailValue ? 'input-typing' : ''}
       ${errors.email ? 'input-error' : ''}
     `}
-    onFocus={() => setEmailFocused(true)}
-    onBlur={() => setEmailFocused(false)}
     onChange={(e) => {
       const value = e.target.value;
       setEmailValue(value);
-      setValue('email', value, { shouldValidate: true });
+      setValue('email', value, { shouldValidate: false });
     }}
   />
-
-  {/* Ghost placeholder */}
-  <span className="ghost-placeholder">
-    <span className="typed-mask">{emailValue}</span>
-    <span className="ghost-rest">{remainingGhost}</span>
-  </span>
 </div>
 
 {errors.email && (

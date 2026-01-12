@@ -294,15 +294,17 @@
   font-size: 16px;
   font-weight: 400;
   margin-bottom: 10px;
+  border: 1px solid transparent;
 }
 .input-field:hover {
  background: #FFFFFF0A;
 
   /* OUTER outline (does NOT affect layout) */
-  box-shadow: 0 0 0 1px #00438C;
+  /* box-shadow: 0 0 0 1px #00438C; */
+  border: 1px solid #00438C;
 
   /* text moves 1px right */
-  padding-left: 13px;
+  /* padding-left: 13px; */
 }
 
 .input-field::placeholder {
@@ -314,10 +316,10 @@
   background: #FFFFFF0A;
 
   /* outer focus ring */
-  box-shadow: 0 0 0 2px #00438C;
+  border: 2px solid #0057B5;
 
   /* text moves 1px right */
-  padding-left: 13px;
+  /* padding-left: 13px; */
 }
 
 .password-group {
