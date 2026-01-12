@@ -596,6 +596,10 @@ div#wistia-player-container-1 {
     height: 20px;
   }
 
+  .hero-section{
+    padding: 60px 24px !important;
+  }
+
   /* very small phones → 1 per row */
   @media (max-width: 480px) {
     .feature-item {

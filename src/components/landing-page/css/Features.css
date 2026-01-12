@@ -101,6 +101,9 @@ body {
   .section-features{
     padding: 0;
   }
+  .section-features .container{
+    padding: 60px 24px !important;
+  }
   .features-badge {
     font-size: 14px;
     padding: 8px 16px;

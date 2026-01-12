@@ -29,7 +29,7 @@ const Header = () => (
 
     <div className="bg-effect" />
    
-    <div className="container pl-5 pr-5 pt-65 d-flex flex-column xs-pl-24 xs-pr-24">
+    <div className="hero-section container pl-5 pr-5 pt-65 d-flex flex-column xs-pl-24 xs-pr-24">
     <div className="hero-badge-wrapper">
   <div className="hero-badge">
     <span className="hero-badge-tag">Proven</span>

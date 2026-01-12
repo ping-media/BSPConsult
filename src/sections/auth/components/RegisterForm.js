@@ -283,7 +283,7 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     try {
       setLoading(true);
       await registerUser(data.email, data.password, data.userName);
-      navigate(paths.lock, { replace: true });
+      navigate(paths.exclusive, { replace: true });
     } catch (error) {
       setShowError(true);
     } finally {
