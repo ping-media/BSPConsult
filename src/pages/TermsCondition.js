@@ -10,7 +10,7 @@ export default function TermsCondition() {
       <div className="navbar">
         <div className="navbar-inner">
           <div className="brand">
-            <a href="https://bspconsult.com/" className="brand-link">
+            <a href="/" className="brand-link">
               <img
                 src="img/bsplogo.png"
                 alt="BSP Consult"
@@ -24,7 +24,7 @@ export default function TermsCondition() {
 
           <div className="login">
             <a
-              href="https://app.bspconsult.com/login"
+              href="/login"
               className="btn-white"
             >
               Login

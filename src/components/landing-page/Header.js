@@ -9,7 +9,7 @@ const Header = () => (
  <div className="navbar">
   <div className="navbar-inner">
     <div className="brand">
-      <a href="https://bspconsult.com/" className="brand-link">
+      <a href="/" className="brand-link">
         <img src="img/bsplogo.png" alt="BSP Consult" className="brand-logo" />
         <span className="brand-text">
           <strong>BSP</strong> CONSULT
@@ -18,7 +18,7 @@ const Header = () => (
     </div>
 
     <div className="login">
-      <a href="https://app.bspconsult.com/login" className="btn-white">
+      <a href="/login" className="btn-white">
         Login
         <img src="img/loginLogo.svg" alt="" className="btn-icon" />
       </a>

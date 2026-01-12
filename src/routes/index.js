@@ -67,9 +67,12 @@ export default function Router() {
       element: <MainLayout />,
       children: [{ element: <PolicyPage />, index: true }],
     },
-     {
+    {
       path: 'terms-condition',
-     
+      children: [{ element: <TermsCondition/>, index: true }],
+    },
+    {
+      path: 'terms-conditions',
       children: [{ element: <TermsCondition/>, index: true }],
     },
     {
