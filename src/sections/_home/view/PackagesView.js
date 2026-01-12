@@ -1,14 +1,12 @@
 import '../../../App.css';
 
-import {
-  Packages
-} from '../components';
+import PriceSection from '../../../components/landing-page/SectionPrice';
 
 // ----------------------------------------------------------------------
 
 export default function PackagesView() {
 
   return (
-    <Packages/>
+    <PriceSection />
   );
 }

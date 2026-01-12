@@ -48,3 +48,9 @@ body {
 .article{
     margin-top: 50px;
 }
+
+@media (max-width: 992px) {
+  .terms-main{
+    padding: 40px 24px;
+  }
+}
