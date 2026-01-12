@@ -1,8 +1,12 @@
 import { Helmet } from 'react-helmet-async';
 import { Box } from '@mui/material';
 // sections
-import {PackagesView} from 'src/sections/_home/view';
+import { PackagesView } from 'src/sections/_home/view';
 import useResponsive from 'src/hooks/useResponsive';
+
+// Import your CSS file
+// import './PackagesPage.css';
+
 // ----------------------------------------------------------------------
 
 export default function PackagesPage() {
