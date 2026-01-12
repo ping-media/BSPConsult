@@ -53,4 +53,8 @@ body {
   .terms-main{
     padding: 40px 24px;
   }
+  .terms-heading{
+    font-size: 22px;
+    padding: 40px 28px;
+  }
 }
