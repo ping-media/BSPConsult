@@ -67,7 +67,7 @@
 
 .faq-answer {
   margin-top: 14px;
-  padding: 16px;
+  padding: 16px 16px 4px 16px;
   background: #1C1E27;
   border-radius: 16px;
   color: #B6BCC8;
@@ -215,7 +215,7 @@
   }
   .faq-answer{
     font-size: 14px;
-    padding: 12px;
+    padding: 12px 12px 2px 12px;
   }
   .faq-item{
     padding: 16px;
