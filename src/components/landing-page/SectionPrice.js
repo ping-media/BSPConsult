@@ -64,14 +64,49 @@ export default function PriceSection() {
   const navigate = useNavigate();
 const [activeProgram, setActiveProgram] = useState('silver');
   //  Shared click handler (ready for Stripe later)
-  const handleProgramClick = async (programId) => {
-    // Later: create Stripe checkout session here
-    // For now: navigate user
-    navigate(paths.register, {
-      replace: true,
-      state: { program: programId },
-    });
-  };
+  // const handleProgramClick = async (programId) => {
+  //   // Later: create Stripe checkout session here
+  //   // For now: navigate user
+  //   navigate(paths.register, {
+  //     replace: true,
+  //     state: { program: programId },
+  //   });
+  const handleProgramClick = (programId) => {
+  navigate('/payment-success', {
+    replace: true,
+    state: { program: programId },
+  });
+};
+
+
+//     const handleProgramClick = async (programId) => {
+//   try {
+//     const response = await fetch(
+//       'https://us-central1-bspconsult-bcd6e.cloudfunctions.net/createCheckoutSession',
+//       {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify({
+//           program: programId, // silver | advanced | gold
+//         }),
+//       }
+//     );
+
+//     const data = await response.json();
+
+//     if (!data.sessionId) {
+//       throw new Error('No sessionId returned');
+//     }
+
+//     const stripe = await stripePromise;
+//     await stripe.redirectToCheckout({ sessionId: data.sessionId });
+
+//   } catch (error) {
+//     console.error('Stripe checkout error:', error);
+//   }
+// };
 
   return (
     <section className="section-price" id="SectionPrice">
