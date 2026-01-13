@@ -72,7 +72,7 @@ const Header = () => (
 </div>
 
      <div className="cta-wrapper">
-  <a href="/check-out" className="cta-gradient-btn">
+  <a href="#SectionPrice" className="cta-gradient-btn">
     <span className="cta-text">View the Programs</span>
     <img
       src="img/viewbtn.svg"   

@@ -88,19 +88,29 @@ export default function Router() {
         },
       ],
     },
+    // {
+    //   path: 'check-out',
+    //   children: [
+    //     {
+    //       element: (
+    //         <GuestGuard>
+    //           <PackagesPage />
+    //         </GuestGuard>
+    //       ),
+    //       index: true,
+    //     },
+    //   ],
+    // },
     {
-      path: 'check-out',
-      children: [
-        {
-          element: (
-            <GuestGuard>
-              <PackagesPage />
-            </GuestGuard>
-          ),
-          index: true,
-        },
-      ],
+  path: 'check-out',
+  children: [
+    {
+      element: <PackagesPage />,
+      index: true,
     },
+  ],
+},
+
     {
       path: 'lock',
       children: [
@@ -119,9 +129,9 @@ export default function Router() {
   children: [
     {
       element: (
-       
+       <AuthGuard>
           <Exclusive />
-      
+      </AuthGuard>
       ),
       index: true,
     },
