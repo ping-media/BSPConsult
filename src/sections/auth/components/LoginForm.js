@@ -295,6 +295,7 @@
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import './LoginForm.css';
@@ -561,6 +562,15 @@ export default function LoginForm() {
         <div className="modal-backdrop">
           <div className="modal">
             <div className="modal-content">
+              <button
+  type="button"
+  className="modal-close"
+  onClick={() => setOpenReset(false)}
+  aria-label="Close"
+>
+  <CloseIcon />
+</button>
+
               <img src="/img/round-arrow.svg" alt="Lock" />
               <h3>Forgot Password</h3>
               <p>Enter your email address to receive a password reset link.</p>
@@ -575,7 +585,7 @@ export default function LoginForm() {
               />
             </div>
             <div className="modal-actions">
-              <button type="button" className="cancel-btn" onClick={() => setOpenReset(false)}>
+              <button type="button" className="cancel-btn" onClick={() => setOpenReset(false)} >
                 Cancel
               </button>
               <button type="button" className="confirm-btn" onClick={onResetPassword}>
