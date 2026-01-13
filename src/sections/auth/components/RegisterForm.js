@@ -242,7 +242,7 @@
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import './LoginForm.css';
 
@@ -251,12 +251,15 @@ import { useAuthContext } from '../../../auth/useAuthContext';
 
 export default function RegisterForm() {
   const navigate = useNavigate();
+const location = useLocation();
+
   const { register: registerUser } = useAuthContext();
 
   const [loading, setLoading] = useState(false);
   const [showError, setShowError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
 
 
   const RegisterSchema = Yup.object({
@@ -283,7 +286,11 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     try {
       setLoading(true);
       await registerUser(data.email, data.password, data.userName);
-      navigate(paths.exclusive, { replace: true });
+      // navigate(paths.exclusive, { replace: true });
+      navigate(paths.exclusive, {
+  state: { background: location },
+});
+
     } catch (error) {
       setShowError(true);
     } finally {

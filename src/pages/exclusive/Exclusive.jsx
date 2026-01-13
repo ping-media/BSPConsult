@@ -33,9 +33,17 @@ export default function Exclusive() {
             {/* HEADER */}
             <div className="lock-header">
               <span>Exclusive Content</span>
-              <button type="button" className="lock-close">
+              {/* <button type="button" className="lock-close">
                 <CloseIcon />
-              </button>
+              </button> */}
+              <button
+  type="button"
+  className="lock-close"
+  onClick={() => navigate(-1)}
+>
+  <CloseIcon />
+</button>
+
 
             </div>
 
