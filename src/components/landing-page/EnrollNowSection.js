@@ -221,9 +221,11 @@ const EnrollNowSection = () => {
         <h5 className="heading-h5">
           Here's What <span>You Get</span>
         </h5>
-        <h2 className="heading-h2">
-          A complete method designed to transform your betting approach
-        </h2>
+       <h2 className="heading-h2">
+  A complete method designed to transform your
+  <span className="enroll-break"> betting approach</span>
+</h2>
+
       </div>
 
       <div className="enroll-wrapper">
