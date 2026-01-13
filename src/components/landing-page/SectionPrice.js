@@ -4,6 +4,7 @@ import './css/PriceSection.css';
 import { loadStripe } from '@stripe/stripe-js';
 import { CircleCheck } from 'lucide-react';
 import { useNavigate } from 'react-router';
+import { useState } from 'react';
 import { paths } from 'src/routes/paths';
 
 // Stripe must stay OUTSIDE component
@@ -61,7 +62,7 @@ const includes = [
 
 export default function PriceSection() {
   const navigate = useNavigate();
-
+const [activeProgram, setActiveProgram] = useState('silver');
   //  Shared click handler (ready for Stripe later)
   const handleProgramClick = async (programId) => {
     // Later: create Stripe checkout session here
@@ -81,11 +82,30 @@ export default function PriceSection() {
         <h5 className="heading-h5">Choose Your Program</h5>
         <h2 className="heading-h2">There is real opportunity in tennis betting only through structure, discipline and a clear strategy.</h2>
       </div>
-      <div className="price-grid">
+      {/* MOBILE PROGRAM SELECTOR */}
+{/* <div className="price-selector">
+  {programs.map((p) => (
+    <button
+    type='button'
+      key={p.id}
+      className={`selector-btn ${activeProgram === p.id ? 'active' : ''}`}
+      onClick={() => setActiveProgram(p.id)}
+    >
+      {p.name.split(' ')[0]}
+    </button>
+  ))}
+</div> */}
+
+<div className="price-grid">
+
         {programs.map((program) => (
           <div
             key={program.id}
-            className={`price-card ${program.id === 'advanced' ? 'is-featured' : ''}`}
+            className={`price-card
+  ${program.id === 'advanced' ? 'is-featured' : ''}
+  ${activeProgram === program.id ? 'is-active' : ''}
+`}
+
           >
 
             {/* BLACK INNER BOX */}
