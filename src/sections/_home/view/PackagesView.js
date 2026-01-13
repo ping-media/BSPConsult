@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router';
 import '../../../App.css';
 import './PackagesView.css';
 
@@ -6,6 +7,15 @@ import PriceSection from '../../../components/landing-page/SectionPrice';
 // ----------------------------------------------------------------------
 
 export default function PackagesView() {
+  const navigate = useNavigate();
+
+  const handleProgramClick = (programId) => {
+    navigate('/payment-success', {
+      replace: true,
+      state: { program: programId },
+    });
+  };
+
   return (
     <div className="packages-pages">
       {/* NAVBAR */}
@@ -27,7 +37,7 @@ export default function PackagesView() {
       </div>
 
       {/* PRICE SECTION */}
-      <PriceSection />
+      <PriceSection onProgramSelect={handleProgramClick} />
     </div>
   );
 }

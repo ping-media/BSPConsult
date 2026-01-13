@@ -59,8 +59,8 @@ const includes = [
   'BSP Masterclass (20+ Hours of Video)',
   'Real Time Study Cases',
 ];
-
-export default function PriceSection() {
+// eslint-disable-next-line react/prop-types
+export default function PriceSection({ onProgramSelect }) {
   const navigate = useNavigate();
 const [activeProgram, setActiveProgram] = useState('silver');
   //  Shared click handler (ready for Stripe later)
@@ -71,12 +71,21 @@ const [activeProgram, setActiveProgram] = useState('silver');
   //     replace: true,
   //     state: { program: programId },
   //   });
-  const handleProgramClick = (programId) => {
-  navigate('/payment-success', {
-    replace: true,
-    state: { program: programId },
-  });
+  // const handleProgramClick = (programId) => {
+  // navigate('/payment-success', {
+  //   replace: true,
+  //   state: { program: programId },
+  // });
+const handleProgramClick = (programId) => {
+  if (onProgramSelect) {
+    onProgramSelect(programId);
+  } else {
+    navigate(paths.register, {
+      state: { program: programId },
+    });
+  }
 };
+
 
 
 //     const handleProgramClick = async (programId) => {

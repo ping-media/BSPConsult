@@ -179,7 +179,7 @@ export default function HomeView() {
     });
 
     if (result.error) {
-      // If `redirectToCheckout` fails due to a browser or network
+     
       // error, display the localized error message to your customer.
       console.error(result.error.message);
     }
