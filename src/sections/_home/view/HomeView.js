@@ -372,15 +372,15 @@ export default function HomeView() {
       {/* MAIN CONTENT */}
       <main className="home-content">
         {currentPage === 'Profile' && <Profile onChange={handleProfileChange} />}
-        {currentPage === 'Tips' && <Tips setCurrentPage={setCurrentPage} />}
-        {currentPage === 'Subscriptions' && <Subscriptions />}
-        {currentPage === 'Courses' && <Courses onChange={handleProfileChange} />}
-        {currentPage === 'VideoContentSilver' && (
+        {currentPage === 'Setups' && <Tips setCurrentPage={setCurrentPage} />}
+        {currentPage === 'Programs' && <Subscriptions />}
+        {currentPage === 'BSP Masterclass' && <Courses onChange={handleProfileChange} />}
+        {currentPage === 'Essential Video Content' && (
           <VideoContentSilver setCurrentPage={setCurrentPage} />
         )}
-        {currentPage === 'MasterZone' && (
+        {/* {currentPage === 'MasterZone' && (
           <MasterZone onChange={handleProfileChange} />
-        )}
+        )} */}
       </main>
     </div>
   </div>

@@ -737,10 +737,6 @@ const hasNoSubscription = user?.membership === '1' || !user?.membership;
               <span className="profile-ans">{user?.email}</span>
             </div>
 
-            <div className="info-row">
-              <span>Password</span>
-              <span className="profile-ans with-icon">********</span>
-            </div>
 
             <div className="info-row">
               <span></span>
@@ -871,7 +867,7 @@ const hasNoSubscription = user?.membership === '1' || !user?.membership;
           </div>
 
 {/* ================= UPGRADE MEMBERSHIP – FULL WIDTH ================= */}
-{/* {!isGold && (isSilver || hasNoSubscription) && (
+{!isGold && (isSilver || hasNoSubscription) && (
   <div className="upgrade-box">
     <div className="upgrade-content">
       <h3>Upgrade Membership</h3>
@@ -886,57 +882,58 @@ const hasNoSubscription = user?.membership === '1' || !user?.membership;
       Gold
     </button>
 
-    <div className="price-card price-card--gold is-featured">
-      <div className="price-inner">
+    <div className="upgrade-card upgrade-card--gold">
+  <div className="upgrade-inner">
 
-        <div className="program-headers">
-          <h3 className="program-title">Gold Program</h3>
-        </div>
-
-        <div className="program-price">
-          <span className="price-amount">€400</span>
-          <span className="price-period">one time fee</span>
-        </div>
-
-        <div className="program-note">
-          Lock in current pricing before next update.
-        </div>
-
-        <button
-          type="button"
-          className="Gold-btn"
-          onClick={handleSubscription}
-        >
-          Get Gold Program
-        </button>
-      </div>
-
-      <div className="program-includes">
-        <h4>Extra benefits with Gold</h4>
-        <ul>
-          <li className="active">
-            <img src="img/gold-tick.svg" alt="check" />
-            <span className="include-text">
-              High-Stakes Betting Frameworks
-            </span>
-          </li>
-          <li className="active">
-            <img src="img/gold-tick.svg" alt="check" />
-            <span className="include-text">
-              BSP Masterclass (20+ Hours of Video)
-            </span>
-          </li>
-          <li className="active">
-            <img src="img/gold-tick.svg" alt="check" />
-            <span className="include-text">
-              Real Time Study Cases
-            </span>
-          </li>
-        </ul>
-      </div>
+    <div className="upgrade-headers">
+      <h3 className="upgrade-title">Gold Program</h3>
     </div>
+
+    <div className="upgrade-price">
+      <span className="price-amount">€400</span>
+      <span className="price-period">one time fee</span>
+    </div>
+
+    <div className="upgrade-note">
+      Lock in current pricing before next update.
+    </div>
+
+    <button
+      type="button"
+      className="Gold-btn"
+      onClick={handleSubscription}
+    >
+      Get Gold Program
+    </button>
   </div>
-)} */}
+
+  <div className="upgrade-includes">
+    <h4>Extra benefits with Gold</h4>
+    <ul>
+      <li className="active">
+        <img src="img/gold-tick.svg" alt="check" />
+        <span className="include-text">
+          High-Stakes Betting Frameworks
+        </span>
+      </li>
+      <li className="active">
+        <img src="img/gold-tick.svg" alt="check" />
+        <span className="include-text">
+          BSP Masterclass (20+ Hours of Video)
+        </span>
+      </li>
+      <li className="active">
+        <img src="img/gold-tick.svg" alt="check" />
+        <span className="include-text">
+          Real Time Study Cases
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+  </div>
+)}
 
         </div>
       </div>

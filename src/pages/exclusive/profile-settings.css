@@ -274,8 +274,8 @@
 }
 
 /* Upgrade box full row */
-
 .upgrade-box {
+  position: relative;
   width: 100%;
   max-width: 800px;
   border-radius: 16px;
@@ -283,11 +283,12 @@
   backdrop-filter: blur(10px);
   background: #101117;
   margin-bottom: 20px;
-  /* OUTER + INNER SHADOW */
+
   box-shadow:
-    5px 5px 4px 0px #00000024,          /* outer shadow */
-    inset 1px 1px 12px 1px #FFFFFF05;  /* inner shadow */
+    5px 5px 4px 0px #00000024,
+    inset 1px 1px 12px 1px #FFFFFF05;
 }
+
 .upgrade-box::before {
   content: "";
   position: absolute;
@@ -296,7 +297,6 @@
   padding: 1px;
   z-index: -1;
 
-  /* Gradient only top-left */
   background: linear-gradient(
     135deg,
     rgba(255, 255, 255, 0.08) 0%,
@@ -312,112 +312,114 @@
   mask-composite: exclude;
 
   pointer-events: none;
-
 }
+
 .upgrade-content {
   text-align: center;
   padding: 16px 0;
 }
+
 .upgrade-content h3 {
   font-size: 20px;
   font-weight: 500;
 }
+
 .upgrade-content p {
   margin-top: 8px;
   font-size: 16px;
   color: #B9BDC7;
 }
+
 .Gold-btn {
   font-size: 18px;
   font-weight: 400;
   line-height: 20px;
   padding: 10px 14px;
   background: #FFCB2B33;
-  border: #FFCB2B 1px solid;
+  border: 1px solid #FFCB2B;
   border-radius: 8px;
   color: #FFFFFF;
   cursor: pointer;
   width: 100%;
-  margin: 10px 0; 
+  margin: 10px 0;
 }
 
-.price-card--gold {
+.upgrade-card--gold {
   position: relative;
   margin: 0 auto;
-  padding:8px;
-border-radius: 14px;
-   background: url('../../assets/gold-bg.png') ;
+  padding: 8px;
+  border-radius: 14px;
+  background: url('../../assets/gold-bg.png');
   background-size: cover;
   margin: 20px 0;
 }
-.price-card--gold .price-inner {
+
+.upgrade-inner {
   position: relative;
   width: 100%;
   padding: 24px;
   border-radius: 12px;
-  /* INNER DARK BOX */
+
   background: rgba(0, 0, 0, 0.30);
   border: 1px solid rgba(255, 255, 255, 0.10);
-  /* GLASS BLUR */
+
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 
-  /* INNER SHADOW */
   box-shadow:
     inset 1px 1px 12px rgba(255, 255, 255, 0.05);
 }
-.price-card--gold .program-headers {
+
+.upgrade-headers {
   display: flex;
   align-items: center;
   justify-content: space-between;
- 
 }
 
-.price-card--gold .program-title {
+.upgrade-title {
   font-size: 24px;
   font-weight: 500;
   color: #ffffff;
 }
 
-.price-card--gold .program-price {
+.upgrade-price {
   display: flex;
   align-items: baseline;
   gap: 6px;
   margin: 20px 0 0;
 }
 
-.price-card--gold .price-amount {
+.upgrade-price .price-amount {
   font-size: 28px;
   font-weight: 500;
   color: #ffffff;
 }
 
-.price-card--gold .price-period {
+.upgrade-price .price-period {
   font-size: 16px;
   font-weight: 500;
   color: #D0D3D9;
 }
-.price-card--gold .program-note {
+
+.upgrade-note {
   font-size: 18px;
   color: #D0D3D9;
   margin-bottom: 20px;
 }
 
-
-.price-card--gold .program-includes {
+.upgrade-includes {
   margin-top: 24px;
   padding: 0 16px 16px;
 }
 
-.price-card--gold .program-includes h4 {
+.upgrade-includes h4 {
   font-size: 16px;
   font-weight: 500;
   color: #ffffff;
   padding: 2px 0;
-  
 }
 
-.price-card--gold .program-includes li {
+.upgrade-includes li {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -426,7 +428,6 @@ border-radius: 14px;
   font-weight: 300;
   color: #F0F1F3;
 }
-
 
 
 @media (max-width: 1024px) {

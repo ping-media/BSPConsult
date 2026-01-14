@@ -73,11 +73,11 @@ import "./SideNavbar.css";
 export default function SideNavbar({ active, onChange, onLogout }) {
   const menuItems = [
     { id: "Profile", label: "Profile", icon: "/img/user.svg" },
-    { id: "Tips", label: "Tips", icon: "/img/lamp-charge.svg" },
-    { id: "VideoContentSilver", label: "Silvers Video Content", icon: "/img/book.svg" },
-    { id: "Courses", label: "Masterclass Video Content", icon: "/img/video-play.svg" },
-    { id: "MasterZone", label: "Masterclass Zone", icon: "/img/search-status.svg" },
-    { id: "Subscriptions", label: "Subscriptions", icon: "/img/crown.svg" },
+    { id: "Setups", label: "Setups", icon: "/img/lamp-charge.svg" },
+    { id: "Essential Video Content", label: "Essential Video Content", icon: "/img/book.svg" },
+    { id: "BSP Masterclass", label: "BSP Masterclass", icon: "/img/video-play.svg" },
+    // { id: "MasterZone", label: "Masterclass Zone", icon: "/img/search-status.svg" },
+    { id: "Programs", label: "Programs", icon: "/img/crown.svg" },
   ];
 
   const ChevronRight = () => (
