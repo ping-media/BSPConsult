@@ -300,20 +300,20 @@ const [activeIndex, setActiveIndex] = useState(0); // first one active by defaul
             />
           ) : (
             <div className="video-locked">
-              <div className="lock-icon-box">
-                <RemoveModeratorIcon />
-              </div>
-              <h3>You need to be a Silver Member to unlock the Silver Video Content</h3>
+              <div >
+              <img src="/img/locked-premium.svg" alt="Locked" />
+            </div>
+              <h3 className='locked-text'>You need to be a Silver Member to unlock the Silver Video Content</h3>
 
-              <div className="purchase-wrapper">
+             
                 <button type='button'
-                  className="purchase-btn"
+                  className="update-btn"
                   onClick={() => setCurrentPage('Subscriptions')}
                 >
                   Purchase Membership
                 </button>
               </div>
-            </div>
+          
           )}
 
           <script src="https://player.vimeo.com/api/player.js" />

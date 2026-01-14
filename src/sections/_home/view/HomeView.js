@@ -365,8 +365,11 @@ export default function HomeView() {
     <div className="dashboard-content">
       {/* HEADER */}
       <header className="page-header">
-        <h1>
+        {/* <h1>
           BSP Consult <span>- Evolving the approach of Sports Betting</span>
+        </h1> */}
+        <h1>
+          BSP Consult - We build high-level bettors
         </h1>
       </header>
 

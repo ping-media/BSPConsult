@@ -867,7 +867,7 @@ const hasNoSubscription = user?.membership === '1' || !user?.membership;
           </div>
 
 {/* ================= UPGRADE MEMBERSHIP – FULL WIDTH ================= */}
-{!isGold && (isSilver || hasNoSubscription) && (
+{/* {!isGold && (isSilver || hasNoSubscription) && (
   <div className="upgrade-box">
     <div className="upgrade-content">
       <h3>Upgrade Membership</h3>
@@ -933,7 +933,7 @@ const hasNoSubscription = user?.membership === '1' || !user?.membership;
 </div>
 
   </div>
-)}
+)} */}
 
         </div>
       </div>
