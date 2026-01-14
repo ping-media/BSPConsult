@@ -31,20 +31,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 550px;
-  background-color: rgba(0, 0, 0, 0.5);
+  height: 425px;
+  background-color: #FFFFFF0D;
   color: #ffffff;
   text-align: center;
-}
-
-.lock-icon-box {
-  width: 77px;
-  height: 77px;
-  border: 2px solid #0866eb;
+  margin-bottom: 35px;
   border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .video-locked h3 {

@@ -8,7 +8,7 @@ import { useAuthContext } from '../../../auth/useAuthContext';
 import { paths } from '../../../routes/paths';
 
 // ----------------------------------------------------------------------
-const stripePromise = loadStripe("pk_live_51NAUESCf4YXq1rsyBMpbCD1Yqi5kocGdjxYqcqknpppNXXnUKKCVxar7NqInLJRCJTCEVkbqQPppP7nvve8E053I00P0pVQI8d");
+ const stripePromise = loadStripe("pk_live_51NAUESCf4YXq1rsyBMpbCD1Yqi5kocGdjxYqcqknpppNXXnUKKCVxar7NqInLJRCJTCEVkbqQPppP7nvve8E053I00P0pVQI8d");
 
 export default function Enrolling() {
   const isDesktop = useResponsive('up', 'md');

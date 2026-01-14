@@ -82,8 +82,9 @@
   display: none !important;
   content: none !important;
 }
-
-
+.packages-pages .section-price{
+  padding: 40px 20px;
+}
 
 /* =========================
    MOBILE ONLY BEHAVIOR
@@ -91,47 +92,23 @@
 
 @media (max-width: 768px) {
 
+  .packages-pages .navbar-inner {
+    display: flex;
+    justify-content: center;
+  }
+
+
     .packages-pages .brand-text {
     display: inline-block !important;
+    
   }
 
   /* --------------------------------
      GLOBAL LEFT ALIGN
   --------------------------------- */
 
-  .packages-pages .section-price {
-    padding: 30px 16px;
-    text-align: left;
-  }
+ 
 
-  .packages-pages .features-badge {
-    margin: 0 0 12px 0 !important;
-    display: inline-flex;
-    justify-content: flex-start;
-  }
-
-  .packages-pages .heading-h5,
-  .packages-pages .heading-h2 {
-    text-align: left;
-  }
-
-   .packages-pages .section-price .text-center {
-    text-align: left !important;
-  }
-
-  .packages-pages .section-price .features-badge {
-    justify-content: flex-start !important;
-  }
-  /* --------------------------------
-     BUTTON ROW (SINGLE LINE)
-  --------------------------------- */
-
-  .packages-pages .price-selector {
-    display: flex;            /* 🔥 single row */
-    flex-direction: row;
-    width: 100%;
-    align-items: stretch;
-  }
 
  
 }

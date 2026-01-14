@@ -2,7 +2,9 @@ import { useNavigate } from 'react-router';
 import '../../../App.css';
 import './PackagesView.css';
 
-import PriceSection from '../../../components/landing-page/SectionPrice';
+import {
+  Packages
+} from '../components';
 
 // ----------------------------------------------------------------------
 
@@ -37,7 +39,9 @@ export default function PackagesView() {
       </div>
 
       {/* PRICE SECTION */}
-      <PriceSection onProgramSelect={handleProgramClick} />
+     <Packages/>
     </div>
   );
 }
+
+
