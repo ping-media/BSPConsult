@@ -872,7 +872,7 @@ const stripePromise = loadStripe(
 // 🔹 Map program → Stripe Price ID
 const PRICE_MAP = {
   silver: 'price_1OgVTPCf4YXq1rsyGHWrpUI3',
-  advanced: 'price_XXXXXXXXXXXXXXX', // <-- put Advanced priceId here
+  advanced: 'price_1SgyrmCf4YXq1rsyFk0I3ljo', 
   gold: 'price_1NqWtkCf4YXq1rsyDvmsIWtF',
 };
 
