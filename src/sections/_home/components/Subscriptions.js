@@ -1477,10 +1477,6 @@ const stripePromise = loadStripe(
   'pk_live_51NAUESCf4YXq1rsyBMpbCD1Yqi5kocGdjxYqcqknpppNXXnUKKCVxar7NqInLJRCJTCEVkbqQPppP7nvve8E053I00P0pVQI8d'
 );
 
-// const stripePromise = loadStripe(
-//   'pk_test_51NAUESCf4YXq1rsy7qsqKVbtnalP4WkcBPaYkjtlVZTmoCYd6wQNh6m5ui1F62CLzNdG1hP26kkX2YKBycMqRkq800RuHmE6iD'
-// );
-
 // 🔹 Map program → Stripe Price ID
 const PRICE_MAP = {
   silver: 'price_1OgVTPCf4YXq1rsyGHWrpUI3',
