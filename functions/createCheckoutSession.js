@@ -1,8 +1,12 @@
 const admin = require("firebase-admin");
 const Stripe = require("stripe");
 
+
+
 const stripe = Stripe("sk_live_51NAUESCf4YXq1rsyJE7KoKl6XA8YzbGT3vSkP0lo1pc7p" +
   "fTI2Bqqi4AK5v0Y4v7C85Nlei8J3R5U9K2LIIFv1hif00WXCepGk6");
+
+  //const stripe = Stripe("sk_test_51NAUESCf4YXq1rsygXh55uVZXD9VrbRc1BVWsV2O9Uqj89IsLhUsSvofTcFoOozZPPVsNR7AKfT6XrzMuDMMctOT00Rph1luqV");
 
 if (!admin.apps.length) {
   admin.initializeApp();

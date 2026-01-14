@@ -193,7 +193,7 @@ export default function Success() {
 
                             <h1 className="lock-title">Premium Access Activated</h1>
                             <p className="lock-subtitle">
-                                Your payment has been successfully processed. You now have access to the platform. A confirmation email with all relevant details has been sent to you.
+                                You now have access to the platform. A confirmation email with all the relevant details has been sent to you.
                             </p>
                         </div>
 

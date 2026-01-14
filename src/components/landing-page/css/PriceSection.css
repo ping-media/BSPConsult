@@ -186,6 +186,16 @@
   color: #374151;
 }
 
+@media (max-width: 1550px) {
+ .program-title {
+  font-size: 20px;
+  font-weight: 500;
+}
+.best-value-badge{
+  font-size: 12px;
+}
+}
+
 /* RESPONSIVE */
 @media (max-width: 900px) {
   .price-grid {
@@ -338,4 +348,15 @@
 
 .price-selector {
   display: none;
+}
+
+.program-btn.is-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+
+.section-prices {
+  padding: 20px 0;
 }
