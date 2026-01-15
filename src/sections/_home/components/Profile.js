@@ -608,6 +608,9 @@ const UPGRADE_CONFIG = {
       price: '€600',
       priceId: UPGRADE_PRICE_MAP.silver_to_gold,
       features: [
+        'Advanced Data Insights (BSP App)',
+        'BSP Tennis Betting Model',
+        'Essential Video Content',
         'High-Stakes Betting Frameworks',
         'BSP Masterclass (20+ Hours of Video)',
         'Real Time Study Cases',
@@ -907,7 +910,7 @@ export default function Profile({ onChange }) {
                 MenuProps: {
                   PaperProps: {
                     sx: {
-                      mt: 1,                   
+                      mt: 1,
                       backgroundColor: '#1B1D27',
                       color: '#FFF',
                       borderRadius: '8px',
@@ -940,7 +943,7 @@ export default function Profile({ onChange }) {
                   border: '1px solid rgba(255,255,255,0.12)',
                 },
 
-              
+
                 '& .MuiMenuItem-root': {
                   borderRadius: 0,
                   minHeight: 48,
@@ -1168,7 +1171,13 @@ export default function Profile({ onChange }) {
                   </div>
 
                   <div className="upgrade-includes">
-                    <h4>What you get</h4>
+                    <h4>
+                      Extra benefits with{' '}
+                      <span className={selectedPlan === 'gold' ? 'gold-text' : 'advanced-text'}>
+                        {selectedPlan === 'gold' ? 'Gold' : 'Advanced'}
+                      </span>
+                    </h4>
+
                     <ul>
                       {upgradeData.features.map((feature) => (
                         <li key={feature} className="active">
