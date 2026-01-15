@@ -559,8 +559,10 @@
   jsx-a11y/click-events-have-key-events,
   jsx-a11y/no-static-element-interactions
 */
+/* eslint-disable no-nested-ternary */
 
 import PropTypes from 'prop-types';
+import { loadStripe } from '@stripe/stripe-js';
 import { useState } from 'react';
 import {
   Box,
@@ -577,6 +579,54 @@ import {
 import { LoadingButton } from '@mui/lab';
 import { MotionViewport } from 'src/components/animate';
 import { useAuthContext } from '../../../auth/useAuthContext';
+
+
+const stripePromise = loadStripe(
+  'pk_live_51NAUESCf4YXq1rsyBMpbCD1Yqi5kocGdjxYqcqknpppNXXnUKKCVxar7NqInLJRCJTCEVkbqQPppP7nvve8E053I00P0pVQI8d'
+);
+
+const UPGRADE_PRICE_MAP = {
+  silver_to_advanced: 'price_1Sh1flCf4YXq1rsy94ex1p16',
+  silver_to_gold: 'price_1OgVtOCf4YXq1rsy99bw9IHr',
+  advanced_to_gold: 'price_1Sh1gECf4YXq1rsycqlOtspg',
+};
+const UPGRADE_CONFIG = {
+  silver: {
+    advanced: {
+      title: 'Advanced Program',
+      price: '€200',
+      priceId: UPGRADE_PRICE_MAP.silver_to_advanced,
+      features: [
+        'Advanced Data Insights (BSP App)',
+        'BSP Tennis Betting Model',
+        'Essential Video Content',
+      ],
+    },
+    gold: {
+      title: 'Gold Program',
+      price: '€600',
+      priceId: UPGRADE_PRICE_MAP.silver_to_gold,
+      features: [
+        'High-Stakes Betting Frameworks',
+        'BSP Masterclass (20+ Hours of Video)',
+        'Real Time Study Cases',
+      ],
+    },
+  },
+  advanced: {
+    gold: {
+      title: 'Gold Program',
+      price: '€400',
+      priceId: UPGRADE_PRICE_MAP.advanced_to_gold,
+      features: [
+        'High-Stakes Betting Frameworks',
+        'BSP Masterclass (20+ Hours of Video)',
+        'Real Time Study Cases',
+      ],
+    },
+  },
+};
+
 
 export default function Profile({ onChange }) {
   const { user, updateBankroll, resetPassword, deleteAccount } = useAuthContext();
@@ -625,6 +675,47 @@ export default function Profile({ onChange }) {
     setLoadingResetPassword(false);
     setDeletAccount(false);
   };
+
+  const handleUpgradeCheckout = async (priceId) => {
+    try {
+      const stripe = await stripePromise;
+
+      const response = await fetch(
+        'https://us-central1-bspconsult-bcd6e.cloudfunctions.net/createCheckoutSession',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            priceId,
+            customerEmail: user?.email,
+            platform: 'web',
+            upgrade: true, // optional but useful in webhook
+          }),
+        }
+      );
+
+      const session = await response.json();
+
+      if (!session?.id) {
+        throw new Error('Invalid Stripe session');
+      }
+
+      await stripe.redirectToCheckout({ sessionId: session.id });
+    } catch (error) {
+      console.error('Upgrade checkout error:', error);
+    }
+  };
+
+  const currentPlan =
+    isSilver ? 'silver' :
+      isAdvanced ? 'advanced' :
+        null;
+
+  const upgradeData =
+    currentPlan && selectedPlan
+      ? UPGRADE_CONFIG[currentPlan]?.[selectedPlan]
+      : null;
+
 
   return (
     <Container component={MotionViewport} className="content-grid">
@@ -745,62 +836,31 @@ export default function Profile({ onChange }) {
             overflow: 'visible',
           }}
         >
-
-          {/* DO NOT SHOW FOR GOLD USERS */}
           {!isGold && (isSilver || isAdvanced || hasNoSubscription) && (
             <div className="upgrade-box">
 
               {/* HEADER */}
-            <div className="upgrade-content-header">
-  <div className="upgrade-content">
-    <h3>
-      {hasNoSubscription ? 'Choose Membership' : 'Upgrade Membership'}
-    </h3>
-    <p>Upgrade to unlock advanced features and full access.</p>
-  </div>
+              <div className="upgrade-content-header">
+                <div className="upgrade-content">
+                  <h3>{hasNoSubscription ? 'Choose Membership' : 'Upgrade Membership'}</h3>
+                  <p>Upgrade to unlock advanced features and full access.</p>
+                </div>
 
-  <button
-    type="button"
-    className="upgrade-close"
-    onClick={() => setOpenUpgrade(false)}
-    aria-label="Close"
-  >
-    ✕
-  </button>
-</div>
+                <button
+                  type="button"
+                  className="upgrade-close"
+                  onClick={() => setOpenUpgrade(false)}
+                >
+                  ✕
+                </button>
+              </div>
 
-<div className="upgrade-divider" />
+              <div className="upgrade-divider" />
 
-
-              {/* PLAN SWITCH BUTTONS */}
+              {/* PLAN SWITCH */}
               <div className="plan-switch">
 
-                {/* NO SUBSCRIPTION */}
-                {hasNoSubscription && (
-                  <>
-
-
-                    <button
-                      type="button"
-                      className={`plan-btn advanced ${selectedPlan === 'advanced' ? 'active' : ''}`}
-                      onClick={() => setSelectedPlan('advanced')}
-                    >
-                      Advanced
-                    </button>
-
-                    <button
-                      type="button"
-                      className={`plan-btn gold ${selectedPlan === 'gold' ? 'active' : ''}`}
-                      onClick={() => setSelectedPlan('gold')}
-                    >
-                      Gold
-                    </button>
-
-                  </>
-                )}
-
-                {/* SILVER → ADVANCED / GOLD */}
-                {isSilver && (
+                {(hasNoSubscription || isSilver) && (
                   <>
                     <button
                       type="button"
@@ -820,30 +880,30 @@ export default function Profile({ onChange }) {
                   </>
                 )}
 
-
-                {/* ADVANCED → GOLD */}
                 {isAdvanced && (
                   <button type="button" className="plan-btn gold active">
                     Gold
                   </button>
                 )}
 
-
               </div>
 
-
-              {/* ================= ADVANCED CARD ================= */}
-              {selectedPlan === 'advanced' && (
-                <div className="upgrade-card upgrade-card--advanced">
+              {/* DYNAMIC CARD */}
+              {upgradeData && (
+                <div className={`upgrade-card upgrade-card--${selectedPlan}`}>
                   <div className="upgrade-inner">
 
                     <div className="upgrade-headers">
-                      <h3 className="upgrade-title">Advanced Program</h3>
-                      <span className="best-value-badge">Best Value</span>
+                      <h3 className="upgrade-title">{upgradeData.title}</h3>
+
+                      {selectedPlan === 'advanced' && (
+                        <span className="best-value-badge">Best Value</span>
+                      )}
                     </div>
 
+
                     <div className="upgrade-price">
-                      <span className="price-amount">€200</span>
+                      <span className="price-amount">{upgradeData.price}</span>
                       <span className="price-period">one time fee</span>
                     </div>
 
@@ -853,93 +913,33 @@ export default function Profile({ onChange }) {
 
                     <button
                       type="button"
-                      className="adva-btn"
+                      className={selectedPlan === 'gold' ? 'Gold-btn' : 'adva-btn'}
                       onClick={() => {
                         setOpenUpgrade(false);
-                        handleSubscription();
+                        handleUpgradeCheckout(upgradeData.priceId);
                       }}
                     >
-                      Get Advanced Program
+                      Get {upgradeData.title}
                     </button>
+
                   </div>
 
                   <div className="upgrade-includes">
-                    <h4>Extra benefits with Advanced</h4>
+                    <h4>What you get</h4>
                     <ul>
-                      <li className="active">
-                        <img src="/img/check-circle.svg" alt="check" />
-                        <span className="include-text">
-                          Advanced Data Insights (BSP App)
-                        </span>
-                      </li>
-                      <li className="active">
-                        <img src="/img/check-circle.svg" alt="check" />
-                        <span className="include-text">
-                          BSP Tennis Betting Model
-                        </span>
-                      </li>
-                      <li className="active">
-                        <img src="/img/check-circle.svg" alt="check" />
-                        <span className="include-text">
-                          Essential Video Content
-                        </span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              )}
-
-              {/* ================= GOLD CARD ================= */}
-              {selectedPlan === 'gold' && (
-                <div className="upgrade-card upgrade-card--gold">
-                  <div className="upgrade-inner">
-
-                    <div className="upgrade-headers">
-                      <h3 className="upgrade-title">Gold Program</h3>
-                    </div>
-
-                    <div className="upgrade-price">
-                      <span className="price-amount">€400</span>
-                      <span className="price-period">one time fee</span>
-                    </div>
-
-                    <div className="upgrade-note">
-                      Lock in current pricing before next update.
-                    </div>
-
-                    <button
-                      type="button"
-                      className="Gold-btn"
-                      onClick={() => {
-                        setOpenUpgrade(false);
-                        handleSubscription();
-                      }}
-                    >
-                      Get Gold Program
-                    </button>
-                  </div>
-
-                  <div className="upgrade-includes">
-                    <h4>Extra benefits with Gold</h4>
-                    <ul>
-                      <li className="active">
-                        <img src="/img/gold-tick.svg" alt="check" />
-                        <span className="include-text">
-                          High-Stakes Betting Frameworks
-                        </span>
-                      </li>
-                      <li className="active">
-                        <img src="/img/gold-tick.svg" alt="check" />
-                        <span className="include-text">
-                          BSP Masterclass (20+ Hours of Video)
-                        </span>
-                      </li>
-                      <li className="active">
-                        <img src="/img/gold-tick.svg" alt="check" />
-                        <span className="include-text">
-                          Real Time Study Cases
-                        </span>
-                      </li>
+                      {upgradeData.features.map((feature) => (
+                        <li key={feature} className="active">
+                          <img
+                            src={
+                              selectedPlan === 'gold'
+                                ? '/img/gold-tick.svg'
+                                : '/img/check-circle.svg'
+                            }
+                            alt="check"
+                          />
+                          <span className="include-text">{feature}</span>
+                        </li>
+                      ))}
                     </ul>
                   </div>
                 </div>
@@ -947,9 +947,9 @@ export default function Profile({ onChange }) {
 
             </div>
           )}
-
         </DialogContent>
       </Dialog>
+
 
 
 

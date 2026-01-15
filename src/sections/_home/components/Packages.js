@@ -867,8 +867,6 @@ const stripePromise = loadStripe(
 );
 
 
-
-
 // 🔹 Map program → Stripe Price ID
 const PRICE_MAP = {
   silver: 'price_1OgVTPCf4YXq1rsyGHWrpUI3',
