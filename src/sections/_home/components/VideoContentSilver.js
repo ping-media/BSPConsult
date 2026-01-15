@@ -249,17 +249,30 @@ export default function VideoContentSilver({ setCurrentPage }) {
     'https://player.vimeo.com/video/912613882?badge=0&autopause=0&player_id=0&app_id=58479'
   );
 
-  const checkExpireDate = () => {
-    const sec = user.expire_date ? user.expire_date.seconds * 1000 : 0;
-    const expireDate = new Date(sec);
-    const currentDate = new Date();
-    return currentDate.getTime() < expireDate.getTime();
-  };
+  // const checkExpireDate = () => {
+  //   const sec = user.expire_date ? user.expire_date.seconds * 1000 : 0;
+  //   const expireDate = new Date(sec);
+  //   const currentDate = new Date();
+  //   return currentDate.getTime() < expireDate.getTime();
+  // };
 
-  const isSubscribed = user.membership !== '1' && checkExpireDate();
-  // const isSubscribed = DEV_PREVIEW
-  // ? true
-  // : user.membership !== '1' && checkExpireDate();
+  const hasNotExpired = () => {
+  const expiry =
+    user?.expire_date ||
+    user?.expiry_date;
+
+  // No expiry = lifetime access
+  if (!expiry || !expiry.seconds) {
+    return true;
+  }
+
+  return Date.now() < expiry.seconds * 1000;
+};
+
+const isSubscribed =
+  ['8', '9', '10'].includes(user?.membership) &&
+  hasNotExpired();
+
 
 const [activeIndex, setActiveIndex] = useState(0); // first one active by default
 

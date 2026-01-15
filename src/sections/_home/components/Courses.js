@@ -561,14 +561,33 @@ export default function Courses({ onChange }) {
 
   const { user } = useAuthContext();
 
-  const checkExpireDate = () => {
-    const sec = user.expire_date ? user.expire_date.seconds * 1000 : 0;
-    const expireDate = new Date(sec);
-    const currentDate = new Date();
-    return currentDate.getTime() < expireDate.getTime();
-  };
+  // const checkExpireDate = () => {
+  //   const sec = user.expire_date ? user.expire_date.seconds * 1000 : 0;
+  //   const expireDate = new Date(sec);
+  //   const currentDate = new Date();
+  //   return currentDate.getTime() < expireDate.getTime();
+  // };
 
-  const isSubscribed = user.membership === '10' && checkExpireDate();
+  const hasNotExpired = () => {
+  const expiry =
+    user?.expire_date ||
+    user?.expiry_date;
+
+  // No expiry = lifetime access
+  if (!expiry || !expiry.seconds) {
+    return true;
+  }
+
+  return Date.now() < expiry.seconds * 1000;
+};
+
+
+  // const isSubscribed = user.membership === '10' && checkExpireDate();
+
+  const isSubscribed =
+  user?.membership === '10' &&
+  hasNotExpired();
+
 
   const [courseUrl, setCourseUrl] = useState(
     'https://player.vimeo.com/video/912613882?badge=0&autopause=0&player_id=0&app_id=58479'

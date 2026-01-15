@@ -594,8 +594,9 @@ export default function Profile({ onChange }) {
   const [openResetPassword, setOpenResetPassword] = useState(false);
   const [loadingResetPassword, setLoadingResetPassword] = useState(false);
   const isGold = user?.membership === '10';
-const isSilver = user?.membership === '8';
-const hasNoSubscription = user?.membership === '1' || !user?.membership;
+  const isAdvanced = user?.membership === '9';
+  const isSilver = user?.membership === '8';
+  const hasNoSubscription = user?.membership === '1' || !user?.membership;
 
 
   const handleSubscription = () => onChange(user?.membership);
@@ -658,52 +659,52 @@ const hasNoSubscription = user?.membership === '1' || !user?.membership;
         </DialogActions>
       </Dialog>
 
-   <Dialog
-  open={openResetPassword}
-  onClose={() => setOpenResetPassword(false)}
-  PaperProps={{
-    style: {
-      minWidth: '400px',
-      maxWidth: '400px',
-      background: '#0d1117',
-      border: '2px solid #076af478',
-      color: '#fff',
-    },
-  }}
->
-  <DialogTitle sx={{ color: '#FFF' }}>
-    Reset Password
-  </DialogTitle>
+      <Dialog
+        open={openResetPassword}
+        onClose={() => setOpenResetPassword(false)}
+        PaperProps={{
+          style: {
+            minWidth: '400px',
+            maxWidth: '400px',
+            background: '#0d1117',
+            border: '2px solid #076af478',
+            color: '#fff',
+          },
+        }}
+      >
+        <DialogTitle sx={{ color: '#FFF' }}>
+          Reset Password
+        </DialogTitle>
 
-  <DialogContent>
-    <Typography sx={{ color: '#FFF' }}>
-      Are you sure you would like to get an email at{' '}
-      <strong>{user?.email}</strong> to reset your password?
-    </Typography>
-  </DialogContent>
+        <DialogContent>
+          <Typography sx={{ color: '#FFF' }}>
+            Are you sure you would like to get an email at{' '}
+            <strong>{user?.email}</strong> to reset your password?
+          </Typography>
+        </DialogContent>
 
-  <DialogActions>
-    <Button
-      type="button"
-      sx={{ color: '#FFF', backgroundColor: 'transparent' }}
-      onClick={() => setOpenResetPassword(false)}
-    >
-      Cancel
-    </Button>
+        <DialogActions>
+          <Button
+            type="button"
+            sx={{ color: '#FFF', backgroundColor: 'transparent' }}
+            onClick={() => setOpenResetPassword(false)}
+          >
+            Cancel
+          </Button>
 
-    <LoadingButton
-      loading={loadingResetPassword}
-      variant="contained"
-      sx={{
-        background: 'linear-gradient(#047efc, #12488f)',
-        ':hover': { opacity: 0.8 },
-      }}
-      onClick={onConfirmResetPassword}
-    >
-      Confirm
-    </LoadingButton>
-  </DialogActions>
-</Dialog>
+          <LoadingButton
+            loading={loadingResetPassword}
+            variant="contained"
+            sx={{
+              background: 'linear-gradient(#047efc, #12488f)',
+              ':hover': { opacity: 0.8 },
+            }}
+            onClick={onConfirmResetPassword}
+          >
+            Confirm
+          </LoadingButton>
+        </DialogActions>
+      </Dialog>
 
 
       <Dialog open={deletAccountRequest} onClose={() => setDeletAccount(false)}>
@@ -757,35 +758,35 @@ const hasNoSubscription = user?.membership === '1' || !user?.membership;
             </div>
           </div> */}
           {/* SUBSCRIPTION */}
-<div className="info-box">
-  <h3>Subscription</h3>
+          <div className="info-box">
+            <h3>Subscription</h3>
 
-  <div className="program-type">
-    {/* Show program name ONLY if user has subscription */}
-    {(user?.membership === '8' || user?.membership === '10') && (
-      <p>
-        {user?.membership === '10'
-          ? 'Gold Program'
-          : 'Silver Program'}
-      </p>
-    )}
+            <div className="program-type">
+              {/* Show program name ONLY if user has subscription */}
+              {(isSilver || isAdvanced || isGold) && (
+                <p>
+                  {isGold && 'Gold Program'}
+                  {isAdvanced && 'Advanced Program'}
+                  {isSilver && 'Silver Program'}
+                </p>
+              )}
 
-    {/* Show upgrade button if:
+
+              {/* Show upgrade button if:
         - user has NO subscription
         - OR user has Silver */}
-    {(user?.membership === '1' ||
-      !user?.membership ||
-      user?.membership === '8') && (
-      <button
-        type="button"
-        className="upgrade-btn"
-        onClick={handleSubscription}
-      >
-        Upgrade Membership
-      </button>
-    )}
-  </div>
-</div>
+              {(hasNoSubscription || isSilver || isAdvanced) && !isGold && (
+                <button
+                  type="button"
+                  className="upgrade-btn"
+                  onClick={handleSubscription}
+                >
+                  Upgrade Membership
+                </button>
+              )}
+
+            </div>
+          </div>
 
 
           {/* RISK MANAGEMENT */}
@@ -866,8 +867,8 @@ const hasNoSubscription = user?.membership === '1' || !user?.membership;
             </button>
           </div>
 
-{/* ================= UPGRADE MEMBERSHIP – FULL WIDTH ================= */}
-{/* {!isGold && (isSilver || hasNoSubscription) && (
+          {/* ================= UPGRADE MEMBERSHIP – FULL WIDTH ================= */}
+          {/* {!isGold && (isSilver || hasNoSubscription) && (
   <div className="upgrade-box">
     <div className="upgrade-content">
       <h3>Upgrade Membership</h3>

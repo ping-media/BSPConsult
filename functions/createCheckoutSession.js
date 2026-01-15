@@ -48,7 +48,8 @@ const createCheckoutSession = async (req, res) => {
 
     let mod = "subscription";
     if (priceId === "price_1NqWtkCf4YXq1rsyDvmsIWtF" ||
-      priceId === "price_1OgVtOCf4YXq1rsy99bw9IHr") {
+      priceId === "price_1OgVtOCf4YXq1rsy99bw9IHr" ||
+    priceId === "price_1SgyrmCf4YXq1rsyFk0I3ljo") {
       mod = "payment";
     }
 
