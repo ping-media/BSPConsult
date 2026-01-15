@@ -1606,109 +1606,110 @@ const getProgramPricing = (programId) => {
 
 
   const handleProgramClick = async (programId) => {
-    if (!isAuthenticated) {
-      navigate(paths.login, { replace: true });
-      return;
-    }
+  if (!isAuthenticated) {
+    navigate(paths.login, { replace: true });
+    return;
+  }
 
-    try {
-      const stripe = await stripePromise;
+  try {
+    const stripe = await stripePromise;
 
-      const response = await fetch(
-        'https://us-central1-bspconsult-bcd6e.cloudfunctions.net/createCheckoutSession',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            priceId: PRICE_MAP[programId],
-            customerEmail: user?.email,
-            platform: 'web',
-          }),
-        }
-      );
+    // ✅ ALWAYS use dynamic pricing
+    const pricing = getProgramPricing(programId);
 
-      const session = await response.json();
+    const response = await fetch(
+      'https://us-central1-bspconsult-bcd6e.cloudfunctions.net/createCheckoutSession',
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          priceId: pricing.priceId, // ✅ FIXED
+          customerEmail: user?.email,
+          platform: 'web',
+          upgrade: true,
+        }),
+      }
+    );
 
-      await stripe.redirectToCheckout({
-        sessionId: session.id,
-      });
-    } catch (error) {
-      console.error('Stripe checkout error:', error);
-    }
-  };
+    const session = await response.json();
+
+    await stripe.redirectToCheckout({
+      sessionId: session.id,
+    });
+  } catch (error) {
+    console.error('Stripe checkout error:', error);
+  }
+};
+
 
   return (
     <section className="section-prices" id="SectionPrice">
       
 
-      <div className="price-grid">
-        {programs.map((program) => (
-          <div
-            key={program.id}
-            className={`price-card
-              ${program.id === 'advanced' ? 'is-featured' : ''}
-              ${activeProgram === program.id ? 'is-active' : ''}
-            `}
-          >
-            <div className="price-inner">
-              <div className="program-headers">
-                <h3 className="program-title">{program.name}</h3>
-                {program.id === 'advanced' && (
-                  <span className="best-value-badge">Best Value</span>
-                )}
-              </div>
+    <div className="price-grid">
+  {programs.map((program) => {
+    const pricing = getProgramPricing(program.id);
 
-              <p className="program-desc">{program.description}</p>
-
-              <div className="program-price">
-                <span className="price-amount">{program.priceAmount}</span>
-                <span className="price-period">{program.pricePeriod}</span>
-              </div>
-
-              <div className="program-note">{program.note}</div>
-
-              {/* <button
-                type="button"
-                className="program-btn"
-                onClick={() => handleProgramClick(program.id)}
-              >
-                {program.button}
-              </button> */}
-
-              <button
-  type="button"
-  className={`program-btn ${isDisabled(program.id) ? 'is-disabled' : ''}`}
-  disabled={isDisabled(program.id)}
-  onClick={() => handleProgramClick(program.id)}
->
-  {isDisabled(program.id)
-    ? program.id === 'silver' && isSilver
-      ? 'Current Plan'
-      : program.id === 'gold' && isGold
-        ? 'Current Plan'
-        : 'Already Included'
-    : program.button}
-</button>
-
-            </div>
-
-            <div className="program-includes">
-              <h4>{program.name.split(' ')[0]} Includes</h4>
-              <ul>
-                {includes.map((item, i) => (
-                  <li
-                    key={item}
-                    className={i < program.highlightCount ? 'active' : 'inactive'}
-                  >
-                    <img src="img/check-circle.svg" alt="check" />
-                    <span className="include-text">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+    return (
+      <div
+        key={program.id}
+        className={`price-card
+          ${program.id === 'advanced' ? 'is-featured' : ''}
+          ${activeProgram === program.id ? 'is-active' : ''}
+        `}
+      >
+        <div className="price-inner">
+          <div className="program-headers">
+            <h3 className="program-title">{program.name}</h3>
+            {program.id === 'advanced' && (
+              <span className="best-value-badge">Best Value</span>
+            )}
           </div>
-        ))}
+
+          <p className="program-desc">{program.description}</p>
+
+          <div className="program-price">
+            <span className="price-amount">{pricing.priceAmount}</span>
+            <span className="price-period">{program.pricePeriod}</span>
+          </div>
+
+          <div className="program-note">{program.note}</div>
+
+          <button
+            type="button"
+            className={`program-btn ${isDisabled(program.id) ? 'is-disabled' : ''}`}
+            disabled={isDisabled(program.id)}
+            onClick={() => handleProgramClick(program.id)}
+          >
+            {isDisabled(program.id)
+              ? program.id === 'silver' && isSilver
+                ? 'Current Plan'
+                : program.id === 'gold' && isGold
+                  ? 'Current Plan'
+                  : 'Already Included'
+              : program.button}
+          </button>
+        </div>
+
+        <div className="program-includes">
+          <h4>{program.name.split(' ')[0]} Includes</h4>
+          <ul>
+            {includes.map((item, i) => (
+              <li
+                key={item}
+                className={i < program.highlightCount ? 'active' : 'inactive'}
+              >
+                <img src="img/check-circle.svg" alt="check" />
+                <span className="include-text">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
+    );
+  })}
+</div>
+
     </section>
   );
 }
