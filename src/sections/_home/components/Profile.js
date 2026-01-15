@@ -1244,7 +1244,7 @@ export default function Profile({ onChange }) {
             <div className="program-type">
               {/* Show program name ONLY if user has subscription */}
               {(isSilver || isAdvanced || isGold) && (
-                <p>
+                <p className='premium'>
                   {isGold && 'Gold Program'}
                   {isAdvanced && 'Advanced Program'}
                   {isSilver && 'Silver Program'}
