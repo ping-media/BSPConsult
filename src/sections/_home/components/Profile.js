@@ -563,7 +563,8 @@
 
 import PropTypes from 'prop-types';
 import { loadStripe } from '@stripe/stripe-js';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import CloseIcon from '@mui/icons-material/Close';
 import {
   Box,
   Container,
@@ -639,6 +640,10 @@ export default function Profile({ onChange }) {
   const [bankroll, setBankroll] = useState(user?.bankroll);
   const [stakingStrategy, setStakingStrategy] = useState(user?.stakingStrategy);
   const [loadingBankroll, setLoadingBankroll] = useState(false);
+  const [openStrategy, setOpenStrategy] = useState(false);
+  const [loadingStrategy, setLoadingStrategy] = useState(false);
+
+
 
   const [openUpgrade, setOpenUpgrade] = useState(false);
 
@@ -652,15 +657,39 @@ export default function Profile({ onChange }) {
 
   const [selectedPlan, setSelectedPlan] = useState(null);
 
+  useEffect(() => {
+    if (openBankroll) {
+      setBankroll(
+        user?.bankroll !== undefined && user?.bankroll !== null
+          ? user.bankroll
+          : 0
+      );
+    }
+  }, [openBankroll, user]);
+
+  useEffect(() => {
+    if (openStrategy) {
+      setStakingStrategy(user?.stakingStrategy || 'Aggressive');
+    }
+  }, [openStrategy, user]);
+
+
 
   const handleSubscription = () => onChange(user?.membership);
 
   const onChangeBankroll = async () => {
     setLoadingBankroll(true);
-    await updateBankroll(bankroll, stakingStrategy, user?.uid);
+    await updateBankroll(bankroll, user?.stakingStrategy, user?.uid);
     setOpenBankroll(false);
     setLoadingBankroll(false);
   };
+  const onChangeStrategy = async () => {
+    setLoadingStrategy(true);
+    await updateBankroll(user?.bankroll, stakingStrategy, user?.uid);
+    setOpenStrategy(false);
+    setLoadingStrategy(false);
+  };
+
 
   const onConfirmResetPassword = async () => {
     setLoadingResetPassword(true);
@@ -722,37 +751,251 @@ export default function Profile({ onChange }) {
 
       {/* ================= DIALOGS (UNCHANGED) ================= */}
 
-      <Dialog open={openBankroll} onClose={() => setOpenBankroll(false)}
-        PaperProps={{ style: { background: '#0d1117', border: '2px solid #076af478' } }}>
-        <DialogTitle sx={{ color: '#FFF' }}>Change your bankroll</DialogTitle>
-        <DialogContent>
-          <TextField
-            fullWidth
-            margin="dense"
-            label="Bankroll"
-            value={bankroll}
-            onChange={(e) => setBankroll(e.target.value)}
-          />
-          <TextField
-            select
-            fullWidth
-            margin="dense"
-            label="Staking Strategy"
-            value={stakingStrategy}
-            onChange={(e) => setStakingStrategy(e.target.value)}
-          >
-            <MenuItem value="Conservative">Conservative</MenuItem>
-            <MenuItem value="Balanced">Balanced</MenuItem>
-            <MenuItem value="Aggressive">Aggressive</MenuItem>
-          </TextField>
-        </DialogContent>
-        <DialogActions>
-          <Button type='button' onClick={() => setOpenBankroll(false)}>Cancel</Button>
-          <LoadingButton loading={loadingBankroll} onClick={onChangeBankroll}>
-            Confirm
-          </LoadingButton>
-        </DialogActions>
+      <Dialog
+        open={openBankroll}
+        onClose={() => setOpenBankroll(false)}
+        maxWidth={false}
+        PaperProps={{
+          className: 'lock-gradient-box',
+          sx: {
+            background: 'rgba(18, 20, 30, 1)',
+            padding: 0,
+          },
+        }}
+        BackdropProps={{
+          className: 'lock-paper',
+        }}
+      >
+        <div className="lock-content">
+
+          {/* HEADER */}
+          <div className="lock-header">
+            <span
+              style={{
+                flex: 1,
+                textAlign: 'center',
+                fontSize: '20px',
+                fontWeight: 600,
+              }}
+            >
+              Change your bankroll
+            </span>
+
+
+            <button
+              type="button"
+              className="lock-close"
+              onClick={() => setOpenBankroll(false)}
+            >
+              <CloseIcon />
+            </button>
+          </div>
+
+          <div className="lock-divider" />
+          <h1 className="lock-title" style={{ fontSize: '18px' }}>Bankroll</h1>
+
+          {/* BODY */}
+          <div className="membership">
+            <TextField
+              fullWidth
+              type="number"
+              value={bankroll}
+              onChange={(e) => setBankroll(Number(e.target.value))}
+              sx={{
+                '& .MuiInputBase-root': {
+                  height: 48,
+                  backgroundColor: '#FFFFFF0A',
+                  borderRadius: '8px',
+                },
+                '& .MuiInputBase-root:hover': {
+                  backgroundColor: '#FFFFFF05',
+                },
+                '& .MuiInputBase-input': {
+                  color: '#FFF',
+                  fontSize: '16px',
+                  padding: '0 14px',
+                  display: 'flex',
+                  alignItems: 'center',
+                },
+                '& fieldset': {
+                  border: '1px solid rgba(255,255,255,0.12)',
+                },
+              }}
+            />
+
+
+
+          </div>
+
+          <div className="lock-divider" />
+
+          {/* FOOTER */}
+          <div className="lock-footer">
+            <button
+              type="button"
+              className="lock-logout"
+              onClick={() => setOpenBankroll(false)}
+            >
+              Cancel
+            </button>
+
+            <button
+              type="button"
+              className="lock-unlock"
+              onClick={onChangeBankroll}
+              style={{
+                color: '#FFFFFF',
+              }}
+            >
+              Confirm
+            </button>
+          </div>
+
+        </div>
       </Dialog>
+
+
+      <Dialog
+        open={openStrategy}
+        onClose={() => setOpenStrategy(false)}
+        maxWidth={false}
+        PaperProps={{
+          className: 'lock-gradient-box',
+          sx: {
+            background: 'rgba(18, 20, 30, 1)',
+            padding: 0,
+          },
+        }}
+        BackdropProps={{
+          className: 'lock-paper',
+        }}
+      >
+        <div className="lock-content">
+
+          {/* HEADER */}
+          <div className="lock-header">
+            <span
+              style={{
+                flex: 1,
+                textAlign: 'center',
+                fontSize: '20px',
+                fontWeight: 600,
+              }}
+            >Change staking strategy</span>
+
+            <button
+              type="button"
+              className="lock-close"
+              onClick={() => setOpenStrategy(false)}
+            >
+              <CloseIcon />
+            </button>
+          </div>
+
+          <div className="lock-divider" />
+
+          <h1 className="lock-title" style={{ fontSize: '18px' }}>Staking Strategy</h1>
+
+          {/* BODY */}
+          <div className="membership">
+            <TextField
+              select
+              fullWidth
+              value={stakingStrategy}
+              onChange={(e) => setStakingStrategy(e.target.value)}
+              SelectProps={{
+                MenuProps: {
+                  PaperProps: {
+                    sx: {
+                      mt: 1,                   
+                      backgroundColor: '#1B1D27',
+                      color: '#FFF',
+                      borderRadius: '8px',
+                    },
+                  },
+                  MenuListProps: {
+                    sx: {
+                      padding: '8px',
+                    },
+                  },
+                },
+              }}
+              sx={{
+                '& .MuiInputBase-root': {
+                  height: 48,
+                  backgroundColor: '#FFFFFF0A',
+                  borderRadius: '8px',
+                },
+                '& .MuiInputBase-root:hover': {
+                  backgroundColor: '#FFFFFF05',
+                },
+                '& .MuiInputBase-input': {
+                  color: '#FFF',
+                  fontSize: '16px',
+                  padding: '0 14px',
+                  display: 'flex',
+                  alignItems: 'center',
+                },
+                '& fieldset': {
+                  border: '1px solid rgba(255,255,255,0.12)',
+                },
+
+              
+                '& .MuiMenuItem-root': {
+                  borderRadius: 0,
+                  minHeight: 48,
+                  fontSize: '16px',
+                },
+                '& .MuiMenuItem-root:hover': {
+                  backgroundColor: '#FFFFFF05',
+                },
+                '& .MuiMenuItem-root.Mui-selected': {
+                  backgroundColor: '#FFFFFF0A',
+                },
+                '& .MuiMenuItem-root.Mui-selected:hover': {
+                  backgroundColor: '#FFFFFF05',
+                },
+              }}
+            >
+              <MenuItem value="Conservative">Conservative</MenuItem>
+              <MenuItem value="Balanced">Balanced</MenuItem>
+              <MenuItem value="Aggressive">Aggressive</MenuItem>
+            </TextField>
+
+
+
+
+
+          </div>
+
+          <div className="lock-divider" />
+
+          {/* FOOTER */}
+          <div className="lock-footer">
+            <button
+              type="button"
+              className="lock-logout"
+              onClick={() => setOpenStrategy(false)}
+            >
+              Cancel
+            </button>
+
+            <button
+              type="button"
+              className="lock-unlock"
+              onClick={onChangeStrategy}
+              disabled={loadingStrategy}
+              style={{
+                color: '#FFFFFF',
+              }}
+            >
+              {loadingStrategy ? 'Saving...' : 'Confirm'}
+            </button>
+          </div>
+
+        </div>
+      </Dialog>
+
 
       <Dialog
         open={openResetPassword}
@@ -1055,15 +1298,16 @@ export default function Profile({ onChange }) {
             <div className="info-row" onClick={() => setOpenBankroll(true)}>
               <span>Bankroll</span>
               <span className="profile-ans with-icon">
-                {user?.bankroll} €
+                {user?.bankroll}
                 <img src="/img/chevron-right.svg" alt="" />
               </span>
             </div>
 
-            <div className="info-row" onClick={() => setOpenBankroll(true)}>
+            <div className="info-row" onClick={() => setOpenStrategy(true)}>
+
               <span>Staking Strategy</span>
               <span className="profile-ans with-icon">
-                {user?.stakingStrategy}Aggressive
+                {user?.stakingStrategy}
                 <img src="/img/chevron-right.svg" alt="" />
               </span>
             </div>
