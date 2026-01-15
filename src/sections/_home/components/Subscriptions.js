@@ -1520,6 +1520,26 @@ const programs = [
   },
 ];
 
+const UPGRADE_PRICING = {
+  silver: {
+    advanced: {
+      priceAmount: '€200',
+      priceId: 'price_1Sh1flCf4YXq1rsy94ex1p16',
+    },
+    gold: {
+      priceAmount: '€600',
+      priceId: 'price_1OgVtOCf4YXq1rsy99bw9IHr',
+    },
+  },
+  advanced: {
+    gold: {
+      priceAmount: '€400',
+      priceId: 'price_1Sh1gECf4YXq1rsycqlOtspg',
+    },
+  },
+};
+
+
 const includes = [
   'Structured Bets',
   'Detailed Bet Analysis',
@@ -1542,13 +1562,21 @@ export default function Subscriptions() {
 const MEMBERSHIP = {
   NONE: '1',
   SILVER: '8',
+  ADVANCED: '9',
   GOLD: '10',
 };
 
 const membership = user?.membership ?? MEMBERSHIP.NONE;
 
-const isGold = membership === MEMBERSHIP.GOLD;
 const isSilver = membership === MEMBERSHIP.SILVER;
+const isAdvanced = membership === MEMBERSHIP.ADVANCED;
+const isGold = membership === MEMBERSHIP.GOLD;
+
+const currentPlan =
+  isSilver ? 'silver' :
+  isAdvanced ? 'advanced' :
+  null;
+
 
 // hierarchy: gold > advanced > silver
 const PLAN_RANK = {
@@ -1563,6 +1591,18 @@ const USER_RANK = isGold ? 3 : isSilver ? 1 : 0;
 const isDisabled = (programId) =>
   USER_RANK >= PLAN_RANK[programId];
 
+const getProgramPricing = (programId) => {
+  // Upgrade case (Silver → Advanced / Gold, Advanced → Gold)
+  if (currentPlan && UPGRADE_PRICING[currentPlan]?.[programId]) {
+    return UPGRADE_PRICING[currentPlan][programId];
+  }
+
+  // Default/base pricing
+  return {
+    priceAmount: programs.find(p => p.id === programId).priceAmount,
+    priceId: PRICE_MAP[programId],
+  };
+};
 
 
   const handleProgramClick = async (programId) => {
