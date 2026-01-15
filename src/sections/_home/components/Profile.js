@@ -1080,12 +1080,6 @@ export default function Profile({ onChange }) {
               <img src="/img/Icon.svg" className="btn-arrow" alt="" />
             </a>
 
-            <a className="Strategy-btn" href="https://bspconsult.myclickfunnels.com/masterclass-14k-strategy?new_run=true">
-              <span className="btn-left">
-                <img src="/img/bsp-gold.svg" alt="" /> Strategy Masterclass
-              </span>
-              <img src="/img/Icon.svg" className="btn-arrow" alt="" />
-            </a>
           </div>
 
           {/* CONTACT */}
