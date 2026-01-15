@@ -277,16 +277,16 @@
 .upgrade-box {
   position: relative;
   width: 100%;
-  max-width: 800px;
   border-radius: 16px;
-  padding: 10px 24px;
+  padding: 10px 0;
   backdrop-filter: blur(10px);
-  background: #101117;
+  background: #12141E;
   margin-bottom: 20px;
 
-  box-shadow:
-    5px 5px 4px 0px #00000024,
-    inset 1px 1px 12px 1px #FFFFFF05;
+  box-shadow: 5px 5px 4px 0px #00000024;
+
+box-shadow: 1px 1px 12px 1px #FFFFFF05 inset;
+
 }
 
 .upgrade-box::before {
@@ -317,26 +317,44 @@
 .upgrade-content {
   text-align: center;
   padding: 16px 0;
+  border-bottom: 1px solid #FFFFFF1A;
 }
 
 .upgrade-content h3 {
   font-size: 20px;
-  font-weight: 500;
+  font-weight: 600;
+  margin: 0 30px;
 }
 
 .upgrade-content p {
+  margin: 0 30px;
   margin-top: 8px;
   font-size: 16px;
+  font-size: 400;
   color: #B9BDC7;
+  
 }
 
 .Gold-btn {
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 20px;
   padding: 10px 14px;
   background: #FFCB2B33;
   border: 1px solid #FFCB2B;
+  border-radius: 8px;
+  color: #FFFFFF;
+  cursor: pointer;
+  width: 100%;
+  margin: 10px 0;
+}
+.adva-btn {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  padding: 10px 14px;
+  background: #348AF733;
+  border: 1px solid #348AF7;
   border-radius: 8px;
   color: #FFFFFF;
   cursor: pointer;
@@ -349,9 +367,19 @@
   margin: 0 auto;
   padding: 8px;
   border-radius: 14px;
-  background: url('../../assets/gold-bg.png');
+  background: url('../../assets/gold-mem.png');
   background-size: cover;
-  margin: 20px 0;
+  margin: 20px 30px;
+}
+
+.upgrade-card--advanced {
+  position: relative;
+  margin: 0 auto;
+  padding: 8px;
+  border-radius: 14px;
+  background: url('../../assets/adv-pro.png');
+  background-size: cover;
+  margin: 20px 30px;
 }
 
 .upgrade-inner {
@@ -377,7 +405,7 @@
 }
 
 .upgrade-title {
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 500;
   color: #ffffff;
 }
@@ -390,19 +418,19 @@
 }
 
 .upgrade-price .price-amount {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 500;
   color: #ffffff;
 }
 
 .upgrade-price .price-period {
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 500;
   color: #D0D3D9;
 }
 
 .upgrade-note {
-  font-size: 18px;
+  font-size: 14px;
   color: #D0D3D9;
   margin-bottom: 20px;
 }
@@ -413,7 +441,7 @@
 }
 
 .upgrade-includes h4 {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   color: #ffffff;
   padding: 2px 0;
@@ -424,7 +452,7 @@
   align-items: center;
   gap: 8px;
   padding: 2px 0;
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 300;
   color: #F0F1F3;
 }
@@ -516,4 +544,66 @@
   .benefits {
     font-size: 14px;
   }
+}
+
+
+/* ================= PLAN SWITCH ================= */
+
+
+
+.plan-switch {
+  display: flex;
+  justify-content: center;
+  margin: 0 30px;
+  gap: 8px;
+}
+
+.plan-btn {
+  flex: 1;                
+  padding: 12px 0;
+  border-radius: 8px;
+  background: #FFFFFF1A;
+  border: 1px solid #FFFFFF33;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  text-align: center;
+  
+}
+
+/* Advanced active → BLUE */
+.plan-btn.advanced.active {
+  background: #348AF733;
+  border-color: #348AF7;
+}
+
+/* Gold active → YELLOW */
+.plan-btn.gold.active {
+  background: #FFCB2B33;
+  border-color: #FFCB2B;
+}
+
+
+/* Header wrapper */
+.upgrade-content-header {
+  position: relative;
+  padding-bottom: 20px;
+}
+
+/* Close (X) button */
+.upgrade-close {
+  position: absolute;
+  top: 12px;
+  right: 30px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.upgrade-close:hover {
+  opacity: 1;
 }
