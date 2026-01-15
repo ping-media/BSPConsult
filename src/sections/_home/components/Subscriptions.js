@@ -1523,18 +1523,18 @@ const programs = [
 const UPGRADE_PRICING = {
   silver: {
     advanced: {
-      priceAmount: '€200',
-      priceId: 'price_1Sh1flCf4YXq1rsy94ex1p16',
+      priceAmount: '€597',
+      priceId: 'price_1SgyrmCf4YXq1rsyFk0I3ljo',
     },
     gold: {
-      priceAmount: '€600',
-      priceId: 'price_1OgVtOCf4YXq1rsy99bw9IHr',
+      priceAmount: '€997',
+      priceId: 'price_1NqWtkCf4YXq1rsyDvmsIWtF',
     },
   },
   advanced: {
     gold: {
-      priceAmount: '€400',
-      priceId: 'price_1Sh1gECf4YXq1rsycqlOtspg',
+      priceAmount: '€997',
+      priceId: 'price_1NqWtkCf4YXq1rsyDvmsIWtF',
     },
   },
 };

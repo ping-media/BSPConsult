@@ -89,6 +89,10 @@
   margin-bottom: 32px;
 }
 
+.dashboard-content .price-card:not(.is-featured) .program-desc{
+  margin-bottom: 64px;
+}
+
 .program-price {
   font-size: 36px;
   font-weight: 600;

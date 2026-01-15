@@ -947,7 +947,7 @@ export default function Courses({ onChange }) {
               className="update-btn"
               onClick={handleSubscription}
             >
-              Upgrade to Gold
+              Purchase Membership
             </button>
           </div>
         )}
