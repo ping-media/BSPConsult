@@ -547,7 +547,7 @@ import {
   AccordionSummary,
   AccordionDetails,
   Button,
-   Dialog,
+  Dialog,
   DialogContent,
 } from '@mui/material';
 import LockIcon from '@mui/icons-material/Lock';
@@ -606,16 +606,16 @@ export default function Courses({ onChange }) {
   const { user } = useAuthContext();
   const [activeVideoUrl, setActiveVideoUrl] = useState(null);
 
-const [openUpgrade, setOpenUpgrade] = useState(false);
-const [selectedPlan, setSelectedPlan] = useState(null);
+  const [openUpgrade, setOpenUpgrade] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState(null);
 
 
-const membership = user?.membership;
+  const membership = user?.membership;
 
-const hasAnyMembership = ['8', '9', '10'].includes(membership);
-const isSilver = membership === '8';
-const isAdvanced = membership === '9';
-const isGold = membership === '10' && hasNotExpired();
+  const hasAnyMembership = ['8', '9', '10'].includes(membership);
+  const isSilver = membership === '8';
+  const isAdvanced = membership === '9';
+  const isGold = membership === '10' && hasNotExpired();
 
   const hasNoSubscription = user?.membership === '1' || !user?.membership;
 
@@ -963,19 +963,19 @@ const isGold = membership === '10' && hasNotExpired();
       ],
     },
   ];
-const handleSubscription = () => {
-  // NO membership → just go to subscriptions page
-   if (!hasAnyMembership) {
-    onChange('1'); // ✅ match Profile
-    return;
-  }
+  const handleSubscription = () => {
+    // NO membership → just go to subscriptions page
+    if (!hasAnyMembership) {
+      onChange('1');
+      return;
+    }
 
-  // Existing members → open upgrade modal
-  if (isSilver || isAdvanced) {
-    setSelectedPlan('gold');
-    setOpenUpgrade(true);
-  }
-};
+    // Existing members → open upgrade modal
+    if (isSilver || isAdvanced) {
+      setSelectedPlan('gold');
+      setOpenUpgrade(true);
+    }
+  };
 
 
   const currentPlan =
@@ -987,7 +987,7 @@ const handleSubscription = () => {
       ? UPGRADE_CONFIG[currentPlan]?.[selectedPlan]
       : null;
 
-      const handleUpgradeCheckout = async (priceId) => {
+  const handleUpgradeCheckout = async (priceId) => {
     try {
       const stripe = await stripePromise;
 
@@ -1019,9 +1019,9 @@ const handleSubscription = () => {
 
   return (
 
-    
+
     <div className='content-grid'>
- <Dialog
+      <Dialog
         open={openUpgrade}
         onClose={() => setOpenUpgrade(false)}
         maxWidth={false}
@@ -1069,23 +1069,23 @@ const handleSubscription = () => {
               {/* PLAN SWITCH */}
               <div className="plan-switch">
 
-  {(hasNoSubscription || isSilver) && (
-    <button
-      type="button"
-      className={`plan-btn gold ${selectedPlan === 'gold' ? 'active' : ''}`}
-      onClick={() => setSelectedPlan('gold')}
-    >
-      Gold
-    </button>
-  )}
+                {(hasNoSubscription || isSilver) && (
+                  <button
+                    type="button"
+                    className={`plan-btn gold ${selectedPlan === 'gold' ? 'active' : ''}`}
+                    onClick={() => setSelectedPlan('gold')}
+                  >
+                    Gold
+                  </button>
+                )}
 
-  {isAdvanced && (
-    <button type="button" className="plan-btn gold active">
-      Gold
-    </button>
-  )}
+                {isAdvanced && (
+                  <button type="button" className="plan-btn gold active">
+                    Gold
+                  </button>
+                )}
 
-</div>
+              </div>
 
 
               {/* DYNAMIC CARD */}
@@ -1176,18 +1176,18 @@ const handleSubscription = () => {
                   </div>
 
                   <h3 className="locked-text">
-                    You need to be a Gold Member to unlock the Masterclass <br /> Video Content
+                    Gold Content Locked
                   </h3>
                   <p className='locked-para'>One click away from full access</p>
-                <button
-  type="button"
-  className="update-btn"
-  onClick={handleSubscription}
->
-  {!hasAnyMembership
-    ? 'Purchase Membership'
-    : 'Upgrade Membership'}
-</button>
+                  <button
+                    type="button"
+                    className="update-btn"
+                    onClick={handleSubscription}
+                  >
+                    {!hasAnyMembership
+                      ? 'Purchase Membership'
+                      : 'Upgrade Now'}
+                  </button>
 
                 </div>
               )}
