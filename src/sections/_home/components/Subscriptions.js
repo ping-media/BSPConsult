@@ -1502,7 +1502,7 @@ const programs = [
       'For bettors who want structured bets backed by game-changing data and access to the BSP Betting Model to consistently identify mispriced odds. From year two, maintain full access for just €397 annually.',
     priceAmount: '€597',
     pricePeriod: ' one-time fee',
-    note: 'Lock in pricing before the next platform update.',
+    note: 'Lock in pricing before the next platform.',
     button: 'Get Advanced Program',
     highlightCount: 7,
   },
@@ -1658,36 +1658,40 @@ const getProgramPricing = (programId) => {
         `}
       >
         <div className="price-inner">
-          <div className="program-headers">
-            <h3 className="program-title">{program.name}</h3>
-            {program.id === 'advanced' && (
-              <span className="best-value-badge">Best Value</span>
-            )}
+          <div className="price-inner-content-top">
+            <div className="program-headers">
+              <h3 className="program-title">{program.name}</h3>
+              {program.id === 'advanced' && (
+                <span className="best-value-badge">Best Value</span>
+              )}
+            </div>
+
+            <p className="program-desc">{program.description}</p>
           </div>
 
-          <p className="program-desc">{program.description}</p>
+          <div className="price-inner-content-bottom">
+            <div className="program-price">
+              <span className="price-amount">{pricing.priceAmount}</span>
+              <span className="price-period">{program.pricePeriod}</span>
+            </div>
 
-          <div className="program-price">
-            <span className="price-amount">{pricing.priceAmount}</span>
-            <span className="price-period">{program.pricePeriod}</span>
-          </div>
+            <div className="program-note">{program.note}</div>
 
-          <div className="program-note">{program.note}</div>
-
-          <button
-            type="button"
-            className={`program-btn ${isDisabled(program.id) ? 'is-disabled' : ''}`}
-            disabled={isDisabled(program.id)}
-            onClick={() => handleProgramClick(program.id)}
-          >
-            {isDisabled(program.id)
-              ? program.id === 'silver' && isSilver
-                ? 'Current Plan'
-                : program.id === 'gold' && isGold
+            <button
+              type="button"
+              className={`program-btn ${isDisabled(program.id) ? 'is-disabled' : ''}`}
+              disabled={isDisabled(program.id)}
+              onClick={() => handleProgramClick(program.id)}
+            >
+              {isDisabled(program.id)
+                ? program.id === 'silver' && isSilver
                   ? 'Current Plan'
-                  : 'Already Included'
-              : program.button}
-          </button>
+                  : program.id === 'gold' && isGold
+                    ? 'Current Plan'
+                    : 'Already Included'
+                : program.button}
+            </button>
+          </div>
         </div>
 
         <div className="program-includes">

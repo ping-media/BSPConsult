@@ -95,11 +95,13 @@
   padding: 2px;
   margin: 24px auto;
   max-width: 720px;
+  border-radius: 8px;
 }
 
 .tip-card {
   background: #FFFFFF;
   color: #48505E;
+  border-radius: 8px;
 }
 
 .tip-header {
@@ -110,6 +112,8 @@
 
 .tip-body {
   padding: 16px;
+  text-align: left;
+  line-height: 1.5;
 }
 
 .row {

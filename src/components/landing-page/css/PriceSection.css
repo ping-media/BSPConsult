@@ -66,6 +66,13 @@
   -webkit-backdrop-filter: blur(12px);
 }
 
+.dashboard-content .price-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 435px;
+}
+
 
 .program-title {
   font-size: 24px;
@@ -90,7 +97,7 @@
 }
 
 .dashboard-content .price-card:not(.is-featured) .program-desc{
-  margin-bottom: 64px;
+  /* margin-bottom: 64px; */
 }
 
 .program-price {
