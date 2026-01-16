@@ -3536,32 +3536,26 @@ const stakeAmount = Number(calculateStakeAmount(tip.reliability) || 0);
       {value === 1 && (
         <div className="tab-panel">
           {!isSubscribed ? (
-            <div className="center-paper">
-              <div className="upgrade-wrapper">
-                <div className="upgrade-border">
-                  <div className="upgrade-card">
-                    <div className="locked-wrapper">
-                      <img src="/img/locked-premium.svg" alt="Locked" />
-                    </div>
-                    
+         
+              <div className="premium-lock-container">
+  <div className="premium-lock-content">
+    <div className="lock-icon">
+      <img src="/img/locked-premium.svg" alt="Locked" />
+    </div>
 
-                    <h2 className="upgrade-title">Premium Content Locked</h2>
-                    <p className="upgrade-subtitle">
-                      One click away from full access
-                    </p>
+    <h3 className="lock-title">Premium Content Locked</h3>
+    <p className="lock-subtitle">One click away from full access</p>
 
-                    <div className="gradient-btn">
-                      <button type='button'
-                        className="btn-full"
-                        onClick={() => setCurrentPage('Subscriptions')}
-                      >
-                        View Programs
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+    <button
+      type="button"
+      className="lock-btn"
+      onClick={() => setCurrentPage('Subscriptions')}
+    >
+      View Programs
+    </button>
+  </div>
+</div>
+
           ) : (
             <>
              {premiumTips.map((tip) => {
