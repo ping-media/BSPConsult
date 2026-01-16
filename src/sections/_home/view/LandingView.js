@@ -7,7 +7,6 @@ import {
   EnrollNowSection,
   FeaturesSection,
   TennisBettingSection,
-  SectionConnect,
   SectionPrice,
   TestimonialsSection,
 } from 'src/components/landing-page';

@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router';
 import '../../../App.css';
 import './PackagesView.css';
 
@@ -9,7 +8,7 @@ import {
 // ----------------------------------------------------------------------
 
 export default function PackagesView() {
-  const navigate = useNavigate();
+
 
   // const handleProgramClick = (programId) => {
   //   navigate('/payment-success', {
