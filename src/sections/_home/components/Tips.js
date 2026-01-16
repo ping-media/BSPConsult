@@ -450,6 +450,40 @@ export default function Tips({ setCurrentPage }) {
         orderBy('date', 'desc')
       );
 
+      const tabOnlyCss = {
+  all: 'unset',                // 🔥 removes ALL inherited MUI styles
+  boxSizing: 'border-box',
+  cursor: 'pointer',
+
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+
+  height: '42px',
+  borderRadius: '8px',
+  margin: '0 6px',
+
+  fontSize: '16px',
+  fontWeight: 500,
+  color: '#ccc',
+
+  backgroundColor: '#FFFFFF1A',
+  border: '1px solid #FFFFFF33',
+
+  // ACTIVE
+  '&.Mui-selected': {
+    backgroundColor: '#348AF733',
+    border: '1px solid #348AF7',
+    color: '#fff',
+  },
+
+  // HOVER
+  '&:hover': {
+    backgroundColor: '#348AF722',
+  },
+};
+
+
       const snapshot = await getDocs(q);
       const list = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
 

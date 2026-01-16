@@ -11,12 +11,12 @@ import {
 export default function PackagesView() {
   const navigate = useNavigate();
 
-  const handleProgramClick = (programId) => {
-    navigate('/payment-success', {
-      replace: true,
-      state: { program: programId },
-    });
-  };
+  // const handleProgramClick = (programId) => {
+  //   navigate('/payment-success', {
+  //     replace: true,
+  //     state: { program: programId },
+  //   });
+  // };
 
   return (
     <div className="packages-pages">
