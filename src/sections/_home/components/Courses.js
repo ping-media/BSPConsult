@@ -561,6 +561,7 @@ export default function Courses({ onChange }) {
   };
 
   const { user } = useAuthContext();
+  const [activeVideoUrl, setActiveVideoUrl] = useState(null);
 
   // const checkExpireDate = () => {
   //   const sec = user.expire_date ? user.expire_date.seconds * 1000 : 0;
@@ -959,12 +960,12 @@ export default function Courses({ onChange }) {
                 Course Curriculum
               </h2>
 
-             {modules.map((module, moduleIndex) => (
-  <details
-    key={moduleIndex}
-    className="accordion"
-    open={moduleIndex === 0}
-  >
+              {modules.map((module, moduleIndex) => (
+                <details
+                  key={moduleIndex}
+                  className="accordion"
+                  open={moduleIndex === 0}
+                >
 
                   <summary className="accordion-summary">
                     {module.title}
@@ -981,7 +982,13 @@ export default function Courses({ onChange }) {
                       <div
                         key={videoIndex}
                         className={`video-row ${isSubscribed ? 'clickable' : ''}`}
-                        onClick={() => changeCourseUrl(video.url)}
+                       onClick={() => {
+  if (!isSubscribed) return;
+  changeCourseUrl(video.url);
+  setActiveVideoUrl(video.url);
+}}
+
+
                       >
                         <img
                           src="/img/silvber-content.svg"
@@ -993,15 +1000,20 @@ export default function Courses({ onChange }) {
 
                         <span className="spacer" />
 
-                        {isSubscribed ? (
-                          <img
-                            src="/img/silver-play.svg"
-                            alt="Play"
-                            className="video-action-icon"
-                          />
-                        ) : (
-                          <LockIcon />
-                        )}
+                      {isSubscribed ? (
+  <img
+    src={
+      activeVideoUrl === video.url
+        ? "/img/silvde-pause.svg"
+        : "/img/silver-play.svg"
+    }
+    alt="Action"
+    className="video-action-icon"
+  />
+) : (
+  <LockIcon />
+)}
+
                       </div>
                     ))}
                   </div>
