@@ -229,9 +229,6 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import LockIcon from '@mui/icons-material/Lock';
-import PlayCircleIcon from '@mui/icons-material/PlayCircle';
-import PlayIcon from '@mui/icons-material/SmartDisplay';
-import RemoveModeratorIcon from '@mui/icons-material/RemoveModerator';
 import { MotionViewport } from 'src/components/animate';
 import { useAuthContext } from '../../../auth/useAuthContext';
 import './VideoContentSilver.css';

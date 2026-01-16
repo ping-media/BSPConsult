@@ -2177,6 +2177,8 @@ export default function Tips({ setCurrentPage }) {
             </>
           )}
         </CustomTabPanel>
+
+        
         {user?.role === 'administrator' && (
           <>
             <Fab

@@ -851,7 +851,6 @@
 
 
 import { loadStripe } from '@stripe/stripe-js';
-import { CircleCheck } from 'lucide-react';
 import { useNavigate } from 'react-router';
 import { useState } from 'react';
 import { paths } from 'src/routes/paths';

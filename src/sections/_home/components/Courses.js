@@ -551,9 +551,6 @@ import {
   DialogContent,
 } from '@mui/material';
 import LockIcon from '@mui/icons-material/Lock';
-import { MotionViewport } from 'src/components/animate';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import RemoveModeratorIcon from '@mui/icons-material/RemoveModerator';
 import { useAuthContext } from '../../../auth/useAuthContext';
 import './Courses.css'
 // ----------------------------------------------------------------------

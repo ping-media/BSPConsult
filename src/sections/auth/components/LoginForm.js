@@ -291,6 +291,7 @@
 
 
 /* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable prefer-destructuring */
 
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
