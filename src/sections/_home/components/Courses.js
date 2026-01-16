@@ -982,11 +982,11 @@ export default function Courses({ onChange }) {
                       <div
                         key={videoIndex}
                         className={`video-row ${isSubscribed ? 'clickable' : ''}`}
-                       onClick={() => {
-  if (!isSubscribed) return;
-  changeCourseUrl(video.url);
-  setActiveVideoUrl(video.url);
-}}
+                        onClick={() => {
+                          if (!isSubscribed) return;
+                          changeCourseUrl(video.url);
+                          setActiveVideoUrl(video.url);
+                        }}
 
 
                       >
@@ -1000,19 +1000,19 @@ export default function Courses({ onChange }) {
 
                         <span className="spacer" />
 
-                      {isSubscribed ? (
-  <img
-    src={
-      activeVideoUrl === video.url
-        ? "/img/silvde-pause.svg"
-        : "/img/silver-play.svg"
-    }
-    alt="Action"
-    className="video-action-icon"
-  />
-) : (
-  <LockIcon />
-)}
+                        {isSubscribed ? (
+                          <img
+                            src={
+                              activeVideoUrl === video.url
+                                ? "/img/silvde-pause.svg"
+                                : "/img/silver-play.svg"
+                            }
+                            alt="Action"
+                            className="video-action-icon"
+                          />
+                        ) : (
+                          <LockIcon />
+                        )}
 
                       </div>
                     ))}

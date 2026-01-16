@@ -257,24 +257,24 @@ export default function VideoContentSilver({ setCurrentPage }) {
   // };
 
   const hasNotExpired = () => {
-  const expiry =
-    user?.expire_date ||
-    user?.expiry_date;
+    const expiry =
+      user?.expire_date ||
+      user?.expiry_date;
 
-  // No expiry = lifetime access
-  if (!expiry || !expiry.seconds) {
-    return true;
-  }
+    // No expiry = lifetime access
+    if (!expiry || !expiry.seconds) {
+      return true;
+    }
 
-  return Date.now() < expiry.seconds * 1000;
-};
+    return Date.now() < expiry.seconds * 1000;
+  };
 
-const isSubscribed =
-  ['8', '9', '10'].includes(user?.membership) &&
-  hasNotExpired();
+  const isSubscribed =
+    ['8', '9', '10'].includes(user?.membership) &&
+    hasNotExpired();
 
 
-const [activeIndex, setActiveIndex] = useState(0); // first one active by default
+  const [activeIndex, setActiveIndex] = useState(0); // first one active by default
 
 
   const changeCourseUrl = (url) => {
@@ -300,78 +300,95 @@ const [activeIndex, setActiveIndex] = useState(0); // first one active by defaul
     <MotionViewport>
       <div className="content-grid">
         <div className='all-content'>
-  <div className="video-container ">
-      <div className="video-outer-box">
-        <div className="video-inner-box">
-          {isSubscribed ? (
-            <iframe
-              src={courseUrl}
-              scrolling="no"
-              allowFullScreen
-              title="Course Video"
-              className="video-iframe"
-            />
-          ) : (
-            <div className="video-locked">
-              <div >
-              <img src="/img/locked-premium.svg" alt="Locked" />
-            </div>
-              <h3 className='locked-text'>You need to be a Silver Member to unlock the Silver Video Content</h3>
+          <div className="video-container ">
+            <div className="video-outer-box">
+              <div className="video-inner-box">
+                {isSubscribed ? (
+                  <iframe
+                    src={courseUrl}
+                    scrolling="no"
+                    allowFullScreen
+                    title="Course Video"
+                    className="video-iframe"
+                  />
+                ) : (
+                  <div className="video-locked">
+                    <div >
+                      <img src="/img/locked-premium.svg" alt="Locked" />
+                    </div>
+                    <h3 className='locked-text'>You need to be a Silver Member to unlock the Silver Video Content</h3>
 
-             
-                <button type='button'
-                  className="update-btn"
-                  onClick={() => setCurrentPage('Subscriptions')}
-                >
-                  Purchase Membership
-                </button>
-              </div>
-          
-          )}
 
-          <script src="https://player.vimeo.com/api/player.js" />
-          
+                    <button type='button'
+                      className="update-btn"
+                      onClick={() => setCurrentPage('Subscriptions')}
+                    >
+                      Purchase Membership
+                    </button>
+                  </div>
 
-         {modules.map((module, index) => (
-  /* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */
-<div
-  key={index}
-  className={`module-row ${
-    isSubscribed ? 'clickable' : ''
-  } ${activeIndex === index ? 'active' : ''}`}
-  onClick={() => {
-    if (!isSubscribed) return;
-    setActiveIndex(index);
-    changeCourseUrl(module.url);
-  }}
->
+                )}
 
-    <img
-  src="/img/silvber-content.svg"
-  alt="Play"
-  className="silver-content-icon"
-/>
+                <script src="https://player.vimeo.com/api/player.js" />
 
-    <span className="module-title">{module.name}</span>
-    <span className="module-spacer" />
-    {!isSubscribed && <LockIcon />}
+
+                {modules.map((module, index) => (
+                  /* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */
+                  <div
+                    key={index}
+                    className={`module-row ${isSubscribed ? 'clickable' : ''
+                      } ${activeIndex === index ? 'active' : ''}`}
+                    onClick={() => {
+                      if (!isSubscribed) return;
+                      setActiveIndex(index);
+                      changeCourseUrl(module.url);
+                    }}
+                  >
+
+                    <img
+                      src="/img/silvber-content.svg"
+                      alt="Play"
+                      className="silver-content-icon"
+                    />
+
+                    <span className="module-title">{module.name}</span>
+                    <span className="module-spacer" />
+                    {/* {!isSubscribed && <LockIcon />}
     {isSubscribed && (
   <img
     src="/img/silver-play.svg"
     alt="Play"
 
   />
-)}
+)} */}
+                    {!isSubscribed && <LockIcon />}
 
-  </div>
-))}
+                    {isSubscribed && (
+                      activeIndex === index ? (
+                        <img
+                          src="/img/silvde-pause.svg"
+                          alt="Play"
 
+                        />
+                      ) : (
+                        <img
+                          src="/img/silver-play.svg"
+                          alt="Play"
+
+                        />
+                      )
+                    )}
+
+
+                  </div>
+                ))}
+
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-     </div>
-     </div>
-     </div>
-</MotionViewport>
+    </MotionViewport>
 
   );
 }
