@@ -1209,7 +1209,6 @@ export default function Profile({ onChange }) {
       {/* ================= UI ================= */}
 
       <div className="all-content">
-        <p className="manage-profile">Manage Profile</p>
 
         <div className="all-profile-info">
 

@@ -155,3 +155,8 @@
   padding: 10px 12px;    /* same as nav-item */
 }
 
+
+.c-icon{
+  height: 18px;
+  width: 18px;
+}

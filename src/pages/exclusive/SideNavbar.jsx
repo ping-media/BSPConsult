@@ -77,7 +77,7 @@ export default function SideNavbar({ active, onChange, onLogout }) {
     { id: "VideoContentSilver", label: "Essential Video Content", icon: "/img/book.svg" },
     { id: "Courses", label: "BSP Masterclass", icon: "/img/video-play.svg" },
     // { id: "MasterZone", label: "Masterclass Zone", icon: "/img/search-status.svg" },
-    { id: "Subscriptions", label: "Programs", icon: "/img/crown.svg" },
+    { id: "Subscriptions", label: "Programs", icon: "/img/crown.png" },
   ];
   //   const menuItems = [
   //   { id: "Profile", label: "Profile", icon: "/img/user.svg" },
@@ -122,7 +122,7 @@ export default function SideNavbar({ active, onChange, onLogout }) {
               onClick={() => onChange(item.id)}
             >
               <div className="nav-con">
-                <span className="icon">
+                <span className="c-icon">
                   <img src={item.icon} alt={item.label} />
                 </span>
                 {item.label}
