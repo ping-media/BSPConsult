@@ -70,9 +70,12 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 435px;
+  min-height: 385px;
 }
 
+.dashboard-content .program-desc{
+  margin-bottom: 0px;
+}
 
 .program-title {
   font-size: 24px;
