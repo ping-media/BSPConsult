@@ -9,9 +9,9 @@ export default function Tabs(theme) {
         variant: 'scrollable',
       },
       styleOverrides: {
-        indicator: {
-          backgroundColor: theme.palette.text.primary,
-        },
+        // indicator: {
+        //   backgroundColor: theme.palette.text.primary,
+        // },
         scrollButtons: {
           width: 48,
           borderRadius: '50%',

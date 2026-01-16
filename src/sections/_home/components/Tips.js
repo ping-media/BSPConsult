@@ -123,6 +123,7 @@ export default function Tips({ setCurrentPage }) {
   const [deleteLoading, setDeleteLoading] = useState(false);
 
   const storage = getStorage(firebaseApp);
+  
 
   const groups = [
     {
@@ -143,15 +144,28 @@ export default function Tips({ setCurrentPage }) {
     },
   ];
 
-  const checkExpireDate = () => {
-    const sec = user.expire_date ? user.expire_date.seconds * 1000 : 0;
-    const expireDate = new Date(sec);
-    const currentDate = new Date();
-    return currentDate.getTime() < expireDate.getTime();
+  // const checkExpireDate = () => {
+  //   const sec = user.expire_date ? user.expire_date.seconds * 1000 : 0;
+  //   const expireDate = new Date(sec);
+  //   const currentDate = new Date();
+  //   return currentDate.getTime() < expireDate.getTime();
+  // };
+    const hasNotExpired = () => {
+    const expiry =
+      user?.expire_date ||
+      user?.expiry_date;
+
+    // No expiry = lifetime access
+    if (!expiry || !expiry.seconds) {
+      return true;
+    }
+
+    return Date.now() < expiry.seconds * 1000;
   };
 
-  const isSubscribed = user.membership !== '1' && checkExpireDate();  
-  const isNotSilver = user.membership !== '8' && checkExpireDate();
+
+  const isSubscribed = user.membership !== '1' && hasNotExpired();  
+  const isNotSilver = user.membership !== '8' && hasNotExpired();
 
   function createTypographyWithLineBreaks(text) {
     // Split the text by new line characters
@@ -1174,18 +1188,62 @@ export default function Tips({ setCurrentPage }) {
         </DialogActions>
       </Dialog>
       <Box sx={{ mt: 3, mx: 'auto', maxWidth: 720, textAlign: 'center' }}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Box>
           <Tabs
             value={value}
             onChange={handleChange}
-            sx={{
-              span: {
-                backgroundColor: '#FFF',
-              },
-            }}
+           
           >
-            <Tab label="Insights" {...a11yProps(0)} sx={{ flex: 1, color: '#FFF' }} />
-            <Tab label="Bets" {...a11yProps(1)} sx={{ flex: 1, color: '#FFF' }} />
+         <Tab
+  label="Insights"
+  {...a11yProps(0)}
+  sx={{
+    flex: 1,
+    textTransform: 'none',
+    fontSize: '18px',
+    fontWeight: 400,
+    borderRadius: '8px',
+    mx: 0.5,
+
+    // default (inactive)
+    backgroundColor: '#FFFFFF1A',
+    border: '1px solid #FFFFFF33',
+
+    // active
+    '&.Mui-selected': {
+      backgroundColor: '#348AF733', 
+      border: '1px solid #348AF7',
+      color: '#fff',
+    },
+
+   
+  }}
+/>
+
+<Tab
+  label="Bets"
+  {...a11yProps(1)}
+  sx={{
+    flex: 1,
+    textTransform: 'none',
+    fontSize: '18px',
+    fontWeight: 400,
+    borderRadius: '8px',
+    mx: 0.5,
+
+    // default (inactive)
+    backgroundColor: '#FFFFFF1A',
+    border: '1px solid #FFFFFF33',
+
+    // active
+    '&.Mui-selected': {
+      backgroundColor: '#348AF733', 
+      border: '1px solid #348AF7',
+      color: '#fff',
+    },
+  }}
+/>
+
           </Tabs>
         </Box>
         <CustomTabPanel value={value} index={0}>

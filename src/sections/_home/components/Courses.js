@@ -611,17 +611,7 @@ export default function Courses({ onChange }) {
 
 
   const membership = user?.membership;
-
-  const hasAnyMembership = ['8', '9', '10'].includes(membership);
-  const isSilver = membership === '8';
-  const isAdvanced = membership === '9';
-  const isGold = membership === '10' && hasNotExpired();
-
-  const hasNoSubscription = user?.membership === '1' || !user?.membership;
-
-
-
-  const hasNotExpired = () => {
+   const hasNotExpired = () => {
     const expiry =
       user?.expire_date ||
       user?.expiry_date;
@@ -633,6 +623,17 @@ export default function Courses({ onChange }) {
 
     return Date.now() < expiry.seconds * 1000;
   };
+
+  const hasAnyMembership = ['8', '9', '10'].includes(membership);
+  const isSilver = membership === '8';
+  const isAdvanced = membership === '9';
+  const isGold = membership === '10' && hasNotExpired();
+
+  const hasNoSubscription = user?.membership === '1' || !user?.membership;
+
+
+
+ 
 
   // const isSubscribed =
   //   user?.membership === '10' &&
