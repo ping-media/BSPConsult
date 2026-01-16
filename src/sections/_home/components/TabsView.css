@@ -107,7 +107,7 @@
 .tip-header {
   padding: 16px;
   background: #122849;
-  color: #FCFCFD;
+  color: #fff;
 }
 
 .tip-body {
@@ -139,7 +139,13 @@
   display: flex;
    display: flex;
   flex-direction: column;
+  gap: 7px;
+  font-size: 16px;
   
+}
+.tip-header span:last-child{
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .tip-text {
@@ -151,7 +157,8 @@
 .tip-date {
   font-size: 16px;
   font-weight: 400;
-  color: #ffffffb3; /* subtle date color */
+  color: #fff; /* subtle date color */
+  margin-bottom: 5px;
 }
 
 .tip-title {
