@@ -547,6 +547,7 @@ import {
   AccordionDetails,
   Button,
 } from '@mui/material';
+import LockIcon from '@mui/icons-material/Lock';
 import { MotionViewport } from 'src/components/animate';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import RemoveModeratorIcon from '@mui/icons-material/RemoveModerator';
@@ -569,24 +570,24 @@ export default function Courses({ onChange }) {
   // };
 
   const hasNotExpired = () => {
-  const expiry =
-    user?.expire_date ||
-    user?.expiry_date;
+    const expiry =
+      user?.expire_date ||
+      user?.expiry_date;
 
-  // No expiry = lifetime access
-  if (!expiry || !expiry.seconds) {
-    return true;
-  }
+    // No expiry = lifetime access
+    if (!expiry || !expiry.seconds) {
+      return true;
+    }
 
-  return Date.now() < expiry.seconds * 1000;
-};
+    return Date.now() < expiry.seconds * 1000;
+  };
 
 
   // const isSubscribed = user.membership === '10' && checkExpireDate();
 
   const isSubscribed =
-  user?.membership === '10' &&
-  hasNotExpired();
+    user?.membership === '10' &&
+    hasNotExpired();
 
 
   const [courseUrl, setCourseUrl] = useState(
@@ -606,7 +607,7 @@ export default function Courses({ onChange }) {
     }
   };
 
-    const modules = [
+  const modules = [
     {
       title: 'Module 1 : Introduction',
       videos: [
@@ -919,102 +920,99 @@ export default function Courses({ onChange }) {
 
   return (
     <div className='content-grid'>
-    <div className='all-content'>
-  <div className="courses-wrapper">
-    <div className="courses-border">
-      <div className="courses-inner">
+      <div className='all-content'>
+        <div className="courses-wrapper">
+          <div className="courses-border">
+            <div className="courses-inner">
 
-        {isSubscribed ? (
-          <iframe
-            src={courseUrl}
-            scrolling="no"
-            allowFullScreen
-            title="Course Video"
-            className="course-iframe"
-          />
-        ) : (
-          <div className="locked-wrapper">
-            <div >
-              <img src="/img/locked-premium.svg" alt="Locked" />
-            </div>
+              {isSubscribed ? (
+                <iframe
+                  src={courseUrl}
+                  scrolling="no"
+                  allowFullScreen
+                  title="Course Video"
+                  className="course-iframe"
+                />
+              ) : (
+                <div className="locked-wrapper">
+                  <div >
+                    <img src="/img/locked-premium.svg" alt="Locked" />
+                  </div>
 
-            <h3 className="locked-text">
-             You need to be a Gold Member to unlock the Masterclass <br/> Video Content
-            </h3>
-            <p className='locked-para'>One click away from full access</p>
-            <button
-            type='button'
-              className="update-btn"
-              onClick={handleSubscription}
-            >
-              Purchase Membership
-            </button>
-          </div>
-        )}
-
-        <h2
-          className="course-heading clickable"
-          onClick={() =>
-            changeCourseUrl(
-              'https://player.vimeo.com/video/912613882?h=a837d3916f&badge=0&autopause=0'
-            )
-          }
-        >
-          What I will learn?
-        </h2>
-
-        <h2 className="course-heading">
-          Course Curriculum
-        </h2>
-
-        {modules.map((module, moduleIndex) => (
-          <details key={moduleIndex} className="accordion">
-            <summary className="accordion-summary">
-              {module.title}
-              <img src="/img/expand.svg" className="expand-icon" />
-            </summary>
-
-            <div className="accordion-details">
-              {module.videos.map((video, videoIndex) => (
-                <div
-                  key={videoIndex}
-                  className={`video-row ${isSubscribed ? 'clickable' : ''}`}
-                  onClick={() => changeCourseUrl(video.url)}
-                >
-                  <img
-                    src="/img/play.svg"
-                    alt="Play"
-                    className="video-left-icon"
-                  />
-
-                  <span className="video-title">{video.name}</span>
-
-                  <span className="spacer" />
-
-                  {isSubscribed ? (
-                    <img
-                      src="/img/silver-play.svg"
-                      alt="Play"
-                      className="video-action-icon"
-                    />
-                  ) : (
-                    <img
-                      src="/img/lock.svg"
-                      alt="Locked"
-                      className="video-action-icon"
-                    />
-                  )}
+                  <h3 className="locked-text">
+                    You need to be a Gold Member to unlock the Masterclass <br /> Video Content
+                  </h3>
+                  <p className='locked-para'>One click away from full access</p>
+                  <button
+                    type='button'
+                    className="update-btn"
+                    onClick={handleSubscription}
+                  >
+                    Purchase Membership
+                  </button>
                 </div>
-              ))}
-            </div>
-          </details>
-        ))}
+              )}
 
-</div>
-</div>
+
+
+              <h2 className="course-heading">
+                Course Curriculum
+              </h2>
+
+             {modules.map((module, moduleIndex) => (
+  <details
+    key={moduleIndex}
+    className="accordion"
+    open={moduleIndex === 0}
+  >
+
+                  <summary className="accordion-summary">
+                    {module.title}
+
+                    <span className="expand-icons">
+                      <img src="/img/arrow-up.svg" className="icon-down" />
+                      <img src="/img/arrow-down.svg" className="icon-up" />
+                    </span>
+                  </summary>
+
+
+                  <div className="accordion-details">
+                    {module.videos.map((video, videoIndex) => (
+                      <div
+                        key={videoIndex}
+                        className={`video-row ${isSubscribed ? 'clickable' : ''}`}
+                        onClick={() => changeCourseUrl(video.url)}
+                      >
+                        <img
+                          src="/img/silvber-content.svg"
+                          alt="Play"
+                          className="video-left-icon"
+                        />
+
+                        <span className="video-title">{video.name}</span>
+
+                        <span className="spacer" />
+
+                        {isSubscribed ? (
+                          <img
+                            src="/img/silver-play.svg"
+                            alt="Play"
+                            className="video-action-icon"
+                          />
+                        ) : (
+                          <LockIcon />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </details>
+              ))}
+
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
 
 }
