@@ -47,7 +47,7 @@
 }
 
 .locked-para {
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 400;
   color: #B9BDC7;
 }
@@ -101,7 +101,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   padding: 14px 16px;
 }
@@ -111,7 +111,7 @@
 
 /* DETAILS CONTENT */
 .accordion-details {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 400;
   padding: 6px 16px 16px;
 }
