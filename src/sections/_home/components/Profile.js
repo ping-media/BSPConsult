@@ -1267,13 +1267,14 @@ const effectiveMembership =
 
             <div className="program-type">
               {/* Show program name ONLY if user has subscription */}
-             {(hasNoSubscription || isSilver || isAdvanced) && !isGold && (
-                <p className='premium'>
-                  {isGold && 'Gold Program'}
-                  {isAdvanced && 'Advanced Program'}
-                  {isSilver && 'Silver Program'}
-                </p>
-              )}
+            {!isExpired && (isSilver || isAdvanced || isGold) && (
+  <p className="premium">
+    {isGold && 'Gold Program'}
+    {isAdvanced && 'Advanced Program'}
+    {isSilver && 'Silver Program'}
+  </p>
+)}
+
 
 
               {/* Show upgrade button if:
