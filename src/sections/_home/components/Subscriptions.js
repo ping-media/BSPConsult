@@ -1566,15 +1566,32 @@ const MEMBERSHIP = {
 };
 
 const membership = user?.membership ?? MEMBERSHIP.NONE;
+  const checkExpireDate = () => {
+  const sec = user?.expire_date ? user.expire_date.seconds * 1000 : 0;
+  if (!sec) return true; // no expiry = allowed
+  return Date.now() < sec;
+};
 
-const isSilver = membership === MEMBERSHIP.SILVER;
-const isAdvanced = membership === MEMBERSHIP.ADVANCED;
-const isGold = membership === MEMBERSHIP.GOLD;
+const isExpired = !checkExpireDate();
 
-const currentPlan =
-  isSilver ? 'silver' :
-  isAdvanced ? 'advanced' :
-  null;
+const isSilver = membership === MEMBERSHIP.SILVER && !isExpired;
+const isAdvanced = membership === MEMBERSHIP.ADVANCED && !isExpired;
+const isGold = membership === MEMBERSHIP.GOLD && !isExpired;
+
+
+// const currentPlan =
+//   isSilver ? 'silver' :
+//   isAdvanced ? 'advanced' :
+//   null;
+
+const currentPlan = isExpired
+  ? null
+  : isSilver
+    ? 'silver'
+    : isAdvanced
+      ? 'advanced'
+      : null;
+
 
 
 // hierarchy: gold > advanced > silver
@@ -1584,7 +1601,8 @@ const PLAN_RANK = {
   gold: 3,
 };
 
-const USER_RANK = isGold ? 3 : isSilver ? 1 : 0;
+const USER_RANK = isExpired ? 0 : isGold ? 3 : isAdvanced ? 2 : isSilver ? 1 : 0;
+
 
 // disable if user already owns this or higher plan
 const isDisabled = (programId) =>
