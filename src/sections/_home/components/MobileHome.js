@@ -1,16 +1,15 @@
+/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */
+/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable
+  react/self-closing-comp,
+  jsx-a11y/click-events-have-key-events,
+  jsx-a11y/no-static-element-interactions
+*/
+/* eslint-disable no-nested-ternary */
 import { loadStripe } from '@stripe/stripe-js';
 import { useNavigate } from 'react-router-dom';
+import './MobileHome.css'
 // @mui
-import AddIcon from '@mui/icons-material/Add';
-import PrevIcon from '@mui/icons-material/ArrowBack';
-import DeleteIcon from '@mui/icons-material/Delete';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import LockIcon from '@mui/icons-material/Lock';
-import LogoutIcon from '@mui/icons-material/LogoutOutlined';
-import PlayCircleIcon from '@mui/icons-material/PlayCircle';
-import RemoveModeratorIcon from '@mui/icons-material/RemoveModerator';
-import PlayIcon from '@mui/icons-material/SmartDisplay';
 import { LoadingButton } from '@mui/lab';
 import {
   Accordion,
@@ -54,7 +53,54 @@ import { paths } from '../../../routes/paths';
 // ----------------------------------------------------------------------
 
 
- const stripePromise = loadStripe("pk_live_51NAUESCf4YXq1rsyBMpbCD1Yqi5kocGdjxYqcqknpppNXXnUKKCVxar7NqInLJRCJTCEVkbqQPppP7nvve8E053I00P0pVQI8d");
+const stripePromise = loadStripe(
+  'pk_live_51NAUESCf4YXq1rsyBMpbCD1Yqi5kocGdjxYqcqknpppNXXnUKKCVxar7NqInLJRCJTCEVkbqQPppP7nvve8E053I00P0pVQI8d'
+);
+
+const UPGRADE_PRICE_MAP = {
+  silver_to_advanced: 'price_1Sh1flCf4YXq1rsy94ex1p16',
+  silver_to_gold: 'price_1OgVtOCf4YXq1rsy99bw9IHr',
+  advanced_to_gold: 'price_1Sh1gECf4YXq1rsycqlOtspg',
+};
+const UPGRADE_CONFIG = {
+  silver: {
+    advanced: {
+      title: 'Advanced Program',
+      price: '€200',
+      priceId: UPGRADE_PRICE_MAP.silver_to_advanced,
+      features: [
+        'Advanced Data Insights (BSP App)',
+        'BSP Tennis Betting Model',
+        'Essential Video Content',
+      ],
+    },
+    gold: {
+      title: 'Gold Program',
+      price: '€600',
+      priceId: UPGRADE_PRICE_MAP.silver_to_gold,
+      features: [
+        'Advanced Data Insights (BSP App)',
+        'BSP Tennis Betting Model',
+        'Essential Video Content',
+        'High-Stakes Betting Frameworks',
+        'BSP Masterclass (20+ Hours of Video)',
+        'Real Time Study Cases',
+      ],
+    },
+  },
+  advanced: {
+    gold: {
+      title: 'Gold Program',
+      price: '€400',
+      priceId: UPGRADE_PRICE_MAP.advanced_to_gold,
+      features: [
+        'High-Stakes Betting Frameworks',
+        'BSP Masterclass (20+ Hours of Video)',
+        'Real Time Study Cases',
+      ],
+    },
+  },
+};
 
 
 // Initialize Firestore
@@ -96,21 +142,84 @@ function a11yProps(index) {
 export default function MobileHome() {
   const { user, resetPassword, logout } = useAuthContext();
 
+   const checkExpireDate = () => {
+    const sec = user?.expire_date ? user.expire_date.seconds * 1000 : 0;
+    if (!sec) return true;
+    return Date.now() < sec;
+  };
+
+  const isExpired = !checkExpireDate();
+
+  const isGold = user?.membership === '10' && !isExpired;
+  const isAdvanced = user?.membership === '9' && !isExpired;
+  const isSilver = user?.membership === '8' && !isExpired;
+
+  const hasNoSubscription =
+    isExpired || user?.membership === '1' || !user?.membership;
+
+  const effectiveMembership =
+    isExpired ? '1' : String(user?.membership || '1');
+
+
   const navigate = useNavigate();
 
   const { enqueueSnackbar } = useSnackbar();
 
   const [value, setValue] = useState(0);
 
-  const checkExpireDate = () => {
-    const sec = user.expire_date ? user.expire_date.seconds * 1000 : 0;
-    const expireDate = new Date(sec);
-    const currentDate = new Date();
-    return currentDate.getTime() < expireDate.getTime();
-  };
+  // const checkExpireDate = () => {
+  //   const sec = user.expire_date ? user.expire_date.seconds * 1000 : 0;
+  //   const expireDate = new Date(sec);
+  //   const currentDate = new Date();
+  //   return currentDate.getTime() < expireDate.getTime();
+  // };
 
   const isSilverSubscribed = user.membership !== '1' && checkExpireDate();
   const isGoldSubscribed = user.membership === '10' && checkExpireDate();
+
+
+   const [openUpgrade, setOpenUpgrade] = useState(false);
+   const [selectedPlan, setSelectedPlan] = useState(null);
+
+     const handleUpgradeCheckout = async (priceId) => {
+    try {
+      const stripe = await stripePromise;
+
+      const response = await fetch(
+        'https://us-central1-bspconsult-bcd6e.cloudfunctions.net/createCheckoutSession',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            priceId,
+            customerEmail: user?.email,
+            platform: 'web',
+            upgrade: true, // optional but useful in webhook
+          }),
+        }
+      );
+
+      const session = await response.json();
+
+      if (!session?.id) {
+        throw new Error('Invalid Stripe session');
+      }
+
+      await stripe.redirectToCheckout({ sessionId: session.id });
+    } catch (error) {
+      console.error('Upgrade checkout error:', error);
+    }
+  };
+
+  const currentPlan =
+    isSilver ? 'silver' :
+      isAdvanced ? 'advanced' :
+        null;
+
+  const upgradeData =
+    currentPlan && selectedPlan
+      ? UPGRADE_CONFIG[currentPlan]?.[selectedPlan]
+      : null;
 
   const [silverCourseUrl, setSilverCourseUrl] = useState(
     'https://player.vimeo.com/video/912613882?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479'
@@ -716,6 +825,150 @@ export default function MobileHome() {
         height: value === 0 ? '100%' : 'max-content',
       }}
     >
+
+         <Dialog
+              open={openUpgrade}
+              onClose={() => setOpenUpgrade(false)}
+              maxWidth={false}
+              disableScrollLock
+              PaperProps={{
+                sx: {
+                  background: 'transparent',
+                  boxShadow: 'none',
+                  borderRadius: 0,
+                  padding: 0,
+                  margin: 0,
+                  overflow: 'visible',
+                },
+              }}
+            >
+              <DialogContent
+                sx={{
+                  padding: 0,
+                  margin: 0,
+                  background: 'transparent',
+                  overflow: 'visible',
+                }}
+              >
+                {!isGold && (isSilver || isAdvanced || hasNoSubscription) && (
+                  <div className="upgrade-box">
+      
+                    {/* HEADER */}
+                    <div className="upgrade-content-header">
+                      <div className="upgrade-content">
+                        <h3>{hasNoSubscription ? 'Choose Membership' : 'Upgrade Membership'}</h3>
+                        <p>Upgrade to unlock advanced features and full access.</p>
+                      </div>
+      
+                      <button
+                        type="button"
+                        className="upgrade-close"
+                        onClick={() => setOpenUpgrade(false)}
+                      >
+                        ✕
+                      </button>
+                    </div>
+      
+                    <div className="upgrade-divider" />
+      
+                    {/* PLAN SWITCH */}
+                    <div className="plan-switch">
+      
+                      {(hasNoSubscription || isSilver) && (
+                        <>
+                          <button
+                            type="button"
+                            className={`plan-btn advanced ${selectedPlan === 'advanced' ? 'active' : ''}`}
+                            onClick={() => setSelectedPlan('advanced')}
+                          >
+                            Advanced
+                          </button>
+      
+                          <button
+                            type="button"
+                            className={`plan-btn gold ${selectedPlan === 'gold' ? 'active' : ''}`}
+                            onClick={() => setSelectedPlan('gold')}
+                          >
+                            Gold
+                          </button>
+                        </>
+                      )}
+      
+                      {isAdvanced && (
+                        <button type="button" className="plan-btn gold active">
+                          Gold
+                        </button>
+                      )}
+      
+                    </div>
+      
+                    {/* DYNAMIC CARD */}
+                    {upgradeData && (
+                      <div className={`upgrade-card upgrade-card--${selectedPlan}`}>
+                        <div className="upgrade-inner">
+      
+                          <div className="upgrade-headers">
+                            <h3 className="upgrade-title">{upgradeData.title}</h3>
+      
+                            {selectedPlan === 'advanced' && (
+                              <span className="best-value-badge">Best Value</span>
+                            )}
+                          </div>
+      
+      
+                          <div className="upgrade-price">
+                            <span className="price-amount">{upgradeData.price}</span>
+                            <span className="price-period">one time fee</span>
+                          </div>
+      
+                          <div className="upgrade-note">
+                            Lock in current pricing before next update.
+                          </div>
+      
+                          <button
+                            type="button"
+                            className={selectedPlan === 'gold' ? 'Gold-btn' : 'adva-btn'}
+                            onClick={() => {
+                              setOpenUpgrade(false);
+                              handleUpgradeCheckout(upgradeData.priceId);
+                            }}
+                          >
+                            Get {upgradeData.title}
+                          </button>
+      
+                        </div>
+      
+                        <div className="upgrade-includes">
+                          <h4>
+                            Extra benefits with{' '}
+                            <span className={selectedPlan === 'gold' ? 'gold-text' : 'advanced-text'}>
+                              {selectedPlan === 'gold' ? 'Gold' : 'Advanced'}
+                            </span>
+                          </h4>
+      
+                          <ul>
+                            {upgradeData.features.map((feature) => (
+                              <li key={feature} className="active">
+                                <img
+                                  src={
+                                    selectedPlan === 'gold'
+                                      ? '/img/gold-tick.svg'
+                                      : '/img/check-circle.svg'
+                                  }
+                                  alt="check"
+                                />
+                                <span className="include-text">{feature}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    )}
+      
+                  </div>
+                )}
+              </DialogContent>
+            </Dialog>
       <Dialog
         open={addMessage}
         onClose={() => setAddMessage(false)}
@@ -897,7 +1150,7 @@ export default function MobileHome() {
           </LoadingButton>
         </DialogActions>
       </Dialog>
-      <Box sx={{ mt: 3, mx: 'auto', textAlign: 'center' }}>
+      {/* <Box sx={{ mt: 3, mx: 'auto', textAlign: 'center' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs value={value} onChange={handleChange}>
             <Tab
@@ -1900,7 +2153,173 @@ export default function MobileHome() {
             </Paper>
           )}
         </CustomTabPanel>
-      </Box>
+      </Box> */}
+
+<div className="profile-wrapper">
+
+  {/* Tabs */}
+  <div className="tabs">
+    <button type="button" className={value === 0 ? 'tab active' : 'tab'} onClick={() => setValue(0)}>
+      <span>Profile<br />Section</span>
+    </button>
+
+    {user.membership !== '10' && (
+      <button type="button" className={value === 1 ? 'tab active' : 'tab'} onClick={() => setValue(1)}>
+        <span>Silver Video<br />Content</span>
+      </button>
+    )}
+
+    {user.membership === '10' && (
+      <button type="button" className={value === 1 ? 'tab active' : 'tab'} onClick={() => setValue(1)}>
+        <span>Masterclass<br />Video Content</span>
+      </button>
+    )}
+
+    <button type="button" className={value === 2 ? 'tab active' : 'tab'} onClick={() => setValue(2)}>
+      <span>Masterclass<br />Zone</span>
+    </button>
+  </div>
+
+  {/* TAB 0 – PROFILE */}
+{value === 0 && (
+  <div className="tab-panel">
+
+    {/* PERSONAL INFO */}
+    <div className="info-box">
+      <h3>Personal Information</h3>
+
+      <div className="info-row">
+        <span>Username</span>
+        <span className="profile-ans">{user?.username}</span>
+      </div>
+
+      <div className="info-row">
+        <span>E-mail</span>
+        <span className="profile-ans">{user?.email}</span>
+      </div>
+
+      <div className="info-row">
+        <span></span>
+        <span
+          className="profile-ans with-icon"
+          onClick={handleOpenResetPassword}
+        >
+          Reset Password <img src="/img/Icon.svg" alt="" />
+        </span>
+      </div>
+    </div>
+
+    {/* SUBSCRIPTION */}
+    <div className="info-box">
+      <h3>Subscription</h3>
+
+      {!isExpired && (isSilver || isAdvanced || isGold) && (
+        <p className="premium">
+          {isGold && 'Gold Program'}
+          {isAdvanced && 'Advanced Program'}
+          {isSilver && 'Silver Program'}
+        </p>
+      )}
+
+      {(hasNoSubscription || isSilver || isAdvanced) && !isGold && (
+        <button
+          type="button"
+          className="upgrade-btn"
+          onClick={() => {
+            if (hasNoSubscription) {
+              handleSubscription(user?.membership);
+              return;
+            }
+
+            if (isSilver) setSelectedPlan('advanced');
+            if (isAdvanced) setSelectedPlan('gold');
+
+            setOpenUpgrade(true);
+          }}
+        >
+          {hasNoSubscription ? 'Choose Membership' : 'Upgrade Membership'}
+        </button>
+      )}
+    </div>
+
+    {/* ACTIONS */}
+  <button
+  type="button"
+  className="access-btn"
+  onClick={() =>
+    window.open(
+      'https://apps.apple.com/us/app/bsp-consult/id1531281216',
+      '_blank'
+    )
+  }
+>
+  Access Bets
+</button>
+
+    <button
+      type="button"
+      className="delete-btn"
+      onClick={handleLogout}
+    >
+      Logout
+    </button>
+
+  </div>
+)}
+
+  {/* TAB 1 – VIDEO CONTENT */}
+  {value === 1 && (
+    <div className="tab-panel">
+
+      {isSilverSubscribed || isGoldSubscribed ? (
+        <div className="video-wrapper">
+          <iframe
+            src={user.membership === '10' ? goldCourseUrl : silverCourseUrl}
+            allowFullScreen
+            title="Video"
+          />
+        </div>
+      ) : (
+        <div className="locked">
+          <h3>Purchase Membership</h3>
+          <button type="button" className="primary-btn" onClick={handleSubscription}>
+            Purchase Membership
+          </button>
+        </div>
+      )}
+
+    </div>
+  )}
+
+  {/* TAB 2 – MASTERCLASS ZONE */}
+  {value === 2 && (
+    <div className="tab-panel">
+      {isGoldSubscribed ? (
+        <div className="zone">
+          {masterZoneMessages.map((msg, i) => (
+            <button
+              key={i}
+              type="button"
+              className="zone-image-btn"
+              onClick={() => setSelectedMessage(msg)}
+            >
+              <img src={msg.imageUrl} alt="zone" />
+            </button>
+          ))}
+        </div>
+      ) : (
+        <div className="locked">
+          <h3>Gold membership required</h3>
+          <button type="button" className="primary-btn" onClick={handleSubscription}>
+            Upgrade to Gold
+          </button>
+        </div>
+      )}
+    </div>
+  )}
+
+</div>
+
     </Container>
   );
 }

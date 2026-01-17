@@ -635,23 +635,23 @@ const UPGRADE_CONFIG = {
 export default function Profile({ onChange }) {
   const { user, updateBankroll, resetPassword, deleteAccount } = useAuthContext();
 
-const checkExpireDate = () => {
-  const sec = user?.expire_date ? user.expire_date.seconds * 1000 : 0;
-  if (!sec) return true;
-  return Date.now() < sec;
-};
+  const checkExpireDate = () => {
+    const sec = user?.expire_date ? user.expire_date.seconds * 1000 : 0;
+    if (!sec) return true;
+    return Date.now() < sec;
+  };
 
-const isExpired = !checkExpireDate();
+  const isExpired = !checkExpireDate();
 
-const isGold = user?.membership === '10' && !isExpired;
-const isAdvanced = user?.membership === '9' && !isExpired;
-const isSilver = user?.membership === '8' && !isExpired;
+  const isGold = user?.membership === '10' && !isExpired;
+  const isAdvanced = user?.membership === '9' && !isExpired;
+  const isSilver = user?.membership === '8' && !isExpired;
 
-const hasNoSubscription =
-  isExpired || user?.membership === '1' || !user?.membership;
+  const hasNoSubscription =
+    isExpired || user?.membership === '1' || !user?.membership;
 
-const effectiveMembership =
-  isExpired ? '1' : String(user?.membership || '1');
+  const effectiveMembership =
+    isExpired ? '1' : String(user?.membership || '1');
 
 
   Profile.propTypes = {
@@ -672,7 +672,7 @@ const effectiveMembership =
   const [deletAccountRequest, setDeletAccount] = useState(false);
   const [openResetPassword, setOpenResetPassword] = useState(false);
   const [loadingResetPassword, setLoadingResetPassword] = useState(false);
-  
+
 
   const [selectedPlan, setSelectedPlan] = useState(null);
 
@@ -1219,9 +1219,6 @@ const effectiveMembership =
       </Dialog>
 
 
-
-
-
       {/* ================= UI ================= */}
 
       <div className="all-content">
@@ -1251,51 +1248,32 @@ const effectiveMembership =
             </div>
           </div>
 
-          {/* SUBSCRIPTION */}
-          {/* <div className="info-box">
-            <h3>Subscription</h3>
-            <div className="program-type">
-              <p>{user?.membership === '10' ? 'Gold Program' : 'Silver Program'}</p>
-              <button type='button' className="upgrade-btn" onClick={handleSubscription}>
-                Upgrade Membership
-              </button>
-            </div>
-          </div> */}
+  
           {/* SUBSCRIPTION */}
           <div className="info-box">
             <h3>Subscription</h3>
 
             <div className="program-type">
               {/* Show program name ONLY if user has subscription */}
-            {!isExpired && (isSilver || isAdvanced || isGold) && (
-  <p className="premium">
-    {isGold && 'Gold Program'}
-    {isAdvanced && 'Advanced Program'}
-    {isSilver && 'Silver Program'}
-  </p>
-)}
-
-
-
-              {/* Show upgrade button if:
-        - user has NO subscription
-        - OR user has Silver */}
+              {!isExpired && (isSilver || isAdvanced || isGold) && (
+                <p className="premium">
+                  {isGold && 'Gold Program'}
+                  {isAdvanced && 'Advanced Program'}
+                  {isSilver && 'Silver Program'}
+                </p>
+              )}
               {(hasNoSubscription || isSilver || isAdvanced) && !isGold && (
                 <button
                   type="button"
                   className="upgrade-btn"
                   onClick={() => {
 
-                    // NO MEMBERSHIP → same behavior as Courses
-                    // if (hasNoSubscription) {
-                    //   onChange(user?.membership);
-                    //   return;
-                    // }
+              
 
                     if (hasNoSubscription) {
-  onChange(effectiveMembership);
-  return;
-}
+                      onChange(effectiveMembership);
+                      return;
+                    }
 
 
                     // SILVER → open dialog (default Advanced)
@@ -1394,75 +1372,6 @@ const effectiveMembership =
               Delete my Account
             </button>
           </div>
-
-          {/* ================= UPGRADE MEMBERSHIP – FULL WIDTH ================= */}
-          {/* {!isGold && (isSilver || hasNoSubscription) && (
-  <div className="upgrade-box">
-    <div className="upgrade-content">
-      <h3>Upgrade Membership</h3>
-      <p>Upgrade to unlock full access.</p>
-    </div>
-
-    <button
-      type="button"
-      className="Gold-btn"
-      onClick={handleSubscription}
-    >
-      Gold
-    </button>
-
-    <div className="upgrade-card upgrade-card--gold">
-  <div className="upgrade-inner">
-
-    <div className="upgrade-headers">
-      <h3 className="upgrade-title">Gold Program</h3>
-    </div>
-
-    <div className="upgrade-price">
-      <span className="price-amount">€400</span>
-      <span className="price-period">one time fee</span>
-    </div>
-
-    <div className="upgrade-note">
-      Lock in current pricing before next update.
-    </div>
-
-    <button
-      type="button"
-      className="Gold-btn"
-      onClick={handleSubscription}
-    >
-      Get Gold Program
-    </button>
-  </div>
-
-  <div className="upgrade-includes">
-    <h4>Extra benefits with Gold</h4>
-    <ul>
-      <li className="active">
-        <img src="img/gold-tick.svg" alt="check" />
-        <span className="include-text">
-          High-Stakes Betting Frameworks
-        </span>
-      </li>
-      <li className="active">
-        <img src="img/gold-tick.svg" alt="check" />
-        <span className="include-text">
-          BSP Masterclass (20+ Hours of Video)
-        </span>
-      </li>
-      <li className="active">
-        <img src="img/gold-tick.svg" alt="check" />
-        <span className="include-text">
-          Real Time Study Cases
-        </span>
-      </li>
-    </ul>
-  </div>
-</div>
-
-  </div>
-)} */}
 
         </div>
       </div>
