@@ -635,6 +635,25 @@ const UPGRADE_CONFIG = {
 export default function Profile({ onChange }) {
   const { user, updateBankroll, resetPassword, deleteAccount } = useAuthContext();
 
+const checkExpireDate = () => {
+  const sec = user?.expire_date ? user.expire_date.seconds * 1000 : 0;
+  if (!sec) return true;
+  return Date.now() < sec;
+};
+
+const isExpired = !checkExpireDate();
+
+const isGold = user?.membership === '10' && !isExpired;
+const isAdvanced = user?.membership === '9' && !isExpired;
+const isSilver = user?.membership === '8' && !isExpired;
+
+const hasNoSubscription =
+  isExpired || user?.membership === '1' || !user?.membership;
+
+const effectiveMembership =
+  isExpired ? '1' : String(user?.membership || '1');
+
+
   Profile.propTypes = {
     onChange: PropTypes.func.isRequired,
   };
@@ -653,10 +672,7 @@ export default function Profile({ onChange }) {
   const [deletAccountRequest, setDeletAccount] = useState(false);
   const [openResetPassword, setOpenResetPassword] = useState(false);
   const [loadingResetPassword, setLoadingResetPassword] = useState(false);
-  const isGold = user?.membership === '10';
-  const isAdvanced = user?.membership === '9';
-  const isSilver = user?.membership === '8';
-  const hasNoSubscription = user?.membership === '1' || !user?.membership;
+  
 
   const [selectedPlan, setSelectedPlan] = useState(null);
 
@@ -1251,7 +1267,7 @@ export default function Profile({ onChange }) {
 
             <div className="program-type">
               {/* Show program name ONLY if user has subscription */}
-              {(isSilver || isAdvanced || isGold) && (
+             {(hasNoSubscription || isSilver || isAdvanced) && !isGold && (
                 <p className='premium'>
                   {isGold && 'Gold Program'}
                   {isAdvanced && 'Advanced Program'}
@@ -1270,10 +1286,16 @@ export default function Profile({ onChange }) {
                   onClick={() => {
 
                     // NO MEMBERSHIP → same behavior as Courses
+                    // if (hasNoSubscription) {
+                    //   onChange(user?.membership);
+                    //   return;
+                    // }
+
                     if (hasNoSubscription) {
-                      onChange(user?.membership);
-                      return;
-                    }
+  onChange(effectiveMembership);
+  return;
+}
+
 
                     // SILVER → open dialog (default Advanced)
                     if (isSilver) {
