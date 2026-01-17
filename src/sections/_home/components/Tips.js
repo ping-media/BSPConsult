@@ -2227,8 +2227,9 @@
 // }
 
 
-// @mui
+/* eslint-disable no-nested-ternary */
 import AddIcon from '@mui/icons-material/Add';
+import { loadStripe } from '@stripe/stripe-js';
 import './TabsView.css';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import ChatIcon from '@mui/icons-material/Chat';
@@ -2237,7 +2238,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
-import RemoveModeratorIcon from '@mui/icons-material/RemoveModerator';
 import { LoadingButton } from '@mui/lab';
 import {
   Box,
@@ -2278,6 +2278,56 @@ import Image from 'src/components/image';
 import { useAuthContext } from '../../../auth/useAuthContext';
 import firebaseApp from '../../../firebase';
 // import useResponsive from 'src/hooks/useResponsive';
+
+
+const stripePromise = loadStripe(
+  'pk_live_51NAUESCf4YXq1rsyBMpbCD1Yqi5kocGdjxYqcqknpppNXXnUKKCVxar7NqInLJRCJTCEVkbqQPppP7nvve8E053I00P0pVQI8d'
+);
+
+const UPGRADE_PRICE_MAP = {
+  silver_to_advanced: 'price_1Sh1flCf4YXq1rsy94ex1p16',
+  silver_to_gold: 'price_1OgVtOCf4YXq1rsy99bw9IHr',
+  advanced_to_gold: 'price_1Sh1gECf4YXq1rsycqlOtspg',
+};
+const UPGRADE_CONFIG = {
+  silver: {
+    advanced: {
+      title: 'Advanced Program',
+      price: '€200',
+      priceId: UPGRADE_PRICE_MAP.silver_to_advanced,
+      features: [
+        'Advanced Data Insights (BSP App)',
+        'BSP Tennis Betting Model',
+        'Essential Video Content',
+      ],
+    },
+    gold: {
+      title: 'Gold Program',
+      price: '€600',
+      priceId: UPGRADE_PRICE_MAP.silver_to_gold,
+      features: [
+        'Advanced Data Insights (BSP App)',
+        'BSP Tennis Betting Model',
+        'Essential Video Content',
+        'High-Stakes Betting Frameworks',
+        'BSP Masterclass (20+ Hours of Video)',
+        'Real Time Study Cases',
+      ],
+    },
+  },
+  advanced: {
+    gold: {
+      title: 'Gold Program',
+      price: '€400',
+      priceId: UPGRADE_PRICE_MAP.advanced_to_gold,
+      features: [
+        'High-Stakes Betting Frameworks',
+        'BSP Masterclass (20+ Hours of Video)',
+        'Real Time Study Cases',
+      ],
+    },
+  },
+};
 
 // ----------------------------------------------------------------------
 
@@ -2352,6 +2402,10 @@ export default function Tips({ setCurrentPage }) {
   const [deletedTip, setDeletedTip] = useState(null);
   const [deleteLoading, setDeleteLoading] = useState(false);
 
+   const [selectedPlan, setSelectedPlan] = useState(null);
+     const [openUpgrade, setOpenUpgrade] = useState(false);
+
+
   const storage = getStorage(firebaseApp);
 
   const groups = [
@@ -2373,33 +2427,76 @@ export default function Tips({ setCurrentPage }) {
     },
   ];
 
-  // const checkExpireDate = () => {
-  //   const sec = user.expire_date ? user.expire_date.seconds * 1000 : 0;
-  //   const expireDate = new Date(sec);
-  //   const currentDate = new Date();
-  //   return currentDate.getTime() < expireDate.getTime();
-  // };
 
-  // const isSubscribed = user.membership !== '1' && checkExpireDate();  
-  // const isNotSilver = user.membership !== '8' && checkExpireDate();
 
+
+// ===== EXPIRY CHECK (same logic as before) =====
 const checkExpireDate = () => {
-  // No expiry → allow access
-  if (!user?.expire_date || !user.expire_date.seconds) {
-    return true;
-  }
-
-  return Date.now() < user.expire_date.seconds * 1000;
+  const sec = user?.expire_date ? user.expire_date.seconds * 1000 : 0;
+  if (!sec) return true; // no expiry = allowed
+  return Date.now() < sec;
 };
 
+// ===== MEMBERSHIP =====
+const membership = String(user?.membership || '1');
 
-// Any membership except "1" (free)
-const isSubscribed = user?.membership && user.membership !== '1';
+// ===== ACCESS RULES =====
 
-// KEEP NAME but FIX MEANING
-// Silver users should also be allowed
-const isNotSilver = isSubscribed;
+// Bets → Silver (8), Advanced (9), Gold (10)
+const canViewBets =
+  membership !== '1' && checkExpireDate();
 
+// Insights → ONLY Advanced (9), Gold (10)
+const canViewInsights =
+  ['9', '10'].includes(membership) && checkExpireDate();
+
+
+const hasNoSubscription = membership === '1';
+const isSilver = membership === '8';
+const isGold = membership === '10';
+const isAdvanced = membership === '9';
+const isExpired = !checkExpireDate();
+
+
+  const handleUpgradeCheckout = async (priceId) => {
+    try {
+      const stripe = await stripePromise;
+
+      const response = await fetch(
+        'https://us-central1-bspconsult-bcd6e.cloudfunctions.net/createCheckoutSession',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            priceId,
+            customerEmail: user?.email,
+            platform: 'web',
+            upgrade: true, // optional but useful in webhook
+          }),
+        }
+      );
+
+      const session = await response.json();
+
+      if (!session?.id) {
+        throw new Error('Invalid Stripe session');
+      }
+
+      await stripe.redirectToCheckout({ sessionId: session.id });
+    } catch (error) {
+      console.error('Upgrade checkout error:', error);
+    }
+  };
+
+  const currentPlan =
+    isSilver ? 'silver' :
+      isAdvanced ? 'advanced' :
+        null;
+
+  const upgradeData =
+    currentPlan && selectedPlan
+      ? UPGRADE_CONFIG[currentPlan]?.[selectedPlan]
+      : null;
 
 
   function createTypographyWithLineBreaks(text) {
@@ -2868,6 +2965,154 @@ const isNotSilver = isSubscribed;
       }}
     >
       <div className="all-content">
+
+
+ <Dialog
+        open={openUpgrade}
+        onClose={() => setOpenUpgrade(false)}
+        maxWidth={false}
+        disableScrollLock
+        PaperProps={{
+          sx: {
+            background: 'transparent',
+            boxShadow: 'none',
+            borderRadius: 0,
+            padding: 0,
+            margin: 0,
+            overflow: 'visible',
+          },
+        }}
+      >
+        <DialogContent
+          sx={{
+            padding: 0,
+            margin: 0,
+            background: 'transparent',
+            overflow: 'visible',
+          }}
+        >
+          {!isGold && (isSilver || isAdvanced || hasNoSubscription) && (
+            <div className="upgrade-box">
+
+              {/* HEADER */}
+              <div className="upgrade-content-header">
+                <div className="upgrade-content">
+                  <h3>{hasNoSubscription ? 'Choose Membership' : 'Upgrade Membership'}</h3>
+                  <p>Upgrade to unlock advanced features and full access.</p>
+                </div>
+
+                <button
+                  type="button"
+                  className="upgrade-close"
+                  onClick={() => setOpenUpgrade(false)}
+                >
+                  ✕
+                </button>
+              </div>
+
+              <div className="upgrade-divider" />
+
+              {/* PLAN SWITCH */}
+              <div className="plan-switch">
+
+                {(hasNoSubscription || isSilver) && (
+                  <>
+                    <button
+                      type="button"
+                      className={`plan-btn advanced ${selectedPlan === 'advanced' ? 'active' : ''}`}
+                      onClick={() => setSelectedPlan('advanced')}
+                    >
+                      Advanced
+                    </button>
+
+                    <button
+                      type="button"
+                      className={`plan-btn gold ${selectedPlan === 'gold' ? 'active' : ''}`}
+                      onClick={() => setSelectedPlan('gold')}
+                    >
+                      Gold
+                    </button>
+                  </>
+                )}
+
+                {isAdvanced && (
+                  <button type="button" className="plan-btn gold active">
+                    Gold
+                  </button>
+                )}
+
+              </div>
+
+              {/* DYNAMIC CARD */}
+              {upgradeData && (
+                <div className={`upgrade-card upgrade-card--${selectedPlan}`}>
+                  <div className="upgrade-inner">
+
+                    <div className="upgrade-headers">
+                      <h3 className="upgrade-title">{upgradeData.title}</h3>
+
+                      {selectedPlan === 'advanced' && (
+                        <span className="best-value-badge">Best Value</span>
+                      )}
+                    </div>
+
+
+                    <div className="upgrade-price">
+                      <span className="price-amount">{upgradeData.price}</span>
+                      <span className="price-period">one time fee</span>
+                    </div>
+
+                    <div className="upgrade-note">
+                      Lock in current pricing before next update.
+                    </div>
+
+                    <button
+                      type="button"
+                      className={selectedPlan === 'gold' ? 'Gold-btn' : 'adva-btn'}
+                      onClick={() => {
+                        setOpenUpgrade(false);
+                        handleUpgradeCheckout(upgradeData.priceId);
+                      }}
+                    >
+                      Get {upgradeData.title}
+                    </button>
+
+                  </div>
+
+                  <div className="upgrade-includes">
+                    <h4>
+                      Extra benefits with{' '}
+                      <span className={selectedPlan === 'gold' ? 'gold-text' : 'advanced-text'}>
+                        {selectedPlan === 'gold' ? 'Gold' : 'Advanced'}
+                      </span>
+                    </h4>
+
+                    <ul>
+                      {upgradeData.features.map((feature) => (
+                        <li key={feature} className="active">
+                          <img
+                            src={
+                              selectedPlan === 'gold'
+                                ? '/img/gold-tick.svg'
+                                : '/img/check-circle.svg'
+                            }
+                            alt="check"
+                          />
+                          <span className="include-text">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
+
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+
+
       {/* addMessage */}
       <Dialog
         open={addMessage}
@@ -3447,32 +3692,35 @@ const isNotSilver = isSubscribed;
       {/* TAB 0 */}
       {value === 0 && (
         <div className="tab-panel">
-          {isSubscribed && !isNotSilver ? (
-            <div className="center-paper">
-              <div className="upgrade-wrapper">
-                <div className="upgrade-border">
-                  <div className="upgrade-card">
-                    <div className="icon-box">
-                      <RemoveModeratorIcon />
-                    </div>
+    {!canViewInsights ? (
+      /* 🔒 SAME LOCK UI AS BETS */
+      <div className="premium-lock-container">
+        <div className="premium-lock-content">
+          <div className="lock-icon">
+            <img src="/img/locked-premium.svg" alt="Locked" />
+          </div>
 
-                    <h2 className="upgrade-title">Upgrade Membership</h2>
-                    <p className="upgrade-subtitle">
-                      Unlock this content by upgrading your Membership
-                    </p>
+          <h3 className="lock-title">Insights Locked</h3>
+          <p className="lock-subtitle">
+            One click away from full access
+          </p>
 
-                    <div className="gradient-btn">
-                      <button type='button'
-                        className="btn-full"
-                        onClick={() => setCurrentPage('Subscriptions')}
-                      >
-                        Upgrade Membership
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+      {(hasNoSubscription || isSilver || isExpired) && (
+  <button
+    type="button"
+    className="lock-btn"
+    onClick={() =>
+      hasNoSubscription
+        ? setCurrentPage('Subscriptions')
+        : setOpenUpgrade(true)
+    }
+  >
+    {hasNoSubscription ? 'View Programs' : 'Upgrade Now'}
+  </button>
+)}
+
+        </div>
+      </div>
           ) : (
             <>
               {publicTips.map((tip, index) => {
@@ -3535,26 +3783,25 @@ const stakeAmount = Number(calculateStakeAmount(tip.reliability) || 0);
       {/* TAB 1 */}
       {value === 1 && (
         <div className="tab-panel">
-          {!isSubscribed ? (
-         
-              <div className="premium-lock-container">
-  <div className="premium-lock-content">
-    <div className="lock-icon">
-      <img src="/img/locked-premium.svg" alt="Locked" />
-    </div>
+    {!canViewBets ? (
+      <div className="premium-lock-container">
+        <div className="premium-lock-content">
+          <div className="lock-icon">
+            <img src="/img/locked-premium.svg" alt="Locked" />
+          </div>
 
-    <h3 className="lock-title">Premium Content Locked</h3>
-    <p className="lock-subtitle">One click away from full access</p>
+          <h3 className="lock-title">Bets Locked</h3>
+          <p className="lock-subtitle">One click away from full access</p>
 
-    <button
-      type="button"
-      className="lock-btn"
-      onClick={() => setCurrentPage('Subscriptions')}
-    >
-      View Programs
-    </button>
-  </div>
-</div>
+          <button
+            type="button"
+            className="lock-btn"
+            onClick={() => setCurrentPage('Subscriptions')}
+          >
+            View Programs
+          </button>
+        </div>
+      </div>
 
           ) : (
             <>
@@ -3807,3 +4054,5 @@ const stakeAmount = Number(calculateStakeAmount(tip.reliability) || 0);
     </Container>
   );
 }
+
+
