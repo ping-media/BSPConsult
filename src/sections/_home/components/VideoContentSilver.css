@@ -107,6 +107,37 @@ padding: 12px;
 
 .module-row.active {
  
-  background-color: rgba(192, 192, 192, 0.15); /* subtle highlight */
+  background-color: rgba(192, 192, 192, 0.15); 
 }
 
+
+@media (max-width: 768px) {
+
+  .video-container {
+    padding: 12px;
+  }
+
+  .video-outer-box {
+    min-width: unset;        
+    width: 100%;           
+  }
+
+  .video-inner-box {
+    padding: 10px;
+  }
+
+  .video-iframe {
+    width: 100%;
+    height: auto;            
+    aspect-ratio: 16 / 9;    
+    border-radius: 10px;
+  }
+
+  .module-row {
+    padding: 10px;
+  }
+
+  .module-title {
+    font-size: 14px;
+  }
+}

@@ -7,6 +7,7 @@
 */
 /* eslint-disable no-nested-ternary */
 import { loadStripe } from '@stripe/stripe-js';
+import LockIcon from '@mui/icons-material/Lock';
 import { useNavigate } from 'react-router-dom';
 import './MobileHome.css'
 // @mui
@@ -176,6 +177,11 @@ export default function MobileHome() {
 
   const isSilverSubscribed = user.membership !== '1' && checkExpireDate();
   const isGoldSubscribed = user.membership === '10' && checkExpireDate();
+
+  const isSubscribed =
+  ['8', '9', '10'].includes(String(user?.membership)) &&
+  checkExpireDate();
+
 
 
    const [openUpgrade, setOpenUpgrade] = useState(false);
@@ -590,6 +596,23 @@ export default function MobileHome() {
       ],
     },
   ];
+
+
+  const [activeIndex, setActiveIndex] = useState(0);
+
+const modules = [
+  { name: 'ELO RATINGS', url: 'https://player.vimeo.com/video/1034739032' },
+  { name: 'SERVICE RATINGS', url: 'https://player.vimeo.com/video/1034739217' },
+  { name: 'RETURN RATINGS', url: 'https://player.vimeo.com/video/1034739245' },
+  { name: 'UNDER PRESSURE RATINGS', url: 'https://player.vimeo.com/video/1034739270' },
+  { name: 'CENTRAL TENNIS BETTING MODEL', url: 'https://player.vimeo.com/video/1034739295' },
+  { name: 'EXERCISE CLAY', url: 'https://player.vimeo.com/video/1034739314' },
+  { name: 'EXERCISE HARD', url: 'https://player.vimeo.com/video/1034739336' },
+  { name: 'EXERCISE GRASS', url: 'https://player.vimeo.com/video/1034739350' },
+  { name: 'UPDATE MODELS', url: 'https://player.vimeo.com/video/1042773017' },
+  { name: 'SUMMARY', url: 'https://player.vimeo.com/video/1043640297' },
+];
+
 
   const fetchMasterClassZone = useCallback(async () => {
     try {
@@ -2165,18 +2188,18 @@ export default function MobileHome() {
 
     {user.membership !== '10' && (
       <button type="button" className={value === 1 ? 'tab active' : 'tab'} onClick={() => setValue(1)}>
-        <span>Silver Video<br />Content</span>
+        <span>Essential Video<br />Content</span>
       </button>
     )}
 
     {user.membership === '10' && (
       <button type="button" className={value === 1 ? 'tab active' : 'tab'} onClick={() => setValue(1)}>
-        <span>Masterclass<br />Video Content</span>
+        <span>BSP<br />BSP Masterclass</span>
       </button>
     )}
 
     <button type="button" className={value === 2 ? 'tab active' : 'tab'} onClick={() => setValue(2)}>
-      <span>Masterclass<br />Zone</span>
+       <span>BSP<br />BSP Masterclass</span>
     </button>
   </div>
 
@@ -2267,29 +2290,98 @@ export default function MobileHome() {
   </div>
 )}
 
-  {/* TAB 1 – VIDEO CONTENT */}
-  {value === 1 && (
-    <div className="tab-panel">
+{/* TAB 1 – VIDEO CONTENT */}
+{value === 1 && (
+  <div className="tab-panel">
 
-      {isSilverSubscribed || isGoldSubscribed ? (
-        <div className="video-wrapper">
-          <iframe
-            src={user.membership === '10' ? goldCourseUrl : silverCourseUrl}
-            allowFullScreen
-            title="Video"
-          />
-        </div>
-      ) : (
-        <div className="locked">
-          <h3>Purchase Membership</h3>
-          <button type="button" className="primary-btn" onClick={handleSubscription}>
-            Purchase Membership
-          </button>
-        </div>
-      )}
+    <div className="content-grid">
+      <div className="all-content">
 
+        {/* VIDEO AREA */}
+        {isSubscribed ? (
+          <div className="video-container">
+            <div className="video-outer-box">
+              <div className="video-inner-box">
+                <iframe
+                  src={
+                    user.membership === '10'
+                      ? goldCourseUrl
+                      : silverCourseUrl
+                  }
+                  allowFullScreen
+                  title="Course Video"
+                  className="video-iframe"
+                />
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="video-locked">
+            <div>
+              <img src="/img/locked-premium.svg" alt="Locked" />
+            </div>
+            <h3 className="locked-text">
+              You need to be a Silver Member to unlock the Silver Video Content
+            </h3>
+            <button
+              type="button"
+              className="update-btn"
+              onClick={handleSubscription}
+            >
+              Purchase Membership
+            </button>
+          </div>
+        )}
+
+        {/*  MODULE LIST (ALWAYS VISIBLE) */}
+        <div className="modules-list">
+          {modules.map((module, index) => (
+            <div
+              key={index}
+              className={`module-row ${
+                isSubscribed ? 'clickable' : ''
+              } ${activeIndex === index ? 'active' : ''}`}
+              onClick={() => {
+                if (!isSubscribed) return;
+
+                setActiveIndex(index);
+
+                if (user.membership === '10') {
+                  setGoldCourseUrl(module.url);
+                } else {
+                  setSilverCourseUrl(module.url);
+                }
+              }}
+            >
+              <img
+                src="/img/silvber-content.svg"
+                alt="Module"
+                className="silver-content-icon"
+              />
+
+              <span className="module-title">{module.name}</span>
+              <span className="module-spacer" />
+
+              {/* ICON LOGIC */}
+              {!isSubscribed && <LockIcon />}
+
+              {isSubscribed &&
+                (activeIndex === index ? (
+                  <img src="/img/silvde-pause.svg" alt="Pause" />
+                ) : (
+                  <img src="/img/silver-play.svg" alt="Play" />
+                ))}
+            </div>
+          ))}
+        </div>
+
+      </div>
     </div>
-  )}
+
+  </div>
+)}
+
+
 
   {/* TAB 2 – MASTERCLASS ZONE */}
   {value === 2 && (
