@@ -5,6 +5,11 @@
   jsx-a11y/click-events-have-key-events,
   jsx-a11y/no-static-element-interactions
 */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-nested-ternary */
 import { loadStripe } from '@stripe/stripe-js';
 import LockIcon from '@mui/icons-material/Lock';
@@ -143,7 +148,7 @@ function a11yProps(index) {
 export default function MobileHome() {
   const { user, resetPassword, logout } = useAuthContext();
 
-   const checkExpireDate = () => {
+  const checkExpireDate = () => {
     const sec = user?.expire_date ? user.expire_date.seconds * 1000 : 0;
     if (!sec) return true;
     return Date.now() < sec;
@@ -179,15 +184,16 @@ export default function MobileHome() {
   const isGoldSubscribed = user.membership === '10' && checkExpireDate();
 
   const isSubscribed =
-  ['8', '9', '10'].includes(String(user?.membership)) &&
-  checkExpireDate();
+    ['8', '9', '10'].includes(String(user?.membership)) &&
+    checkExpireDate();
 
 
 
-   const [openUpgrade, setOpenUpgrade] = useState(false);
-   const [selectedPlan, setSelectedPlan] = useState(null);
+  const [openUpgrade, setOpenUpgrade] = useState(false);
+   const [gopenUpgrade, setgOpenUpgrade] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState(null);
 
-     const handleUpgradeCheckout = async (priceId) => {
+  const handleUpgradeCheckout = async (priceId) => {
     try {
       const stripe = await stripePromise;
 
@@ -216,6 +222,22 @@ export default function MobileHome() {
       console.error('Upgrade checkout error:', error);
     }
   };
+
+  const membership = user?.membership;
+  const hasNotExpired = () => {
+    const expiry =
+      user?.expire_date ||
+      user?.expiry_date;
+
+    // No expiry = lifetime access
+    if (!expiry || !expiry.seconds) {
+      return true;
+    }
+
+    return Date.now() < expiry.seconds * 1000;
+  };
+
+  const hasAnyMembership = ['8', '9', '10'].includes(membership);
 
   const currentPlan =
     isSilver ? 'silver' :
@@ -248,49 +270,30 @@ export default function MobileHome() {
   const [deleteConfirm, setDeleteConfirm] = useState(false);
   const [deletedMessage, setDeletedMessage] = useState(null);
   const [deleteLoading, setDeleteLoading] = useState(false);
-  const silverModules = [
-    {
-      name: 'ELO RATINGS',
-      url: 'https://player.vimeo.com/video/1034739032?badge=0&autopause=0&player_id=0&app_id=58479',
-    },
-    {
-      name: 'SERVICE RATINGS',
-      url: 'https://player.vimeo.com/video/1034739217?badge=0&autopause=0&player_id=0&app_id=58479',
-    },
-    {
-      name: 'RETURN RATINGS',
-      url: 'https://player.vimeo.com/video/1034739245?badge=0&autopause=0&player_id=0&app_id=58479',
-    },
-    {
-      name: 'UNDER PRESSURE RATINGS',
-      url: 'https://player.vimeo.com/video/1034739270?badge=0&autopause=0&player_id=0&app_id=58479',
-    },
-    {
-      name: 'CENTRAL TENNIS BETTING MODEL',
-      url: 'https://player.vimeo.com/video/1034739295?badge=0&autopause=0&player_id=0&app_id=58479',
-    },
-    {
-      name: 'EXERCISE CLAY',
-      url: 'https://player.vimeo.com/video/1034739314?badge=0&autopause=0&player_id=0&app_id=58479',
-    },
-    {
-      name: 'EXERCISE HARD',
-      url: 'https://player.vimeo.com/video/1034739336?badge=0&autopause=0&player_id=0&app_id=58479',
-    },
-    {
-      name: 'EXERCISE GRASS',
-      url: 'https://player.vimeo.com/video/1034739350?badge=0&autopause=0&player_id=0&app_id=58479',
-    },
-    {
-      name: 'UPDATE MODELS',
-      url: 'https://player.vimeo.com/video/1042773017?badge=0&autopause=0&player_id=0&app_id=58479',
-    },
-    {
-      name: 'SUMMARY',
-      url: 'https://player.vimeo.com/video/1043640297?badge=0&autopause=0&player_id=0&app_id=58479',
-    },
+
+  
+  const [activeVideoUrl, setActiveVideoUrl] = useState(null);
+
+
+
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const modules = [
+    { name: 'ELO RATINGS', url: 'https://player.vimeo.com/video/1034739032' },
+    { name: 'SERVICE RATINGS', url: 'https://player.vimeo.com/video/1034739217' },
+    { name: 'RETURN RATINGS', url: 'https://player.vimeo.com/video/1034739245' },
+    { name: 'UNDER PRESSURE RATINGS', url: 'https://player.vimeo.com/video/1034739270' },
+    { name: 'CENTRAL TENNIS BETTING MODEL', url: 'https://player.vimeo.com/video/1034739295' },
+    { name: 'EXERCISE CLAY', url: 'https://player.vimeo.com/video/1034739314' },
+    { name: 'EXERCISE HARD', url: 'https://player.vimeo.com/video/1034739336' },
+    { name: 'EXERCISE GRASS', url: 'https://player.vimeo.com/video/1034739350' },
+    { name: 'UPDATE MODELS', url: 'https://player.vimeo.com/video/1042773017' },
+    { name: 'SUMMARY', url: 'https://player.vimeo.com/video/1043640297' },
   ];
-  const goldModules = [
+
+
+
+  const moduless = [
     {
       title: 'Module 1 : Introduction',
       videos: [
@@ -598,20 +601,18 @@ export default function MobileHome() {
   ];
 
 
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [courseUrl, setCourseUrl] = useState(
+    'https://player.vimeo.com/video/912613882?badge=0&autopause=0&player_id=0&app_id=58479'
+  );
 
-const modules = [
-  { name: 'ELO RATINGS', url: 'https://player.vimeo.com/video/1034739032' },
-  { name: 'SERVICE RATINGS', url: 'https://player.vimeo.com/video/1034739217' },
-  { name: 'RETURN RATINGS', url: 'https://player.vimeo.com/video/1034739245' },
-  { name: 'UNDER PRESSURE RATINGS', url: 'https://player.vimeo.com/video/1034739270' },
-  { name: 'CENTRAL TENNIS BETTING MODEL', url: 'https://player.vimeo.com/video/1034739295' },
-  { name: 'EXERCISE CLAY', url: 'https://player.vimeo.com/video/1034739314' },
-  { name: 'EXERCISE HARD', url: 'https://player.vimeo.com/video/1034739336' },
-  { name: 'EXERCISE GRASS', url: 'https://player.vimeo.com/video/1034739350' },
-  { name: 'UPDATE MODELS', url: 'https://player.vimeo.com/video/1042773017' },
-  { name: 'SUMMARY', url: 'https://player.vimeo.com/video/1043640297' },
-];
+
+
+  const changeCourseUrl = (url) => {
+    if (isSubscribed) {
+      setCourseUrl(url);
+    }
+  };
+
 
 
   const fetchMasterClassZone = useCallback(async () => {
@@ -849,149 +850,285 @@ const modules = [
       }}
     >
 
-         <Dialog
-              open={openUpgrade}
-              onClose={() => setOpenUpgrade(false)}
-              maxWidth={false}
-              disableScrollLock
-              PaperProps={{
-                sx: {
-                  background: 'transparent',
-                  boxShadow: 'none',
-                  borderRadius: 0,
-                  padding: 0,
-                  margin: 0,
-                  overflow: 'visible',
-                },
-              }}
-            >
-              <DialogContent
-                sx={{
-                  padding: 0,
-                  margin: 0,
-                  background: 'transparent',
-                  overflow: 'visible',
-                }}
-              >
-                {!isGold && (isSilver || isAdvanced || hasNoSubscription) && (
-                  <div className="upgrade-box">
-      
-                    {/* HEADER */}
-                    <div className="upgrade-content-header">
-                      <div className="upgrade-content">
-                        <h3>{hasNoSubscription ? 'Choose Membership' : 'Upgrade Membership'}</h3>
-                        <p>Upgrade to unlock advanced features and full access.</p>
-                      </div>
-      
-                      <button
-                        type="button"
-                        className="upgrade-close"
-                        onClick={() => setOpenUpgrade(false)}
-                      >
-                        ✕
-                      </button>
-                    </div>
-      
-                    <div className="upgrade-divider" />
-      
-                    {/* PLAN SWITCH */}
-                    <div className="plan-switch">
-      
-                      {(hasNoSubscription || isSilver) && (
-                        <>
-                          <button
-                            type="button"
-                            className={`plan-btn advanced ${selectedPlan === 'advanced' ? 'active' : ''}`}
-                            onClick={() => setSelectedPlan('advanced')}
-                          >
-                            Advanced
-                          </button>
-      
-                          <button
-                            type="button"
-                            className={`plan-btn gold ${selectedPlan === 'gold' ? 'active' : ''}`}
-                            onClick={() => setSelectedPlan('gold')}
-                          >
-                            Gold
-                          </button>
-                        </>
-                      )}
-      
-                      {isAdvanced && (
-                        <button type="button" className="plan-btn gold active">
-                          Gold
-                        </button>
-                      )}
-      
-                    </div>
-      
-                    {/* DYNAMIC CARD */}
-                    {upgradeData && (
-                      <div className={`upgrade-card upgrade-card--${selectedPlan}`}>
-                        <div className="upgrade-inner">
-      
-                          <div className="upgrade-headers">
-                            <h3 className="upgrade-title">{upgradeData.title}</h3>
-      
-                            {selectedPlan === 'advanced' && (
-                              <span className="best-value-badge">Best Value</span>
-                            )}
-                          </div>
-      
-      
-                          <div className="upgrade-price">
-                            <span className="price-amount">{upgradeData.price}</span>
-                            <span className="price-period">one time fee</span>
-                          </div>
-      
-                          <div className="upgrade-note">
-                            Lock in current pricing before next update.
-                          </div>
-      
-                          <button
-                            type="button"
-                            className={selectedPlan === 'gold' ? 'Gold-btn' : 'adva-btn'}
-                            onClick={() => {
-                              setOpenUpgrade(false);
-                              handleUpgradeCheckout(upgradeData.priceId);
-                            }}
-                          >
-                            Get {upgradeData.title}
-                          </button>
-      
-                        </div>
-      
-                        <div className="upgrade-includes">
-                          <h4>
-                            Extra benefits with{' '}
-                            <span className={selectedPlan === 'gold' ? 'gold-text' : 'advanced-text'}>
-                              {selectedPlan === 'gold' ? 'Gold' : 'Advanced'}
-                            </span>
-                          </h4>
-      
-                          <ul>
-                            {upgradeData.features.map((feature) => (
-                              <li key={feature} className="active">
-                                <img
-                                  src={
-                                    selectedPlan === 'gold'
-                                      ? '/img/gold-tick.svg'
-                                      : '/img/check-circle.svg'
-                                  }
-                                  alt="check"
-                                />
-                                <span className="include-text">{feature}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                    )}
-      
-                  </div>
+ <Dialog
+        open={gopenUpgrade}
+        onClose={() => setgOpenUpgrade(false)}
+        maxWidth={false}
+        disableScrollLock
+        PaperProps={{
+          sx: {
+            background: 'transparent',
+            boxShadow: 'none',
+            borderRadius: 0,
+            padding: 0,
+            margin: 0,
+            overflow: 'visible',
+          },
+        }}
+      >
+        <DialogContent
+          sx={{
+            padding: 0,
+            margin: 0,
+            background: 'transparent',
+            overflow: 'visible',
+          }}
+        >
+          {!isGold && (isSilver || isAdvanced || hasNoSubscription) && (
+            <div className="upgrade-box">
+
+              {/* HEADER */}
+              <div className="upgrade-content-header">
+                <div className="upgrade-content">
+                  <h3>{hasNoSubscription ? 'Choose Membership' : 'Upgrade Membership'}</h3>
+                  <p>Upgrade to unlock advanced features and full access.</p>
+                </div>
+
+                <button
+                  type="button"
+                  className="upgrade-close"
+                  onClick={() => setgOpenUpgrade(false)}
+                >
+                  ✕
+                </button>
+              </div>
+
+              <div className="upgrade-divider" />
+
+              {/* PLAN SWITCH */}
+              <div className="plan-switch">
+
+                {(hasNoSubscription || isSilver) && (
+                  <button
+                    type="button"
+                    className={`plan-btn gold ${selectedPlan === 'gold' ? 'active' : ''}`}
+                    onClick={() => setSelectedPlan('gold')}
+                  >
+                    Gold
+                  </button>
                 )}
-              </DialogContent>
-            </Dialog>
+
+                {isAdvanced && (
+                  <button type="button" className="plan-btn gold active">
+                    Gold
+                  </button>
+                )}
+
+              </div>
+
+
+              {/* DYNAMIC CARD */}
+              {upgradeData && (
+                <div className={`upgrade-card upgrade-card--${selectedPlan}`}>
+                  <div className="upgrade-inner">
+
+                    <div className="upgrade-headers">
+                      <h3 className="upgrade-title">{upgradeData.title}</h3>
+
+                      {selectedPlan === 'advanced' && (
+                        <span className="best-value-badge">Best Value</span>
+                      )}
+                    </div>
+
+
+                    <div className="upgrade-price">
+                      <span className="price-amount">{upgradeData.price}</span>
+                      <span className="price-period">one time fee</span>
+                    </div>
+
+                    <div className="upgrade-note">
+                      Lock in current pricing before next update.
+                    </div>
+
+                    <button
+                      type="button"
+                      className={selectedPlan === 'gold' ? 'Gold-btn' : 'adva-btn'}
+                      onClick={() => {
+                        setgOpenUpgrade(false);
+                        handleUpgradeCheckout(upgradeData.priceId);
+                      }}
+                    >
+                      Get {upgradeData.title}
+                    </button>
+
+                  </div>
+
+                  <div className="upgrade-includes">
+                    <h4>
+                      Extra benefits with{' '}
+                      <span className={selectedPlan === 'gold' ? 'gold-text' : 'advanced-text'}>
+                        {selectedPlan === 'gold' ? 'Gold' : 'Advanced'}
+                      </span>
+                    </h4>
+
+                    <ul>
+                      {upgradeData.features.map((feature) => (
+                        <li key={feature} className="active">
+                          <img
+                            src={
+                              selectedPlan === 'gold'
+                                ? '/img/gold-tick.svg'
+                                : '/img/check-circle.svg'
+                            }
+                            alt="check"
+                          />
+                          <span className="include-text">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
+
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+
+      <Dialog
+        open={openUpgrade}
+        onClose={() => setOpenUpgrade(false)}
+        maxWidth={false}
+        disableScrollLock
+        PaperProps={{
+          sx: {
+            background: 'transparent',
+            boxShadow: 'none',
+            borderRadius: 0,
+            padding: 0,
+            margin: 0,
+            overflow: 'visible',
+          },
+        }}
+      >
+        <DialogContent
+          sx={{
+            padding: 0,
+            margin: 0,
+            background: 'transparent',
+            overflow: 'visible',
+          }}
+        >
+          {!isGold && (isSilver || isAdvanced || hasNoSubscription) && (
+            <div className="upgrade-box">
+
+              {/* HEADER */}
+              <div className="upgrade-content-header">
+                <div className="upgrade-content">
+                  <h3>{hasNoSubscription ? 'Choose Membership' : 'Upgrade Membership'}</h3>
+                  <p>Upgrade to unlock advanced features and full access.</p>
+                </div>
+
+                <button
+                  type="button"
+                  className="upgrade-close"
+                  onClick={() => setOpenUpgrade(false)}
+                >
+                  ✕
+                </button>
+              </div>
+
+              <div className="upgrade-divider" />
+
+              {/* PLAN SWITCH */}
+              <div className="plan-switch">
+
+                {(hasNoSubscription || isSilver) && (
+                  <>
+                    <button
+                      type="button"
+                      className={`plan-btn advanced ${selectedPlan === 'advanced' ? 'active' : ''}`}
+                      onClick={() => setSelectedPlan('advanced')}
+                    >
+                      Advanced
+                    </button>
+
+                    <button
+                      type="button"
+                      className={`plan-btn gold ${selectedPlan === 'gold' ? 'active' : ''}`}
+                      onClick={() => setSelectedPlan('gold')}
+                    >
+                      Gold
+                    </button>
+                  </>
+                )}
+
+                {isAdvanced && (
+                  <button type="button" className="plan-btn gold active">
+                    Gold
+                  </button>
+                )}
+
+              </div>
+
+              {/* DYNAMIC CARD */}
+              {upgradeData && (
+                <div className={`upgrade-card upgrade-card--${selectedPlan}`}>
+                  <div className="upgrade-inner">
+
+                    <div className="upgrade-headers">
+                      <h3 className="upgrade-title">{upgradeData.title}</h3>
+
+                      {selectedPlan === 'advanced' && (
+                        <span className="best-value-badge">Best Value</span>
+                      )}
+                    </div>
+
+
+                    <div className="upgrade-price">
+                      <span className="price-amount">{upgradeData.price}</span>
+                      <span className="price-period">one time fee</span>
+                    </div>
+
+                    <div className="upgrade-note">
+                      Lock in current pricing before next update.
+                    </div>
+
+                    <button
+                      type="button"
+                      className={selectedPlan === 'gold' ? 'Gold-btn' : 'adva-btn'}
+                      onClick={() => {
+                        setOpenUpgrade(false);
+                        handleUpgradeCheckout(upgradeData.priceId);
+                      }}
+                    >
+                      Get {upgradeData.title}
+                    </button>
+
+                  </div>
+
+                  <div className="upgrade-includes">
+                    <h4>
+                      Extra benefits with{' '}
+                      <span className={selectedPlan === 'gold' ? 'gold-text' : 'advanced-text'}>
+                        {selectedPlan === 'gold' ? 'Gold' : 'Advanced'}
+                      </span>
+                    </h4>
+
+                    <ul>
+                      {upgradeData.features.map((feature) => (
+                        <li key={feature} className="active">
+                          <img
+                            src={
+                              selectedPlan === 'gold'
+                                ? '/img/gold-tick.svg'
+                                : '/img/check-circle.svg'
+                            }
+                            alt="check"
+                          />
+                          <span className="include-text">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
+
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
       <Dialog
         open={addMessage}
         onClose={() => setAddMessage(false)}
@@ -1173,1244 +1310,316 @@ const modules = [
           </LoadingButton>
         </DialogActions>
       </Dialog>
-      {/* <Box sx={{ mt: 3, mx: 'auto', textAlign: 'center' }}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs value={value} onChange={handleChange}>
-            <Tab
-              label={
-                <Typography
-                  component="span"
-                  sx={{
-                    display: 'block',
-                    textAlign: 'center',
-                    backgroundColor: 'transparent!important',
-                    fontSize: '0.875rem',
-                    fontWeight: 600,
-                  }}
-                >
-                  Profile
-                  <br />
-                  Section
-                </Typography>
-              }
-              {...a11yProps(0)}
-              sx={{
-                flex: 1,
-                color: '#FFF',
-                ':not(.Mui-selected)': {
-                  color: '#c2ccd5',
-                },
-              }}
-            />
-            {user.membership !== '10' && (
-              <Tab
-                label={
-                  <Typography
-                    component="span"
-                    sx={{
-                      display: 'block',
-                      textAlign: 'center',
-                      backgroundColor: 'transparent!important',
-                      fontSize: '0.875rem',
-                      fontWeight: 600,
-                    }}
-                  >
-                    Silver Video
-                    <br />
-                    Content
-                  </Typography>
-                }
-                {...a11yProps(1)}
-                sx={{
-                  flex: 1,
-                  color: '#FFF',
-                  ':not(.Mui-selected)': {
-                    color: '#c2ccd5',
-                  },
-                }}
-              />
-            )}
-            {user.membership === '10' && (
-              <Tab
-                label={
-                  <Typography
-                    component="span"
-                    sx={{
-                      display: 'block',
-                      textAlign: 'center',
-                      backgroundColor: 'transparent!important',
-                      fontSize: '0.875rem',
-                      fontWeight: 600,
-                    }}
-                  >
-                    Masterclass
-                    <br />
-                    Video Content
-                  </Typography>
-                }
-                {...a11yProps(2)}
-                sx={{
-                  flex: 1,
-                  color: '#FFF',
-                  ':not(.Mui-selected)': {
-                    color: '#c2ccd5',
-                  },
-                }}
-              />
-            )}
-            <Tab
-              label={
-                <Typography
-                  component="span"
-                  sx={{
-                    display: 'block',
-                    textAlign: 'center',
-                    backgroundColor: 'transparent!important',
-                    fontSize: '0.875rem',
-                    fontWeight: 600,
-                  }}
-                >
-                  Masterclass
-                  <br />
-                  Zone
-                </Typography>
-              }
-              {...a11yProps(3)}
-              sx={{
-                flex: 1,
-                color: '#FFF',
-                ':not(.Mui-selected)': {
-                  color: '#c2ccd5',
-                },
-              }}
-            />
-          </Tabs>
-        </Box>
-        <CustomTabPanel value={value} index={0}>
-          <Container
-            component={MotionViewport}
-            sx={{
-              pb: 3,
-              px: 0,
-            }}
-          >
-            <Dialog
-              open={openResetPassword}
-              onClose={handleCloseResetPassword}
-              PaperProps={{
-                style: {
-                  minWidth: '90%',
-                  maxWidth: '90%',
-                  background: '#0d1117',
-                  border: '2px solid #076af478',
-                },
-              }}
-            >
-              <DialogTitle sx={{ color: '#FFF' }}>Reset Password</DialogTitle>
-              <DialogContent>
-                <Typography variant="h7" sx={{ color: '#FFF' }}>
-                  Are you sure you would like to get an email at {user?.email} to reset your
-                  password?
-                </Typography>
-              </DialogContent>
-              <DialogActions>
-                <Button
-                  color="inherit"
-                  sx={{ color: '#FFF', backgroundColor: 'transparent' }}
-                  onClick={() => handleCloseResetPassword()}
-                >
-                  Cancel
-                </Button>
-                <LoadingButton
-                  loading={loadingResetPassword}
-                  variant="contained"
-                  sx={{
-                    background: 'linear-gradient(#047efc, #12488f)',
-                    ':hover': { opacity: 0.8 },
-                  }}
-                  onClick={() => onConfirmResetPassword()}
-                >
-                  Confirm
-                </LoadingButton>
-              </DialogActions>
-            </Dialog>
-            <Box sx={{ mt: 3, mx: 'auto', maxWidth: 500, textAlign: 'center' }}>
-              <Box
-                sx={{
-                  backgroundImage: 'linear-gradient(326deg, #076af4, #0d1117 49%, #086af5)',
-                  borderRadius: '24px',
-                  padding: '2px',
-                  transition: 'all .2s',
-                  position: 'relative',
-                  transform: 'none',
-                  boxShadow: '0 0 70px rgba(9, 134, 251, .19)',
-                  mt: 2,
-                }}
-              >
-                <Card
-                  sx={{
-                    boxShadow: '0 2px 7px rgba(20, 20, 43, .06)',
-                    backgroundColor: '#0d1117',
-                    border: '1px solid rgba(239, 240, 246, .08)',
-                    borderRadius: 3,
-                  }}
-                >
-                  <CardContent sx={{ px: 2, py: 2, ':last-child': { pb: 2 } }}>
-                    <Typography variant="h5" sx={{ color: '#FFF', fontWeight: 600 }}>
-                      Information
-                    </Typography>
-                    <Box sx={{ display: 'flex', flexDirection: 'row', mt: 2 }}>
-                      <Typography
-                        sx={{
-                          color: '#FFF',
-                          minWidth: '90px',
-                          textAlign: 'start',
-                          fontSize: '14px',
-                        }}
-                      >
-                        Username
-                      </Typography>
-                      <Box sx={{ flex: 1 }} />
-                      <Typography
-                        sx={{
-                          color: '#FFF',
-                          fontSize: '14px',
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis',
-                        }}
-                      >
-                        {user?.username}
-                      </Typography>
-                    </Box>
-                    <Box sx={{ display: 'flex', flexDirection: 'row', mt: 2 }}>
-                      <Typography
-                        sx={{
-                          color: '#FFF',
-                          minWidth: '90px',
-                          textAlign: 'start',
-                          fontSize: '14px',
-                        }}
-                      >
-                        E-mail
-                      </Typography>
-                      <Box sx={{ flex: 1 }} />
-                      <Typography
-                        sx={{
-                          color: '#FFF',
-                          fontSize: '14px',
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis',
-                        }}
-                      >
-                        {user?.email}
-                      </Typography>
-                    </Box>
-                    <Box sx={{ display: 'flex', flexDirection: 'row', mt: 2 }}>
-                      <Typography sx={{ color: '#FFF', fontSize: '14px' }}>Password</Typography>
-                      <Box sx={{ flex: 1 }} />
-                      <Button
-                        variant="h7"
-                        sx={{
-                          color: '#0194fb',
-                          padding: 0,
-                          ':hover': {
-                            backgroundColor: 'transparent',
-                          },
-                        }}
-                        onClick={() => handleOpenResetPassword()}
-                      >
-                        Reset Password
-                      </Button>
-                    </Box>
-                  </CardContent>
-                </Card>
-              </Box>
-              <Box
-                sx={{
-                  backgroundImage: 'linear-gradient(326deg, #076af4, #0d1117 49%, #086af5)',
-                  borderRadius: '24px',
-                  padding: '2px',
-                  transition: 'all .2s',
-                  position: 'relative',
-                  transform: 'none',
-                  boxShadow: '0 0 70px rgba(9, 134, 251, .19)',
-                  mt: 3,
-                }}
-              >
-                <Card
-                  sx={{
-                    boxShadow: '0 2px 7px rgba(20, 20, 43, .06)',
-                    backgroundColor: '#0d1117',
-                    border: '1px solid rgba(239, 240, 246, .08)',
-                    borderRadius: 3,
-                  }}
-                >
-                  <CardContent>
-                    <Typography variant="h5" sx={{ color: '#FFF', fontWeight: 600 }}>
-                      Premium
-                    </Typography>
-                    {user?.membership === '8' || user?.membership === '10' ? (
-                      <Box
-                        sx={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          mt: 2,
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                        }}
-                      >
-                        {user?.membership === '8' ? (
-                          <>
-                            <Box
-                              component="img"
-                              alt="Silver"
-                              src="/assets/images/home/silver_large.png"
-                              sx={{
-                                width: '32px',
-                                height: '32px',
-                              }}
-                            />
-                            <Typography
-                              variant="h4"
-                              sx={{ color: '#FFF', ml: 2, textAlign: 'start', lineHeight: '2' }}
-                            >
-                              Silver
-                            </Typography>
-                          </>
-                        ) : (
-                          <>
-                            <Box
-                              component="img"
-                              alt="Silver"
-                              src="/assets/images/home/gold_large.png"
-                              sx={{
-                                width: '32px',
-                                height: '32px',
-                              }}
-                            />
-                            <Typography
-                              variant="h4"
-                              sx={{ color: '#FFF', ml: 2, textAlign: 'start', lineHeight: '2' }}
-                            >
-                              Gold
-                            </Typography>
-                          </>
-                        )}
-                      </Box>
-                    ) : (
-                      ''
-                    )}
-                    {user?.membership === '8' || user?.membership === '1' ? (
-                      <Button
-                        onClick={() => handleSubscription()}
-                        sx={{
-                          color: 'primary.contrastText',
-                          height: '45px',
-                          background: 'linear-gradient(#047efc, #12488f)',
-                          ':hover': { opacity: 0.8 },
-                          minWidth: '220px',
-                          mt: 2,
-                        }}
-                      >
-                        {user?.membership === '8'
-                          ? 'Upgrade my subscription'
-                          : 'Choose my subscription'}
-                      </Button>
-                    ) : (
-                      ''
-                    )}
-                  </CardContent>
-                </Card>
-              </Box>
-              <Box sx={{ display: 'flex', flexDirection: 'row', mt: 3, justifyContent: 'center' }}>
-                <Button
-                  variant="contained"
-                  sx={{
-                    width: '220px',
-                    height: '45px',
-                    background: 'linear-gradient(#047efc, #12488f)',
-                    ':hover': { opacity: 0.8 },
-                  }}
-                  href="bspconsult://bspconsult.com"
-                >
-                  Access Bets
-                  <KeyboardArrowRightIcon />
-                </Button>
-              </Box>
-              <Box sx={{ display: 'flex', flexDirection: 'row', mt: 3, justifyContent: 'center' }}>
-                <Button
-                  variant="contained"
-                  sx={{
-                    width: '220px',
-                    height: '45px',
-                    background: 'linear-gradient(#047efc, #12488f)',
-                    ':hover': { opacity: 0.8 },
-                  }}
-                  onClick={handleLogout}
-                >
-                  Logout
-                  <LogoutIcon />
-                </Button>
-              </Box>
-            </Box>
-          </Container>
-        </CustomTabPanel>
-        {user.membership !== '10' && (
-          <CustomTabPanel value={value} index={1}>
-            <Box
-              sx={{
-                backgroundImage: 'linear-gradient(326deg, #076af4, #0d1117 49%, #086af5)',
-                borderRadius: 1,
-                padding: '2px',
-                transition: 'all .2s',
-                position: 'relative',
-                transform: 'none',
-                boxShadow: '0 0 70px rgba(9, 134, 251, .19)',
-                mt: 3,
-                mb: 3,
-              }}
-            >
-              <Box
-                sx={{
-                  boxShadow: '0 2px 7px rgba(20, 20, 43, .06)',
-                  backgroundColor: '#0d1117',
-                  border: '1px solid rgba(239, 240, 246, .08)',
-                  borderRadius: 1,
-                  px: 2,
-                  pb: 2,
-                }}
-              >
-                {isSilverSubscribed ? (
-                  <div style={iframeContainerStyle}>
-                    <iframe
-                      src={silverCourseUrl}
-                      scrolling="no"
-                      allowFullScreen
-                      title="WELCOME VIDEO"
-                      style={iframeStyle}
-                    />
-                  </div>
-                ) : (
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      height: '230px',
-                      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                      color: '#FFF',
-                      textAlign: 'center',
-                      marginTop: '16px',
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        width: '50px',
-                        height: '50px',
-                        border: '2px solid #0866eb',
-                        display: 'flex',
-                        alignItems: 'center',
-                        borderRadius: 2,
-                        justifyContent: 'center',
-                      }}
-                    >
-                      <RemoveModeratorIcon />
-                    </Box>
-                    <Typography variant="h6" sx={{ mt: 2, px: 2 }}>
-                      You need to be a Silver Member to unlock the Silver Video Content
-                    </Typography>
-                    <Box
-                      sx={{
-                        background: 'linear-gradient(#047efc, #12488f)',
-                        position: 'relative',
-                        overflow: 'hidden',
-                        width: '240px',
-                        height: '48px',
-                        borderRadius: '8px',
-                        mt: 2,
-                        ':hover': {
-                          opacity: 0.8,
-                        },
-                      }}
-                    >
-                      <Button
-                        variant="filled"
-                        color="inherit"
-                        sx={{
-                          position: 'relative',
-                          zIndex: 2, // Ensure the button text is above the overlay
-                          color: '#FFF',
-                          width: '100%',
-                          height: '48px',
-                          fontSize: 16,
-                          fontWeight: 400,
-                        }}
-                      >
-                        <a href="/check-out" style={{ textDecoration: 'none', color: '#FFF' }}>
-                          Purchase Membership
-                        </a>
-                      </Button>
-                    </Box>
-                  </Box>
-                )}
-                {silverModules.map((module, index) => (
-                  <Box
-                    key={index}
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      cursor: isSilverSubscribed ? 'pointer' : 'default',
-                      mt: 2,
-                    }}
-                    onClick={() => changeSilverCourseUrl(module.url)}
-                  >
-                    <PlayIcon sx={{ color: '#FFF' }} />
-                    <Typography variant="h7" sx={{ color: '#FFF', ml: 2, textAlign: 'start' }}>
-                      {module.name}
-                    </Typography>
-                    <Box sx={{ flex: 1 }} />
-                    {!isSilverSubscribed && <LockIcon sx={{ color: '#FFF' }} />}
-                    {isSilverSubscribed && <PlayCircleIcon sx={{ color: '#FFF' }} />}
-                  </Box>
-                ))}
-              </Box>
-            </Box>
-          </CustomTabPanel>
-        )}
-        {user.membership === '10' && (
-          <CustomTabPanel value={value} index={1}>
-            <Box
-              sx={{
-                backgroundImage: 'linear-gradient(326deg, #076af4, #0d1117 49%, #086af5)',
-                borderRadius: 1,
-                padding: '2px',
-                transition: 'all .2s',
-                position: 'relative',
-                transform: 'none',
-                boxShadow: '0 0 70px rgba(9, 134, 251, .19)',
-                mt: 3,
-                mb: 3,
-              }}
-            >
-              <Box
-                sx={{
-                  boxShadow: '0 2px 7px rgba(20, 20, 43, .06)',
-                  backgroundColor: '#0d1117',
-                  border: '1px solid rgba(239, 240, 246, .08)',
-                  borderRadius: 1,
-                  px: 2,
-                }}
-              >
-                {isGoldSubscribed ? (
-                  <div style={iframeContainerStyle}>
-                    <iframe
-                      src={goldCourseUrl}
-                      scrolling="no"
-                      allowFullScreen
-                      title="AN Apple launch video_FINAL V2"
-                      style={iframeStyle}
-                    />
-                  </div>
-                ) : (
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      height: '550px',
-                      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                      color: '#FFF',
-                      textAlign: 'center',
-                    }}
-                  >
-                    <LockIcon sx={{ fontSize: 64, mb: 2 }} />
-                    <Typography variant="h6" sx={{ mb: 2 }}>
-                      You need to be a Gold Member to unlock the Masterclass Video Content
-                    </Typography>
-                    <Box
-                      sx={{
-                        background: 'linear-gradient(#047efc, #12488f)',
-                        position: 'relative',
-                        overflow: 'hidden',
-                        width: '240px',
-                        height: '48px',
-                        borderRadius: '8px',
-                        mt: 6,
-                        ':hover': {
-                          opacity: 0.8,
-                        },
-                      }}
-                    >
-                      <Button
-                        variant="filled"
-                        color="inherit"
-                        sx={{
-                          position: 'relative',
-                          zIndex: 2, // Ensure the button text is above the overlay
-                          color: '#FFF',
-                          width: '100%',
-                          height: '48px',
-                          fontSize: 16,
-                          fontWeight: 400,
-                        }}
-                      // onClick={() => setCurrentPage('Subscriptions')}
-                      >
-                        Upgrade to Gold
-                      </Button>
-                    </Box>
-                  </Box>
-                )}
-                <Typography
-                  variant="h4"
-                  sx={{ color: '#FFF', mt: 2, textAlign: 'start' }}
-                  onClick={() =>
-                    changeGoldCourseUrl(
-                      'https://player.vimeo.com/video/912613882?h=a837d3916f&badge=0&autopause=0&player_id=0&app_id=58479'
-                    )
-                  }
-                >
-                  What I will learn?
-                </Typography>
-                <Typography variant="h4" sx={{ color: '#FFF', mt: 4, mb: 2, textAlign: 'start' }}>
-                  Course Curriculum
-                </Typography>
-                {goldModules.map((module, moduleIndex) => (
-                  <Accordion key={moduleIndex}>
-                    <AccordionSummary
-                      expandIcon={<ExpandMoreIcon />}
-                      aria-controls="panel1-content"
-                      id="panel1-header"
-                      sx={{
-                        color: '#FFF',
-                        textAlign: 'start',
-                      }}
-                    >
-                      {module.title}
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      {module.videos.map((video, videoIndex) => (
-                        <Box
-                          key={videoIndex}
-                          sx={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            cursor: isGoldSubscribed ? 'pointer' : 'default',
-                            mt: videoIndex > 0 ? 2 : 0,
-                          }}
-                          onClick={() => changeGoldCourseUrl(video.url)}
-                        >
-                          <PlayIcon sx={{ color: '#FFF' }} />
-                          <Typography
-                            variant="h7"
-                            sx={{ color: '#FFF', ml: 2, textAlign: 'start' }}
-                          >
-                            {video.name}
-                          </Typography>
-                          <Box sx={{ flex: 1 }} />
-                          {isGoldSubscribed ? (
-                            <PlayCircleIcon sx={{ color: '#FFF' }} />
-                          ) : (
-                            <LockIcon sx={{ color: '#FFF' }} />
-                          )}
-                        </Box>
-                      ))}
-                    </AccordionDetails>
-                  </Accordion>
-                ))}
-              </Box>
-            </Box>
-          </CustomTabPanel>
-        )}
-        <CustomTabPanel value={value} index={2}>
-          {isGoldSubscribed ? (
-            <Box sx={{ mx: 'auto', textAlign: 'center' }}>
-              {(selectedMessage === undefined || selectedMessage === null) && (
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'end',
-                    width: '100%',
-                    height: '100%',
-                    marginBottom: 2,
-                  }}
-                >
-                  {masterZoneMessages.map((message, index) => (
-                    <Box
-                      sx={{
-                        mt: 2,
-                        width: '100%',
-                      }}
-                    >
-                      {message.imageUrl && (
-                        <Box
-                          sx={{
-                            backgroundImage:
-                              'linear-gradient(326deg, #076af4, #0d1117 49%, #086af5)',
-                            minWidth: '100%',
-                            borderRadius: '24px',
-                            padding: '2px',
-                            transition: 'all .2s',
-                            position: 'relative',
-                            transform: 'none',
-                            boxShadow: '0 0 70px rgba(9, 134, 251, .19)',
-                            cursor: 'pointer',
-                          }}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setSelectedMessage(message);
-                          }}
-                        >
-                          <Box
-                            sx={{
-                              backgroundColor: '#0d1117',
-                              width: '100%',
-                              height: '100%',
-                              border: '1px solid rgba(239, 240, 246, .08)',
-                              borderRadius: '24px',
-                              transition: 'all .2s',
-                              position: 'relative',
-                              boxShadow: '0 2px 7px rgba(20, 20, 43, .06)',
-                              px: 3,
-                              py: 4,
-                              justifyContent: 'center',
-                              alignItems: 'center',
-                              display: 'flex',
-                              flexDirection: 'column',
-                            }}
-                          >
-                            <Box
-                              component="img"
-                              alt="Logo"
-                              src={message.imageUrl}
-                              sx={{
-                                borderRadius: 1,
-                                cursor: 'pointer',
-                              }}
-                            />
-                          </Box>
-                          {user?.role === 'administrator' && (
-                            <DeleteIcon
-                              sx={{
-                                position: 'absolute',
-                                right: '10px',
-                                top: '10px',
-                              }}
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setDeleteConfirm(true);
-                                setDeletedMessage(message);
-                              }}
-                            />
-                          )}
-                        </Box>
-                      )}
-                    </Box>
-                  ))}
-                  {user?.role === 'administrator' && (
-                    <Fab
-                      color="primary"
-                      aria-label="add"
-                      sx={{
-                        position: 'fixed',
-                        bottom: 50,
-                        right: 24,
-                        background: 'linear-gradient(#047efc, #12488f)',
-                        ':hover': { opacity: 0.8 },
-                      }}
-                      onClick={() => setAddMessage(true)}
-                    >
-                      <AddIcon />
-                    </Fab>
-                  )}
-                </Box>
-              )}
-              {selectedMessage && (
-                <>
-                  <Box
-                    sx={{
-                      alignItems: 'left',
-                      display: 'flex',
-                      cursor: 'pointer',
-                      mt: 2,
-                    }}
-                    onClick={() => setSelectedMessage(null)}
-                  >
-                    <PrevIcon />
-                  </Box>
-                  <Box
-                    sx={{
-                      backgroundImage: 'linear-gradient(326deg, #076af4, #0d1117 49%, #086af5)',
-                      borderRadius: 1,
-                      padding: '2px',
-                      transition: 'all .2s',
-                      position: 'relative',
-                      transform: 'none',
-                      boxShadow: '0 0 70px rgba(9, 134, 251, .19)',
-                      mt: 3,
-                      mb: 3,
-                    }}
-                  >
-                    <Paper
-                      sx={{
-                        boxShadow: '0 2px 7px rgba(20, 20, 43, .06)',
-                        backgroundColor: '#0d1117',
-                        border: '0px solid rgba(239, 240, 246, .08)',
-                        borderRadius: 1,
-                      }}
-                    >
-                      <Box
-                        sx={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          background: 'linear-gradient(45deg, #0863e3, transparent)',
-                        }}
-                      >
-                        <Typography variant="h7" sx={{ color: 'primary.contrastText', mt: 1 }}>
-                          {formatDate(selectedMessage.date.toDate())}
-                        </Typography>
-                        <Typography variant="h7" sx={{ color: 'primary.contrastText', mb: 1 }}>
-                          {selectedMessage.title}
-                        </Typography>
-                      </Box>
 
-                      <Box
-                        sx={{
-                          mt: 3,
-                          px: 2,
-                        }}
-                      >
-                        <Box
-                          component="img"
-                          alt="Logo"
-                          src={selectedMessage.imageUrl}
-                          sx={{
-                            borderRadius: 1,
-                          }}
-                        />
-                      </Box>
-                      <Box
-                        sx={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          pb: 2,
-                          borderBottomLeftRadius: '6px',
-                          borderBottomRightRadius: '6px',
-                        }}
-                      >
-                        <Typography
-                          variant="h7"
-                          sx={{
-                            color: '#FFF',
-                            px: 2,
-                            mt: 3,
-                            mb: 2,
-                            textAlign: 'left',
-                            fontWeight: 600,
-                            textDecoration: 'underline',
-                            textDecorationColor: '#FFF',
-                          }}
-                        >
-                          Analyse
-                        </Typography>
-                        <Typography
-                          variant="h7"
-                          sx={{ color: '#FFF', px: 2, mb: 1, textAlign: 'left' }}
-                        >
-                          {createTypographyWithLineBreaks(selectedMessage.analyse)}
-                        </Typography>
-                        <Typography
-                          variant="h7"
-                          sx={{
-                            color: '#FFF',
-                            px: 2,
-                            mt: 2,
-                            mb: 2,
-                            textAlign: 'left',
-                            fontWeight: 600,
-                            textDecoration: 'underline',
-                            textDecorationColor: '#FFF',
-                          }}
-                        >
-                          Conclusion
-                        </Typography>
-                        <Typography
-                          variant="h7"
-                          sx={{ color: '#FFF', px: 2, mb: 1, textAlign: 'left' }}
-                        >
-                          {createTypographyWithLineBreaks(selectedMessage.conclusion)}
-                        </Typography>
-                      </Box>
-                    </Paper>
-                  </Box>
-                </>
-              )}
-            </Box>
-          ) : (
-            <Paper
-              sx={{
-                borderRadius: 3,
-                textAlign: 'center',
-                backgroundColor: 'transparent',
-                mt: 8,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '100%',
-              }}
-            >
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  width: '100%',
-                  mt: 2,
-                  columnGap: 0,
-                  rowGap: 1,
-                  justifyContent: 'center',
-                  px: 2,
-                }}
-              >
-                <Box
-                  sx={{
-                    backgroundImage: 'linear-gradient(326deg, #076af4, #0d1117 49%, #086af5)',
-                    minWidth: 'fit-content',
-                    borderRadius: '24px',
-                    padding: '2px',
-                    transition: 'all .2s',
-                    position: 'relative',
-                    transform: 'none',
-                    boxShadow: '0 0 70px rgba(9, 134, 251, .19)',
-                  }}
-                >
-                  <Box
-                    sx={{
-                      backgroundColor: '#0d1117',
-                      width: '100%',
-                      height: '100%',
-                      border: '1px solid rgba(239, 240, 246, .08)',
-                      borderRadius: '24px',
-                      transition: 'all .2s',
-                      position: 'relative',
-                      boxShadow: '0 2px 7px rgba(20, 20, 43, .06)',
-                      px: 3,
-                      py: 2,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      display: 'flex',
-                      flexDirection: 'column',
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        width: '77px',
-                        height: '77px',
-                        border: '2px solid #0866eb',
-                        display: 'flex',
-                        alignItems: 'center',
-                        borderRadius: 2,
-                        justifyContent: 'center',
-                      }}
-                    >
-                      <RemoveModeratorIcon />
-                    </Box>
-                    <Typography
-                      sx={{
-                        color: 'rgb(203, 213, 225)',
-                        fontWeight: 400,
-                        fontSize: '36px',
-                        mt: 2,
-                      }}
-                    >
-                      Purchase Membership
-                    </Typography>
-                    <Typography
-                      sx={{
-                        color: 'rgba(203, 213, 225, 0.5)',
-                        fontWeight: 400,
-                        fontSize: '18px',
-                        mt: 1,
-                      }}
-                    >
-                      You need to be a Gold Member to unlock the Masterclass Zone
-                    </Typography>
-                    <Box
-                      sx={{
-                        background: 'linear-gradient(#047efc, #12488f)',
-                        position: 'relative',
-                        overflow: 'hidden',
-                        width: '100%',
-                        height: '48px',
-                        borderRadius: '8px',
-                        mt: 4,
-                        mb: 2,
-                        ':hover': {
-                          opacity: 0.8,
-                        },
-                      }}
-                    >
-                      <Button
-                        variant="filled"
-                        color="inherit"
-                        sx={{
-                          position: 'relative',
-                          zIndex: 2, // Ensure the button text is above the overlay
-                          color: '#FFF',
-                          width: '100%',
-                          height: '48px',
-                          fontSize: 16,
-                          fontWeight: 400,
-                        }}
-                        onClick={() => handleSubscription()}
-                      >
-                        {user.membership === '8' ? 'Upgrade to gold' : 'Purchase Membership'}
-                      </Button>
-                    </Box>
-                  </Box>
-                </Box>
-              </Box>
-            </Paper>
-          )}
-        </CustomTabPanel>
-      </Box> */}
+      <div className="profile-wrapper">
 
-<div className="profile-wrapper">
-
-  {/* Tabs */}
+        {/* Tabs */}
   <div className="tabs">
-    <button type="button" className={value === 0 ? 'tab active' : 'tab'} onClick={() => setValue(0)}>
-      <span>Profile<br />Section</span>
-    </button>
-
-    {user.membership !== '10' && (
-      <button type="button" className={value === 1 ? 'tab active' : 'tab'} onClick={() => setValue(1)}>
-        <span>Essential Video<br />Content</span>
-      </button>
-    )}
-
-    {user.membership === '10' && (
-      <button type="button" className={value === 1 ? 'tab active' : 'tab'} onClick={() => setValue(1)}>
-        <span>BSP<br />BSP Masterclass</span>
-      </button>
-    )}
-
-    <button type="button" className={value === 2 ? 'tab active' : 'tab'} onClick={() => setValue(2)}>
-       <span>BSP<br />BSP Masterclass</span>
-    </button>
-  </div>
-
-  {/* TAB 0 – PROFILE */}
-{value === 0 && (
-  <div className="tab-panel">
-
-    {/* PERSONAL INFO */}
-    <div className="info-box">
-      <h3>Personal Information</h3>
-
-      <div className="info-row">
-        <span>Username</span>
-        <span className="profile-ans">{user?.username}</span>
-      </div>
-
-      <div className="info-row">
-        <span>E-mail</span>
-        <span className="profile-ans">{user?.email}</span>
-      </div>
-
-      <div className="info-row">
-        <span></span>
-        <span
-          className="profile-ans with-icon"
-          onClick={handleOpenResetPassword}
-        >
-          Reset Password <img src="/img/Icon.svg" alt="" />
-        </span>
-      </div>
-    </div>
-
-    {/* SUBSCRIPTION */}
-    <div className="info-box">
-      <h3>Subscription</h3>
-
-      {!isExpired && (isSilver || isAdvanced || isGold) && (
-        <p className="premium">
-          {isGold && 'Gold Program'}
-          {isAdvanced && 'Advanced Program'}
-          {isSilver && 'Silver Program'}
-        </p>
-      )}
-
-      {(hasNoSubscription || isSilver || isAdvanced) && !isGold && (
-        <button
-          type="button"
-          className="upgrade-btn"
-          onClick={() => {
-            if (hasNoSubscription) {
-              handleSubscription(user?.membership);
-              return;
-            }
-
-            if (isSilver) setSelectedPlan('advanced');
-            if (isAdvanced) setSelectedPlan('gold');
-
-            setOpenUpgrade(true);
-          }}
-        >
-          {hasNoSubscription ? 'Choose Membership' : 'Upgrade Membership'}
-        </button>
-      )}
-    </div>
-
-    {/* ACTIONS */}
   <button
-  type="button"
-  className="access-btn"
-  onClick={() =>
-    window.open(
-      'https://apps.apple.com/us/app/bsp-consult/id1531281216',
-      '_blank'
-    )
-  }
->
-  Access Bets
-</button>
+    type="button"
+    className={value === 0 ? 'tab active' : 'tab'}
+    onClick={() => setValue(0)}
+  >
+    <span>Profile<br />Section</span>
+  </button>
 
+  {/* Only show for non-gold users */}
+  {user.membership !== '10' && (
     <button
       type="button"
-      className="delete-btn"
-      onClick={handleLogout}
+      className={value === 1 ? 'tab active' : 'tab'}
+      onClick={() => setValue(1)}
     >
-      Logout
+      <span>Essential Video<br />Content</span>
     </button>
+  )}
 
-  </div>
-)}
+ 
+  <button
+    type="button"
+    className={value === 2 ? 'tab active' : 'tab'}
+    onClick={() => setValue(2)}
+  >
+    <span>BSP<br />Masterclass</span>
+  </button>
+</div>
 
-{/* TAB 1 – VIDEO CONTENT */}
-{value === 1 && (
-  <div className="tab-panel">
 
-    <div className="content-grid">
-      <div className="all-content">
+        {/* TAB 0 – PROFILE */}
+        {value === 0 && (
+          <div className="tab-panel">
 
-        {/* VIDEO AREA */}
-        {isSubscribed ? (
-          <div className="video-container">
-            <div className="video-outer-box">
-              <div className="video-inner-box">
-                <iframe
-                  src={
-                    user.membership === '10'
-                      ? goldCourseUrl
-                      : silverCourseUrl
-                  }
-                  allowFullScreen
-                  title="Course Video"
-                  className="video-iframe"
-                />
+            {/* PERSONAL INFO */}
+            <div className="info-box">
+              <h3>Personal Information</h3>
+
+              <div className="info-row">
+                <span>Username</span>
+                <span className="profile-ans">{user?.username}</span>
+              </div>
+
+              <div className="info-row">
+                <span>E-mail</span>
+                <span className="profile-ans">{user?.email}</span>
+              </div>
+
+              <div className="info-row">
+                <span></span>
+                <span
+                  className="profile-ans with-icon"
+                  onClick={handleOpenResetPassword}
+                >
+                  Reset Password <img src="/img/Icon.svg" alt="" />
+                </span>
+              </div>
+            </div>
+
+            {/* SUBSCRIPTION */}
+            <div className="info-box">
+              <h3>Subscription</h3>
+
+              {!isExpired && (isSilver || isAdvanced || isGold) && (
+                <p className="premium">
+                  {isGold && 'Gold Program'}
+                  {isAdvanced && 'Advanced Program'}
+                  {isSilver && 'Silver Program'}
+                </p>
+              )}
+
+              {(hasNoSubscription || isSilver || isAdvanced) && !isGold && (
+                <button
+                  type="button"
+                  className="upgrade-btn"
+                  onClick={() => {
+                    if (hasNoSubscription) {
+                      handleSubscription(user?.membership);
+                      return;
+                    }
+
+                    if (isSilver) setSelectedPlan('advanced');
+                    if (isAdvanced) setSelectedPlan('gold');
+
+                    setOpenUpgrade(true);
+                  }}
+                >
+                  {hasNoSubscription ? 'Choose Membership' : 'Upgrade Membership'}
+                </button>
+              )}
+            </div>
+
+            {/* ACTIONS */}
+            <button
+              type="button"
+              className="access-btn"
+              onClick={() =>
+                window.open(
+                  'https://apps.apple.com/us/app/bsp-consult/id1531281216',
+                  '_blank'
+                )
+              }
+            >
+              Access Bets
+            </button>
+
+            <button
+              type="button"
+              className="delete-btn"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+
+          </div>
+        )}
+
+        {/* TAB 1 – VIDEO CONTENT */}
+        {value === 1 && (
+          <div className="tab-panel">
+
+            <div className="content-grid">
+              <div className="all-content">
+
+                {/* VIDEO AREA */}
+                {isSubscribed ? (
+                  <div className="video-container">
+                    <div className="video-outer-box">
+                      <div className="video-inner-box">
+                        <iframe
+                          src={
+                            user.membership === '10'
+                              ? goldCourseUrl
+                              : silverCourseUrl
+                          }
+                          allowFullScreen
+                          title="Course Video"
+                          className="video-iframe"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="video-locked">
+                    <div>
+                      <img src="/img/locked-premium.svg" alt="Locked" />
+                    </div>
+                    <h3 className="locked-text">
+                      You need to be a Silver Member to unlock the Silver Video Content
+                    </h3>
+                    <button
+                      type="button"
+                      className="update-btn"
+                      onClick={handleSubscription}
+                    >
+                      Purchase Membership
+                    </button>
+                  </div>
+                )}
+
+                {/*  MODULE LIST (ALWAYS VISIBLE) */}
+                <div className="modules-list">
+                  {modules.map((module, index) => (
+                    <div
+                      key={index}
+                      className={`module-row ${isSubscribed ? 'clickable' : ''
+                        } ${activeIndex === index ? 'active' : ''}`}
+                      onClick={() => {
+                        if (!isSubscribed) return;
+
+                        setActiveIndex(index);
+
+                        if (user.membership === '10') {
+                          setGoldCourseUrl(module.url);
+                        } else {
+                          setSilverCourseUrl(module.url);
+                        }
+                      }}
+                    >
+                      <img
+                        src="/img/silvber-content.svg"
+                        alt="Module"
+                        className="silver-content-icon"
+                      />
+
+                      <span className="module-title">{module.name}</span>
+                      <span className="module-spacer" />
+
+                      {/* ICON LOGIC */}
+                      {!isSubscribed && <LockIcon />}
+
+                      {isSubscribed &&
+                        (activeIndex === index ? (
+                          <img src="/img/silvde-pause.svg" alt="Pause" />
+                        ) : (
+                          <img src="/img/silver-play.svg" alt="Play" />
+                        ))}
+                    </div>
+                  ))}
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        )}
+
+
+
+        {/* TAB 2 – MASTERCLASS ZONE */}
+        {value === 2 && (
+          <div className="tab-panel">
+            <div className="courses-wrapper">
+              <div className="courses-border">
+                <div className="courses-inner">
+
+                  {/* VIDEO OR LOCKED */}
+                  {isGoldSubscribed ? (
+                    <iframe
+                      src={courseUrl} // this could be the selected video URL from Gold Zone
+                      scrolling="no"
+                      allowFullScreen
+                      title="Gold Zone Video"
+                      className="course-iframe"
+                    />
+                  ) : (
+                    <div className="locked-wrapper">
+                      <div>
+                        <img src="/img/locked-premium.svg" alt="Locked" />
+                      </div>
+                      <h3 className="locked-text">Gold Content Locked</h3>
+                      <p className="locked-para">One click away from full access</p>
+                     <button
+  type="button"
+  className="update-btn"
+  onClick={() => setgOpenUpgrade(true)} // opens the dialog
+>
+  {!hasAnyMembership ? 'Purchase Membership' : 'Upgrade Now'}
+</button>
+
+                    </div>
+                  )}
+
+                  {/* GOLD ZONE CURRICULUM */}
+                  <h2 className="course-heading">Course Curriculum</h2>
+
+                  {moduless.map((module, moduleIndex) => (
+                    <details key={moduleIndex} className="accordion" open={moduleIndex === 0}>
+                      <summary className="accordion-summary">
+                        <span className="module-title">{module.title || `Module ${moduleIndex + 1}`}</span>
+                        <span className="expand-icons">
+                          <img src="/img/arrow-up.svg" className="icon-down" />
+                          <img src="/img/arrow-down.svg" className="icon-up" />
+                        </span>
+                      </summary>
+
+
+                      <div className="accordion-details">
+                        {(module.videos || []).map((video, videoIndex) => (
+                          <div
+                            key={videoIndex}
+                            className={`video-row ${isGoldSubscribed ? 'clickable' : ''}`}
+                            onClick={() => {
+                              if (!isGoldSubscribed) return;
+                              setSelectedMessage(video); // for Gold Zone selection
+                              setActiveVideoUrl(video.url); // show in iframe above
+                            }}
+                          >
+                            <img
+                              src="/img/silvber-content.svg"
+                              alt="Play"
+                              className="video-left-icon"
+                            />
+                            <span className="video-title">{video.name}</span>
+                            <span className="spacer" />
+
+                            {isGoldSubscribed ? (
+                              <img
+                                src={
+                                  activeVideoUrl === video.url
+                                    ? "/img/silvde-pause.svg"
+                                    : "/img/silver-play.svg"
+                                }
+                                alt="Action"
+                                className="video-action-icon"
+                              />
+                            ) : (
+                              <LockIcon />
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </details>
+                  ))}
+
+                </div>
               </div>
             </div>
           </div>
-        ) : (
-          <div className="video-locked">
-            <div>
-              <img src="/img/locked-premium.svg" alt="Locked" />
-            </div>
-            <h3 className="locked-text">
-              You need to be a Silver Member to unlock the Silver Video Content
-            </h3>
-            <button
-              type="button"
-              className="update-btn"
-              onClick={handleSubscription}
-            >
-              Purchase Membership
-            </button>
-          </div>
+
         )}
 
-        {/*  MODULE LIST (ALWAYS VISIBLE) */}
-        <div className="modules-list">
-          {modules.map((module, index) => (
-            <div
-              key={index}
-              className={`module-row ${
-                isSubscribed ? 'clickable' : ''
-              } ${activeIndex === index ? 'active' : ''}`}
-              onClick={() => {
-                if (!isSubscribed) return;
 
-                setActiveIndex(index);
-
-                if (user.membership === '10') {
-                  setGoldCourseUrl(module.url);
-                } else {
-                  setSilverCourseUrl(module.url);
-                }
-              }}
-            >
-              <img
-                src="/img/silvber-content.svg"
-                alt="Module"
-                className="silver-content-icon"
-              />
-
-              <span className="module-title">{module.name}</span>
-              <span className="module-spacer" />
-
-              {/* ICON LOGIC */}
-              {!isSubscribed && <LockIcon />}
-
-              {isSubscribed &&
-                (activeIndex === index ? (
-                  <img src="/img/silvde-pause.svg" alt="Pause" />
-                ) : (
-                  <img src="/img/silver-play.svg" alt="Play" />
-                ))}
-            </div>
-          ))}
-        </div>
 
       </div>
-    </div>
-
-  </div>
-)}
-
-
-
-  {/* TAB 2 – MASTERCLASS ZONE */}
-  {value === 2 && (
-    <div className="tab-panel">
-      {isGoldSubscribed ? (
-        <div className="zone">
-          {masterZoneMessages.map((msg, i) => (
-            <button
-              key={i}
-              type="button"
-              className="zone-image-btn"
-              onClick={() => setSelectedMessage(msg)}
-            >
-              <img src={msg.imageUrl} alt="zone" />
-            </button>
-          ))}
-        </div>
-      ) : (
-        <div className="locked">
-          <h3>Gold membership required</h3>
-          <button type="button" className="primary-btn" onClick={handleSubscription}>
-            Upgrade to Gold
-          </button>
-        </div>
-      )}
-    </div>
-  )}
-
-</div>
 
     </Container>
   );
