@@ -1248,7 +1248,7 @@ export default function Profile({ onChange }) {
             </div>
           </div>
 
-  
+
           {/* SUBSCRIPTION */}
           <div className="info-box">
             <h3>Subscription</h3>
@@ -1268,7 +1268,7 @@ export default function Profile({ onChange }) {
                   className="upgrade-btn"
                   onClick={() => {
 
-              
+
 
                     if (hasNoSubscription) {
                       onChange(effectiveMembership);
@@ -1345,7 +1345,7 @@ export default function Profile({ onChange }) {
                 <span>Instagram</span>
               </a>
 
-              <a className="contact-btn" href="https://t.snapchat.com/lPLA1XMl">
+              <a className="contact-btn" href="https://snapchat.com/t/78tjGoDM">
                 <img src="/img/snap.svg" alt="" />
                 <span>Snapchat</span>
               </a>
@@ -1356,7 +1356,7 @@ export default function Profile({ onChange }) {
           <div className="info-box">
             <h3>Account Setting</h3>
 
-            <a className="Strategy-btn" href="/terms-and-conditions">
+            <a className="Strategy-btn" href="/terms-condition">
               <span className="btn-left">
                 <img src="/img/tool-02.svg" alt="" /> Terms of Service
               </span>

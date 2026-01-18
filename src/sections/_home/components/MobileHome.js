@@ -190,7 +190,7 @@ export default function MobileHome() {
 
 
   const [openUpgrade, setOpenUpgrade] = useState(false);
-   const [gopenUpgrade, setgOpenUpgrade] = useState(false);
+  const [gopenUpgrade, setgOpenUpgrade] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
 
   const handleUpgradeCheckout = async (priceId) => {
@@ -271,7 +271,7 @@ export default function MobileHome() {
   const [deletedMessage, setDeletedMessage] = useState(null);
   const [deleteLoading, setDeleteLoading] = useState(false);
 
-  
+
   const [activeVideoUrl, setActiveVideoUrl] = useState(null);
 
 
@@ -850,7 +850,7 @@ export default function MobileHome() {
       }}
     >
 
- <Dialog
+      <Dialog
         open={gopenUpgrade}
         onClose={() => setgOpenUpgrade(false)}
         maxWidth={false}
@@ -1311,38 +1311,86 @@ export default function MobileHome() {
         </DialogActions>
       </Dialog>
 
+      <Dialog
+        open={openResetPassword}
+        onClose={handleCloseResetPassword}
+        PaperProps={{
+          style: {
+            minWidth: '90%',
+            maxWidth: '90%',
+            margin: '0 auto',
+            background: '#0d1117',
+            border: '2px solid #076af478',
+            color: '#fff',
+          },
+        }}
+      >
+        <DialogTitle sx={{ color: '#FFF' }}>
+          Reset Password
+        </DialogTitle>
+
+        <DialogContent>
+          <Typography sx={{ color: '#FFF' }}>
+            Are you sure you would like to get an email at{' '}
+            <strong>{user?.email}</strong> to reset your password?
+          </Typography>
+        </DialogContent>
+
+        <DialogActions>
+          <Button
+            type="button"
+            sx={{ color: '#FFF', backgroundColor: 'transparent' }}
+            onClick={handleCloseResetPassword}
+          >
+            Cancel
+          </Button>
+
+          <LoadingButton
+            loading={loadingResetPassword}
+            variant="contained"
+            sx={{
+              background: 'linear-gradient(#047efc, #12488f)',
+              ':hover': { opacity: 0.8 },
+            }}
+            onClick={onConfirmResetPassword}
+          >
+            Confirm
+          </LoadingButton>
+        </DialogActions>
+      </Dialog>
+
       <div className="profile-wrapper">
 
         {/* Tabs */}
-  <div className="tabs">
-  <button
-    type="button"
-    className={value === 0 ? 'tab active' : 'tab'}
-    onClick={() => setValue(0)}
-  >
-    <span>Profile<br />Section</span>
-  </button>
+        <div className="tabs">
+          <button
+            type="button"
+            className={value === 0 ? 'tab active' : 'tab'}
+            onClick={() => setValue(0)}
+          >
+            <span>Profile<br />Section</span>
+          </button>
 
-  {/* Only show for non-gold users */}
-  {user.membership !== '10' && (
-    <button
-      type="button"
-      className={value === 1 ? 'tab active' : 'tab'}
-      onClick={() => setValue(1)}
-    >
-      <span>Essential Video<br />Content</span>
-    </button>
-  )}
+          {/* Only show for non-gold users */}
+          {user.membership !== '10' && (
+            <button
+              type="button"
+              className={value === 1 ? 'tab active' : 'tab'}
+              onClick={() => setValue(1)}
+            >
+              <span>Essential Video<br />Content</span>
+            </button>
+          )}
 
- 
-  <button
-    type="button"
-    className={value === 2 ? 'tab active' : 'tab'}
-    onClick={() => setValue(2)}
-  >
-    <span>BSP<br />Masterclass</span>
-  </button>
-</div>
+
+          <button
+            type="button"
+            className={value === 2 ? 'tab active' : 'tab'}
+            onClick={() => setValue(2)}
+          >
+            <span>BSP<br />Masterclass</span>
+          </button>
+        </div>
 
 
         {/* TAB 0 – PROFILE */}
@@ -1547,13 +1595,13 @@ export default function MobileHome() {
                       </div>
                       <h3 className="locked-text">Gold Content Locked</h3>
                       <p className="locked-para">One click away from full access</p>
-                     <button
-  type="button"
-  className="update-btn"
-  onClick={() => setgOpenUpgrade(true)} // opens the dialog
->
-  {!hasAnyMembership ? 'Purchase Membership' : 'Upgrade Now'}
-</button>
+                      <button
+                        type="button"
+                        className="update-btn"
+                        onClick={() => setgOpenUpgrade(true)} // opens the dialog
+                      >
+                        {!hasAnyMembership ? 'Purchase Membership' : 'Upgrade Now'}
+                      </button>
 
                     </div>
                   )}

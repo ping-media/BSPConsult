@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&display=swap');
+
 * {
   font-family: 'Figtree', sans-serif;
   margin: 0;
@@ -15,9 +16,11 @@
 /* Right content */
 .dashboard-content {
   flex: 1;
-  color: #FFFFFF; position: relative;
+  color: #FFFFFF;
+  position: relative;
   overflow: hidden;
 }
+
 .dashboard-content::before {
   content: "";
   position: absolute;
@@ -31,20 +34,19 @@
   height: 400px;
   border-radius: 50%;
 
-  background: radial-gradient(
-    circle,
-    rgba(26, 65, 117, 0.35) 0%,
-    rgba(40, 102, 185, 0.25) 25%,
-    rgba(49, 127, 228, 0.15) 45%,
-    rgba(52, 138, 247, 0.05) 60%,
-    transparent 70%
-  );
+  background: radial-gradient(circle,
+      rgba(26, 65, 117, 0.35) 0%,
+      rgba(40, 102, 185, 0.25) 25%,
+      rgba(49, 127, 228, 0.15) 45%,
+      rgba(52, 138, 247, 0.05) 60%,
+      transparent 70%);
 
   filter: blur(60px);
   pointer-events: none;
   z-index: 0;
 }
-.dashboard-content > * {
+
+.dashboard-content>* {
   position: relative;
   z-index: 1;
 }
@@ -54,7 +56,7 @@
 .page-header {
   border-bottom: 1px solid #ffffff1f;
   padding-left: 24px;
-  
+
 }
 
 .page-header h1 {
@@ -65,30 +67,34 @@
 
 /* Grid */
 .content-grid {
- padding: 24px;
+  padding: 24px;
 }
-.manage-profile{
-    font-size: 20px;
-    line-height: 30px;
-    font-weight: 500;
-    border-bottom: 1px solid #ffffff1f;
-    padding: 20px;
-    margin-bottom: 24px;
+
+.manage-profile {
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: 500;
+  border-bottom: 1px solid #ffffff1f;
+  padding: 20px;
+  margin-bottom: 24px;
 }
-.all-content{
- height: auto;
+
+.all-content {
+  height: auto;
   padding: 32px 24px;
   background: #ffffff05;
   border-radius: 16px;
 
 }
-.all-profile-info{  
+
+.all-profile-info {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 24px;
   padding-bottom: 20px;
 }
+
 /* Boxes */
 .info-box {
   width: 100%;
@@ -106,7 +112,7 @@
   border-bottom: 1px solid #ffffff1f;
   padding-bottom: 24px;
   padding-top: 24px;
-  margin-bottom:24px;
+  margin-bottom: 24px;
 }
 
 /* Rows */
@@ -124,10 +130,12 @@
   font-size: 18px;
   font-weight: 400;
 }
+
 .profile-ans.with-icon {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  cursor: pointer;
 }
 
 .profile-ans.with-icon img {
@@ -154,7 +162,7 @@
   border-radius: 6px;
   color: #fff;
   cursor: pointer;
- margin-bottom: 20px;
+  margin-bottom: 20px;
   box-shadow: inset 1px 1px 12px 1px #ffffff05;
 }
 
@@ -179,9 +187,11 @@
   font-size: 18px;
   font-weight: 400;
 }
-.premium{
+
+.premium {
   margin-bottom: 20px;
 }
+
 /* Lists */
 .info-box ul {
   list-style: none;
@@ -209,8 +219,9 @@
   cursor: pointer;
   width: 100%;
   margin-bottom: 20px;
- 
+
 }
+
 .Strategy-btn {
   display: flex;
   align-items: center;
@@ -230,7 +241,8 @@
   margin: 20px 0;
   box-shadow: inset 1px 1px 12px 1px #ffffff05;
 }
-.delete-btn{
+
+.delete-btn {
   font-size: 18px;
   font-weight: 400;
   line-height: 20px;
@@ -241,7 +253,7 @@
   color: #FB3748;
   cursor: pointer;
   width: 100%;
- margin-bottom: 20px; 
+  margin-bottom: 20px;
 }
 
 /* Left group: icon + text */
@@ -289,7 +301,7 @@
 
   box-shadow: 5px 5px 4px 0px #00000024;
 
-box-shadow: 1px 1px 12px 1px #FFFFFF05 inset;
+  box-shadow: 1px 1px 12px 1px #FFFFFF05 inset;
 
 }
 
@@ -301,13 +313,11 @@ box-shadow: 1px 1px 12px 1px #FFFFFF05 inset;
   padding: 1px;
   z-index: -1;
 
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.08) 0%,
-    rgba(255, 255, 255, 0.08) 25%,
-    rgba(255, 255, 255, 0.08) 45%,
-    transparent 60%
-  );
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(255, 255, 255, 0.08) 25%,
+      rgba(255, 255, 255, 0.08) 45%,
+      transparent 60%);
 
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
@@ -336,7 +346,7 @@ box-shadow: 1px 1px 12px 1px #FFFFFF05 inset;
   font-size: 16px;
   font-size: 400;
   color: #B9BDC7;
-  
+
 }
 
 .Gold-btn {
@@ -351,6 +361,7 @@ box-shadow: 1px 1px 12px 1px #FFFFFF05 inset;
   cursor: pointer;
   width: 100%;
 }
+
 .adva-btn {
   font-size: 14px;
   font-weight: 400;
@@ -362,7 +373,7 @@ box-shadow: 1px 1px 12px 1px #FFFFFF05 inset;
   color: #FFFFFF;
   cursor: pointer;
   width: 100%;
-  
+
 }
 
 .upgrade-card--gold {
@@ -483,6 +494,7 @@ box-shadow: 1px 1px 12px 1px #FFFFFF05 inset;
     font-size: 16px;
   }
 }
+
 @media (max-width: 768px) {
   .dashboard-layout {
     flex-direction: column;
@@ -496,17 +508,19 @@ box-shadow: 1px 1px 12px 1px #FFFFFF05 inset;
     font-size: 16px;
     line-height: 56px;
   }
+
   .all-profile-info {
     gap: 16px;
   }
 
-.all-profile-info{  
-  display: flex;
-  padding-bottom: 20px;
-}
-.info-box{
-  margin-bottom: 20px;
-}
+  .all-profile-info {
+    display: flex;
+    padding-bottom: 20px;
+  }
+
+  .info-box {
+    margin-bottom: 20px;
+  }
 
   .info-box h3 {
     font-size: 16px;
@@ -514,10 +528,10 @@ box-shadow: 1px 1px 12px 1px #FFFFFF05 inset;
   }
 
   .info-row {
-   display: flex;
-  justify-content: space-between;
-  font-size: 14px;
-  font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: 500;
   }
 
   .profile-ans {
@@ -530,14 +544,40 @@ box-shadow: 1px 1px 12px 1px #FFFFFF05 inset;
     font-size: 14px;
     padding: 10px 12px;
   }
-  .delete-btn{
+
+  .delete-btn {
     font-size: 14px;
     font-weight: 500;
   }
+
+  .upgrade-content p {
+    line-height: 20px;
+  }
+
+  .upgrade-includes li {
+    line-height: 20px;
+    font-size: 12px;
+  }
+
+  .upgrade-inner {
+    padding: 12px
+  }
+
+  .upgrade-title {
+    flex: 1;
+  }
+
+  .upgrade-card--advanced {
+    margin: 20px;
+  }
+  .upgrade-note{
+    font-size: 12px;
+  }
 }
+
 @media (max-width: 480px) {
   .content-grid {
-    padding: 12px;
+    padding: 0;
   }
 
   .info-box {
@@ -571,7 +611,7 @@ box-shadow: 1px 1px 12px 1px #FFFFFF05 inset;
 }
 
 .plan-btn {
-  flex: 1;                
+  flex: 1;
   padding: 12px 0;
   border-radius: 8px;
   background: #FFFFFF1A;
@@ -581,7 +621,7 @@ box-shadow: 1px 1px 12px 1px #FFFFFF05 inset;
   font-weight: 400;
   cursor: pointer;
   text-align: center;
-  
+
 }
 
 /* Advanced active → BLUE */

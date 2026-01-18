@@ -139,5 +139,10 @@ padding: 12px;
 
   .module-title {
     font-size: 14px;
+    text-align: left;
+    line-height: 20px;
+  }
+  .video-locked{
+    padding: 0 40px
   }
 }
