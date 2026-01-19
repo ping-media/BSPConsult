@@ -114,7 +114,7 @@ padding: 12px;
 @media (max-width: 768px) {
 
   .video-container {
-    padding: 12px;
+    padding: 0;
   }
 
   .video-outer-box {
@@ -124,6 +124,7 @@ padding: 12px;
 
   .video-inner-box {
     padding: 10px;
+    background: #FFFFFF0F;
   }
 
   .video-iframe {
@@ -152,24 +153,16 @@ padding: 12px;
     height: 48px;
     width: 48px;
   }
-  
+  .module-row.active{
+    background: #FFFFFF0A;
+  }
+  .silver-content-icon{
+    width: 32px;
+    height: 32px;
+  }
+  .blue-play{
+    width: 20px;
+    height: 20px;
+  }
 }
 
-@media (max-width: 768px) {
-
-  /* CRITICAL FIX */
-  .video-wrapper {
-    padding: 0;
-    margin: 0;
-    line-height: 0;   /* ✅ removes ghost vertical space */
-  }
-
-  .video-iframe {
-    display: block;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
-    margin: 0;
-  }
-
-}

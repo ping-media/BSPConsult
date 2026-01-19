@@ -1585,6 +1585,7 @@ export default function MobileHome() {
   <img
     src="/img/silver-play.svg"
     alt="Play"
+    className='blue-play'
   />
 )}
 
