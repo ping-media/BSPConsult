@@ -52,14 +52,14 @@
 }
 
 .access-btn {
-  margin: 16px 0 24px 0;
+  margin: 0 0 24px 0;
   width: 100%;
-  height: 45px;
+  height: 40px;
   font-size: 14px;
   font-weight: 500;
   background: linear-gradient(#007AFF, #0C53C8);
   border: none;
-  border-radius: 8px;
+  border-radius: 48px;
   color: #fff;
   cursor: pointer;
 }

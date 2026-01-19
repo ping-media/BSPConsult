@@ -519,12 +519,14 @@
   }
 
   .info-box {
-    margin-bottom: 20px;
+    padding: 0;
+    margin-bottom: 24px;
   }
 
   .info-box h3 {
     font-size: 16px;
-    padding-top: 10px;
+    padding-top: 0;
+    padding-bottom: 16px;
   }
 
   .info-row {
@@ -532,6 +534,7 @@
     justify-content: space-between;
     font-size: 14px;
     font-weight: 500;
+    padding-bottom: 16px;
   }
 
   .profile-ans {
@@ -543,11 +546,15 @@
   .Strategy-btn {
     font-size: 14px;
     padding: 10px 12px;
+     margin-bottom: 16px;
+   
   }
 
   .delete-btn {
     font-size: 14px;
+    height: 40px;
     font-weight: 500;
+    border-radius: 48px;
   }
 
   .upgrade-content p {
