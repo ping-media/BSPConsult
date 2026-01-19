@@ -1506,86 +1506,98 @@ export default function MobileHome() {
         )}
 
         {/* TAB 1 – VIDEO CONTENT */}
-     {value === 1 && (
-  <div className="tab-panel">
+        {value === 1 && (
+          <div className="tab-panel">
 
-    <div className="video-container">
-      <div className="video-outer-box">
-        <div className="video-inner-box">
+            <div className="video-container">
+              <div className="video-outer-box">
+                <div className="video-inner-box">
 
-          {/* VIDEO / LOCKED OVERLAY */}
-          <div className="video-wrapper">
-            {isSubscribed ? (
-              <iframe
-                src={
-                  user.membership === '10'
-                    ? goldCourseUrl
-                    : silverCourseUrl
-                }
-                allowFullScreen
-                title="Course Video"
-                className="video-iframe"
-              />
-            ) : (
-              <div className="locked-wrapper">
-                <img src="/img/locked-premium.svg" alt="Locked" />
-                <h3>Essential Video Content Locked</h3>
-                <button
-                  type="button"
-                  className="update-btn"
-                  onClick={handleSubscription}
-                >
-                  Purchase Membership
-                </button>
-              </div>
-            )}
-          </div>
+                  {/* VIDEO / LOCKED OVERLAY */}
+                  <div className="video-wraper">
+                    {isSubscribed ? (
+                      <iframe
+                        src={
+                          user.membership === '10'
+                            ? goldCourseUrl
+                            : silverCourseUrl
+                        }
+                        allowFullScreen
+                        title="Course Video"
+                        className="video-iframe"
+                      />
+                    ) : (
+                      <div className="locked-wrapper">
+                        <div className='g-lock'>
+                          <img src="/img/locked-premium.svg" alt="Locked" />
+                        </div>
+                        <h3>Essential Video Content Locked</h3>
+                        <button
+                          type="button"
+                          className="update-btn"
+                          onClick={handleSubscription}
+                        >
+                          Purchase Membership
+                        </button>
+                      </div>
+                    )}
+                  </div>
 
-          {/* ✅ MODULE LIST (ALWAYS INSIDE SAME BOX) */}
-          <div className="modules-list">
-            {modules.map((module, index) => (
-                <div
-                    key={index}
-                    className={`module-row ${isSubscribed ? 'clickable' : ''
-                      } ${activeIndex === index ? 'active' : ''}`}
-                    onClick={() => {
-                      if (!isSubscribed) return;
-                      setActiveIndex(index);
-                      changeCourseUrl(module.url);
-                    }}
-                  >
-                <img
-                  src="/img/silvber-content.svg"
-                  alt="Module"
-                  className="silver-content-icon"
-                />
+                  {/* ✅ MODULE LIST (ALWAYS INSIDE SAME BOX) */}
+                  <div className="modules-list">
+                    {modules.map((module, index) => (
+                      <div
+                        key={index}
+                        className={`module-row ${isSubscribed ? 'clickable' : ''
+                          } ${activeIndex === index ? 'active' : ''}`}
+                      onClick={() => {
+  if (!isSubscribed) return;
 
-                <span className="module-title">{module.name}</span>
-                <span className="module-spacer" />
+  setActiveIndex(index);
 
-                {!isSubscribed ? (
-                  <LockIcon
-                   sx={{
-                                  fontSize: {
-                                    xs: 16,
-                                    sm: 22,
-                                  },
-                                }} />
-                ) : activeIndex === index ? (
-                  <img src="/img/silvde-pause.svg" alt="Pause" />
-                ) : (
-                  <img src="/img/silver-play.svg" alt="Play" />
-                )}
-              </div>
-            ))}
-          </div>
+  if (user.membership === '10') {
+    setGoldCourseUrl(module.url);
+  } else {
+    setSilverCourseUrl(module.url);
+  }
+}}
 
-        </div>
-      </div>
-    </div>
+                      >
+                        <img
+                          src="/img/silvber-content.svg"
+                          alt="Module"
+                          className="silver-content-icon"
+                        />
 
-  </div>
+                        <span className="module-title">{module.name}</span>
+                        <span className="module-spacer" />
+
+                      {!isSubscribed ? (
+  <LockIcon
+    sx={{
+      fontSize: {
+        xs: 16,
+        sm: 22,
+      },
+    }}
+  />
+) : (
+  <img
+    src="/img/silver-play.svg"
+    alt="Play"
+  />
 )}
+
+                      </div>
+                    ))}
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        )}
 
 
 
@@ -1644,9 +1656,10 @@ export default function MobileHome() {
                             className={`video-row ${isGoldSubscribed ? 'clickable' : ''}`}
                             onClick={() => {
                               if (!isGoldSubscribed) return;
-                              setSelectedMessage(video); // for Gold Zone selection
-                              setActiveVideoUrl(video.url); // show in iframe above
+                              setSelectedMessage(video);
+                              setCourseUrl(video.url);
                             }}
+
                           >
                             <img
                               src="/img/silvber-content.svg"
