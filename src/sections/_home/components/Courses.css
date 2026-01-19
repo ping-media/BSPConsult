@@ -65,7 +65,7 @@
   height: 47px;
   background: #348AF733;
   border: 1px solid #348AF7;
-  border-radius: 8px;
+  border-radius: 48px;
   color: #fff;
   cursor: pointer;
   box-shadow: 0px 4px 6px 0px #00000012;
@@ -97,6 +97,7 @@
 /* GREY BOX WHEN OPEN */
 .accordion[open] {
   background: rgba(255, 255, 255, 0.04);
+  padding-top: 10px;
 }
 
 /* SUMMARY HEADER */

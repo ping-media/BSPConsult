@@ -143,6 +143,15 @@ padding: 12px;
     line-height: 20px;
   }
   .video-locked{
-    padding: 0 40px
+     height: 525px;
+  background-color: #FFFFFF0F;
+    padding: 40px 40px;
+
   }
+  .v-lock{
+    height: 48px;
+    width: 48px;
+  }
+
+  
 }

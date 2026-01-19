@@ -1569,7 +1569,7 @@ export default function MobileHome() {
                   </div>
                 ) : (
                   <div className="video-locked">
-                    <div>
+                    <div className='v-lock'>
                       <img src="/img/locked-premium.svg" alt="Locked" />
                     </div>
                     <h3 className="locked-text">
@@ -1673,7 +1673,13 @@ export default function MobileHome() {
                                 className="video-action-icon"
                               />
                             ) : (
-                              <LockIcon />
+                              <LockIcon
+                              sx={{
+    fontSize: {
+      xs: 16,   
+      sm: 22,   
+    },
+  }} />
                             )}
                           </div>
                         ))}

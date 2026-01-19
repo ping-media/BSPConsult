@@ -350,14 +350,7 @@ export default function VideoContentSilver({ setCurrentPage }) {
 
                     <span className="module-title">{module.name}</span>
                     <span className="module-spacer" />
-                    {/* {!isSubscribed && <LockIcon />}
-    {isSubscribed && (
-  <img
-    src="/img/silver-play.svg"
-    alt="Play"
-
-  />
-)} */}
+                
                     {!isSubscribed && <LockIcon />}
 
                     {isSubscribed && (
