@@ -1238,14 +1238,10 @@ export default function Courses({ onChange }) {
 
                         {isSubscribed ? (
                           <img
-                            src={
-                              activeVideoUrl === video.url
-                                ? "/img/silvde-pause.svg"
-                                : "/img/silver-play.svg"
-                            }
-                            alt="Action"
-                            className="video-action-icon"
-                          />
+    src="/img/silver-play.svg"
+    alt="Play"
+    className="video-action-icon"
+  />
                         ) : (
                           <LockIcon />
                         )}

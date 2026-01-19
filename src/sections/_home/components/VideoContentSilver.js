@@ -353,21 +353,13 @@ export default function VideoContentSilver({ setCurrentPage }) {
                 
                     {!isSubscribed && <LockIcon />}
 
-                    {isSubscribed && (
-                      activeIndex === index ? (
-                        <img
-                          src="/img/silvde-pause.svg"
-                          alt="Play"
+                  {isSubscribed && (
+  <img
+    src="/img/silver-play.svg"
+    alt="Play"
+  />
+)}
 
-                        />
-                      ) : (
-                        <img
-                          src="/img/silver-play.svg"
-                          alt="Play"
-
-                        />
-                      )
-                    )}
 
 
                   </div>

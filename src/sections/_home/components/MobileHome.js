@@ -1550,17 +1550,17 @@ export default function MobileHome() {
                         key={index}
                         className={`module-row ${isSubscribed ? 'clickable' : ''
                           } ${activeIndex === index ? 'active' : ''}`}
-                      onClick={() => {
-  if (!isSubscribed) return;
+                        onClick={() => {
+                          if (!isSubscribed) return;
 
-  setActiveIndex(index);
+                          setActiveIndex(index);
 
-  if (user.membership === '10') {
-    setGoldCourseUrl(module.url);
-  } else {
-    setSilverCourseUrl(module.url);
-  }
-}}
+                          if (user.membership === '10') {
+                            setGoldCourseUrl(module.url);
+                          } else {
+                            setSilverCourseUrl(module.url);
+                          }
+                        }}
 
                       >
                         <img
@@ -1572,22 +1572,22 @@ export default function MobileHome() {
                         <span className="module-title">{module.name}</span>
                         <span className="module-spacer" />
 
-                      {!isSubscribed ? (
-  <LockIcon
-    sx={{
-      fontSize: {
-        xs: 16,
-        sm: 22,
-      },
-    }}
-  />
-) : (
-  <img
-    src="/img/silver-play.svg"
-    alt="Play"
-    className='blue-play'
-  />
-)}
+                        {!isSubscribed ? (
+                          <LockIcon
+                            sx={{
+                              fontSize: {
+                                xs: 16,
+                                sm: 22,
+                              },
+                            }}
+                          />
+                        ) : (
+                          <img
+                            src="/img/silver-play.svg"
+                            alt="Play"
+                            className='blue-play'
+                          />
+                        )}
 
                       </div>
                     ))}
