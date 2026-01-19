@@ -5,14 +5,11 @@
   jsx-a11y/click-events-have-key-events,
   jsx-a11y/no-static-element-interactions
 */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable no-nested-ternary */
 /* eslint-disable no-nested-ternary */
 import { loadStripe } from '@stripe/stripe-js';
 import LockIcon from '@mui/icons-material/Lock';
+import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router-dom';
 import './MobileHome.css'
 // @mui
@@ -1311,53 +1308,83 @@ export default function MobileHome() {
         </DialogActions>
       </Dialog>
 
-      <Dialog
-        open={openResetPassword}
-        onClose={handleCloseResetPassword}
-        PaperProps={{
-          style: {
-            minWidth: '90%',
-            maxWidth: '90%',
-            margin: '0 auto',
-            background: '#0d1117',
-            border: '2px solid #076af478',
-            color: '#fff',
-          },
+         <Dialog
+  open={openResetPassword}
+  onClose={() => setOpenResetPassword(false)}
+  maxWidth={false}
+  PaperProps={{
+    className: 'lock-gradient-box',
+    sx: {
+      background: 'rgba(18, 20, 30, 1)',
+      padding: 0,
+    },
+  }}
+  BackdropProps={{
+    className: 'lock-paper',
+  }}
+>
+  <div className="lock-content">
+
+    {/* HEADER */}
+    <div className="lock-header">
+      <span
+        style={{
+          flex: 1,
+          textAlign: 'center',
+          fontSize: '20px',
+          fontWeight: 600,
         }}
       >
-        <DialogTitle sx={{ color: '#FFF' }}>
-          Reset Password
-        </DialogTitle>
+        Reset Password
+      </span>
 
-        <DialogContent>
-          <Typography sx={{ color: '#FFF' }}>
-            Are you sure you would like to get an email at{' '}
-            <strong>{user?.email}</strong> to reset your password?
-          </Typography>
-        </DialogContent>
+      <button
+        type="button"
+        className="lock-close"
+        onClick={() => setOpenResetPassword(false)}
+      >
+        <CloseIcon />
+      </button>
+    </div>
 
-        <DialogActions>
-          <Button
-            type="button"
-            sx={{ color: '#FFF', backgroundColor: 'transparent' }}
-            onClick={handleCloseResetPassword}
-          >
-            Cancel
-          </Button>
+    <div className="lock-divider" />
 
-          <LoadingButton
-            loading={loadingResetPassword}
-            variant="contained"
-            sx={{
-              background: 'linear-gradient(#047efc, #12488f)',
-              ':hover': { opacity: 0.8 },
-            }}
-            onClick={onConfirmResetPassword}
-          >
-            Confirm
-          </LoadingButton>
-        </DialogActions>
-      </Dialog>
+    {/* BODY */}
+    <div className="membership">
+      <Typography sx={{ color: '#FFF', textAlign: 'center' }}>
+        Are you sure you would like to get an email at
+        <br />
+        <strong>{user?.email}</strong> to reset your <br/> password?
+      </Typography>
+    </div>
+
+    <div className="lock-divider" />
+
+    {/* FOOTER */}
+    <div className="lock-footer">
+      <button
+        type="button"
+        className="lock-logout"
+        onClick={() => setOpenResetPassword(false)}
+      >
+        Cancel
+      </button>
+
+       <button
+              type="button"
+        loading={loadingResetPassword}
+        onClick={onConfirmResetPassword}
+        className="lock-unlock"
+        style={{
+                color: '#FFFFFF',
+              }}
+      >
+        Confirm
+      </button>
+    </div>
+
+  </div>
+</Dialog>
 
       <div className="profile-wrapper">
 
