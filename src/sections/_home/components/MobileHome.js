@@ -922,7 +922,7 @@ export default function MobileHome() {
                     <div className="upgrade-headers">
                       <h3 className="upgrade-title">{upgradeData.title}</h3>
 
-                    
+
                     </div>
 
 
@@ -1306,83 +1306,83 @@ export default function MobileHome() {
         </DialogActions>
       </Dialog>
 
-         <Dialog
-  open={openResetPassword}
-  onClose={() => setOpenResetPassword(false)}
-  maxWidth={false}
-  PaperProps={{
-    className: 'lock-gradient-box',
-    sx: {
-      background: 'rgba(18, 20, 30, 1)',
-      padding: 0,
-    },
-  }}
-  BackdropProps={{
-    className: 'lock-paper',
-  }}
->
-  <div className="lock-content">
-
-    {/* HEADER */}
-    <div className="lock-header">
-      <span
-        style={{
-          flex: 1,
-          textAlign: 'center',
-          fontSize: '20px',
-          fontWeight: 600,
+      <Dialog
+        open={openResetPassword}
+        onClose={() => setOpenResetPassword(false)}
+        maxWidth={false}
+        PaperProps={{
+          className: 'lock-gradient-box',
+          sx: {
+            background: 'rgba(18, 20, 30, 1)',
+            padding: 0,
+          },
+        }}
+        BackdropProps={{
+          className: 'lock-paper',
         }}
       >
-        Reset Password
-      </span>
+        <div className="lock-content">
 
-      <button
-        type="button"
-        className="lock-close"
-        onClick={() => setOpenResetPassword(false)}
-      >
-        <CloseIcon />
-      </button>
-    </div>
+          {/* HEADER */}
+          <div className="lock-header">
+            <span
+              style={{
+                flex: 1,
+                textAlign: 'center',
+                fontSize: '20px',
+                fontWeight: 600,
+              }}
+            >
+              Reset Password
+            </span>
 
-    <div className="lock-divider" />
-
-    {/* BODY */}
-    <div className="membership">
-      <Typography sx={{ color: '#FFF', textAlign: 'center' }}>
-        Are you sure you would like to get an email at
-        <br />
-        <strong>{user?.email}</strong> to reset your <br/> password?
-      </Typography>
-    </div>
-
-    <div className="lock-divider" />
-
-    {/* FOOTER */}
-    <div className="lock-footer">
-      <button
-        type="button"
-        className="lock-logout"
-        onClick={() => setOpenResetPassword(false)}
-      >
-        Cancel
-      </button>
-
-       <button
+            <button
               type="button"
-        loading={loadingResetPassword}
-        onClick={onConfirmResetPassword}
-        className="lock-unlock"
-        style={{
+              className="lock-close"
+              onClick={() => setOpenResetPassword(false)}
+            >
+              <CloseIcon />
+            </button>
+          </div>
+
+          <div className="lock-divider" />
+
+          {/* BODY */}
+          <div className="membership">
+            <Typography sx={{ color: '#FFF', textAlign: 'center' }}>
+              Are you sure you would like to get an email at
+              <br />
+              <strong>{user?.email}</strong> to reset your <br /> password?
+            </Typography>
+          </div>
+
+          <div className="lock-divider" />
+
+          {/* FOOTER */}
+          <div className="lock-footer">
+            <button
+              type="button"
+              className="lock-logout"
+              onClick={() => setOpenResetPassword(false)}
+            >
+              Cancel
+            </button>
+
+            <button
+              type="button"
+              loading={loadingResetPassword}
+              onClick={onConfirmResetPassword}
+              className="lock-unlock"
+              style={{
                 color: '#FFFFFF',
               }}
-      >
-        Confirm
-      </button>
-    </div>
+            >
+              Confirm
+            </button>
+          </div>
 
-  </div>
-</Dialog>
+        </div>
+      </Dialog>
 
       <div className="profile-wrapper">
 
@@ -1509,88 +1509,88 @@ export default function MobileHome() {
         {value === 1 && (
           <div className="tab-panel">
 
-                {/* VIDEO AREA */}
-                {isSubscribed ? (
-                  <div className="video-container">
-                    <div className="video-outer-box">
-                      <div className="video-inner-box">
-                        <iframe
-                          src={
-                            user.membership === '10'
-                              ? goldCourseUrl
-                              : silverCourseUrl
-                          }
-                          allowFullScreen
-                          title="Course Video"
-                          className="video-iframe"
-                        />
-                          {/*  MODULE LIST (ALWAYS VISIBLE) */}
-                <div className="modules-list">
-                  {modules.map((module, index) => (
-                    <div
-                      key={index}
-                      className={`module-row ${isSubscribed ? 'clickable' : ''
-                        } ${activeIndex === index ? 'active' : ''}`}
-                      onClick={() => {
-                        if (!isSubscribed) return;
+            {/* VIDEO AREA */}
+            {isSubscribed ? (
+              <div className="video-container">
+                <div className="video-outer-box">
+                  <div className="video-inner-box">
+                    <iframe
+                      src={
+                        user.membership === '10'
+                          ? goldCourseUrl
+                          : silverCourseUrl
+                      }
+                      allowFullScreen
+                      title="Course Video"
+                      className="video-iframe"
+                    />
+                    {/*  MODULE LIST (ALWAYS VISIBLE) */}
+                    <div className="modules-list">
+                      {modules.map((module, index) => (
+                        <div
+                          key={index}
+                          className={`module-row ${isSubscribed ? 'clickable' : ''
+                            } ${activeIndex === index ? 'active' : ''}`}
+                          onClick={() => {
+                            if (!isSubscribed) return;
 
-                        setActiveIndex(index);
+                            setActiveIndex(index);
 
-                        if (user.membership === '10') {
-                          setGoldCourseUrl(module.url);
-                        } else {
-                          setSilverCourseUrl(module.url);
-                        }
-                      }}
-                    >
-                      <img
-                        src="/img/silvber-content.svg"
-                        alt="Module"
-                        className="silver-content-icon"
-                      />
+                            if (user.membership === '10') {
+                              setGoldCourseUrl(module.url);
+                            } else {
+                              setSilverCourseUrl(module.url);
+                            }
+                          }}
+                        >
+                          <img
+                            src="/img/silvber-content.svg"
+                            alt="Module"
+                            className="silver-content-icon"
+                          />
 
-                      <span className="module-title">{module.name}</span>
-                      <span className="module-spacer" />
+                          <span className="module-title">{module.name}</span>
+                          <span className="module-spacer" />
 
-                      {/* ICON LOGIC */}
-                      {!isSubscribed && <LockIcon />}
+                          {/* ICON LOGIC */}
+                          {!isSubscribed && <LockIcon />}
 
-                      {isSubscribed &&
-                        (activeIndex === index ? (
-                          <img src="/img/silvde-pause.svg" alt="Pause" />
-                        ) : (
-                          <img src="/img/silver-play.svg" alt="Play" />
-                        ))}
+                          {isSubscribed &&
+                            (activeIndex === index ? (
+                              <img src="/img/silvde-pause.svg" alt="Pause" />
+                            ) : (
+                              <img src="/img/silver-play.svg" alt="Play" />
+                            ))}
+                        </div>
+                      ))}
                     </div>
-                  ))}
+                  </div>
                 </div>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="video-locked">
-                    <div className='v-lock'>
-                      <img src="/img/locked-premium.svg" alt="Locked" />
-                    </div>
-                    <h3 className="locked-text">
-                      Essential Video Content Locked
-                    </h3>
-                    <button
-                      type="button"
-                      className="update-btn"
-                      onClick={handleSubscription}
-                    >
-                      Purchase Membership
-                    </button>
-                  </div>
-                )}
-
-              
-
               </div>
-       
+            ) : (
+              <div className="video-locked">
+                <div className='v-lock'>
+                  <img src="/img/locked-premium.svg" alt="Locked" />
+                </div>
+                <h3 className="locked-text">
+                  Essential Video Content<br/> Locked
+                </h3>
+                <button
+                  type="button"
+                  className="update-btn"
+                  onClick={handleSubscription}
+                >
+                  Purchase Membership
+                </button>
+              </div>
+            )}
 
-        
+
+
+          </div>
+
+
+
         )}
 
 
@@ -1674,12 +1674,12 @@ export default function MobileHome() {
                               />
                             ) : (
                               <LockIcon
-                              sx={{
-    fontSize: {
-      xs: 16,   
-      sm: 22,   
-    },
-  }} />
+                                sx={{
+                                  fontSize: {
+                                    xs: 16,
+                                    sm: 22,
+                                  },
+                                }} />
                             )}
                           </div>
                         ))}

@@ -148,6 +148,9 @@ padding: 12px;
     padding: 40px 40px;
 
   }
+  .video-locked h3 {
+    margin-top: 16px;
+  }
   .v-lock{
     height: 48px;
     width: 48px;
