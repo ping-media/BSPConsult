@@ -548,8 +548,8 @@
   .Strategy-btn {
     font-size: 14px;
     padding: 10px 12px;
-     margin-bottom: 16px;
-   
+    margin-bottom: 16px;
+
   }
 
   .delete-btn {
@@ -579,15 +579,20 @@
   .upgrade-card--advanced {
     margin: 20px;
   }
-  .upgrade-note{
+
+  .upgrade-note {
     font-size: 12px;
   }
+
   .premium {
     padding-bottom: 16px;
     margin: 0;
- 
-  font-size: 14px;
-}
+    font-size: 14px;
+  }
+
+  .price-period {
+    font-size: 15px !important;
+  }
 }
 
 
@@ -652,4 +657,11 @@
 
 .upgrade-close:hover {
   opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .plan-btn {
+    line-height: normal;
+    padding: 6px 12px;
+  }
 }

@@ -123,19 +123,20 @@ padding: 12px;
   }
 
   .video-inner-box {
-    padding: 10px;
+    padding: 16px;
     background: #FFFFFF0F;
   }
 
   .video-iframe {
     width: 100%;
     height: auto;            
-    aspect-ratio: 16 / 9;    
+    /* aspect-ratio: 16 / 9;     */
     border-radius: 10px;
+    height: 210px;
   }
 
   .module-row {
-    padding: 10px;
+    padding: 8px;
   }
 
   .module-title {
@@ -154,15 +155,15 @@ padding: 12px;
     width: 48px;
   }
   .module-row.active{
-    background: #FFFFFF0A;
+    background: transparent;
   }
   .silver-content-icon{
     width: 32px;
     height: 32px;
   }
   .blue-play{
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
   }
 }
 

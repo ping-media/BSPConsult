@@ -26,7 +26,7 @@
   display: block;
   font-size: 14px;
   font-weight: 400;
-  line-height: 18px;
+  line-height: 20px;
   text-align: center;
 }
 
@@ -84,7 +84,7 @@
 
 .locked {
   padding: 40px 20px;
-  background: rgba(0,0,0,.5);
+  background: rgba(0, 0, 0, .5);
   border-radius: 16px;
   color: #fff;
 }
@@ -94,4 +94,14 @@
   border-radius: 12px;
   cursor: pointer;
   margin-top: 16px;
+}
+
+@media (max-width: 768px) {
+  .tab {
+    padding: 6px 4px;
+  }
+
+  .membership {
+    padding: 20px 24px;
+  }
 }

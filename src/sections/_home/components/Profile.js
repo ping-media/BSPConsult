@@ -1016,83 +1016,83 @@ export default function Profile({ onChange }) {
       </Dialog>
 
 
-    <Dialog
-  open={openResetPassword}
-  onClose={() => setOpenResetPassword(false)}
-  maxWidth={false}
-  PaperProps={{
-    className: 'lock-gradient-box',
-    sx: {
-      background: 'rgba(18, 20, 30, 1)',
-      padding: 0,
-    },
-  }}
-  BackdropProps={{
-    className: 'lock-paper',
-  }}
->
-  <div className="lock-content">
-
-    {/* HEADER */}
-    <div className="lock-header">
-      <span
-        style={{
-          flex: 1,
-          textAlign: 'center',
-          fontSize: '20px',
-          fontWeight: 600,
+      <Dialog
+        open={openResetPassword}
+        onClose={() => setOpenResetPassword(false)}
+        maxWidth={false}
+        PaperProps={{
+          className: 'lock-gradient-box',
+          sx: {
+            background: 'rgba(18, 20, 30, 1)',
+            padding: 0,
+          },
+        }}
+        BackdropProps={{
+          className: 'lock-paper',
         }}
       >
-        Reset Password
-      </span>
+        <div className="lock-content">
 
-      <button
-        type="button"
-        className="lock-close"
-        onClick={() => setOpenResetPassword(false)}
-      >
-        <CloseIcon />
-      </button>
-    </div>
+          {/* HEADER */}
+          <div className="lock-header">
+            <span
+              style={{
+                flex: 1,
+                textAlign: 'center',
+                fontSize: '20px',
+                fontWeight: 600,
+              }}
+            >
+              Reset Password
+            </span>
 
-    <div className="lock-divider" />
-
-    {/* BODY */}
-    <div className="membership">
-      <Typography sx={{ color: '#FFF', textAlign: 'center' }}>
-        Are you sure you would like to get an email at
-        <br />
-        <strong>{user?.email}</strong> to reset your <br/> password?
-      </Typography>
-    </div>
-
-    <div className="lock-divider" />
-
-    {/* FOOTER */}
-    <div className="lock-footer">
-      <button
-        type="button"
-        className="lock-logout"
-        onClick={() => setOpenResetPassword(false)}
-      >
-        Cancel
-      </button>
-
-       <button
+            <button
               type="button"
-        loading={loadingResetPassword}
-        onClick={onConfirmResetPassword}
-        className="lock-unlock"
-        style={{
+              className="lock-close"
+              onClick={() => setOpenResetPassword(false)}
+            >
+              <CloseIcon />
+            </button>
+          </div>
+
+          <div className="lock-divider" />
+
+          {/* BODY */}
+          <div className="membership">
+            <Typography sx={{ color: '#FFF', textAlign: 'center' }}>
+              Are you sure you would like to get an email at
+              <br />
+              <strong>{user?.email}</strong> to reset your <br /> password?
+            </Typography>
+          </div>
+
+          <div className="lock-divider" />
+
+          {/* FOOTER */}
+          <div className="lock-footer">
+            <button
+              type="button"
+              className="lock-logout"
+              onClick={() => setOpenResetPassword(false)}
+            >
+              Cancel
+            </button>
+
+            <button
+              type="button"
+              loading={loadingResetPassword}
+              onClick={onConfirmResetPassword}
+              className="lock-unlock"
+              style={{
                 color: '#FFFFFF',
               }}
-      >
-        Confirm
-      </button>
-    </div>
+            >
+              Confirm
+            </button>
+          </div>
 
-  </div>
-</Dialog>
+        </div>
+      </Dialog>
 
 
 
@@ -1372,12 +1372,12 @@ export default function Profile({ onChange }) {
             <h3>Contact Us</h3>
 
             <div className="contact-buttons">
-              <a className="contact-btn" href="https://instagram.com/bspconsult">
+              <a className="contact-btn" href="https://instagram.com/bspconsult" target='_blank' rel="noopener noreferrer">
                 <img src="/img/insta.svg" alt="" />
                 <span>Instagram</span>
               </a>
 
-              <a className="contact-btn" href="https://snapchat.com/t/78tjGoDM">
+              <a className="contact-btn" href="https://snapchat.com/t/78tjGoDM" target='_blank' rel="noopener noreferrer">
                 <img src="/img/snap.svg" alt="" />
                 <span>Snapchat</span>
               </a>

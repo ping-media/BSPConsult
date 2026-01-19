@@ -1,10 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&display=swap');
+
 * {
   font-family: 'Figtree', sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 .courses-wrapper {
   display: flex;
   justify-content: center;
@@ -41,9 +43,11 @@
   text-align: center;
   border-radius: 8px;
 }
-.g-lock{
+
+.g-lock {
   margin-bottom: 20px;
 }
+
 .locked-text {
   font-size: 18px;
   font-weight: 500;
@@ -192,9 +196,11 @@ details[open] .expand-icons .icon-up {
 
 /* ================= MOBILE STYLES ================= */
 @media (max-width: 768px) {
+
   /* Wrapper stacking and full width */
   .courses-wrapper {
-    display: block; /* remove desktop flex centering */
+    display: block;
+    /* remove desktop flex centering */
     padding: 2px;
   }
 
@@ -205,21 +211,28 @@ details[open] .expand-icons .icon-up {
 
   /* Video adjustments */
   .course-iframe {
-     height: auto;              /* remove fixed height */
-    aspect-ratio: 16 / 9;      /* correct video ratio */
-    margin-top: 8px; 
+    height: auto;
+    /* remove fixed height */
+    /* aspect-ratio: 16 / 9; */
+    /* correct video ratio */
+    margin-top: 0;
+    border-radius: 8px;
+    height: 240px;
   }
 
   /* Locked state adjustments */
   .locked-wrapper {
-    height: auto; /* auto height for small screens */
+    height: auto;
+    /* auto height for small screens */
     padding: 40px;
   }
-.g-lock{
-  width: 48px;
-  height: 48px;
-  margin-bottom: 16px;
-}
+
+  .g-lock {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 16px;
+  }
+
   .locked-text {
     font-size: 16px;
     line-height: 22px;
@@ -235,57 +248,68 @@ details[open] .expand-icons .icon-up {
     width: 100%;
     height: 44px;
     font-size: 14px;
-      margin-top: 16px;
+    margin-top: 16px;
   }
 
   /* Course heading */
   .course-heading {
-    font-size: 20px;
+    font-size: 18px;
     padding: 8px 0;
-    margin-top: 24px;
+    margin-top: 20px;
     text-align: left;
   }
 
 
-/* make summary flex container */
-.accordion-summary {
-  display: flex;
-  align-items: flex-start;   
-  justify-content: space-between; 
-  flex-wrap: nowrap;            
+  /* make summary flex container */
+  .accordion-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    padding: 0;
+    margin-bottom: 0;
+  }
+  .accordion[open] .accordion-summary{
+    margin-bottom: 12px;
+  }
 
-}
+  /* wrap the module text in its own block */
+  .accordion-summary .module-title {
+    display: inline-block;
+    max-width: calc(100% - 40px);
+    word-break: break-word;
+    text-align: left;
+    font-size: 16px;
+    margin-left: 0;
+  }
 
-/* wrap the module text in its own block */
-.accordion-summary .module-title {
-  display: inline-block;        
-  max-width: calc(100% - 40px); 
-  word-break: break-word;      
-  text-align: left;   
-  font-size: 16px;        
-}
+  /* arrows stay right */
+  .accordion-summary .expand-icons {
+    flex-shrink: 0;
+    display: flex;
+    gap: 4px;
 
-/* arrows stay right */
-.accordion-summary .expand-icons {
-  flex-shrink: 0;               
-  display: flex;
-  gap: 4px;
-
-}
+  }
 
 
   .accordion-details {
     font-size: 14px;
-    padding: 4px 12px 12px;
+    padding: 0;
     display: block;
   }
 
   /* Video rows */
   .video-row {
-    margin-top: 8px;
-    padding: 6px 8px;
-    justify-content: flex-start; /* left align content */
+    margin-top: 0;
+    padding: 0;
+    justify-content: flex-start;
+    /* left align content */
     text-align: left;
+    margin-bottom: 16px;
+    gap: 12px
+  }
+  .accordion-details .video-row:last-child {
+    margin-bottom: 0;
   }
 
   .video-left-icon {
@@ -294,15 +318,28 @@ details[open] .expand-icons .icon-up {
   }
 
   .video-action-icon {
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
   }
 
   .video-title {
-    margin-left: 8px;
+    margin-left: 0;
     font-size: 14px;
   }
 
- 
-}
+  .accordion {
+    padding: 12px;
+    padding-top: 12px;
+    margin-top: 8px;
+  }
 
+  .accordion[open] {
+    padding-top: 12px;
+    margin-bottom: 8px;
+  }
+  .accordion-summary .module-title{
+    line-height: 22px;
+  }
+
+
+}

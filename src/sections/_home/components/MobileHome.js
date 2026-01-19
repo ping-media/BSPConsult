@@ -1329,7 +1329,7 @@ export default function MobileHome() {
               style={{
                 flex: 1,
                 textAlign: 'center',
-                fontSize: '20px',
+                fontSize: '16px',
                 fontWeight: 600,
               }}
             >
@@ -1349,7 +1349,7 @@ export default function MobileHome() {
 
           {/* BODY */}
           <div className="membership">
-            <Typography sx={{ color: '#FFF', textAlign: 'center' }}>
+            <Typography sx={{ color: '#FFF', textAlign: 'center', fontSize: '14px', lineHeight: '20px', fontWeight: 500 }}>
               Are you sure you would like to get an email at
               <br />
               <strong>{user?.email}</strong> to reset your <br /> password?
