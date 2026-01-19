@@ -68,12 +68,12 @@
   opacity: .8;
 }
 
-.membership {
+/* .membership {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 12px;
-}
+} */
 
 .video-wrapper iframe {
   width: 100%;
