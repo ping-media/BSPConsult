@@ -602,13 +602,14 @@ export default function Courses({ onChange }) {
 
   const { user } = useAuthContext();
   const [activeVideoUrl, setActiveVideoUrl] = useState(null);
+  const [openAccordionIndex, setOpenAccordionIndex] = useState(0); // Track which accordion is open
 
   const [openUpgrade, setOpenUpgrade] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
 
 
   const membership = user?.membership;
-   const hasNotExpired = () => {
+  const hasNotExpired = () => {
     const expiry =
       user?.expire_date ||
       user?.expiry_date;
@@ -630,7 +631,7 @@ export default function Courses({ onChange }) {
 
 
 
- 
+
 
   // const isSubscribed =
   //   user?.membership === '10' &&
@@ -975,6 +976,14 @@ export default function Courses({ onChange }) {
     }
   };
 
+  const handleAccordionToggle = (index, event) => {
+    event.preventDefault(); // Prevent default details toggle behavior
+    event.stopPropagation(); // Stop event bubbling
+
+    // If clicking the same accordion, close it; otherwise open the clicked one
+    setOpenAccordionIndex(openAccordionIndex === index ? null : index);
+  };
+
 
   const currentPlan =
     isSilver ? 'silver' :
@@ -1200,10 +1209,13 @@ export default function Courses({ onChange }) {
                 <details
                   key={moduleIndex}
                   className="accordion"
-                  open={moduleIndex === 0}
+                  open={openAccordionIndex === moduleIndex}
                 >
 
-                  <summary className="accordion-summary">
+                  <summary
+                    className="accordion-summary"
+                    onClick={(e) => handleAccordionToggle(moduleIndex, e)}
+                  >
                     {module.title}
 
                     <span className="expand-icons">
@@ -1238,10 +1250,10 @@ export default function Courses({ onChange }) {
 
                         {isSubscribed ? (
                           <img
-    src="/img/silver-play.svg"
-    alt="Play"
-    className="video-action-icon"
-  />
+                            src="/img/silver-play.svg"
+                            alt="Play"
+                            className="video-action-icon"
+                          />
                         ) : (
                           <LockIcon />
                         )}
