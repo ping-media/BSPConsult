@@ -200,6 +200,12 @@
   color: #374151;
 }
 
+@media (min-width: 1440px) {
+  .program-includes li{
+    font-size: 15px;
+  }
+}
+
 @media (max-width: 1550px) {
  .program-title {
   font-size: 20px;
@@ -239,7 +245,7 @@
   }
 
   .price-amount {
-    font-size: 28px !important;
+    font-size: 24px !important;
     /* BIG number */
     font-weight: 600;
     color: #ffffff;
@@ -276,6 +282,13 @@
   }
   .program-note{
     font-size: 14px;
+  }
+  .section-price .heading-h5{
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+  .section-price .features-badge{
+    margin-bottom: 16px;
   }
 }
 

@@ -332,7 +332,7 @@
 .upgrade-content {
   text-align: center;
   padding: 16px 0;
-  border-bottom: 1px solid #FFFFFF1A;
+  /* border-bottom: 1px solid #FFFFFF1A; */
 }
 
 .upgrade-content h3 {
@@ -560,7 +560,14 @@
   }
 
   .upgrade-content p {
+    font-size: 14px;
+    font-weight: 400;
     line-height: 20px;
+    margin: 0 24px;
+  }
+
+  .upgrade-includes {
+    margin-top: 12px;
   }
 
   .upgrade-includes li {
@@ -577,7 +584,7 @@
   }
 
   .upgrade-card--advanced {
-    margin: 20px;
+    margin: 24px;
   }
 
   .upgrade-note {
@@ -591,8 +598,30 @@
   }
 
   .price-period {
-    font-size: 15px !important;
+    font-size: 12px !important;
   }
+
+  .upgrade-content h3 {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: #FFFFFF;
+  }
+
+  .upgrade-includes {
+    padding: 0 12px 12px;
+  }
+
+  .upgrade-card--gold {
+    margin: 24px
+  }
+
+  .adva-btn, .Gold-btn {
+    padding: 9px 12px;
+    line-height: 20px;
+    font-weight: 500;
+  }
+
 }
 
 
@@ -652,7 +681,7 @@
   color: #fff;
   font-size: 20px;
   cursor: pointer;
-  opacity: 0.7;
+  opacity: 1;
 }
 
 .upgrade-close:hover {
@@ -663,5 +692,12 @@
   .plan-btn {
     line-height: normal;
     padding: 6px 12px;
+  }
+
+  .plan-switch {
+    margin: 0 24px;
+  }
+  .upgrade-close{
+    font-size: 17px;
   }
 }
