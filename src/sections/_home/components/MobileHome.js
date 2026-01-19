@@ -188,7 +188,7 @@ export default function MobileHome() {
 
   const [openUpgrade, setOpenUpgrade] = useState(false);
   const [gopenUpgrade, setgOpenUpgrade] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState(null);
+  const [selectedPlan, setSelectedPlan] = useState('gold');
 
   const handleUpgradeCheckout = async (priceId) => {
     try {
@@ -922,9 +922,7 @@ export default function MobileHome() {
                     <div className="upgrade-headers">
                       <h3 className="upgrade-title">{upgradeData.title}</h3>
 
-                      {selectedPlan === 'advanced' && (
-                        <span className="best-value-badge">Best Value</span>
-                      )}
+                    
                     </div>
 
 
