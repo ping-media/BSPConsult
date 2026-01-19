@@ -1169,7 +1169,7 @@ export default function Courses({ onChange }) {
                 />
               ) : (
                 <div className="locked-wrapper">
-                  <div >
+                  <div className='g-lock'>
                     <img src="/img/locked-premium.svg" alt="Locked" />
                   </div>
 

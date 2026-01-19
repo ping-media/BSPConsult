@@ -313,7 +313,7 @@ export default function VideoContentSilver({ setCurrentPage }) {
                     <div >
                       <img src="/img/locked-premium.svg" alt="Locked" />
                     </div>
-                    <h3 className='locked-text'>You need to be a Silver Member to unlock the Silver Video Content</h3>
+                    <h3 className='locked-text'>Essential Video Content Locked</h3>
 
 
                     <button type='button'

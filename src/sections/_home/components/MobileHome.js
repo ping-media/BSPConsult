@@ -1575,7 +1575,7 @@ export default function MobileHome() {
                       <img src="/img/locked-premium.svg" alt="Locked" />
                     </div>
                     <h3 className="locked-text">
-                      You need to be a Silver Member to unlock the Silver Video Content
+                      Essential Video Content Locked
                     </h3>
                     <button
                       type="button"
@@ -1615,7 +1615,7 @@ export default function MobileHome() {
                     />
                   ) : (
                     <div className="locked-wrapper">
-                      <div>
+                      <div className="g-lock">
                         <img src="/img/locked-premium.svg" alt="Locked" />
                       </div>
                       <h3 className="locked-text">Gold Content Locked</h3>
