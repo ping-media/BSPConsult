@@ -1511,9 +1511,6 @@ export default function MobileHome() {
         {value === 1 && (
           <div className="tab-panel">
 
-            <div className="content-grid">
-              <div className="all-content">
-
                 {/* VIDEO AREA */}
                 {isSubscribed ? (
                   <div className="video-container">
@@ -1529,28 +1526,7 @@ export default function MobileHome() {
                           title="Course Video"
                           className="video-iframe"
                         />
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="video-locked">
-                    <div>
-                      <img src="/img/locked-premium.svg" alt="Locked" />
-                    </div>
-                    <h3 className="locked-text">
-                      You need to be a Silver Member to unlock the Silver Video Content
-                    </h3>
-                    <button
-                      type="button"
-                      className="update-btn"
-                      onClick={handleSubscription}
-                    >
-                      Purchase Membership
-                    </button>
-                  </div>
-                )}
-
-                {/*  MODULE LIST (ALWAYS VISIBLE) */}
+                          {/*  MODULE LIST (ALWAYS VISIBLE) */}
                 <div className="modules-list">
                   {modules.map((module, index) => (
                     <div
@@ -1590,11 +1566,33 @@ export default function MobileHome() {
                     </div>
                   ))}
                 </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="video-locked">
+                    <div>
+                      <img src="/img/locked-premium.svg" alt="Locked" />
+                    </div>
+                    <h3 className="locked-text">
+                      You need to be a Silver Member to unlock the Silver Video Content
+                    </h3>
+                    <button
+                      type="button"
+                      className="update-btn"
+                      onClick={handleSubscription}
+                    >
+                      Purchase Membership
+                    </button>
+                  </div>
+                )}
+
+              
 
               </div>
-            </div>
+       
 
-          </div>
+        
         )}
 
 
