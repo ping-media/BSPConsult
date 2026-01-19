@@ -519,7 +519,7 @@
   }
 
   .info-box {
-    padding: 0;
+    padding-bottom: 0;
     margin-bottom: 24px;
   }
 
@@ -527,6 +527,7 @@
     font-size: 16px;
     padding-top: 0;
     padding-bottom: 16px;
+    margin-bottom: 16px;
   }
 
   .info-row {
@@ -580,30 +581,13 @@
   .upgrade-note{
     font-size: 12px;
   }
+  .premium {
+  margin-bottom: 16px;
+  font-size: 14px;
+}
 }
 
-@media (max-width: 480px) {
-  .content-grid {
-    padding: 0;
-  }
 
-  .info-box {
-    padding: 12px;
-    border-radius: 12px;
-  }
-
-  .info-box h3 {
-    font-size: 16px;
-  }
-
-  .price {
-    font-size: 18px;
-  }
-
-  .benefits {
-    font-size: 14px;
-  }
-}
 
 
 /* ================= PLAN SWITCH ================= */
