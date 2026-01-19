@@ -212,7 +212,7 @@ details[open] .expand-icons .icon-up {
   /* Locked state adjustments */
   .locked-wrapper {
     height: auto; /* auto height for small screens */
-    padding: 20px;
+    padding: 40px;
   }
 .g-lock{
   width: 48px;

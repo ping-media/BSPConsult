@@ -1506,75 +1506,30 @@ export default function MobileHome() {
         )}
 
         {/* TAB 1 – VIDEO CONTENT */}
-        {value === 1 && (
-          <div className="tab-panel">
+     {value === 1 && (
+  <div className="tab-panel">
 
-            {/* VIDEO AREA */}
+    <div className="video-container">
+      <div className="video-outer-box">
+        <div className="video-inner-box">
+
+          {/* VIDEO / LOCKED OVERLAY */}
+          <div className="video-wrapper">
             {isSubscribed ? (
-              <div className="video-container">
-                <div className="video-outer-box">
-                  <div className="video-inner-box">
-                    <iframe
-                      src={
-                        user.membership === '10'
-                          ? goldCourseUrl
-                          : silverCourseUrl
-                      }
-                      allowFullScreen
-                      title="Course Video"
-                      className="video-iframe"
-                    />
-                    {/*  MODULE LIST (ALWAYS VISIBLE) */}
-                    <div className="modules-list">
-                      {modules.map((module, index) => (
-                        <div
-                          key={index}
-                          className={`module-row ${isSubscribed ? 'clickable' : ''
-                            } ${activeIndex === index ? 'active' : ''}`}
-                          onClick={() => {
-                            if (!isSubscribed) return;
-
-                            setActiveIndex(index);
-
-                            if (user.membership === '10') {
-                              setGoldCourseUrl(module.url);
-                            } else {
-                              setSilverCourseUrl(module.url);
-                            }
-                          }}
-                        >
-                          <img
-                            src="/img/silvber-content.svg"
-                            alt="Module"
-                            className="silver-content-icon"
-                          />
-
-                          <span className="module-title">{module.name}</span>
-                          <span className="module-spacer" />
-
-                          {/* ICON LOGIC */}
-                          {!isSubscribed && <LockIcon />}
-
-                          {isSubscribed &&
-                            (activeIndex === index ? (
-                              <img src="/img/silvde-pause.svg" alt="Pause" />
-                            ) : (
-                              <img src="/img/silver-play.svg" alt="Play" />
-                            ))}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <iframe
+                src={
+                  user.membership === '10'
+                    ? goldCourseUrl
+                    : silverCourseUrl
+                }
+                allowFullScreen
+                title="Course Video"
+                className="video-iframe"
+              />
             ) : (
-              <div className="video-locked">
-                <div className='v-lock'>
-                  <img src="/img/locked-premium.svg" alt="Locked" />
-                </div>
-                <h3 className="locked-text">
-                  Essential Video Content<br/> Locked
-                </h3>
+              <div className="locked-wrapper">
+                <img src="/img/locked-premium.svg" alt="Locked" />
+                <h3>Essential Video Content Locked</h3>
                 <button
                   type="button"
                   className="update-btn"
@@ -1584,14 +1539,53 @@ export default function MobileHome() {
                 </button>
               </div>
             )}
-
-
-
           </div>
 
+          {/* ✅ MODULE LIST (ALWAYS INSIDE SAME BOX) */}
+          <div className="modules-list">
+            {modules.map((module, index) => (
+                <div
+                    key={index}
+                    className={`module-row ${isSubscribed ? 'clickable' : ''
+                      } ${activeIndex === index ? 'active' : ''}`}
+                    onClick={() => {
+                      if (!isSubscribed) return;
+                      setActiveIndex(index);
+                      changeCourseUrl(module.url);
+                    }}
+                  >
+                <img
+                  src="/img/silvber-content.svg"
+                  alt="Module"
+                  className="silver-content-icon"
+                />
 
+                <span className="module-title">{module.name}</span>
+                <span className="module-spacer" />
 
-        )}
+                {!isSubscribed ? (
+                  <LockIcon
+                   sx={{
+                                  fontSize: {
+                                    xs: 16,
+                                    sm: 22,
+                                  },
+                                }} />
+                ) : activeIndex === index ? (
+                  <img src="/img/silvde-pause.svg" alt="Pause" />
+                ) : (
+                  <img src="/img/silver-play.svg" alt="Play" />
+                )}
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+)}
 
 
 
