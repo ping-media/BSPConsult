@@ -226,8 +226,159 @@
 // }
 
 
+// import PropTypes from 'prop-types';
+// import { useState } from 'react';
+// import LockIcon from '@mui/icons-material/Lock';
+// import { MotionViewport } from 'src/components/animate';
+// import { useAuthContext } from '../../../auth/useAuthContext';
+// import './VideoContentSilver.css';
+
+// export default function VideoContentSilver({ setCurrentPage }) {
+//   VideoContentSilver.propTypes = {
+//     setCurrentPage: PropTypes.func.isRequired,
+//   };
+
+//   // const DEV_PREVIEW = true; //  UI work only
+
+//   const { user } = useAuthContext();
+
+//   const [courseUrl, setCourseUrl] = useState(
+//     'https://player.vimeo.com/video/912613882?badge=0&autopause=0&player_id=0&app_id=58479'
+//   );
+
+//   // const checkExpireDate = () => {
+//   //   const sec = user.expire_date ? user.expire_date.seconds * 1000 : 0;
+//   //   const expireDate = new Date(sec);
+//   //   const currentDate = new Date();
+//   //   return currentDate.getTime() < expireDate.getTime();
+//   // };
+
+//   const hasNotExpired = () => {
+//     const expiry =
+//       user?.expire_date ||
+//       user?.expiry_date;
+
+//     // No expiry = lifetime access
+//     if (!expiry || !expiry.seconds) {
+//       return true;
+//     }
+
+//     return Date.now() < expiry.seconds * 1000;
+//   };
+
+//   const isSubscribed =
+//     ['8', '9', '10'].includes(user?.membership) &&
+//     hasNotExpired();
+
+
+//   const [activeIndex, setActiveIndex] = useState(0); // first one active by default
+
+
+//   const changeCourseUrl = (url) => {
+//     if (isSubscribed) {
+//       setCourseUrl(url);
+//     }
+//   };
+
+//   const modules = [
+//     { name: 'ELO RATINGS', url: 'https://player.vimeo.com/video/1034739032?badge=0&autopause=0&player_id=0&app_id=58479' },
+//     { name: 'SERVICE RATINGS', url: 'https://player.vimeo.com/video/1034739217?badge=0&autopause=0&player_id=0&app_id=58479' },
+//     { name: 'RETURN RATINGS', url: 'https://player.vimeo.com/video/1034739245?badge=0&autopause=0&player_id=0&app_id=58479' },
+//     { name: 'UNDER PRESSURE RATINGS', url: 'https://player.vimeo.com/video/1034739270?badge=0&autopause=0&player_id=0&app_id=58479' },
+//     { name: 'CENTRAL TENNIS BETTING MODEL', url: 'https://player.vimeo.com/video/1034739295?badge=0&autopause=0&player_id=0&app_id=58479' },
+//     { name: 'EXERCISE CLAY', url: 'https://player.vimeo.com/video/1034739314?badge=0&autopause=0&player_id=0&app_id=58479' },
+//     { name: 'EXERCISE HARD', url: 'https://player.vimeo.com/video/1034739336?badge=0&autopause=0&player_id=0&app_id=58479' },
+//     { name: 'EXERCISE GRASS', url: 'https://player.vimeo.com/video/1034739350?badge=0&autopause=0&player_id=0&app_id=58479' },
+//     { name: 'UPDATE MODELS', url: 'https://player.vimeo.com/video/1042773017?badge=0&autopause=0&player_id=0&app_id=58479' },
+//     { name: 'SUMMARY', url: 'https://player.vimeo.com/video/1043640297?badge=0&autopause=0&player_id=0&app_id=58479' },
+//   ];
+
+//   return (
+//     <MotionViewport>
+//       <div className="content-grid">
+//         <div className='all-content'>
+//           <div className="video-container ">
+//             <div className="video-outer-box">
+//               <div className="video-inner-box">
+//                 {isSubscribed ? (
+//                   <iframe
+//                     src={courseUrl}
+//                     scrolling="no"
+//                     allowFullScreen
+//                     title="Course Video"
+//                     className="video-iframe"
+//                   />
+//                 ) : (
+//                   <div className="video-locked">
+//                     <div >
+//                       <img src="/img/locked-premium.svg" alt="Locked" />
+//                     </div>
+//                     <h3 className='locked-text'>Essential Video Content Locked</h3>
+
+
+//                     <button type='button'
+//                       className="update-btn"
+//                       onClick={() => setCurrentPage('Subscriptions')}
+//                     >
+//                       Purchase Membership
+//                     </button>
+//                   </div>
+
+//                 )}
+
+//                 <script src="https://player.vimeo.com/api/player.js" />
+
+
+//                 {modules.map((module, index) => (
+//                   /* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */
+//                   <div
+//                     key={index}
+//                     className={`module-row ${isSubscribed ? 'clickable' : ''
+//                       } ${activeIndex === index ? 'active' : ''}`}
+//                     onClick={() => {
+//                       if (!isSubscribed) return;
+//                       setActiveIndex(index);
+//                       changeCourseUrl(module.url);
+//                     }}
+//                   >
+
+//                     <img
+//                       src="/img/silvber-content.svg"
+//                       alt="Play"
+//                       className="silver-content-icon"
+//                     />
+
+//                     <span className="module-title">{module.name}</span>
+//                     <span className="module-spacer" />
+
+//                     {!isSubscribed && <LockIcon />}
+
+//                   {isSubscribed && (
+//   <img
+//     src="/img/silver-play.svg"
+//     alt="Play"
+//   />
+// )}
+
+
+
+//                   </div>
+//                 ))}
+
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </MotionViewport>
+
+//   );
+// }
+
+/* eslint-disable */
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import Player from '@vimeo/player'; // ✅ Correct import
+import { useEffect, useRef, useState } from 'react';
 import LockIcon from '@mui/icons-material/Lock';
 import { MotionViewport } from 'src/components/animate';
 import { useAuthContext } from '../../../auth/useAuthContext';
@@ -238,110 +389,122 @@ export default function VideoContentSilver({ setCurrentPage }) {
     setCurrentPage: PropTypes.func.isRequired,
   };
 
-  // const DEV_PREVIEW = true; //  UI work only
-
   const { user } = useAuthContext();
 
-  const [courseUrl, setCourseUrl] = useState(
-    'https://player.vimeo.com/video/912613882?badge=0&autopause=0&player_id=0&app_id=58479'
-  );
+  const [activeIndex, setActiveIndex] = useState(0); // currently loaded video
+  const [isPlaying, setIsPlaying] = useState(false);
 
-  // const checkExpireDate = () => {
-  //   const sec = user.expire_date ? user.expire_date.seconds * 1000 : 0;
-  //   const expireDate = new Date(sec);
-  //   const currentDate = new Date();
-  //   return currentDate.getTime() < expireDate.getTime();
-  // };
+  const iframeRef = useRef(null);
+  const playerRef = useRef(null);
 
   const hasNotExpired = () => {
-    const expiry =
-      user?.expire_date ||
-      user?.expiry_date;
-
-    // No expiry = lifetime access
-    if (!expiry || !expiry.seconds) {
-      return true;
-    }
-
+    const expiry = user?.expire_date || user?.expiry_date;
+    if (!expiry || !expiry.seconds) return true;
     return Date.now() < expiry.seconds * 1000;
   };
 
   const isSubscribed =
-    ['8', '9', '10'].includes(user?.membership) &&
-    hasNotExpired();
-
-
-  const [activeIndex, setActiveIndex] = useState(0); // first one active by default
-
-
-  const changeCourseUrl = (url) => {
-    if (isSubscribed) {
-      setCourseUrl(url);
-    }
-  };
+    ['8', '9', '10'].includes(user?.membership) && hasNotExpired();
 
   const modules = [
-    { name: 'ELO RATINGS', url: 'https://player.vimeo.com/video/1034739032?badge=0&autopause=0&player_id=0&app_id=58479' },
-    { name: 'SERVICE RATINGS', url: 'https://player.vimeo.com/video/1034739217?badge=0&autopause=0&player_id=0&app_id=58479' },
-    { name: 'RETURN RATINGS', url: 'https://player.vimeo.com/video/1034739245?badge=0&autopause=0&player_id=0&app_id=58479' },
-    { name: 'UNDER PRESSURE RATINGS', url: 'https://player.vimeo.com/video/1034739270?badge=0&autopause=0&player_id=0&app_id=58479' },
-    { name: 'CENTRAL TENNIS BETTING MODEL', url: 'https://player.vimeo.com/video/1034739295?badge=0&autopause=0&player_id=0&app_id=58479' },
-    { name: 'EXERCISE CLAY', url: 'https://player.vimeo.com/video/1034739314?badge=0&autopause=0&player_id=0&app_id=58479' },
-    { name: 'EXERCISE HARD', url: 'https://player.vimeo.com/video/1034739336?badge=0&autopause=0&player_id=0&app_id=58479' },
-    { name: 'EXERCISE GRASS', url: 'https://player.vimeo.com/video/1034739350?badge=0&autopause=0&player_id=0&app_id=58479' },
-    { name: 'UPDATE MODELS', url: 'https://player.vimeo.com/video/1042773017?badge=0&autopause=0&player_id=0&app_id=58479' },
-    { name: 'SUMMARY', url: 'https://player.vimeo.com/video/1043640297?badge=0&autopause=0&player_id=0&app_id=58479' },
+    { name: 'ELO RATINGS', id: 1034739032 },
+    { name: 'SERVICE RATINGS', id: 1034739217 },
+    { name: 'RETURN RATINGS', id: 1034739245 },
+    { name: 'UNDER PRESSURE RATINGS', id: 1034739270 },
+    { name: 'CENTRAL TENNIS BETTING MODEL', id: 1034739295 },
+    { name: 'EXERCISE CLAY', id: 1034739314 },
+    { name: 'EXERCISE HARD', id: 1034739336 },
+    { name: 'EXERCISE GRASS', id: 1034739350 },
+    { name: 'UPDATE MODELS', id: 1042773017 },
+    { name: 'SUMMARY', id: 1043640297 },
   ];
+
+  // Initialize player once
+  useEffect(() => {
+    if (!iframeRef.current) return;
+
+    playerRef.current = new Player(iframeRef.current, {
+      id: modules[activeIndex].id,
+      autopause: false,
+    });
+
+    playerRef.current.on('play', () => setIsPlaying(true));
+    playerRef.current.on('pause', () => setIsPlaying(false));
+
+    return () => {
+      playerRef.current?.destroy();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Load a new video when switching modules
+  const changeVideo = async (index) => {
+    if (!playerRef.current) return;
+
+    await playerRef.current.loadVideo(modules[index].id);
+    setActiveIndex(index);
+    setIsPlaying(false);
+  };
+
+  // Play/Pause for the specific module
+  const togglePlayPause = async (index) => {
+    if (!playerRef.current) return;
+
+    if (index !== activeIndex) {
+      // Load the new video and start playing
+      await playerRef.current.loadVideo(modules[index].id);
+      setActiveIndex(index);
+      await playerRef.current.play();
+      setIsPlaying(true);
+      return;
+    }
+
+    const paused = await playerRef.current.getPaused();
+    if (paused) {
+      await playerRef.current.play();
+      setIsPlaying(true);
+    } else {
+      await playerRef.current.pause();
+      setIsPlaying(false);
+    }
+  };
 
   return (
     <MotionViewport>
       <div className="content-grid">
-        <div className='all-content'>
-          <div className="video-container ">
+        <div className="all-content">
+          <div className="video-container">
             <div className="video-outer-box">
               <div className="video-inner-box">
                 {isSubscribed ? (
                   <iframe
-                    src={courseUrl}
-                    scrolling="no"
+                    ref={iframeRef}
+                    src={`https://player.vimeo.com/video/${modules[activeIndex].id}?badge=0&autopause=0&player_id=0&app_id=58479`}
+                    allow="autoplay; fullscreen"
                     allowFullScreen
                     title="Course Video"
                     className="video-iframe"
                   />
                 ) : (
                   <div className="video-locked">
-                    <div >
-                      <img src="/img/locked-premium.svg" alt="Locked" />
-                    </div>
-                    <h3 className='locked-text'>Essential Video Content Locked</h3>
-
-
-                    <button type='button'
+                    <img src="/img/locked-premium.svg" alt="Locked" />
+                    <h3 className="locked-text">Essential Video Content Locked</h3>
+                    <button
+                      type="button"
                       className="update-btn"
                       onClick={() => setCurrentPage('Subscriptions')}
                     >
                       Purchase Membership
                     </button>
                   </div>
-
                 )}
 
-                <script src="https://player.vimeo.com/api/player.js" />
-
-
                 {modules.map((module, index) => (
-                  /* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */
                   <div
-                    key={index}
-                    className={`module-row ${isSubscribed ? 'clickable' : ''
-                      } ${activeIndex === index ? 'active' : ''}`}
-                    onClick={() => {
-                      if (!isSubscribed) return;
-                      setActiveIndex(index);
-                      changeCourseUrl(module.url);
-                    }}
+                    key={module.id}
+                    className={`module-row ${isSubscribed ? 'clickable' : ''} ${activeIndex === index ? 'active' : ''
+                      }`}
                   >
-
                     <img
                       src="/img/silvber-content.svg"
                       alt="Play"
@@ -350,28 +513,39 @@ export default function VideoContentSilver({ setCurrentPage }) {
 
                     <span className="module-title">{module.name}</span>
                     <span className="module-spacer" />
-                
+
                     {!isSubscribed && <LockIcon />}
 
-                  {isSubscribed && (
-  <img
-    src="/img/silver-play.svg"
-    alt="Play"
-  />
-)}
-
-
+                    {isSubscribed && (
+                      <button
+                        type="button"
+                        className="video-control-btn"
+                        style={{
+                          background: 'transparent', 
+                          border: 'none',           
+                          padding: 0,              
+                          cursor: 'pointer',       
+                        }}
+                        onClick={(e) => {
+                          e.stopPropagation(); // prevent row click
+                          togglePlayPause(index);
+                        }}
+                      >
+                        {activeIndex === index && isPlaying ? (
+                          <img src="/img/silvde-pause.svg" alt="Pause" />
+                        ) : (
+                          <img src="/img/silver-play.svg" alt="Play" />
+                        )}
+                      </button>
+                    )}
 
                   </div>
                 ))}
-
               </div>
             </div>
           </div>
         </div>
       </div>
     </MotionViewport>
-
   );
 }
-
