@@ -154,9 +154,7 @@ padding: 12px;
     height: 48px;
     width: 48px;
   }
-  .module-row.active{
-    background: transparent;
-  }
+  
   .silver-content-icon{
     width: 32px;
     height: 32px;
