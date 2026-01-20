@@ -300,8 +300,8 @@ details[open] .expand-icons .icon-up {
 
   /* Video rows */
   .video-row {
-    margin-top: 0;
-    padding: 0;
+
+    padding: 4px;
     justify-content: flex-start;
     /* left align content */
     text-align: left;
