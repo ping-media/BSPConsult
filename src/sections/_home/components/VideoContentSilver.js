@@ -377,7 +377,7 @@
 
 /* eslint-disable */
 import PropTypes from 'prop-types';
-import Player from '@vimeo/player'; 
+import Player from '@vimeo/player';
 import { useEffect, useRef, useState } from 'react';
 import LockIcon from '@mui/icons-material/Lock';
 import { MotionViewport } from 'src/components/animate';
@@ -499,16 +499,15 @@ export default function VideoContentSilver({ setCurrentPage }) {
                 )}
 
                 {modules.map((module, index) => (
-                 <div
-  key={module.id}
-  className={`module-row ${isSubscribed ? 'clickable' : ''} ${
-    activeIndex === index ? 'active' : ''
-  }`}
-  onClick={() => {
-    if (!isSubscribed) return;
-    togglePlayPause(index);
-  }}
->
+                  <div
+                    key={module.id}
+                    className={`module-row ${isSubscribed ? 'clickable' : ''} ${activeIndex === index ? 'active' : ''
+                      }`}
+                    onClick={() => {
+                      if (!isSubscribed) return;
+                      togglePlayPause(index);
+                    }}
+                  >
 
                     <img
                       src="/img/silvber-content.svg"
@@ -526,10 +525,10 @@ export default function VideoContentSilver({ setCurrentPage }) {
                         type="button"
                         className="video-control-btn"
                         style={{
-                          background: 'transparent', 
-                          border: 'none',           
-                          padding: 0,              
-                          cursor: 'pointer',       
+                          background: 'transparent',
+                          border: 'none',
+                          padding: 0,
+                          cursor: 'pointer',
                         }}
                         onClick={(e) => {
                           e.stopPropagation(); // prevent row click
