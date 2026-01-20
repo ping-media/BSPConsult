@@ -273,11 +273,11 @@ export default function MobileHome() {
   const [playerReady, setPlayerReady] = useState(false);
 
   const iframeRefGold = useRef(null);
-const playerRefGold = useRef(null);
+  const playerRefGold = useRef(null);
 
-const [activeGoldVideoId, setActiveGoldVideoId] = useState(null);
-const [isGoldPlaying, setIsGoldPlaying] = useState(false);
-const [goldPlayerReady, setGoldPlayerReady] = useState(false);
+  const [activeGoldVideoId, setActiveGoldVideoId] = useState(null);
+  const [isGoldPlaying, setIsGoldPlaying] = useState(false);
+  const [goldPlayerReady, setGoldPlayerReady] = useState(false);
 
 
 
@@ -336,175 +336,175 @@ const [goldPlayerReady, setGoldPlayerReady] = useState(false);
 
 
 
-const moduless = [
-  {
-    title: 'Module 1 : Introduction',
-    videos: [
-      { name: 'WELCOME VIDEO', id: 1042772935 },
-      { name: 'MY STORY', id: 734981672 },
-      { name: 'THE REASON BEHIND THE SPORTS BETTING COURSE', id: 733157013 },
-      { name: 'OVERVIEW COURSE', id: 733158094 },
-      { name: 'EXPECTATIONS AND IDENTITY', id: 733171940 },
-    ],
-  },
-  {
-    title: 'Module 2 : Understanding of the sports betting market',
-    videos: [
-      { name: 'WHAT IS SPORTS BETTING?', id: 733173309 },
-      { name: 'DIFFERENT PLAYERS ON THE SPORTS BETTING MARKET', id: 733231554 },
-      { name: 'SPORTS BETTING IN NUMBERS', id: 733269224 },
-    ],
-  },
-  {
-    title: 'Module 3 : Today’s problem',
-    videos: [
-      { name: 'IDENTIFYING TODAY’S PROBLEM', id: 735391346 },
-      { name: 'THE SCIENCE BEHIND SPORTSBETTING', id: 733579981 },
-      { name: 'THE HOOKS OF THE BOOKMAKERS', id: 733581087 },
-    ],
-  },
-  {
-    title: 'Module 4 : Sports betting basics',
-    videos: [
-      { name: 'CALCULATING THE ODDS AND IMPLIED PROBABILITY', id: 734983428 },
-      { name: 'WHY DO ODDS MOVE?', id: 733881443 },
-      { name: 'WHAT IS VALUE?', id: 733630174 },
-      { name: 'DIFFERENT TYPES OF BETTING', id: 733614871 },
-    ],
-  },
-  {
-    title: 'Module 5 : The foundation of success',
-    videos: [
-      { name: 'INTRODUCTION TO MINDSET', id: 733649070 },
-      { name: 'LOSSES & GREED', id: 733887491 },
-      { name: 'LOSS AVERSION', id: 733897110 },
-      { name: 'KEY COMPONENTS OF A WINNER’S MINDSET', id: 733897829 },
-      { name: 'DEVELOPING A BETTING PLAN', id: 733899981 },
-    ],
-  },
-  {
-    title: 'Module 6 : Sports betting models',
-    videos: [
-      { name: 'INTRODUCTION TO A SPORTS BETTING MODEL', id: 733913863 },
-      { name: 'ELO MODEL', id: 733919214 },
-      { name: 'POINT BASED MODEL', id: 733920507 },
-      { name: 'TENNIS BETTING MODEL', id: 733921783 },
-      { name: 'FOOTBALL BETTING MODEL', id: 735459112 },
-    ],
-  },
-  {
-    title: 'Module 7 : Tennis',
-    videos: [
-      { name: 'THE BASICS OF TENNIS', id: 733950187 },
-      { name: 'TOUR CALENDAR', id: 733927566 },
-      { name: 'IMPORTANT TENNIS FACTORS', id: 733988709 },
-      { name: 'PRE-MATCH ANALYSIS TENNIS', id: 733972778 },
-      { name: 'HOW TO READ TENNIS STATISTICS', id: 734004813 },
-      { name: 'BEST TENNIS LINES BOOKMAKERS', id: 734039510 },
-    ],
-  },
-  {
-    title: 'Module 8 : Football',
-    videos: [
-      { name: 'PRINCIPLES OF EFFECTIVE MATCH ANALYSIS', id: 735802325 },
-      { name: 'PRE-MATCH ANALYSIS FOOTBALL', id: 735856125 },
-      { name: 'BEST FOOTBALL LINES BOOKMAKERS', id: 735474046 },
-    ],
-  },
-  {
-    title: 'Module 9 : Study cases',
-    videos: [
-      { name: 'STUDY CASE GRAND SLAM', id: 734356237 },
-      { name: 'STUDY CASE ATP 250 NEWPORT', id: 734385041 },
-      { name: 'STUDY CASE ATP 250 BASTAD', id: 734656700 },
-      { name: 'STUDY CASE ATP 250 BASTAD', id: 734412757 },
-      { name: 'STUDY CASE ATP 500 HAMBURG', id: 734641211 },
-      { name: 'STUDY CASE ATP 500 HAMBURG', id: 734748841 },
-      { name: 'STUDY CASE ATP 500', id: 734755316 },
-      { name: 'STUDY CASE ATP 250 GSTAAD', id: 733903778 },
-      { name: 'EXPLANATION POINT BETTING', id: 734767076 },
-      { name: 'STUDY CASE POINTS BETTING GRAND SLAM', id: 734466060 },
-      { name: 'STUDY CASE POINTS BETTING', id: 734984035 },
-    ],
-  },
-  {
-    title: 'Module 10 : Elite Club',
-    videos: [
-      { name: 'OVERVIEW OF THE ELITE CLUB', id: 737124387 },
-    ],
-  },
-  {
-    title: 'Module 11: Updated Sports Betting Model Tutorial',
-    videos: [
-      { name: 'ELO RATINGS', id: 1034787418 },
-      { name: 'SERVICE RATINGS', id: 1034787468 },
-      { name: 'RETURN RATINGS', id: 1034787486 },
-      { name: 'UNDER PRESSURE RATINGS', id: 1034787522 },
-      { name: 'CENTRAL TENNIS BETTING MODEL', id: 1034787550 },
-      { name: 'COURT CONDITIONS MODEL COMPONENTS', id: 958887773 },
-      { name: 'COURT CONDITIONS MODEL USE', id: 958888135 },
-      { name: 'EXERCISE CLAY', id: 1034787575 },
-      { name: 'EXERCISE HARD', id: 1034787599 },
-      { name: 'EXERCISE GRASS', id: 1034787615 },
-      { name: 'SUMMARY COURSE', id: 1034787615 },
-      { name: 'UPDATE MODELS', id: 1042773017 },
-    ],
-  },
-  {
-    title: 'Module 12 : Extra Content',
-    videos: [
-      { name: 'INDIAN WELLS & MIAMI OPEN', id: 927058082 },
-      { name: 'COURT CONDITIONS & MY BOOKMAKERS', id: 930632756 },
-      { name: 'Why Crypto Bookmakers?', id: 1057120140 },
-    ],
-  },
-];
+  const moduless = [
+    {
+      title: 'Module 1 : Introduction',
+      videos: [
+        { name: 'WELCOME VIDEO', id: 1042772935 },
+        { name: 'MY STORY', id: 734981672 },
+        { name: 'THE REASON BEHIND THE SPORTS BETTING COURSE', id: 733157013 },
+        { name: 'OVERVIEW COURSE', id: 733158094 },
+        { name: 'EXPECTATIONS AND IDENTITY', id: 733171940 },
+      ],
+    },
+    {
+      title: 'Module 2 : Understanding of the sports betting market',
+      videos: [
+        { name: 'WHAT IS SPORTS BETTING?', id: 733173309 },
+        { name: 'DIFFERENT PLAYERS ON THE SPORTS BETTING MARKET', id: 733231554 },
+        { name: 'SPORTS BETTING IN NUMBERS', id: 733269224 },
+      ],
+    },
+    {
+      title: 'Module 3 : Today’s problem',
+      videos: [
+        { name: 'IDENTIFYING TODAY’S PROBLEM', id: 735391346 },
+        { name: 'THE SCIENCE BEHIND SPORTSBETTING', id: 733579981 },
+        { name: 'THE HOOKS OF THE BOOKMAKERS', id: 733581087 },
+      ],
+    },
+    {
+      title: 'Module 4 : Sports betting basics',
+      videos: [
+        { name: 'CALCULATING THE ODDS AND IMPLIED PROBABILITY', id: 734983428 },
+        { name: 'WHY DO ODDS MOVE?', id: 733881443 },
+        { name: 'WHAT IS VALUE?', id: 733630174 },
+        { name: 'DIFFERENT TYPES OF BETTING', id: 733614871 },
+      ],
+    },
+    {
+      title: 'Module 5 : The foundation of success',
+      videos: [
+        { name: 'INTRODUCTION TO MINDSET', id: 733649070 },
+        { name: 'LOSSES & GREED', id: 733887491 },
+        { name: 'LOSS AVERSION', id: 733897110 },
+        { name: 'KEY COMPONENTS OF A WINNER’S MINDSET', id: 733897829 },
+        { name: 'DEVELOPING A BETTING PLAN', id: 733899981 },
+      ],
+    },
+    {
+      title: 'Module 6 : Sports betting models',
+      videos: [
+        { name: 'INTRODUCTION TO A SPORTS BETTING MODEL', id: 733913863 },
+        { name: 'ELO MODEL', id: 733919214 },
+        { name: 'POINT BASED MODEL', id: 733920507 },
+        { name: 'TENNIS BETTING MODEL', id: 733921783 },
+        { name: 'FOOTBALL BETTING MODEL', id: 735459112 },
+      ],
+    },
+    {
+      title: 'Module 7 : Tennis',
+      videos: [
+        { name: 'THE BASICS OF TENNIS', id: 733950187 },
+        { name: 'TOUR CALENDAR', id: 733927566 },
+        { name: 'IMPORTANT TENNIS FACTORS', id: 733988709 },
+        { name: 'PRE-MATCH ANALYSIS TENNIS', id: 733972778 },
+        { name: 'HOW TO READ TENNIS STATISTICS', id: 734004813 },
+        { name: 'BEST TENNIS LINES BOOKMAKERS', id: 734039510 },
+      ],
+    },
+    {
+      title: 'Module 8 : Football',
+      videos: [
+        { name: 'PRINCIPLES OF EFFECTIVE MATCH ANALYSIS', id: 735802325 },
+        { name: 'PRE-MATCH ANALYSIS FOOTBALL', id: 735856125 },
+        { name: 'BEST FOOTBALL LINES BOOKMAKERS', id: 735474046 },
+      ],
+    },
+    {
+      title: 'Module 9 : Study cases',
+      videos: [
+        { name: 'STUDY CASE GRAND SLAM', id: 734356237 },
+        { name: 'STUDY CASE ATP 250 NEWPORT', id: 734385041 },
+        { name: 'STUDY CASE ATP 250 BASTAD', id: 734656700 },
+        { name: 'STUDY CASE ATP 250 BASTAD', id: 734412757 },
+        { name: 'STUDY CASE ATP 500 HAMBURG', id: 734641211 },
+        { name: 'STUDY CASE ATP 500 HAMBURG', id: 734748841 },
+        { name: 'STUDY CASE ATP 500', id: 734755316 },
+        { name: 'STUDY CASE ATP 250 GSTAAD', id: 733903778 },
+        { name: 'EXPLANATION POINT BETTING', id: 734767076 },
+        { name: 'STUDY CASE POINTS BETTING GRAND SLAM', id: 734466060 },
+        { name: 'STUDY CASE POINTS BETTING', id: 734984035 },
+      ],
+    },
+    {
+      title: 'Module 10 : Elite Club',
+      videos: [
+        { name: 'OVERVIEW OF THE ELITE CLUB', id: 737124387 },
+      ],
+    },
+    {
+      title: 'Module 11: Updated Sports Betting Model Tutorial',
+      videos: [
+        { name: 'ELO RATINGS', id: 1034787418 },
+        { name: 'SERVICE RATINGS', id: 1034787468 },
+        { name: 'RETURN RATINGS', id: 1034787486 },
+        { name: 'UNDER PRESSURE RATINGS', id: 1034787522 },
+        { name: 'CENTRAL TENNIS BETTING MODEL', id: 1034787550 },
+        { name: 'COURT CONDITIONS MODEL COMPONENTS', id: 958887773 },
+        { name: 'COURT CONDITIONS MODEL USE', id: 958888135 },
+        { name: 'EXERCISE CLAY', id: 1034787575 },
+        { name: 'EXERCISE HARD', id: 1034787599 },
+        { name: 'EXERCISE GRASS', id: 1034787615 },
+        { name: 'SUMMARY COURSE', id: 1034787615 },
+        { name: 'UPDATE MODELS', id: 1042773017 },
+      ],
+    },
+    {
+      title: 'Module 12 : Extra Content',
+      videos: [
+        { name: 'INDIAN WELLS & MIAMI OPEN', id: 927058082 },
+        { name: 'COURT CONDITIONS & MY BOOKMAKERS', id: 930632756 },
+        { name: 'Why Crypto Bookmakers?', id: 1057120140 },
+      ],
+    },
+  ];
 
-useEffect(() => {
-  if (value !== 2) return;
-  if (!iframeRefGold.current) return;
-  if (playerRefGold.current) return;
+  useEffect(() => {
+    if (value !== 2) return;
+    if (!iframeRefGold.current) return;
+    if (playerRefGold.current) return;
 
-  const player = new Player(iframeRefGold.current);
-  playerRefGold.current = player;
+    const player = new Player(iframeRefGold.current);
+    playerRefGold.current = player;
 
-  player.on('play', () => setIsGoldPlaying(true));
-  player.on('pause', () => setIsGoldPlaying(false));
+    player.on('play', () => setIsGoldPlaying(true));
+    player.on('pause', () => setIsGoldPlaying(false));
 
-  player.ready().then(() => {
-    setGoldPlayerReady(true);
+    player.ready().then(() => {
+      setGoldPlayerReady(true);
 
-    // Optional: auto-load first video
-    const firstVideo = moduless?.[0]?.videos?.[0];
-    if (firstVideo) {
-      setActiveGoldVideoId(firstVideo.id);
-      player.loadVideo(firstVideo.id);
+      // Optional: auto-load first video
+      const firstVideo = moduless?.[0]?.videos?.[0];
+      if (firstVideo) {
+        setActiveGoldVideoId(firstVideo.id);
+        player.loadVideo(firstVideo.id);
+      }
+    });
+
+    return () => {
+      player.destroy();
+      playerRefGold.current = null;
+      setGoldPlayerReady(false);
+      setIsGoldPlaying(false);
+    };
+  }, [value]);
+
+  const toggleGoldPlayPause = async (videoId) => {
+    if (!playerRefGold.current || !goldPlayerReady) return;
+
+    if (videoId !== activeGoldVideoId) {
+      setActiveGoldVideoId(videoId);
+      await playerRefGold.current.loadVideo(videoId);
+      await playerRefGold.current.play();
+      return;
     }
-  });
 
-  return () => {
-    player.destroy();
-    playerRefGold.current = null;
-    setGoldPlayerReady(false);
-    setIsGoldPlaying(false);
+    const paused = await playerRefGold.current.getPaused();
+    paused
+      ? await playerRefGold.current.play()
+      : await playerRefGold.current.pause();
   };
-}, [value]);
-
-const toggleGoldPlayPause = async (videoId) => {
-  if (!playerRefGold.current || !goldPlayerReady) return;
-
-  if (videoId !== activeGoldVideoId) {
-    setActiveGoldVideoId(videoId);
-    await playerRefGold.current.loadVideo(videoId);
-    await playerRefGold.current.play();
-    return;
-  }
-
-  const paused = await playerRefGold.current.getPaused();
-  paused
-    ? await playerRefGold.current.play()
-    : await playerRefGold.current.pause();
-};
 
 
   const [courseUrl, setCourseUrl] = useState(
@@ -1502,14 +1502,14 @@ const toggleGoldPlayPause = async (videoId) => {
 
                   {/* VIDEO OR LOCKED */}
                   {isGoldSubscribed ? (
-                   <iframe
-    ref={iframeRefGold}
-    src="https://player.vimeo.com/video/1034739032"
-    allow="autoplay; fullscreen"
-    allowFullScreen
-    className="course-iframe"
-    title="Gold Zone Video"
-  />
+                    <iframe
+                      ref={iframeRefGold}
+                      src="https://player.vimeo.com/video/1034739032"
+                      allow="autoplay; fullscreen"
+                      allowFullScreen
+                      className="course-iframe"
+                      title="Gold Zone Video"
+                    />
                   ) : (
                     <div className="locked-wrapper">
                       <div className="g-lock">
@@ -1544,29 +1544,29 @@ const toggleGoldPlayPause = async (videoId) => {
 
                       <div className="accordion-details">
                         {(module.videos || []).map((video, videoIndex) => (
-                         <div
-  key={videoIndex}
-  className={`video-row ${isGoldSubscribed ? 'clickable' : ''}`}
-  onClick={() => {
-    if (!isGoldSubscribed) return;
-    toggleGoldPlayPause(video.id);
-  }}
->
-  <img src="/img/silvber-content.svg" className="video-left-icon" />
+                          <div
+                            key={videoIndex}
+                            className={`video-row ${isGoldSubscribed ? 'clickable' : ''}`}
+                            onClick={() => {
+                              if (!isGoldSubscribed) return;
+                              toggleGoldPlayPause(video.id);
+                            }}
+                          >
+                            <img src="/img/silvber-content.svg" className="video-left-icon" />
 
-  <span className="video-title">{video.name}</span>
-  <span className="spacer" />
+                            <span className="video-title">{video.name}</span>
+                            <span className="spacer" />
 
-  {isGoldSubscribed ? (
-    activeGoldVideoId === video.id && isGoldPlaying ? (
-      <img src="/img/silvde-pause.svg" className="video-action-icon" />
-    ) : (
-      <img src="/img/silver-play.svg" className="video-action-icon" />
-    )
-  ) : (
-    <LockIcon />
-  )}
-</div>
+                            {isGoldSubscribed ? (
+                              activeGoldVideoId === video.id && isGoldPlaying ? (
+                                <img src="/img/silvde-pause.svg" className="video-action-icon" />
+                              ) : (
+                                <img src="/img/silver-play.svg" className="video-action-icon" />
+                              )
+                            ) : (
+                              <LockIcon />
+                            )}
+                          </div>
 
                         ))}
                       </div>
