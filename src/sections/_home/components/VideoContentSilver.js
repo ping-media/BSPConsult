@@ -499,11 +499,17 @@ export default function VideoContentSilver({ setCurrentPage }) {
                 )}
 
                 {modules.map((module, index) => (
-                  <div
-                    key={module.id}
-                    className={`module-row ${isSubscribed ? 'clickable' : ''} ${activeIndex === index ? 'active' : ''
-                      }`}
-                  >
+                 <div
+  key={module.id}
+  className={`module-row ${isSubscribed ? 'clickable' : ''} ${
+    activeIndex === index ? 'active' : ''
+  }`}
+  onClick={() => {
+    if (!isSubscribed) return;
+    togglePlayPause(index);
+  }}
+>
+
                     <img
                       src="/img/silvber-content.svg"
                       alt="Play"
