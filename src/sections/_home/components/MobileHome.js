@@ -1,12 +1,4 @@
-/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */
-/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable
-  react/self-closing-comp,
-  jsx-a11y/click-events-have-key-events,
-  jsx-a11y/no-static-element-interactions
-*/
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable no-nested-ternary */
+/* eslint-disable */
 import { loadStripe } from '@stripe/stripe-js';
 import LockIcon from '@mui/icons-material/Lock';
 import CloseIcon from '@mui/icons-material/Close';

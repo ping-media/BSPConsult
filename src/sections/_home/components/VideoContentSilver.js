@@ -377,7 +377,7 @@
 
 /* eslint-disable */
 import PropTypes from 'prop-types';
-import Player from '@vimeo/player'; // ✅ Correct import
+import Player from '@vimeo/player'; 
 import { useEffect, useRef, useState } from 'react';
 import LockIcon from '@mui/icons-material/Lock';
 import { MotionViewport } from 'src/components/animate';
@@ -434,7 +434,6 @@ export default function VideoContentSilver({ setCurrentPage }) {
     return () => {
       playerRef.current?.destroy();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Load a new video when switching modules
