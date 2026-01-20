@@ -1,5 +1,6 @@
 /* eslint-disable */
 import { loadStripe } from '@stripe/stripe-js';
+import Player from '@vimeo/player'; 
 import LockIcon from '@mui/icons-material/Lock';
 import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router-dom';
@@ -38,7 +39,7 @@ import {
 } from 'firebase/firestore';
 import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState,useRef } from 'react';
 import { MotionViewport } from 'src/components/animate';
 import Image from 'src/components/image';
 import { useAuthContext } from '../../../auth/useAuthContext';
@@ -264,21 +265,66 @@ export default function MobileHome() {
   const [activeVideoUrl, setActiveVideoUrl] = useState(null);
 
 
+const iframeRef = useRef(null);
+const playerRef = useRef(null);
 
-  const [activeIndex, setActiveIndex] = useState(0);
+const [activeIndex, setActiveIndex] = useState(0);
+const [isPlaying, setIsPlaying] = useState(false);
+const [playerReady, setPlayerReady] = useState(false);
 
-  const modules = [
-    { name: 'ELO RATINGS', url: 'https://player.vimeo.com/video/1034739032' },
-    { name: 'SERVICE RATINGS', url: 'https://player.vimeo.com/video/1034739217' },
-    { name: 'RETURN RATINGS', url: 'https://player.vimeo.com/video/1034739245' },
-    { name: 'UNDER PRESSURE RATINGS', url: 'https://player.vimeo.com/video/1034739270' },
-    { name: 'CENTRAL TENNIS BETTING MODEL', url: 'https://player.vimeo.com/video/1034739295' },
-    { name: 'EXERCISE CLAY', url: 'https://player.vimeo.com/video/1034739314' },
-    { name: 'EXERCISE HARD', url: 'https://player.vimeo.com/video/1034739336' },
-    { name: 'EXERCISE GRASS', url: 'https://player.vimeo.com/video/1034739350' },
-    { name: 'UPDATE MODELS', url: 'https://player.vimeo.com/video/1042773017' },
-    { name: 'SUMMARY', url: 'https://player.vimeo.com/video/1043640297' },
+
+
+ const modules = [
+    { name: 'ELO RATINGS', id: 1034739032 },
+    { name: 'SERVICE RATINGS', id: 1034739217 },
+    { name: 'RETURN RATINGS', id: 1034739245 },
+    { name: 'UNDER PRESSURE RATINGS', id: 1034739270 },
+    { name: 'CENTRAL TENNIS BETTING MODEL', id: 1034739295 },
+    { name: 'EXERCISE CLAY', id: 1034739314 },
+    { name: 'EXERCISE HARD', id: 1034739336 },
+    { name: 'EXERCISE GRASS', id: 1034739350 },
+    { name: 'UPDATE MODELS', id: 1042773017 },
+    { name: 'SUMMARY', id: 1043640297 },
   ];
+useEffect(() => {
+  if (value !== 1) return;          // 👈 critical
+  if (!iframeRef.current) return;
+  if (playerRef.current) return;   // 👈 prevent re-init
+
+  const player = new Player(iframeRef.current);
+  playerRef.current = player;
+
+  player.on('play', () => setIsPlaying(true));
+  player.on('pause', () => setIsPlaying(false));
+
+  player.ready().then(() => {
+    setPlayerReady(true);
+    player.loadVideo(modules[0].id); // ✅ load first video
+  });
+
+  return () => {
+    player.destroy();
+    playerRef.current = null;
+    setPlayerReady(false);
+  };
+}, [value]);
+
+
+const togglePlayPause = async (index) => {
+  if (!playerRef.current || !playerReady) return;
+
+  if (index !== activeIndex) {
+    setActiveIndex(index);
+    await playerRef.current.loadVideo(modules[index].id);
+    await playerRef.current.play();
+    return;
+  }
+
+  const paused = await playerRef.current.getPaused();
+  paused
+    ? await playerRef.current.play()
+    : await playerRef.current.pause();
+};
 
 
 
@@ -1508,16 +1554,16 @@ export default function MobileHome() {
                   {/* VIDEO / LOCKED OVERLAY */}
                   <div className="video-wraper">
                     {isSubscribed ? (
-                      <iframe
-                        src={
-                          user.membership === '10'
-                            ? goldCourseUrl
-                            : silverCourseUrl
-                        }
-                        allowFullScreen
-                        title="Course Video"
-                        className="video-iframe"
-                      />
+                <iframe
+  ref={iframeRef}
+  src="https://player.vimeo.com/video/1034739032"
+  allow="autoplay; fullscreen"
+  allowFullScreen
+  className="video-iframe"
+  title="Course Video"
+/>
+
+
                     ) : (
                       <div className="locked-wrapper">
                         <div className='g-lock'>
@@ -1536,54 +1582,37 @@ export default function MobileHome() {
                   </div>
 
                   {/* ✅ MODULE LIST (ALWAYS INSIDE SAME BOX) */}
-                  <div className="modules-list">
-                    {modules.map((module, index) => (
-                      <div
-                        key={index}
-                        className={`module-row ${isSubscribed ? 'clickable' : ''
-                          } ${activeIndex === index ? 'active' : ''}`}
-                        onClick={() => {
-                          if (!isSubscribed) return;
+               <div className="modules-list">
+  {modules.map((module, index) => (
+    <div
+      key={index}
+      className={`module-row ${isSubscribed ? 'clickable' : ''} ${
+        activeIndex === index ? 'active' : ''
+      }`}
+      onClick={() => {
+        if (!isSubscribed) return;
+        togglePlayPause(index);
+      }}
+    >
+      <img
+        src="/img/silvber-content.svg"
+        alt="Module"
+        className="silver-content-icon"
+      />
 
-                          setActiveIndex(index);
+      <span className="module-title">{module.name}</span>
+      <span className="module-spacer" />
 
-                          if (user.membership === '10') {
-                            setGoldCourseUrl(module.url);
-                          } else {
-                            setSilverCourseUrl(module.url);
-                          }
-                        }}
-
-                      >
-                        <img
-                          src="/img/silvber-content.svg"
-                          alt="Module"
-                          className="silver-content-icon"
-                        />
-
-                        <span className="module-title">{module.name}</span>
-                        <span className="module-spacer" />
-
-                        {!isSubscribed ? (
-                          <LockIcon
-                            sx={{
-                              fontSize: {
-                                xs: 16,
-                                sm: 22,
-                              },
-                            }}
-                          />
-                        ) : (
-                          <img
-                            src="/img/silver-play.svg"
-                            alt="Play"
-                            className='blue-play'
-                          />
-                        )}
-
-                      </div>
-                    ))}
-                  </div>
+      {!isSubscribed ? (
+        <LockIcon />
+      ) : activeIndex === index && isPlaying ? (
+        <img src="/img/silvde-pause.svg" alt="Pause" />
+      ) : (
+        <img src="/img/silver-play.svg" alt="Play" />
+      )}
+    </div>
+  ))}
+</div>
 
                 </div>
               </div>
