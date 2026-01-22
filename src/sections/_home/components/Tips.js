@@ -124,13 +124,6 @@ CustomTabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
-
 // Initialize Firestore
 const db = getFirestore(firebaseApp);
 
@@ -327,7 +320,7 @@ export default function Tips({ setCurrentPage }) {
     fetchInsightsTips();
     fetchBetTips();
   }, [fetchInsightsTips, fetchBetTips]);
-  
+
   useEffect(() => {
   if (openUpgrade) {
     if (hasNoSubscription || isSilver) {
@@ -1439,7 +1432,6 @@ export default function Tips({ setCurrentPage }) {
                   {publicTips.map((tip, index) => {
                     const stake = Number(calculateStake(tip.reliability) || 0);
                     const stakeAmount = Number(calculateStakeAmount(tip.reliability) || 0);
-
 
                     return (
                       <div className="tip-border" key={tip.id}>

@@ -91,7 +91,6 @@ export default function RegisterForm() {
     try {
       setLoading(true);
       await registerUser(data.email, data.password, data.userName);
-      // navigate(paths.exclusive, { replace: true });
       navigate(paths.exclusive, {
         state: { background: location },
       });
@@ -136,20 +135,11 @@ export default function RegisterForm() {
             <label className="input-label">Username</label>
             <input
               className="input-field"
-              placeholder="John Deo"
+              placeholder="John Doe"
               {...register('userName')}
             />
             {errors.userName && <p className="error-text">{errors.userName.message}</p>}
 
-            {/* EMAIL */}
-            {/* <label className="input-label">Email Address</label>
-            <input
-              type="email"
-              className="input-field"
-              placeholder="example@gmail.com"
-              {...register('email')}
-            />
-            {errors.email && <p className="error-text">{errors.email.message}</p>} */}
 
             <label className="input-label">Email Address</label>
 

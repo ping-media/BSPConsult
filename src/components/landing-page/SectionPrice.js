@@ -1,13 +1,9 @@
 /* eslint-disable react/no-unescaped-entities */
 import './css/PriceSection.css';
-
-import { loadStripe } from '@stripe/stripe-js';
-import { CircleCheck } from 'lucide-react';
 import { useNavigate } from 'react-router';
 import { useState } from 'react';
 import { paths } from 'src/routes/paths';
 
-const stripePromise = loadStripe("pk_live_51NAUESCf4YXq1rsyBMpbCD1Yqi5kocGdjxYqcqknpppNXXnUKKCVxar7NqInLJRCJTCEVkbqQPppP7nvve8E053I00P0pVQI8d");
 
 const programs = [
   {

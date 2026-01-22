@@ -136,9 +136,6 @@ export default function Profile({ onChange }) {
   }, [openStrategy, user]);
 
 
-
-  const handleSubscription = () => onChange(user?.membership);
-
   const onChangeBankroll = async () => {
     setLoadingBankroll(true);
     await updateBankroll(bankroll, user?.stakingStrategy, user?.uid);

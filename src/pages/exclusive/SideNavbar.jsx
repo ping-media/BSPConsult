@@ -1,15 +1,6 @@
 /* eslint-disable react/prop-types */
 import "./SideNavbar.css";
 
-export default function SideNavbar({ active, onChange, onLogout }) {
-  const menuItems = [
-    { id: "Profile", label: "Profile", icon: "/img/user.svg" },
-    { id: "Tips", label: "Setups", icon: "/img/lamp-charge.svg" },
-    { id: "VideoContentSilver", label: "Essential Video Content", icon: "/img/book.svg" },
-    { id: "Courses", label: "BSP Masterclass", icon: "/img/video-play.svg" },
-    { id: "Subscriptions", label: "Programs", icon: "/img/crown.png" },
-  ];
-
   const ChevronRight = () => (
     <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
       <path
@@ -21,6 +12,16 @@ export default function SideNavbar({ active, onChange, onLogout }) {
       />
     </svg>
   );
+
+export default function SideNavbar({ active, onChange, onLogout }) {
+  const menuItems = [
+    { id: "Profile", label: "Profile", icon: "/img/user.svg" },
+    { id: "Tips", label: "Setups", icon: "/img/lamp-charge.svg" },
+    { id: "VideoContentSilver", label: "Essential Video Content", icon: "/img/book.svg" },
+    { id: "Courses", label: "BSP Masterclass", icon: "/img/video-play.svg" },
+    { id: "Subscriptions", label: "Programs", icon: "/img/crown.png" },
+  ];
+
 
   return (
     <aside className="side-navbar">

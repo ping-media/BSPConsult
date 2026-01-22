@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './css/FaqSection.css';
-import { paths } from 'src/routes/paths';
 
 const faqs = [
   {

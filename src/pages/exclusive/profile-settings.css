@@ -23,7 +23,7 @@
 
 .dashboard-content::before {
   content: "";
-  position: absolute;
+  position: fixed;
 
   /* Position: middle right */
   top: 40%;

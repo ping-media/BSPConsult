@@ -1,4 +1,3 @@
-import { paths } from 'src/routes/paths';
 import WistiaPlayer from './WistiaPlayer';
 import './css/Header.css';
 
