@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import RemoveModeratorIcon from '@mui/icons-material/RemoveModerator';
 import CloseIcon from '@mui/icons-material/Close';
 import { useSnackbar } from 'notistack';
 
@@ -33,9 +32,15 @@ export default function Exclusive() {
             {/* HEADER */}
             <div className="lock-header">
               <span>Exclusive Content</span>
-              <button type="button" className="lock-close">
+            
+              <button
+                type="button"
+                className="lock-close"
+                onClick={() => navigate(-1)}
+              >
                 <CloseIcon />
               </button>
+
 
             </div>
 

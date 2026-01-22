@@ -1,8 +1,11 @@
 const admin = require("firebase-admin");
 const Stripe = require("stripe");
 
+
+
 const stripe = Stripe("sk_live_51NAUESCf4YXq1rsyJE7KoKl6XA8YzbGT3vSkP0lo1pc7p" +
   "fTI2Bqqi4AK5v0Y4v7C85Nlei8J3R5U9K2LIIFv1hif00WXCepGk6");
+
 
 if (!admin.apps.length) {
   admin.initializeApp();
@@ -45,7 +48,8 @@ const createCheckoutSession = async (req, res) => {
 
     let mod = "subscription";
     if (priceId === "price_1NqWtkCf4YXq1rsyDvmsIWtF" ||
-      priceId === "price_1OgVtOCf4YXq1rsy99bw9IHr") {
+      priceId === "price_1OgVtOCf4YXq1rsy99bw9IHr" ||
+    priceId === "price_1SgyrmCf4YXq1rsyFk0I3ljo") {
       mod = "payment";
     }
 

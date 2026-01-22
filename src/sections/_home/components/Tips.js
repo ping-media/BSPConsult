@@ -1,5 +1,7 @@
-// @mui
+/* eslint-disable no-nested-ternary */
 import AddIcon from '@mui/icons-material/Add';
+import { loadStripe } from '@stripe/stripe-js';
+import './TabsView.css';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import ChatIcon from '@mui/icons-material/Chat';
 import CloseIcon from '@mui/icons-material/Close';
@@ -7,7 +9,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
-import RemoveModeratorIcon from '@mui/icons-material/RemoveModerator';
 import { LoadingButton } from '@mui/lab';
 import {
   Box,
@@ -17,11 +18,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  Fab,
   MenuItem,
-  Paper,
-  Tab,
-  Tabs,
   TextField,
   Typography,
 } from '@mui/material';
@@ -42,12 +39,62 @@ import { getStorage, ref, uploadBytes, uploadString, getDownloadURL } from 'fire
 
 
 import PropTypes from 'prop-types';
-import React, {useRef, useEffect, useState, useCallback } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { MotionViewport } from 'src/components/animate';
 import Image from 'src/components/image';
 import { useAuthContext } from '../../../auth/useAuthContext';
 import firebaseApp from '../../../firebase';
 // import useResponsive from 'src/hooks/useResponsive';
+
+
+const stripePromise = loadStripe(
+  'pk_live_51NAUESCf4YXq1rsyBMpbCD1Yqi5kocGdjxYqcqknpppNXXnUKKCVxar7NqInLJRCJTCEVkbqQPppP7nvve8E053I00P0pVQI8d'
+);
+
+const UPGRADE_PRICE_MAP = {
+  silver_to_advanced: 'price_1Sh1flCf4YXq1rsy94ex1p16',
+  silver_to_gold: 'price_1OgVtOCf4YXq1rsy99bw9IHr',
+  advanced_to_gold: 'price_1Sh1gECf4YXq1rsycqlOtspg',
+};
+const UPGRADE_CONFIG = {
+  silver: {
+    advanced: {
+      title: 'Advanced Program',
+      price: '€200',
+      priceId: UPGRADE_PRICE_MAP.silver_to_advanced,
+      features: [
+        'Advanced Data Insights (BSP App)',
+        'BSP Tennis Betting Model',
+        'Essential Video Content',
+      ],
+    },
+    gold: {
+      title: 'Gold Program',
+      price: '€600',
+      priceId: UPGRADE_PRICE_MAP.silver_to_gold,
+      features: [
+        'Advanced Data Insights (BSP App)',
+        'BSP Tennis Betting Model',
+        'Essential Video Content',
+        'High-Stakes Betting Frameworks',
+        'BSP Masterclass (20+ Hours of Video)',
+        'Real Time Study Cases',
+      ],
+    },
+  },
+  advanced: {
+    gold: {
+      title: 'Gold Program',
+      price: '€400',
+      priceId: UPGRADE_PRICE_MAP.advanced_to_gold,
+      features: [
+        'High-Stakes Betting Frameworks',
+        'BSP Masterclass (20+ Hours of Video)',
+        'Real Time Study Cases',
+      ],
+    },
+  },
+};
 
 // ----------------------------------------------------------------------
 
@@ -122,6 +169,10 @@ export default function Tips({ setCurrentPage }) {
   const [deletedTip, setDeletedTip] = useState(null);
   const [deleteLoading, setDeleteLoading] = useState(false);
 
+  const [selectedPlan, setSelectedPlan] = useState(null);
+  const [openUpgrade, setOpenUpgrade] = useState(false);
+
+
   const storage = getStorage(firebaseApp);
 
   const groups = [
@@ -143,15 +194,77 @@ export default function Tips({ setCurrentPage }) {
     },
   ];
 
+
+
+
+  // ===== EXPIRY CHECK =====
   const checkExpireDate = () => {
-    const sec = user.expire_date ? user.expire_date.seconds * 1000 : 0;
-    const expireDate = new Date(sec);
-    const currentDate = new Date();
-    return currentDate.getTime() < expireDate.getTime();
+    const sec = user?.expire_date ? user.expire_date.seconds * 1000 : 0;
+    if (!sec) return true; // no expiry = allowed
+    return Date.now() < sec;
   };
 
-  const isSubscribed = user.membership !== '1' && checkExpireDate();  
-  const isNotSilver = user.membership !== '8' && checkExpireDate();
+  // ===== MEMBERSHIP =====
+  const membership = String(user?.membership || '1');
+
+  // ===== ACCESS RULES =====
+
+  // Bets → Silver (8), Advanced (9), Gold (10)
+  const canViewBets =
+    membership !== '1' && checkExpireDate();
+
+  // Insights → ONLY Advanced (9), Gold (10)
+  const canViewInsights =
+    ['9', '10'].includes(membership) && checkExpireDate();
+
+
+  const hasNoSubscription = membership === '1';
+  const isSilver = membership === '8';
+  const isGold = membership === '10';
+  const isAdvanced = membership === '9';
+  const isExpired = !checkExpireDate();
+
+
+  const handleUpgradeCheckout = async (priceId) => {
+    try {
+      const stripe = await stripePromise;
+
+      const response = await fetch(
+        'https://us-central1-bspconsult-bcd6e.cloudfunctions.net/createCheckoutSession',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            priceId,
+            customerEmail: user?.email,
+            platform: 'web',
+            upgrade: true, 
+          }),
+        }
+      );
+
+      const session = await response.json();
+
+      if (!session?.id) {
+        throw new Error('Invalid Stripe session');
+      }
+
+      await stripe.redirectToCheckout({ sessionId: session.id });
+    } catch (error) {
+      console.error('Upgrade checkout error:', error);
+    }
+  };
+
+  const currentPlan =
+    isSilver ? 'silver' :
+      isAdvanced ? 'advanced' :
+        null;
+
+  const upgradeData =
+    currentPlan && selectedPlan
+      ? UPGRADE_CONFIG[currentPlan]?.[selectedPlan]
+      : null;
+
 
   function createTypographyWithLineBreaks(text) {
     // Split the text by new line characters
@@ -171,7 +284,7 @@ export default function Tips({ setCurrentPage }) {
       // Reference to the tips collection
       const tipsCollectionRef = collection(db, 'communication');
       // Create a query against the collection
-      
+
       const membershipLevel = Number(user?.membership);
       const groupType = membershipLevel < 8 ? 'Exp-Insights' : 'Insights';
 
@@ -214,6 +327,17 @@ export default function Tips({ setCurrentPage }) {
     fetchInsightsTips();
     fetchBetTips();
   }, [fetchInsightsTips, fetchBetTips]);
+  
+  useEffect(() => {
+  if (openUpgrade) {
+    if (hasNoSubscription || isSilver) {
+      setSelectedPlan('advanced');
+    } else if (isAdvanced) {
+      setSelectedPlan('gold');
+    }
+  }
+}, [openUpgrade, hasNoSubscription, isSilver, isAdvanced]);
+
 
   function formatDate(dateString) {
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -302,11 +426,11 @@ export default function Tips({ setCurrentPage }) {
       await uploadBytes(storageRef, file);
       const downloadURL = await getDownloadURL(storageRef);
 
-      if (type === "image"){
+      if (type === "image") {
         setImageUrl(downloadURL);
         setPdfUrl('');
       }
-      else if (type === "pdf"){
+      else if (type === "pdf") {
         setPdfUrl(downloadURL);
         setImageUrl('');
       }
@@ -318,73 +442,8 @@ export default function Tips({ setCurrentPage }) {
       setLoadingMessage(false);
       event.target.value = ''; // reset input
     }
-  };    
+  };
 
-  // const handleAddMessage = async () => {
-  //   setLoadingMessage(true);
-
-  //   try {
-  //     if (group !== 'Both') {
-  //       const messageData = {
-  //         date: new Date(),
-  //         title,
-  //         message,
-  //         group,
-  //         imageUrl,
-  //         pdfUrl,
-  //         type: 'Message',
-  //       };
-  //       await addDoc(collection(db, 'communication'), messageData);
-  //     } else {
-  //       const publicData = {
-  //         date: new Date(),
-  //         title,
-  //         message,
-  //         imageUrl,
-  //         pdfUrl,
-  //         group: 'Insights',
-  //         type: 'Message',
-  //       };
-  //       await addDoc(collection(db, 'communication'), publicData);
-  //       const premimumData = {
-  //         date: new Date(),
-  //         title,
-  //         message,
-  //         imageUrl,
-  //         pdfUrl,
-  //         group: 'Bets',
-  //         type: 'Message',
-  //       };
-  //       await addDoc(collection(db, 'communication'), premimumData);
-  //     }
-
-  //     const messagesCollectionRef = collection(db, 'communication');
-  //     // Create a query against the collection
-  //     const q = query(
-  //       messagesCollectionRef,
-  //       where('type', '==', 'Message'), // Apply the filter
-  //       orderBy('date', 'desc') // Sort by date in descending order
-  //     );
-  //     // Get a snapshot of the collection
-  //     const messagesSnapshot = await getDocs(q);
-  //     // Map through documents and set data in state
-  //     const messageList = messagesSnapshot.docs.map((item) => ({ id: item.id, ...item.data() }));
-  //     if (messageList.length > 15) {
-  //       await deleteDoc(doc(db, 'communication', messageList[messageList.length - 1].id));
-  //     }
-
-  //     setTitle('');
-  //     setMessage();
-  //     setGroup('Insights');
-  //     setAddMessage(false);
-  //     fetchInsightsTips();
-  //     fetchBetTips();
-  //   } catch (error) {
-  //     console.error('Error adding document: ', error);
-  //   } finally {
-  //     setLoadingMessage(false);
-  //   }
-  // };
 
   const handleAddMessage = async () => {
     setLoadingMessage(true);
@@ -428,7 +487,7 @@ export default function Tips({ setCurrentPage }) {
       }
 
       // =========================
-      // 🔄 CLEANUP (LIMIT = 15)
+      // CLEANUP (LIMIT = 15)
       // =========================
       const q = query(
         collection(db, 'communication'),
@@ -444,7 +503,7 @@ export default function Tips({ setCurrentPage }) {
       }
 
       // =========================
-      // ♻️ RESET UI
+      // UI
       // =========================
       setTitle('');
       setMessage('');
@@ -491,7 +550,7 @@ export default function Tips({ setCurrentPage }) {
         // Get the download URL
         imgUrl = await getDownloadURL(imageRef);
       }
- 
+
       const baseData = {
         title,
         imageUrl: imgUrl || null,
@@ -590,7 +649,7 @@ export default function Tips({ setCurrentPage }) {
   };
   const calculateStakeAmount = (reliability) => {
     if (!user.bankroll) return 0;
-    
+
     if (user.stakingStrategy === 'Conservative') {
       return user.bankroll * reliability / 100.00;
     }
@@ -610,759 +669,788 @@ export default function Tips({ setCurrentPage }) {
   const pdfInputRef = useRef(null);
 
   return (
+
     <Container
+      className=" content-grid"
       component={MotionViewport}
       sx={{
         px: 3,
       }}
     >
-      {/* addMessage */}
-      <Dialog
-        open={addMessage}
-        onClose={() => setAddMessage(false)}
-        PaperProps={{
-          style: {
-            px: 2,
-            width: '100%',
-            background: '#0d1117',
-            border: '2px solid #076af478',
-          },
-        }}
-      >
-        <DialogTitle sx={{ color: '#FFF' }}>Add a message</DialogTitle>
-        <DialogContent sx={{ textAlign: 'center' }}>
-          <TextField
-            autoFocus
-            fullWidth
-            type="text"
-            margin="dense"
-            label="Title"
-            name="title"
-            value={title}
-            onChange={(e) => handleChangeTitle(e)}
-            sx={{
-              input: {
-                color: '#FFF',
-              },
-              label: {
-                color: '#FFF !important',
-              },
-            }}
-          />
-          {!docId && (
-            <TextField
-              select
-              fullWidth
-              margin="dense"
-              label="Group"
-              defaultValue="Public"
-              value={group}
-              onChange={(e) => handleChangeGroup(e)}
-              sx={{
-                input: {
-                  color: '#FFF',
-                },
-                label: {
-                  color: '#FFF !important',
-                },
-                textAlign: 'left',
-              }}
-              SelectProps={{
-                MenuProps: {
-                  PaperProps: {
-                    sx: {
-                      bgcolor: '#0d1117',
-                    },
-                  },
-                },
-              }}
-            >
-              {groups.map((option) => (
-                <MenuItem key={option.value} value={option.value} sx={{ color: '#FFF' }}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-          )}
+      <div className="all-content">
 
-          <TextField
-            autoFocus
-            fullWidth
-            multiline
-            rows={10}
-            type="text"
-            margin="dense"
-            label="Message"
-            name="message"
-            value={message}
-            onChange={(e) => handleChangeMessage(e)}
+
+        <Dialog
+          open={openUpgrade}
+          onClose={() => setOpenUpgrade(false)}
+          maxWidth={false}
+          disableScrollLock
+          PaperProps={{
+            sx: {
+              background: 'transparent',
+              boxShadow: 'none',
+              borderRadius: 0,
+              padding: 0,
+              margin: 0,
+              overflow: 'visible',
+            },
+          }}
+        >
+          <DialogContent
             sx={{
-              input: {
-                color: '#FFF',
-              },
-              label: {
-                color: '#FFF !important',
-              },
-            }}
-          />
-          <Typography
-            variant="h6"
-            sx={{ color: '#FFF', fontWeight: 600, textAlign: 'center', marginTop: '20px' }}
-          >
-            Analyses
-          </Typography>
-          {analysisData.length > 0 &&
-            analysisData.map((item, index) => (
-              <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Typography variant="h6" sx={{ color: '#FFF', fontWeight: 400 }}>
-                  {item.title}
-                </Typography>
-                <DeleteOutlineIcon
-                  sx={{ color: '#57636C', cursor: 'pointer' }}
-                  onClick={() => {
-                    setAnalysisData((prevData) => prevData.filter((_, index2) => index2 !== index));
-                  }}
-                />
-              </Box>
-            ))}
-          <Button
-            variant="contained"
-            sx={{
-              background: 'linear-gradient(#047efc, #12488f)',
-              ':hover': { opacity: 0.8 },
-              marginTop: '20px',
-              textTransform: 'none',
-            }}
-            onClick={() => {
-              setAddAnalysis(true);
+              padding: 0,
+              margin: 0,
+              background: 'transparent',
+              overflow: 'visible',
             }}
           >
-            Add an analysis
-          </Button>
-        </DialogContent>
-        <DialogActions>
-          <input
-            type="file"
-            accept="image/*"
-            ref={imageInputRef}
-            style={{ display: 'none' }}
-            onChange={(e) => handleUpload(e, 'image')}
-          />
+            {!isGold && (isSilver || isAdvanced || hasNoSubscription) && (
+              <div className="upgrade-box">
 
-          <input
-            type="file"
-            accept="application/pdf"
-            ref={pdfInputRef}
-            style={{ display: 'none' }}
-            onChange={(e) => handleUpload(e, 'pdf')}
-          />
-          {!imageUrl && !pdfUrl ? (
-            <>
-              <Button
-                color="inherit"
-                sx={{ color: '#FFF', backgroundColor: 'transparent' }}
-                onClick={() => imageInputRef.current.click()}
-              >
-                Image
-              </Button>
+                {/* HEADER */}
+                <div className="upgrade-content-header">
+                  <div className="upgrade-content">
+                    <h3>{hasNoSubscription ? 'Choose Membership' : 'Upgrade Membership'}</h3>
+                    <p>Upgrade to unlock advanced features and full access.</p>
+                  </div>
 
-              <Button
-                color="inherit"
-                sx={{ color: '#FFF', backgroundColor: 'transparent' }}
-                onClick={() => pdfInputRef.current.click()}
-              >
-                PDF
-              </Button>
-            </>
-          ) : (
-            <Button
-              color="error"
-              variant="contained"
-              onClick={handleCancelAttachment}
-            >
-              Remove file
-            </Button>
-          )}
+                  <button
+                    type="button"
+                    className="upgrade-close"
+                    onClick={() => setOpenUpgrade(false)}
+                  >
+                    ✕
+                  </button>
+                </div>
 
-          <Box sx={{ flexGrow: 1 }} />
-          <Button
-            color="inherit"
-            sx={{ color: '#FFF', backgroundColor: 'transparent' }}
-            onClick={() => {
-              setTitle('');
-              setMessage('');
-              setAddMessage(false);
-            }}
-          >
-            Cancel
-          </Button>
-          <LoadingButton
-            loading={loadingMessage}
-            variant="contained"
-            sx={{ background: 'linear-gradient(#047efc, #12488f)', ':hover': { opacity: 0.8 } }}
-            onClick={() => handleAddMessage()}
-          >
-            Send
-          </LoadingButton>
-        </DialogActions>
-      </Dialog>
-      
-      {/* addTip */}
-      <Dialog
-        open={addTip}
-        onClose={() => setAddTip(false)}
-        PaperProps={{
-          style: {
-            px: 2,
-            width: '100%',
-            background: '#0d1117',
-            border: '2px solid #076af478',
-          },
-        }}
-      >
-        <DialogTitle sx={{ color: '#FFF' }}>Add a tip</DialogTitle>
-        <DialogContent sx={{ textAlign: 'center' }}>
-          <TextField
-            autoFocus
-            fullWidth
-            type="text"
-            margin="dense"
-            label="Title"
-            name="title"
-            value={title}
-            onChange={(e) => handleChangeTitle(e)}
-            sx={{
-              input: {
-                color: '#FFF',
-              },
-              label: {
-                color: '#FFF !important',
-              },
-            }}
-          />
+                <div className="upgrade-divider" />
 
-          {!docId && (
-            <TextField
-              select
-              fullWidth
-              margin="dense"
-              label="Group"
-              defaultValue="Public"
-              onChange={(e) => handleChangeGroup(e)}
-              sx={{
-                input: {
-                  color: '#FFF',
-                },
-                label: {
-                  color: '#FFF !important',
-                },
-                textAlign: 'left',
-              }}
-              SelectProps={{
-                MenuProps: {
-                  PaperProps: {
-                    sx: {
-                      bgcolor: '#0d1117',
-                    },
-                  },
-                },
-              }}
-            >
-              {groups.map((option) => (
-                <MenuItem key={option.value} value={option.value} sx={{ color: '#FFF' }}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-          )}
+                {/* PLAN SWITCH */}
+                <div className="plan-switch">
 
-          <TextField
-            autoFocus
-            fullWidth
-            multiline
-            type="text"
-            margin="dense"
-            label="Bankroll(%)"
-            name="bankroll"
-            value={bankroll}
-            onChange={(e) => handleChangeBankroll(e)}
-            sx={{
-              input: {
-                color: '#FFF',
-              },
-              label: {
-                color: '#FFF !important',
-              },
-            }}
-          />
+                  {(hasNoSubscription || isSilver) && (
+                    <>
+                      <button
+                        type="button"
+                        className={`plan-btn advanced ${selectedPlan === 'advanced' ? 'active' : ''}`}
+                        onClick={() => setSelectedPlan('advanced')}
+                      >
+                        Advanced
+                      </button>
 
-          <TextField
-            autoFocus
-            fullWidth
-            multiline
-            type="text"
-            margin="dense"
-            label="Minimum Odd"
-            name="minimumodd"
-            value={minimumOdd}
-            onChange={(e) => handleChangeMimimumOdd(e)}
-            sx={{
-              input: {
-                color: '#FFF',
-              },
-              label: {
-                color: '#FFF !important',
-              },
-            }}
-          />
+                      <button
+                        type="button"
+                        className={`plan-btn gold ${selectedPlan === 'gold' ? 'active' : ''}`}
+                        onClick={() => setSelectedPlan('gold')}
+                      >
+                        Gold
+                      </button>
+                    </>
+                  )}
 
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
+                  {isAdvanced && (
+                    <button type="button" className="plan-btn gold active">
+                      Gold
+                    </button>
+                  )}
+
+                </div>
+
+                {/* DYNAMIC CARD */}
+                {upgradeData && (
+                  <div className={`upgrade-card upgrade-card--${selectedPlan}`}>
+                    <div className="upgrade-inner">
+
+                      <div className="upgrade-headers">
+                        <h3 className="upgrade-title">{upgradeData.title}</h3>
+
+                        {selectedPlan === 'advanced' && (
+                          <span className="best-value-badge">Best Value</span>
+                        )}
+                      </div>
+
+
+                      <div className="upgrade-price">
+                        <span className="price-amount">{upgradeData.price}</span>
+                        <span className="price-period">one time fee</span>
+                      </div>
+
+                      <div className="upgrade-note">
+                        Lock in current pricing before next update.
+                      </div>
+
+                      <button
+                        type="button"
+                        className={selectedPlan === 'gold' ? 'Gold-btn' : 'adva-btn'}
+                        onClick={() => {
+                          setOpenUpgrade(false);
+                          handleUpgradeCheckout(upgradeData.priceId);
+                        }}
+                      >
+                        Get {upgradeData.title}
+                      </button>
+
+                    </div>
+
+                    <div className="upgrade-includes">
+                      <h4>
+                        Extra benefits with{' '}
+                        <span className={selectedPlan === 'gold' ? 'gold-text' : 'advanced-text'}>
+                          {selectedPlan === 'gold' ? 'Gold' : 'Advanced'}
+                        </span>
+                      </h4>
+
+                      <ul>
+                        {upgradeData.features.map((feature) => (
+                          <li key={feature} className="active">
+                            <img
+                              src={
+                                selectedPlan === 'gold'
+                                  ? '/img/gold-tick.svg'
+                                  : '/img/check-circle.svg'
+                              }
+                              alt="check"
+                            />
+                            <span className="include-text">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                )}
+
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
+
+
+
+        {/* addMessage */}
+        <Dialog
+          open={addMessage}
+          onClose={() => setAddMessage(false)}
+          PaperProps={{
+            style: {
+              px: 2,
               width: '100%',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              my: 1,
-            }}
-            onClick={()=>{
-              if (attachImage || imageUrl){
-                setAttachImage();
-                setImageUrl(null);
-              }
-              else{
-                document.getElementById('file-input')?.click();
-              }
-            }}
-          >
-            {attachImage || imageUrl
-              ? (<Button
+              background: '#0d1117',
+              border: '2px solid #076af478',
+            },
+          }}
+        >
+          <DialogTitle sx={{ color: '#FFF' }}>Add a message</DialogTitle>
+          <DialogContent sx={{ textAlign: 'center' }}>
+            <TextField
+              autoFocus
+              fullWidth
+              type="text"
+              margin="dense"
+              label="Title"
+              name="title"
+              value={title}
+              onChange={(e) => handleChangeTitle(e)}
+              sx={{
+                input: {
+                  color: '#FFF',
+                },
+                label: {
+                  color: '#FFF !important',
+                },
+              }}
+            />
+            {!docId && (
+              <TextField
+                select
+                fullWidth
+                margin="dense"
+                label="Group"
+                defaultValue="Public"
+                value={group}
+                onChange={(e) => handleChangeGroup(e)}
+                sx={{
+                  input: {
+                    color: '#FFF',
+                  },
+                  label: {
+                    color: '#FFF !important',
+                  },
+                  textAlign: 'left',
+                }}
+                SelectProps={{
+                  MenuProps: {
+                    PaperProps: {
+                      sx: {
+                        bgcolor: '#0d1117',
+                      },
+                    },
+                  },
+                }}
+              >
+                {groups.map((option) => (
+                  <MenuItem key={option.value} value={option.value} sx={{ color: '#FFF' }}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+            )}
+
+            <TextField
+              autoFocus
+              fullWidth
+              multiline
+              rows={10}
+              type="text"
+              margin="dense"
+              label="Message"
+              name="message"
+              value={message}
+              onChange={(e) => handleChangeMessage(e)}
+              sx={{
+                input: {
+                  color: '#FFF',
+                },
+                label: {
+                  color: '#FFF !important',
+                },
+              }}
+            />
+            <Typography
+              variant="h6"
+              sx={{ color: '#FFF', fontWeight: 600, textAlign: 'center', marginTop: '20px' }}
+            >
+              Analyses
+            </Typography>
+            {analysisData.length > 0 &&
+              analysisData.map((item, index) => (
+                <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Typography variant="h6" sx={{ color: '#FFF', fontWeight: 400 }}>
+                    {item.title}
+                  </Typography>
+                  <DeleteOutlineIcon
+                    sx={{ color: '#57636C', cursor: 'pointer' }}
+                    onClick={() => {
+                      setAnalysisData((prevData) => prevData.filter((_, index2) => index2 !== index));
+                    }}
+                  />
+                </Box>
+              ))}
+            <Button
+              variant="contained"
+              sx={{
+                background: 'linear-gradient(#047efc, #12488f)',
+                ':hover': { opacity: 0.8 },
+                marginTop: '20px',
+                textTransform: 'none',
+              }}
+              onClick={() => {
+                setAddAnalysis(true);
+              }}
+            >
+              Add an analysis
+            </Button>
+          </DialogContent>
+          <DialogActions>
+            <input
+              type="file"
+              accept="image/*"
+              ref={imageInputRef}
+              style={{ display: 'none' }}
+              onChange={(e) => handleUpload(e, 'image')}
+            />
+
+            <input
+              type="file"
+              accept="application/pdf"
+              ref={pdfInputRef}
+              style={{ display: 'none' }}
+              onChange={(e) => handleUpload(e, 'pdf')}
+            />
+            {!imageUrl && !pdfUrl ? (
+              <>
+                <Button
+                  color="inherit"
+                  sx={{ color: '#FFF', backgroundColor: 'transparent' }}
+                  onClick={() => imageInputRef.current.click()}
+                >
+                  Image
+                </Button>
+
+                <Button
+                  color="inherit"
+                  sx={{ color: '#FFF', backgroundColor: 'transparent' }}
+                  onClick={() => pdfInputRef.current.click()}
+                >
+                  PDF
+                </Button>
+              </>
+            ) : (
+              <Button
+                color="error"
+                variant="contained"
+                onClick={handleCancelAttachment}
+              >
+                Remove file
+              </Button>
+            )}
+
+            <Box sx={{ flexGrow: 1 }} />
+            <Button
+              color="inherit"
+              sx={{ color: '#FFF', backgroundColor: 'transparent' }}
+              onClick={() => {
+                setTitle('');
+                setMessage('');
+                setAddMessage(false);
+              }}
+            >
+              Cancel
+            </Button>
+            <LoadingButton
+              loading={loadingMessage}
+              variant="contained"
+              sx={{ background: 'linear-gradient(#047efc, #12488f)', ':hover': { opacity: 0.8 } }}
+              onClick={() => handleAddMessage()}
+            >
+              Send
+            </LoadingButton>
+          </DialogActions>
+        </Dialog>
+
+        {/* addTip */}
+        <Dialog
+          open={addTip}
+          onClose={() => setAddTip(false)}
+          PaperProps={{
+            style: {
+              px: 2,
+              width: '100%',
+              background: '#0d1117',
+              border: '2px solid #076af478',
+            },
+          }}
+        >
+          <DialogTitle sx={{ color: '#FFF' }}>Add a tip</DialogTitle>
+          <DialogContent sx={{ textAlign: 'center' }}>
+            <TextField
+              autoFocus
+              fullWidth
+              type="text"
+              margin="dense"
+              label="Title"
+              name="title"
+              value={title}
+              onChange={(e) => handleChangeTitle(e)}
+              sx={{
+                input: {
+                  color: '#FFF',
+                },
+                label: {
+                  color: '#FFF !important',
+                },
+              }}
+            />
+
+            {!docId && (
+              <TextField
+                select
+                fullWidth
+                margin="dense"
+                label="Group"
+                defaultValue="Public"
+                onChange={(e) => handleChangeGroup(e)}
+                sx={{
+                  input: {
+                    color: '#FFF',
+                  },
+                  label: {
+                    color: '#FFF !important',
+                  },
+                  textAlign: 'left',
+                }}
+                SelectProps={{
+                  MenuProps: {
+                    PaperProps: {
+                      sx: {
+                        bgcolor: '#0d1117',
+                      },
+                    },
+                  },
+                }}
+              >
+                {groups.map((option) => (
+                  <MenuItem key={option.value} value={option.value} sx={{ color: '#FFF' }}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+            )}
+
+            <TextField
+              autoFocus
+              fullWidth
+              multiline
+              type="text"
+              margin="dense"
+              label="Bankroll(%)"
+              name="bankroll"
+              value={bankroll}
+              onChange={(e) => handleChangeBankroll(e)}
+              sx={{
+                input: {
+                  color: '#FFF',
+                },
+                label: {
+                  color: '#FFF !important',
+                },
+              }}
+            />
+
+            <TextField
+              autoFocus
+              fullWidth
+              multiline
+              type="text"
+              margin="dense"
+              label="Minimum Odd"
+              name="minimumodd"
+              value={minimumOdd}
+              onChange={(e) => handleChangeMimimumOdd(e)}
+              sx={{
+                input: {
+                  color: '#FFF',
+                },
+                label: {
+                  color: '#FFF !important',
+                },
+              }}
+            />
+
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                width: '100%',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                my: 1,
+              }}
+              onClick={() => {
+                if (attachImage || imageUrl) {
+                  setAttachImage();
+                  setImageUrl(null);
+                }
+                else {
+                  document.getElementById('file-input')?.click();
+                }
+              }}
+            >
+              {attachImage || imageUrl
+                ? (<Button
                   color="error"
                   variant="contained"
-                  onClick={()=>{
+                  onClick={() => {
                     setAttachImage();
                     setImageUrl(null);
                   }}
                 >
                   Remove file
                 </Button>
-                ) 
-              : (<Typography variant="h6" sx={{ color: '#FFF', fontWeight: 400 }}>
+                )
+                : (<Typography variant="h6" sx={{ color: '#FFF', fontWeight: 400 }}>
                   Image
                 </Typography>
-              )
-            }
-            {(attachImage || imageUrl) && (
-              <Image
-                visibleByDefault
-                disabledEffect
-                alt="Image"
-                src={attachImage || imageUrl}
-                sx={{ width: 50, height: 50, borderRadius: 1 }}
-              />
-            )}
-          </Box>
-          <input
-            id="file-input"
-            type="file"
-            accept="image/*"
-            style={{ display: 'none' }}
-            onChange={(e) => {
-              if (e.target.files && e.target.files[0]) {
-                const file = e.target.files[0];
-                const reader = new FileReader();
-
-                reader.onload = (event) => {
-                  setAttachImage(event.target.result);
-                };
-
-                reader.readAsDataURL(file);
+                )
               }
-            }}
-          />
-
-          <Typography
-            variant="h6"
-            sx={{ color: '#FFF', fontWeight: 600, textAlign: 'center', marginTop: '20px' }}
-          >
-            Analyses
-          </Typography>
-          {analysisData.length > 0 &&
-            analysisData.map((item, index) => (
-              <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Typography variant="h6" sx={{ color: '#FFF', fontWeight: 400 }}>
-                  {item.title}
-                </Typography>
-                <DeleteOutlineIcon
-                  sx={{ color: '#57636C', cursor: 'pointer' }}
-                  onClick={() => {
-                    setAnalysisData((prevData) => prevData.filter((_, index2) => index2 !== index));
-                  }}
+              {(attachImage || imageUrl) && (
+                <Image
+                  visibleByDefault
+                  disabledEffect
+                  alt="Image"
+                  src={attachImage || imageUrl}
+                  sx={{ width: 50, height: 50, borderRadius: 1 }}
                 />
-              </Box>
-            ))}
-          <Button
-            variant="contained"
-            sx={{
-              background: 'linear-gradient(#047efc, #12488f)',
-              ':hover': { opacity: 0.8 },
-              marginTop: '20px',
-              textTransform: 'none',
-            }}
-            onClick={() => {
-              setAddAnalysis(true);
-            }}
-          >
-            Add an analysis
-          </Button>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            color="inherit"
-            sx={{ color: '#FFF', backgroundColor: 'transparent' }}
-            onClick={() => {
-              setTitle('');
-              setAttachImage();
-              setBankroll('');
-              setAnalysisData([]);
-              setGroup('Insights');
-              setAddTip(false);
-            }}
-          >
-            Cancel
-          </Button>
-          <LoadingButton
-            loading={loadingMessage}
-            variant="contained"
-            sx={{ background: 'linear-gradient(#047efc, #12488f)', ':hover': { opacity: 0.8 } }}
-            onClick={() => handleAddTip()}
-          >
-            Send
-          </LoadingButton>
-        </DialogActions>
-      </Dialog>
-      
-      {/* add Analysis */}
-      <Dialog
-        open={addAnalysis}
-        onClose={() => setAddAnalysis(false)}
-        PaperProps={{
-          style: {
-            px: 2,
-            width: '100%',
-            background: '#0d1117',
-            border: '2px solid #076af478',
-          },
-        }}
-      >
-        <DialogTitle sx={{ color: '#FFF' }}>Add an analysis</DialogTitle>
-        <DialogContent>
-          <TextField
-            autoFocus
-            fullWidth
-            type="text"
-            margin="dense"
-            label="Title"
-            name="title"
-            onChange={(e) => {
-              setAnalysisTitle(e.target.value);
-            }}
-            sx={{
-              input: {
-                color: '#FFF',
-              },
-              label: {
-                color: '#FFF !important',
-              },
-            }}
-          />
+              )}
+            </Box>
+            <input
+              id="file-input"
+              type="file"
+              accept="image/*"
+              style={{ display: 'none' }}
+              onChange={(e) => {
+                if (e.target.files && e.target.files[0]) {
+                  const file = e.target.files[0];
+                  const reader = new FileReader();
 
-          <TextField
-            autoFocus
-            fullWidth
-            multiline
-            rows={10}
-            type="text"
-            margin="dense"
-            label="Message"
-            name="message"
-            onChange={(e) => {
-              setAnalysisMessage(e.target.value);
-            }}
-            sx={{
-              input: {
-                color: '#FFF',
-              },
-              label: {
-                color: '#FFF !important',
-              },
-            }}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button
-            color="inherit"
-            sx={{ color: '#FFF', backgroundColor: 'transparent' }}
-            onClick={() => {
-              setAnalysisTitle('');
-              setAnalysisMessage('');
-              setAddAnalysis(false);
-            }}
-          >
-            Cancel
-          </Button>
-          <LoadingButton
-            loading={loadingMessage}
-            variant="contained"
-            sx={{ background: 'linear-gradient(#047efc, #12488f)', ':hover': { opacity: 0.8 } }}
-            onClick={() => handleAddAnalysis()}
-          >
-            Confirm
-          </LoadingButton>
-        </DialogActions>
-      </Dialog>
-      
-      {/* delete confirm */}
-      <Dialog
-        open={deleteConfirm}
-        onClose={() => setDeleteConfirm(false)}
-        PaperProps={{
-          style: {
-            px: 2,
-            width: '100%',
-            background: '#0d1117',
-            border: '2px solid #076af478',
-          },
-        }}
-      >
-        <DialogTitle sx={{ color: '#FFF' }}>Delete Tip</DialogTitle>
-        <DialogContent>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              width: '100%',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              my: 1,
-            }}
-            onClick={() => document.getElementById('file-input')?.click()}
-          >
-            <Typography variant="h6" sx={{ color: '#FFF', fontWeight: 400 }}>
-              Are you sure you want to delete the tip?
+                  reader.onload = (event) => {
+                    setAttachImage(event.target.result);
+                  };
+
+                  reader.readAsDataURL(file);
+                }
+              }}
+            />
+
+            <Typography
+              variant="h6"
+              sx={{ color: '#FFF', fontWeight: 600, textAlign: 'center', marginTop: '20px' }}
+            >
+              Analyses
             </Typography>
-          </Box>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            color="inherit"
-            sx={{ color: '#FFF', backgroundColor: 'transparent' }}
-            onClick={() => {
-              setDeleteConfirm(false);
-            }}
-          >
-            No
-          </Button>
-          <LoadingButton
-            loading={deleteLoading}
-            variant="contained"
-            sx={{ background: 'linear-gradient(#047efc, #12488f)', ':hover': { opacity: 0.8 } }}
-            onClick={() => handleDeleteTip()}
-          >
-            Yes
-          </LoadingButton>
-        </DialogActions>
-      </Dialog>
-      <Box sx={{ mt: 3, mx: 'auto', maxWidth: 720, textAlign: 'center' }}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            sx={{
-              span: {
-                backgroundColor: '#FFF',
-              },
-            }}
-          >
-            <Tab label="Insights" {...a11yProps(0)} sx={{ flex: 1, color: '#FFF' }} />
-            <Tab label="Bets" {...a11yProps(1)} sx={{ flex: 1, color: '#FFF' }} />
-          </Tabs>
-        </Box>
-        <CustomTabPanel value={value} index={0}>
-          {isSubscribed && !isNotSilver ? (
-            <Paper
+            {analysisData.length > 0 &&
+              analysisData.map((item, index) => (
+                <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Typography variant="h6" sx={{ color: '#FFF', fontWeight: 400 }}>
+                    {item.title}
+                  </Typography>
+                  <DeleteOutlineIcon
+                    sx={{ color: '#57636C', cursor: 'pointer' }}
+                    onClick={() => {
+                      setAnalysisData((prevData) => prevData.filter((_, index2) => index2 !== index));
+                    }}
+                  />
+                </Box>
+              ))}
+            <Button
+              variant="contained"
               sx={{
-                borderRadius: 3,
-                textAlign: 'center',
-                backgroundColor: 'transparent',
-                mt: 15,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '100%',
+                background: 'linear-gradient(#047efc, #12488f)',
+                ':hover': { opacity: 0.8 },
+                marginTop: '20px',
+                textTransform: 'none',
+              }}
+              onClick={() => {
+                setAddAnalysis(true);
               }}
             >
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  width: '100%',
-                  mt: 0,
-                  columnGap: 1,
-                  rowGap: 0,
-                  justifyContent: 'center',
-                  px: 2,
-                }}
-              >
-                <Box
-                  sx={{
-                    backgroundImage: 'linear-gradient(326deg, #076af4, #0d1117 49%, #086af5)',
-                    minWidth: '540px',
-                    borderRadius: '24px',
-                    padding: '2px',
-                    transition: 'all .2s',
-                    position: 'relative',
-                    transform: 'none',
-                    boxShadow: '0 0 70px rgba(9, 134, 251, .19)',
-                  }}
-                >
-                  <Box
-                    sx={{
-                      backgroundColor: '#0d1117',
-                      width: '100%',
-                      height: '100%',
-                      border: '1px solid rgba(239, 240, 246, .08)',
-                      borderRadius: '24px',
-                      transition: 'all .2s',
-                      position: 'relative',
-                      boxShadow: '0 2px 7px rgba(20, 20, 43, .06)',
-                      px: 3,
-                      py: 2,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      display: 'flex',
-                      flexDirection: 'column',
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        width: '77px',
-                        height: '77px',
-                        border: '2px solid #0866eb',
-                        display: 'flex',
-                        alignItems: 'center',
-                        borderRadius: 2,
-                        justifyContent: 'center',
-                      }}
-                    >
-                      <RemoveModeratorIcon />
-                    </Box>
-                    <Typography
-                      sx={{ color: 'rgb(203, 213, 225)', fontWeight: 400, fontSize: '36px', mt: 2 }}
-                    >
-                      Upgrade Membership
-                    </Typography>
-                    <Typography
-                      sx={{
-                        color: 'rgba(203, 213, 225, 0.5)',
-                        fontWeight: 400,
-                        fontSize: '18px',
-                        mt: 1,
-                      }}
-                    >
-                      Unlock this content by upgrading your Membership
-                    </Typography>
-                    <Box
-                      sx={{
-                        background: 'linear-gradient(#047efc, #12488f)',
-                        position: 'relative',
-                        overflow: 'hidden',
-                        width: '100%',
-                        height: '48px',
-                        borderRadius: '8px',
-                        mt: 4,
-                        mb: 2,
-                        ':hover': {
-                          opacity: 0.8,
-                        },
-                      }}
-                    >
-                      <Button
-                        variant="filled"
-                        color="inherit"
-                        sx={{
-                          position: 'relative',
-                          zIndex: 2, // Ensure the button text is above the overlay
-                          color: '#FFF',
-                          width: '100%',
-                          height: '48px',
-                          fontSize: 16,
-                          fontWeight: 400,
-                        }}
-                        onClick={() => setCurrentPage('Subscriptions')}
-                      >
-                        Upgrade Membership
-                      </Button>
-                    </Box>
-                  </Box>
-                </Box>
-              </Box>
-            </Paper>
-          ) : (
-            <>
-            {publicTips.map((tip, index) =>{
-            const stake = calculateStake(tip.reliability);
-            const stakeAmount = calculateStakeAmount(tip.reliability);
+              Add an analysis
+            </Button>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              color="inherit"
+              sx={{ color: '#FFF', backgroundColor: 'transparent' }}
+              onClick={() => {
+                setTitle('');
+                setAttachImage();
+                setBankroll('');
+                setAnalysisData([]);
+                setGroup('Insights');
+                setAddTip(false);
+              }}
+            >
+              Cancel
+            </Button>
+            <LoadingButton
+              loading={loadingMessage}
+              variant="contained"
+              sx={{ background: 'linear-gradient(#047efc, #12488f)', ':hover': { opacity: 0.8 } }}
+              onClick={() => handleAddTip()}
+            >
+              Send
+            </LoadingButton>
+          </DialogActions>
+        </Dialog>
 
-            return tip.type === 'Tip' ? (
-              <Box
-                sx={{
-                  backgroundImage: 'linear-gradient(326deg, #076af4, #0d1117 49%, #086af5)',
-                  borderRadius: 1,
-                  padding: '2px',
-                  transition: 'all .2s',
-                  position: 'relative',
-                  transform: 'none',
-                  boxShadow: '0 0 70px rgba(9, 134, 251, .19)',
-                  mt: 3,
-                  mb: 3,
-                  maxWidth: 720,
-                }}
+        {/* add Analysis */}
+        <Dialog
+          open={addAnalysis}
+          onClose={() => setAddAnalysis(false)}
+          PaperProps={{
+            style: {
+              px: 2,
+              width: '100%',
+              background: '#0d1117',
+              border: '2px solid #076af478',
+            },
+          }}
+        >
+          <DialogTitle sx={{ color: '#FFF' }}>Add an analysis</DialogTitle>
+          <DialogContent>
+            <TextField
+              autoFocus
+              fullWidth
+              type="text"
+              margin="dense"
+              label="Title"
+              name="title"
+              onChange={(e) => {
+                setAnalysisTitle(e.target.value);
+              }}
+              sx={{
+                input: {
+                  color: '#FFF',
+                },
+                label: {
+                  color: '#FFF !important',
+                },
+              }}
+            />
+
+            <TextField
+              autoFocus
+              fullWidth
+              multiline
+              rows={10}
+              type="text"
+              margin="dense"
+              label="Message"
+              name="message"
+              onChange={(e) => {
+                setAnalysisMessage(e.target.value);
+              }}
+              sx={{
+                input: {
+                  color: '#FFF',
+                },
+                label: {
+                  color: '#FFF !important',
+                },
+              }}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button
+              color="inherit"
+              sx={{ color: '#FFF', backgroundColor: 'transparent' }}
+              onClick={() => {
+                setAnalysisTitle('');
+                setAnalysisMessage('');
+                setAddAnalysis(false);
+              }}
+            >
+              Cancel
+            </Button>
+            <LoadingButton
+              loading={loadingMessage}
+              variant="contained"
+              sx={{ background: 'linear-gradient(#047efc, #12488f)', ':hover': { opacity: 0.8 } }}
+              onClick={() => handleAddAnalysis()}
+            >
+              Confirm
+            </LoadingButton>
+          </DialogActions>
+        </Dialog>
+
+        {/* delete confirm */}
+        <Dialog
+          open={deleteConfirm}
+          onClose={() => setDeleteConfirm(false)}
+          PaperProps={{
+            style: {
+              px: 2,
+              width: '100%',
+              background: '#0d1117',
+              border: '2px solid #076af478',
+            },
+          }}
+        >
+          <DialogTitle sx={{ color: '#FFF' }}>Delete Tip</DialogTitle>
+          <DialogContent>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                width: '100%',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                my: 1,
+              }}
+              onClick={() => document.getElementById('file-input')?.click()}
+            >
+              <Typography variant="h6" sx={{ color: '#FFF', fontWeight: 400 }}>
+                Are you sure you want to delete the tip?
+              </Typography>
+            </Box>
+          </DialogContent>
+          <DialogActions>
+            <Button type='button'
+              color="inherit"
+              sx={{ color: '#FFF', backgroundColor: 'transparent' }}
+              onClick={() => {
+                setDeleteConfirm(false);
+              }}
+            >
+              No
+            </Button>
+            <LoadingButton
+              loading={deleteLoading}
+              variant="contained"
+              sx={{ background: 'linear-gradient(#047efc, #12488f)', ':hover': { opacity: 0.8 } }}
+              onClick={() => handleDeleteTip()}
+            >
+              Yes
+            </LoadingButton>
+          </DialogActions>
+        </Dialog>
+
+        <Box sx={{ mt: 3, mx: 'auto', maxWidth: 720, textAlign: 'center' }}>
+          <div className="tabs-border">
+            <div className="tabs-container">
+              <button type='button'
+                className={`tab-btn ${value === 0 ? 'active' : ''}`}
+                onClick={(e) => handleChange(e, 0)}
               >
-                <Paper
-                  sx={{
-                    boxShadow: '0 2px 7px rgba(20, 20, 43, .06)',
-                    backgroundColor: '#0d1117',
-                    border: '0px solid rgba(239, 240, 246, .08)',
-                    borderRadius: 1,
-                  }}
-                >
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      background: 'linear-gradient(45deg, #0863e3, transparent)',
-                    }}
-                  >
-                    <Typography variant="h7" sx={{ color: 'primary.contrastText', mt: 1 }}>
-                      {formatDate(tip.date.toDate())}
-                    </Typography>
-                    <Typography variant="h7" sx={{ color: 'primary.contrastText', mb: 1 }}>
-                      {tip.title}
-                    </Typography>
-                    {user?.role === 'administrator' && (
-                      <Box
-                        sx={{
-                          position: 'absolute',
-                          right: 20,
-                          top: 20,
-                          display: 'flex',
-                          gap: 1,
-                        }}
+                Insights
+              </button>
+              <button type='button'
+                className={`tab-btn ${value === 1 ? 'active' : ''}`}
+                onClick={(e) => handleChange(e, 1)}
+              >
+                Bets
+              </button>
+            </div>
+          </div>
+
+          {/* TAB 0 */}
+          {value === 0 && (
+            <div className="tab-panel">
+              {!canViewInsights ? (
+          
+                <div className="premium-lock-container">
+                  <div className="premium-lock-content">
+                    <div className="lock-icon">
+                      <img src="/img/locked-premium.svg" alt="Locked" />
+                    </div>
+
+                    <h3 className="lock-title">Insights Locked</h3>
+                    <p className="lock-subtitle">
+                      One click away from full access
+                    </p>
+
+                    {(hasNoSubscription || isSilver || isExpired) && (
+                      <button
+                        type="button"
+                        className="lock-btn"
+                        onClick={() =>
+                          hasNoSubscription
+                            ? setCurrentPage('Subscriptions')
+                            : setOpenUpgrade(true)
+                        }
                       >
-                        <EditIcon
-                          sx={{ cursor: 'pointer' }}
-                          onClick={(e) => {
+                        {hasNoSubscription ? 'View Programs' : 'Upgrade Now'}
+                      </button>
+                    )}
+
+                  </div>
+                </div>
+              ) : (
+                <>
+                  {publicTips.map((tip, index) => {
+                    const stake = Number(calculateStake(tip.reliability) || 0);
+                    const stakeAmount = Number(calculateStakeAmount(tip.reliability) || 0);
+
+
+                    return (
+                      <div className="tip-border" key={tip.id}>
+                        <div className="tip-card">
+                          <div className="tip-header">
+                            <span>{formatDate(tip.date.toDate())}</span>
+                            <span>{tip.title}</span>
+
+                            {user?.role === 'administrator' && (
+                              <div className="admin-icons">
+                                <EditIcon onClick={(e) => {
                             e.stopPropagation();
 
                             const parsedAnalyses = Array.isArray(tip?.analyses)
@@ -1387,783 +1475,326 @@ export default function Tips({ setCurrentPage }) {
                             setImageUrl(tip.imageUrl);
                             setPdfUrl(tip.pdfUrl);
                             setAddTip(true);
-                          }}
-                        />
-                        <DeleteIcon
-                          sx={{ cursor: 'pointer' }}
-                          onClick={(e) => {
+                          }}/>
+                                <DeleteIcon  onClick={(e) => {
                             e.stopPropagation();
                             setDeleteConfirm(true);
                             setDeletedTip(tip);
-                          }}
-                        />
-                      </Box>
-                    )}
-                  </Box>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      pb: 2,
-                      borderBottomLeftRadius: '8px',
-                      borderBottomRightRadius: '8px',
-                      px: 4,
-                    }}
-                  >
-                    {tip.imageUrl && (
-                      <Box
-                        component="img"
-                        alt="Logo"
-                        src={tip.imageUrl}
-                        sx={{
-                          mt: 3,
-                          borderRadius: 1,
-                        }}
-                      />
-                    )}
-                    <Box sx={{ display: 'flex', flexDirection: 'row', mt: 2, px: 1 }}>
-                      <Typography variant="h7" sx={{ color: '#FFF', fontWeight: '600' }}>
-                        Stake
-                      </Typography>
-                      <Box sx={{ flex: 1 }} />
-                      <Typography variant="h7" sx={{ color: '#FFF', fontWeight: '600' }}>
-                        {(stake || 0).toFixed(2)} %
-                        {/* {tip.reliability}% (€{' '}
-                        {user.bankroll ? (user.bankroll * tip.reliability) / 100 : 0}) */}
-                      </Typography>
-                    </Box>
-                    <Box sx={{ display: 'flex', flexDirection: 'row', mt: 1, px: 1 }}>
-                      <Typography variant="h7" sx={{ color: '#FFF', fontWeight: '600' }}>
-                        Stake Amount
-                      </Typography>
-                      <Box sx={{ flex: 1 }} />
-                      <Typography variant="h7" sx={{ color: '#FFF', fontWeight: '600' }}>
-                        {(stakeAmount || 0).toFixed(2)} €
-                        {/* {parseFloat((tip.reliability * 1.5).toFixed(3))}% (€{' '}
-                        {user.bankroll ? (user.bankroll * tip.reliability * 1.5) / 100 : 0}) */}
-                      </Typography>
-                    </Box>
-                    <Box sx={{ display: 'flex', flexDirection: 'row', mt: 1, px: 1 }}>
-                      <Typography variant="h7" sx={{ color: '#FFF', fontWeight: '600' }}>
-                        Minimum Odd
-                      </Typography>
-                      <Box sx={{ flex: 1 }} />
-                      <Typography variant="h7" sx={{ color: '#FFF', fontWeight: '600' }}>
-                        {(tip.minimumodd || 0).toFixed(2)}
-                        {/* {parseFloat((tip.reliability * 1.5).toFixed(3))}% (€{' '}
-                        {user.bankroll ? (user.bankroll * tip.reliability * 1.5) / 100 : 0}) */}
-                      </Typography>
-                    </Box>
-                    {tip.analyses.map((analyse, index2) => (
-                      <>
-                        <Typography
-                          variant="h7"
-                          sx={{ color: '#FFF', fontWeight: '600', mt: 2, px: 1, textAlign: 'left' }}
-                        >
-                          {JSON.parse(analyse).title}
-                        </Typography>
-                        <Typography
-                          variant="h7"
-                          sx={{ color: '#FFF', mt: 2, px: 1, textAlign: 'left' }}
-                        >
-                          {createTypographyWithLineBreaks(JSON.parse(analyse).body)}
-                        </Typography>
-                      </>
-                    ))}
-                  </Box>
-                </Paper>
-              </Box>
-            ) : (
-              <Box
-                sx={{
-                  backgroundImage: 'linear-gradient(326deg, #076af4, #0d1117 49%, #086af5)',
-                  borderRadius: 1,
-                  padding: '2px',
-                  transition: 'all .2s',
-                  position: 'relative',
-                  transform: 'none',
-                  boxShadow: '0 0 70px rgba(9, 134, 251, .19)',
-                  mt: 3,
-                  mb: 3,
-                  maxWidth: 720,
-                }}
-              >
-                <Paper
-                  sx={{
-                    boxShadow: '0 2px 7px rgba(20, 20, 43, .06)',
-                    backgroundColor: '#0d1117',
-                    border: '0px solid rgba(239, 240, 246, .08)',
-                    borderRadius: 1,
-                  }}
-                >
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      background: 'linear-gradient(45deg, #0863e3, transparent)',
-                    }}
-                  >
-                    <Typography variant="h7" sx={{ color: 'primary.contrastText', mt: 1 }}>
-                      {formatDate(tip.date.toDate())}
-                    </Typography>
-                    <Typography variant="h7" sx={{ color: 'primary.contrastText', mb: 1 }}>
-                      {tip.title}
-                    </Typography>
-                    {user?.role === 'administrator' && (
-                      <Box
-                        sx={{
-                          position: 'absolute',
-                          right: 20,
-                          top: 20,
-                          display: 'flex',
-                          gap: 1,
-                        }}
-                      >
-                        <EditIcon
-                          sx={{ cursor: 'pointer' }}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            
-                            const parsedAnalyses = Array.isArray(tip?.analyses)
-                              ? tip.analyses.map(item => {
-                                  try {
-                                    return JSON.parse(item);
-                                  } catch {
-                                    return null;
-                                  }
-                                }).filter(Boolean)
-                              : [];
-                            setAnalysisData(parsedAnalyses);
-                            setAnalysisTitle('');
-                            setAnalysisMessage('');
-                            setAddAnalysis(false);
+                          }} />
+                              </div>
+                            )}
+                          </div>
 
-                            setDocId(tip.id);
-                            setTitle(tip.title);
-                            setMessage(tip.message);
-                            setImageUrl(tip.imageUrl);
-                            setPdfUrl(tip.pdfUrl);
-                            setAddMessage(true);
-                          }}
-                        />
-                        <DeleteIcon
-                          sx={{ cursor: 'pointer' }}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setDeleteConfirm(true);
-                            setDeletedTip(tip);
-                          }}
-                        />
-                      </Box>
-                    )}
-                  </Box>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      pb: 2,
-                      borderBottomLeftRadius: '6px',
-                      borderBottomRightRadius: '6px',
-                      px: 2,
-                    }}
-                  >
-                    {tip.pdfUrl && (
-                      <Box sx={{ px: 2, mt: 2 }}>
-                        <iframe
-                          src={`${tip.pdfUrl}#toolbar=0&navpanes=0&scrollbar=0`}
-                          style={{
-                            width: '100%',
-                            height: 500,
-                            border: 'none',
-                          }}
-                          title="pdf-preview"
-                        />
-                      </Box>
-                    )}
-                    {tip.imageUrl && (
-                      <Box
-                        component="img"
-                        alt="Logo"
-                        src={tip.imageUrl}
-                        sx={{
-                          mt: 3,
-                          borderRadius: 1,
-                        }}
-                      />
-                    )}
-                    <Typography
-                      variant="h7"
-                      sx={{ color: '#FFF', px: 2, mt: 3, mb: 1, textAlign: 'left' }}
-                    >
-                      {tip.message}
-                    </Typography>
-                    {tip.analyses && tip.analyses.map((analyse, index2) => (
-                      <>
-                        <Typography
-                          variant="h7"
-                          sx={{ color: '#FFF', fontWeight: '600', mt: 2, px: 1, textAlign: 'left' }}
-                        >
-                          {JSON.parse(analyse).title}
-                        </Typography>
-                        <Typography
-                          variant="h7"
-                          sx={{ color: '#FFF', mt: 2, px: 1, textAlign: 'left' }}
-                        >
-                          {createTypographyWithLineBreaks(JSON.parse(analyse).body)}
-                        </Typography>
-                      </>
-                    ))}
-                  </Box>
-                </Paper>
-              </Box>
-            );
-          })}
-            </>
-          )}
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={1}>
-          {!isSubscribed ? (
-            <Paper
-              sx={{
-                borderRadius: 3,
-                textAlign: 'center',
-                backgroundColor: 'transparent',
-                mt: 15,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '100%',
-              }}
-            >
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  width: '100%',
-                  mt: 0,
-                  columnGap: 1,
-                  rowGap: 0,
-                  justifyContent: 'center',
-                  px: 2,
-                }}
-              >
-                <Box
-                  sx={{
-                    backgroundImage: 'linear-gradient(326deg, #076af4, #0d1117 49%, #086af5)',
-                    minWidth: '540px',
-                    borderRadius: '24px',
-                    padding: '2px',
-                    transition: 'all .2s',
-                    position: 'relative',
-                    transform: 'none',
-                    boxShadow: '0 0 70px rgba(9, 134, 251, .19)',
-                  }}
-                >
-                  <Box
-                    sx={{
-                      backgroundColor: '#0d1117',
-                      width: '100%',
-                      height: '100%',
-                      border: '1px solid rgba(239, 240, 246, .08)',
-                      borderRadius: '24px',
-                      transition: 'all .2s',
-                      position: 'relative',
-                      boxShadow: '0 2px 7px rgba(20, 20, 43, .06)',
-                      px: 3,
-                      py: 2,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      display: 'flex',
-                      flexDirection: 'column',
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        width: '77px',
-                        height: '77px',
-                        border: '2px solid #0866eb',
-                        display: 'flex',
-                        alignItems: 'center',
-                        borderRadius: 2,
-                        justifyContent: 'center',
-                      }}
-                    >
-                      <RemoveModeratorIcon />
-                    </Box>
-                    <Typography
-                      sx={{ color: 'rgb(203, 213, 225)', fontWeight: 400, fontSize: '36px', mt: 2 }}
-                    >
-                      Purchase Membership
-                    </Typography>
-                    <Typography
-                      sx={{
-                        color: 'rgba(203, 213, 225, 0.5)',
-                        fontWeight: 400,
-                        fontSize: '18px',
-                        mt: 1,
-                      }}
-                    >
-                      Please purchase a membership to move forward
-                    </Typography>
-                    <Box
-                      sx={{
-                        background: 'linear-gradient(#047efc, #12488f)',
-                        position: 'relative',
-                        overflow: 'hidden',
-                        width: '100%',
-                        height: '48px',
-                        borderRadius: '8px',
-                        mt: 4,
-                        mb: 2,
-                        ':hover': {
-                          opacity: 0.8,
-                        },
-                      }}
-                    >
-                      <Button
-                        variant="filled"
-                        color="inherit"
-                        sx={{
-                          position: 'relative',
-                          zIndex: 2, // Ensure the button text is above the overlay
-                          color: '#FFF',
-                          width: '100%',
-                          height: '48px',
-                          fontSize: 16,
-                          fontWeight: 400,
-                        }}
-                        onClick={() => setCurrentPage('Subscriptions')}
-                      >
-                        Purchase Membership
-                      </Button>
-                    </Box>
-                  </Box>
-                </Box>
-              </Box>
-            </Paper>
-          ) : (
-            <>
-              {premiumTips.map((tip, index) =>
-                tip.type === 'Tip' ? (
-                  <Box
-                    sx={{
-                      backgroundImage: 'linear-gradient(326deg, #076af4, #0d1117 49%, #086af5)',
-                      borderRadius: 1,
-                      padding: '2px',
-                      transition: 'all .2s',
-                      position: 'relative',
-                      transform: 'none',
-                      boxShadow: '0 0 70px rgba(9, 134, 251, .19)',
-                      mt: 3,
-                      mb: 3,
-                      maxWidth: 720,
-                    }}
-                  >
-                    <Paper
-                      sx={{
-                        boxShadow: '0 2px 7px rgba(20, 20, 43, .06)',
-                        backgroundColor: '#0d1117',
-                        border: '0px solid rgba(239, 240, 246, .08)',
-                        borderRadius: 1,
-                      }}
-                    >
-                      <Box
-                        sx={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          background: 'linear-gradient(45deg, #0863e3, transparent)',
-                        }}
-                      >
-                        <Typography variant="h7" sx={{ color: 'primary.contrastText', mt: 1 }}>
-                          {formatDate(tip.date.toDate())}
-                        </Typography>
-                        <Typography variant="h7" sx={{ color: 'primary.contrastText', mb: 1 }}>
-                          {tip.title}
-                        </Typography>
-                          {user?.role === 'administrator' && (
-                            <Box
-                              sx={{
-                                position: 'absolute',
-                                right: 20,
-                                top: 20,
-                                display: 'flex',
-                                gap: 1,
-                              }}
-                            >
-                              <EditIcon
-                                sx={{ cursor: 'pointer' }}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-    
-                                  const parsedAnalyses = Array.isArray(tip?.analyses)
-                                    ? tip.analyses.map(item => {
-                                        try {
-                                          return JSON.parse(item);
-                                        } catch {
-                                          return null;
-                                        }
-                                      }).filter(Boolean)
-                                    : [];
-                                  setAnalysisData(parsedAnalyses);
-                                  setAnalysisTitle('');
-                                  setAnalysisMessage('');
-                                  setAddAnalysis(false);
+                          <div className="tip-body">
+                            {tip.imageUrl && (
+                              <img src={tip.imageUrl} alt="tip" />
+                            )}
 
-                                  setDocId(tip.id);
-                                  setTitle(tip.title);
-                                  setBankroll(tip.reliability);
-                                  setMinimumOdd(tip.minimumodd);
-                                  setMessage(tip.message);
-                                  setImageUrl(tip.imageUrl);
-                                  setPdfUrl(tip.pdfUrl);
-                                  setAddTip(true);
-                                }}
-                              />
-                              <DeleteIcon
-                                sx={{ cursor: 'pointer' }}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  setDeleteConfirm(true);
-                                  setDeletedTip(tip);
-                                }}
-                              />
-                            </Box>
-                          )}
-                      </Box>
-                      <Box
-                        sx={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          pb: 2,
-                          borderBottomLeftRadius: '8px',
-                          borderBottomRightRadius: '8px',
-                          px: 4,
-                        }}
-                      >
-                        {tip.pdfUrl && (
-                          <Box sx={{ px: 2, mt: 2 }}>
-                            <Box
-                              component="iframe"
-                              src={tip.pdfUrl}
-                              title="pdf preview"
-                              sx={{
-                                width: '100%',
-                                height: 300,
-                                border: 'none',
-                                borderRadius: 2,
-                                backgroundColor: '#000',
-                              }}
-                            />
-                          </Box>
-                        )}
-                        {tip.imageUrl && (
-                          <Box
-                            component="img"
-                            alt="Logo"
-                            src={tip.imageUrl}
-                            sx={{
-                              mt: 3,
-                              borderRadius: 1,
-                            }}
-                          />
-                        )}
-                        <Box sx={{ display: 'flex', flexDirection: 'row', mt: 2 }}>
-                          <Typography variant="h7" sx={{ color: '#FFF', fontWeight: '600' }}>
-                            Stake
-                          </Typography>
-                          <Box sx={{ flex: 1 }} />
-                          <Typography variant="h7" sx={{ color: '#FFF', fontWeight: '600' }}>
-                            {calculateStake(tip.reliability).toFixed(2)} %
-                            {/* {tip.reliability}% (€{' '}
-                            {user.bankroll ? (user.bankroll * tip.reliability) / 100 : 0}) */}
-                          </Typography>
-                        </Box>
-                        <Box sx={{ display: 'flex', flexDirection: 'row', mt: 1 }}>
-                          <Typography variant="h7" sx={{ color: '#FFF', fontWeight: '600' }}>
-                            Stake Amount
-                          </Typography>
-                          <Box sx={{ flex: 1 }} />
-                          <Typography variant="h7" sx={{ color: '#FFF', fontWeight: '600' }}>
-                            {calculateStakeAmount(tip.reliability).toFixed(2)} €
-                            {/* {parseFloat((tip.reliability * 1.5).toFixed(3))}% (€{' '}
-                            {user.bankroll ? (user.bankroll * tip.reliability * 1.5) / 100 : 0}) */}
-                          </Typography>
-                        </Box>
-                        <Box sx={{ display: 'flex', flexDirection: 'row', mt: 1}}>
-                          <Typography variant="h7" sx={{ color: '#FFF', fontWeight: '600' }}>
-                            Minimum Odd
-                          </Typography>
-                          <Box sx={{ flex: 1 }} />
-                          <Typography variant="h7" sx={{ color: '#FFF', fontWeight: '600' }}>
-                            {(tip.minimumodd || 0).toFixed(2)}
-                            {/* {parseFloat((tip.reliability * 1.5).toFixed(3))}% (€{' '}
-                            {user.bankroll ? (user.bankroll * tip.reliability * 1.5) / 100 : 0}) */}
-                          </Typography>
-                        </Box>
-                        {tip.analyses.map((analyse, index2) => (
-                          <>
-                            <Typography
-                              variant="h7"
-                              sx={{
-                                color: '#FFF',
-                                fontWeight: '600',
-                                mt: 2,
-                                textAlign: 'left',
-                              }}
-                            >
-                              {JSON.parse(analyse).title}
-                            </Typography>
-                            <Typography
-                              variant="h7"
-                              sx={{ color: '#FFF', mt: 2, textAlign: 'left' }}
-                            >
-                              {createTypographyWithLineBreaks(JSON.parse(analyse).body)}
-                            </Typography>
-                          </>
-                        ))}
-                      </Box>
-                    </Paper>
-                  </Box>
-                ) : (
-                  <Box
-                    sx={{
-                      backgroundImage: 'linear-gradient(326deg, #076af4, #0d1117 49%, #086af5)',
-                      borderRadius: 1,
-                      padding: '2px',
-                      transition: 'all .2s',
-                      position: 'relative',
-                      transform: 'none',
-                      boxShadow: '0 0 70px rgba(9, 134, 251, .19)',
-                      mt: 3,
-                      mb: 3,
-                      maxWidth: 720,
-                    }}
-                  >
-                    <Paper
-                      sx={{
-                        boxShadow: '0 2px 7px rgba(20, 20, 43, .06)',
-                        backgroundColor: '#0d1117',
-                        border: '0px solid rgba(239, 240, 246, .08)',
-                        borderRadius: 1,
-                      }}
-                    >
-                      <Box
-                        sx={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          background: 'linear-gradient(45deg, #0863e3, transparent)',
-                        }}
-                      >
-                        <Typography variant="h7" sx={{ color: 'primary.contrastText', mt: 1 }}>
-                          {formatDate(tip.date.toDate())}
-                        </Typography>
-                        <Typography variant="h7" sx={{ color: 'primary.contrastText', mb: 1 }}>
-                          {tip.title}
-                        </Typography>
-                        {user?.role === 'administrator' && (
-                          <Box
-                            sx={{
-                              position: 'absolute',
-                              right: 20,
-                              top: 20,
-                              display: 'flex',
-                              gap: 1,
-                            }}
-                          >
-                            <EditIcon
-                              sx={{ cursor: 'pointer' }}
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                if (tip.type === "Message"){
-                                  const parsedAnalyses = Array.isArray(tip?.analyses)
-                                    ? tip.analyses.map(item => {
-                                        try {
-                                          return JSON.parse(item);
-                                        } catch {
-                                          return null;
-                                        }
-                                      }).filter(Boolean)
-                                    : [];
-                                  setAnalysisData(parsedAnalyses);
-                                  setAnalysisTitle('');
-                                  setAnalysisMessage('');
-                                  setAddAnalysis(false);
+                            {tip.message && (
+                              <p>{createTypographyWithLineBreaks(tip.message)}</p>
+                            )}
 
-                                  setDocId(tip.id);
-                                  setTitle(tip.title);
-                                  setMessage(tip.message);
-                                  setImageUrl(tip.imageUrl);
-                                  setPdfUrl(tip.pdfUrl);
-                                  setAddMessage(true);
+
+                            {Array.isArray(tip.analyses) &&
+                              tip.analyses.map((analyse, i) => {
+                                let parsed;
+                                try {
+                                  parsed = JSON.parse(analyse);
+                                } catch {
+                                  return null;
                                 }
-                              }}
-                            />
-                            <DeleteIcon
-                              sx={{ cursor: 'pointer' }}
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setDeleteConfirm(true);
-                                setDeletedTip(tip);
-                              }}
-                            />
-                          </Box>
-                        )}
-                      </Box>
 
-                      <Box
-                        sx={{
-                          mt: 3,
-                          px: 4,
-                        }}
-                      >
-                        {tip.pdfUrl && (
-                          <Box sx={{ px: 2, mt: 2 }}>
-                            <iframe
-                              src={`${tip.pdfUrl}#toolbar=0&navpanes=0&scrollbar=0`}
-                              style={{
-                                width: '100%',
-                                height: 500,
-                                border: 'none',
-                              }}
-                              title="pdf-preview"
-                            />
-                          </Box>
-                        )}
-                        {tip.imageUrl && (
-                          <Box
-                            component="img"
-                            alt="Logo"
-                            src={tip.imageUrl}
-                            sx={{
-                              borderRadius: 1,
-                            }}
-                          />
-                        )}
-                      </Box>
-                      <Box
-                        sx={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          pb: 2,
-                          borderBottomLeftRadius: '6px',
-                          borderBottomRightRadius: '6px',
-                          px: 2,
-                        }}
-                      >
-                        <Typography
-                          variant="h7"
-                          sx={{ color: '#FFF', px: 2, mt: 3, mb: 1, textAlign: 'left' }}
-                        >
-                          {createTypographyWithLineBreaks(tip.message)}
-                        </Typography>
-                        {tip.analyses.map((analyse, index2) => (
-                          <>
-                            <Typography
-                              variant="h7"
-                              sx={{
-                                color: '#FFF',
-                                fontWeight: '600',
-                                mt: 2,
-                                textAlign: 'left',
-                              }}
-                            >
-                              {JSON.parse(analyse).title}
-                            </Typography>
-                            <Typography
-                              variant="h7"
-                              sx={{ color: '#FFF', mt: 2, textAlign: 'left' }}
-                            >
-                              {createTypographyWithLineBreaks(JSON.parse(analyse).body)}
-                            </Typography>
-                          </>
-                        ))}
-                      </Box>
-                    </Paper>
-                  </Box>
-                )
+                                return (
+                                  <div key={i}>
+                                    <h4>{parsed.title}</h4>
+                                    <p>{createTypographyWithLineBreaks(parsed.body)}</p>
+                                  </div>
+                                );
+                              })}
+
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </>
+              )}
+            </div>
+          )}
+
+          {/* TAB 1 */}
+          {value === 1 && (
+            <div className="tab-panel">
+              {!canViewBets ? (
+                <div className="premium-lock-container">
+                  <div className="premium-lock-content">
+                    <div className="lock-icon">
+                      <img src="/img/locked-premium.svg" alt="Locked" />
+                    </div>
+
+                    <h3 className="lock-title">Bets Locked</h3>
+                    <p className="lock-subtitle">One click away from full access</p>
+
+                    <button
+                      type="button"
+                      className="lock-btn"
+                      onClick={() => setCurrentPage('Subscriptions')}
+                    >
+                      View Programs
+                    </button>
+                  </div>
+                </div>
+
+              ) : (
+                <>
+                  {premiumTips.map((tip) => {
+                    const stake = Number(calculateStake(tip.reliability) || 0);
+                    const stakeAmount = Number(calculateStakeAmount(tip.reliability) || 0);
+
+                    return tip.type === 'Tip' ? (
+                      <div className="tip-border" key={tip.id}>
+                        <div className="tip-card">
+                          {/* HEADER */}
+                          <div className="tip-header">
+                            <span>{formatDate(tip.date.toDate())}</span>
+                            <span>{tip.title}</span>
+
+                            {user?.role === 'administrator' && (
+                              <div className="admin-icons">
+                                <EditIcon
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+
+                                    const parsedAnalyses = Array.isArray(tip?.analyses)
+                                      ? tip.analyses
+                                        .map((item) => {
+                                          try {
+                                            return JSON.parse(item);
+                                          } catch {
+                                            return null;
+                                          }
+                                        })
+                                        .filter(Boolean)
+                                      : [];
+
+                                    setAnalysisData(parsedAnalyses);
+                                    setAnalysisTitle('');
+                                    setAnalysisMessage('');
+                                    setAddAnalysis(false);
+
+                                    setDocId(tip.id);
+                                    setTitle(tip.title);
+                                    setBankroll(tip.reliability);
+                                    setMinimumOdd(tip.minimumodd);
+                                    setMessage(tip.message);
+                                    setImageUrl(tip.imageUrl);
+                                    setPdfUrl(tip.pdfUrl);
+                                    setAddTip(true);
+                                  }}
+                                />
+                                <DeleteIcon
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setDeleteConfirm(true);
+                                    setDeletedTip(tip);
+                                  }}
+                                />
+                              </div>
+                            )}
+                          </div>
+
+                          {/* BODY */}
+                          <div className="tip-body">
+                            {tip.pdfUrl && (
+                              <iframe
+                                src={tip.pdfUrl}
+                                title="pdf-preview"
+                                style={{
+                                  width: '100%',
+                                  height: 300,
+                                  border: 'none',
+                                  borderRadius: '8px',
+                                }}
+                              />
+                            )}
+
+                            {tip.imageUrl && (
+                              <img
+                                src={tip.imageUrl}
+                                alt="tip"
+                                style={{ marginTop: 16, borderRadius: 6 }}
+                              />
+                            )}
+
+                            <div className="row">
+                              <strong>Stake</strong>
+                              <span>{stake.toFixed(2)} %</span>
+                            </div>
+
+                            <div className="row">
+                              <strong>Stake Amount</strong>
+                              <span>{stakeAmount.toFixed(2)} €</span>
+                            </div>
+
+                            <div className="row">
+                              <strong>Minimum Odd</strong>
+                              <span>{(tip.minimumodd || 0).toFixed(2)}</span>
+                            </div>
+
+                            {tip.analyses.map((analyse, index) => (
+                              <div key={index}>
+                                <h4>{JSON.parse(analyse).title}</h4>
+                                <p>
+                                  {createTypographyWithLineBreaks(
+                                    JSON.parse(analyse).body
+                                  )}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      /* MESSAGE TYPE */
+                      <div className="tip-border" key={tip.id}>
+                        <div className="tip-card">
+                          <div className="tip-header">
+                            <div className="tip-text">
+                              <span className="tip-date">{formatDate(tip.date.toDate())}</span>
+                              <span className="tip-title">{tip.title}</span>
+                            </div>
+
+                            {user?.role === 'administrator' && (
+                              <div className="admin-icons">
+                                <EditIcon
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    const parsedAnalyses = Array.isArray(tip?.analyses)
+                                      ? tip.analyses
+                                        .map((item) => {
+                                          try {
+                                            return JSON.parse(item);
+                                          } catch {
+                                            return null;
+                                          }
+                                        })
+                                        .filter(Boolean)
+                                      : [];
+
+                                    setAnalysisData(parsedAnalyses);
+                                    setAnalysisTitle('');
+                                    setAnalysisMessage('');
+                                    setAddAnalysis(false);
+
+                                    setDocId(tip.id);
+                                    setTitle(tip.title);
+                                    setMessage(tip.message);
+                                    setImageUrl(tip.imageUrl);
+                                    setPdfUrl(tip.pdfUrl);
+                                    setAddMessage(true);
+                                  }}
+                                />
+                                <DeleteIcon
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setDeleteConfirm(true);
+                                    setDeletedTip(tip);
+                                  }}
+                                />
+                              </div>
+                            )}
+                          </div>
+
+
+                          <div className="tip-body">
+                            {tip.pdfUrl && (
+                              <iframe
+                                src={`${tip.pdfUrl}#toolbar=0&navpanes=0&scrollbar=0`}
+                                title="pdf-preview"
+                                style={{
+                                  width: '100%',
+                                  height: 500,
+                                  border: 'none',
+                                }}
+                              />
+                            )}
+
+                            {tip.imageUrl && (
+                              <img
+                                src={tip.imageUrl}
+                                alt="tip"
+                                style={{ borderRadius: 6 }}
+                              />
+                            )}
+
+                            <p style={{ marginTop: 16 }}>
+                              {createTypographyWithLineBreaks(tip.message)}
+                            </p>
+
+                            {tip.analyses.map((analyse, index) => (
+                              <div key={index}>
+                                <h4>{JSON.parse(analyse).title}</h4>
+                                <p>
+                                  {createTypographyWithLineBreaks(
+                                    JSON.parse(analyse).body
+                                  )}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+
+                </>
+              )}
+            </div>
+          )}
+
+          {user?.role === 'administrator' && (
+            <>
+              {/* FLOATING ACTION BUTTON */}
+              <button type='button'
+                className="admin-fab"
+                aria-label="add"
+                onClick={() => setShowMenu(!showMenu)}
+              >
+                {showMenu ? <CloseIcon /> : <AddIcon />}
+              </button>
+
+              {/* MENU */}
+              {showMenu && (
+                <div className="admin-menu">
+                  <div className="admin-menu-row">
+                    <span className="admin-menu-text">Add a message</span>
+                    <button
+                      type="button"
+                      className="admin-circle-btn"
+                      onClick={() => handleMessage()}
+                    >
+                      <ChatIcon style={{ color: '#FFF', width: 20, height: 20 }} />
+                    </button>
+                  </div>
+
+                  <div className="admin-menu-row">
+                    <span className="admin-menu-text">Add a tip</span>
+                    <button type='button'
+                      className="admin-circle-btn"
+                      onClick={() => handleTip()}
+                    >
+                      <BarChartIcon style={{ color: '#FFF', width: 20, height: 20 }} />
+                    </button>
+                  </div>
+                </div>
               )}
             </>
           )}
-        </CustomTabPanel>
-        {user?.role === 'administrator' && (
-          <>
-            <Fab
-              color="primary"
-              aria-label="add"
-              sx={{
-                position: 'fixed',
-                bottom: 50,
-                right: 24,
-                background: 'linear-gradient(#047efc, #12488f)',
-                ':hover': { opacity: 0.8 },
-              }}
-              onClick={() => {
-                setShowMenu(!showMenu);
-              }}
-            >
-              {showMenu ? <CloseIcon /> : <AddIcon />}
-            </Fab>
-            {showMenu && (
-              <Box
-                sx={{
-                  position: 'fixed',
-                  bottom: 120,
-                  right: 24,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'end',
-                  gap: '12px',
-                }}
-              >
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyItems: 'right',
-                    gap: '12px',
-                  }}
-                >
-                  <Typography>Add a message</Typography>
-                  <Button
-                    sx={{
-                      backgroundColor: '#12488f',
-                      borderRadius: '100px',
-                      minWidth: 36,
-                      minHeight: 36,
-                    }}
-                    onClick={() => handleMessage()}
-                  >
-                    <ChatIcon sx={{ color: '#FFF', width: 20, height: 20 }} />
-                  </Button>
-                </Box>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyItems: 'right',
-                    gap: '12px',
-                  }}
-                >
-                  <Typography>Add a tip</Typography>
-                  <Button
-                    sx={{
-                      backgroundColor: '#12488f',
-                      borderRadius: '100px',
-                      minWidth: 36,
-                      minHeight: 36,
-                    }}
-                    onClick={() => handleTip()}
-                  >
-                    <BarChartIcon sx={{ color: '#FFF', width: 20, height: 20 }} />
-                  </Button>
-                </Box>
-              </Box>
-            )}
-          </>
-        )}
-      </Box>
+
+        </Box>
+      </div>
     </Container>
   );
 }
+
+

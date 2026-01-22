@@ -11,6 +11,7 @@ export const paths = {
   profile: '/profile',
   checkout: '/check-out',
   lock: '/lock',
+  exclusive: '/exclusive',
   success: '/success',
   // Components
   components: {

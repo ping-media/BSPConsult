@@ -357,6 +357,7 @@ body {
 
   .heading-h5 {
     font-size: 28px;
+    font-weight: 600;
     margin-bottom: 4px;
   }
 
@@ -546,4 +547,14 @@ body {
 .scroll-btn:disabled::before,
 .scroll-btn:disabled::after {
   border-color: #7d8794;
+}
+
+.enroll-break {
+  display: inline;
+}
+
+@media (max-width: 768px) {
+  .enroll-break {
+    display: block; /* forces next line on mobile */
+  }
 }

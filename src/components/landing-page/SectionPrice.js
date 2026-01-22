@@ -4,9 +4,9 @@ import './css/PriceSection.css';
 import { loadStripe } from '@stripe/stripe-js';
 import { CircleCheck } from 'lucide-react';
 import { useNavigate } from 'react-router';
+import { useState } from 'react';
 import { paths } from 'src/routes/paths';
 
-// Stripe must stay OUTSIDE component
 const stripePromise = loadStripe("pk_live_51NAUESCf4YXq1rsyBMpbCD1Yqi5kocGdjxYqcqknpppNXXnUKKCVxar7NqInLJRCJTCEVkbqQPppP7nvve8E053I00P0pVQI8d");
 
 const programs = [
@@ -25,7 +25,7 @@ const programs = [
     id: 'advanced',
     name: 'Advanced Program',
     description:
-      'For bettors who want structured bets backed by game-changing data and access to the BSP Betting Model to consistently identify mispriced odds. From year two, maintain full access for €397 annually.',
+      'For bettors who want structured bets backed by game-changing data and access to the BSP Betting Model to consistently identify mispriced odds. From year two, maintain full access for just €397 annually.',
     priceAmount: '€597',
     pricePeriod: ' one-time fee',
     note: 'Lock in pricing before the next platform update.',
@@ -58,19 +58,23 @@ const includes = [
   'BSP Masterclass (20+ Hours of Video)',
   'Real Time Study Cases',
 ];
-
-export default function PriceSection() {
+// eslint-disable-next-line react/prop-types
+export default function PriceSection({ onProgramSelect }) {
   const navigate = useNavigate();
+  const [activeProgram, setActiveProgram] = useState('silver');
 
-  //  Shared click handler (ready for Stripe later)
-  const handleProgramClick = async (programId) => {
-    // Later: create Stripe checkout session here
-    // For now: navigate user
-    navigate(paths.register, {
-      replace: true,
-      state: { program: programId },
-    });
+  const handleProgramClick = (programId) => {
+    if (onProgramSelect) {
+      onProgramSelect(programId);
+    } else {
+      navigate(paths.register, {
+        state: { program: programId },
+      });
+    }
   };
+
+
+
 
   return (
     <section className="section-price" id="SectionPrice">
@@ -79,13 +83,20 @@ export default function PriceSection() {
           Betting Programs
         </div>
         <h5 className="heading-h5">Choose Your Program</h5>
-        <h2 className="heading-h2">There is real opportunity in tennis betting only through structure,discipline and a clear strategy.</h2>
+        <h2 className="heading-h2">There is real opportunity in tennis betting only through structure, discipline and a clear strategy.</h2>
       </div>
+
+
       <div className="price-grid">
+
         {programs.map((program) => (
           <div
             key={program.id}
-            className={`price-card ${program.id === 'advanced' ? 'is-featured' : ''}`}
+            className={`price-card
+  ${program.id === 'advanced' ? 'is-featured' : ''}
+  ${activeProgram === program.id ? 'is-active' : ''}
+`}
+
           >
 
             {/* BLACK INNER BOX */}

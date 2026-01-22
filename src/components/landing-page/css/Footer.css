@@ -38,7 +38,9 @@
   font-weight: 700;
   font-size: 18px;
 }
-
+.footer-logo img{
+  width: 50px;
+}
 .footer-desc {
   margin: 15px 0 32px;
   color: rgba(255, 255, 255, 0.60);
@@ -91,6 +93,10 @@
   cursor: pointer;
   border: 1px solid rgba(81, 162, 255, 0.30);
   background: linear-gradient(180deg, #007AFF 0%, #0C53C8 100%);
+}
+.footer-subscribe button:hover{
+  box-shadow: rgba(12, 83, 200, 0.45) 0px 12px 30px, rgba(255, 255, 255, 0.35) 0px 1px 0px inset;
+    transform: translateY(-1px);
 }
 
 /* LINKS */

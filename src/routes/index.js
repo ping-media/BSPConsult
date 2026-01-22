@@ -2,6 +2,7 @@ import { useRoutes } from 'react-router-dom';
 import Exclusive from 'src/pages/exclusive/Exclusive';
 import PaymentSuccess from 'src/pages/exclusive/paymentSuccess';
 import ProfileSettings from 'src/pages/exclusive/ProfileSettings';
+import TermsCondition from 'src/pages/TermsCondition';
 import AuthGuard from '../auth/AuthGuard';
 import GuestGuard from '../auth/GuestGuard';
 // layouts
@@ -18,6 +19,7 @@ import {
   LockPage,
   SuccessPage,
 } from './elements';
+
 
 
 // ----------------------------------------------------------------------
@@ -66,6 +68,14 @@ export default function Router() {
       children: [{ element: <PolicyPage />, index: true }],
     },
     {
+      path: 'terms-condition',
+      children: [{ element: <TermsCondition/>, index: true }],
+    },
+    {
+      path: 'terms-conditions',
+      children: [{ element: <TermsCondition/>, index: true }],
+    },
+    {
       path: 'home',
       children: [
         {
@@ -109,9 +119,9 @@ export default function Router() {
   children: [
     {
       element: (
-       
+       <AuthGuard>
           <Exclusive />
-      
+      </AuthGuard>
       ),
       index: true,
     },

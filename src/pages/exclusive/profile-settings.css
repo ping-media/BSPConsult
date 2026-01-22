@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&display=swap');
+
 * {
   font-family: 'Figtree', sans-serif;
   margin: 0;
@@ -15,9 +16,11 @@
 /* Right content */
 .dashboard-content {
   flex: 1;
-  color: #FFFFFF; position: relative;
+  color: #FFFFFF;
+  position: relative;
   overflow: hidden;
 }
+
 .dashboard-content::before {
   content: "";
   position: absolute;
@@ -31,20 +34,19 @@
   height: 400px;
   border-radius: 50%;
 
-  background: radial-gradient(
-    circle,
-    rgba(26, 65, 117, 0.35) 0%,
-    rgba(40, 102, 185, 0.25) 25%,
-    rgba(49, 127, 228, 0.15) 45%,
-    rgba(52, 138, 247, 0.05) 60%,
-    transparent 70%
-  );
+  background: radial-gradient(circle,
+      rgba(26, 65, 117, 0.35) 0%,
+      rgba(40, 102, 185, 0.25) 25%,
+      rgba(49, 127, 228, 0.15) 45%,
+      rgba(52, 138, 247, 0.05) 60%,
+      transparent 70%);
 
   filter: blur(60px);
   pointer-events: none;
   z-index: 0;
 }
-.dashboard-content > * {
+
+.dashboard-content>* {
   position: relative;
   z-index: 1;
 }
@@ -54,7 +56,7 @@
 .page-header {
   border-bottom: 1px solid #ffffff1f;
   padding-left: 24px;
-  
+
 }
 
 .page-header h1 {
@@ -65,37 +67,41 @@
 
 /* Grid */
 .content-grid {
- padding: 24px;
+  padding: 24px;
 }
-.manage-profile{
-    font-size: 20px;
-    line-height: 30px;
-    font-weight: 500;
-    border-bottom: 1px solid #ffffff1f;
-    padding: 20px;
-    margin-bottom: 24px;
+
+.manage-profile {
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: 500;
+  border-bottom: 1px solid #ffffff1f;
+  padding: 20px;
+  margin-bottom: 24px;
 }
-.all-content{
- height: auto;
-  padding: 4px 24px;
+
+.all-content {
+  height: auto;
+  padding: 32px 24px;
   background: #ffffff05;
   border-radius: 16px;
 
 }
-.all-profile-info{  
+
+.all-profile-info {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 24px;
   padding-bottom: 20px;
 }
+
 /* Boxes */
 .info-box {
   width: 100%;
-  max-width: 800px;
+  max-width: 880px;
   background: #FFFFFF0F;
   border-radius: 16px;
-  padding: 10px 24px;
+  padding: 0 24px;
   backdrop-filter: blur(10px);
 }
 
@@ -104,18 +110,19 @@
   font-weight: 500;
   text-align: center;
   border-bottom: 1px solid #ffffff1f;
-  padding-bottom: 10px;
-  margin-bottom: 16px;
+  padding-bottom: 24px;
+  padding-top: 24px;
+  margin-bottom: 24px;
 }
 
 /* Rows */
 .info-row {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
   color: #B9BDC7;
   font-size: 18px;
   font-weight: 500;
+  padding-bottom: 20px;
 }
 
 .profile-ans {
@@ -123,16 +130,19 @@
   font-size: 18px;
   font-weight: 400;
 }
+
 .profile-ans.with-icon {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  cursor: pointer;
 }
 
 .profile-ans.with-icon img {
   width: 18px;
   height: 18px;
 }
+
 
 .contact-buttons {
   display: grid;
@@ -153,7 +163,7 @@
   border-radius: 6px;
   color: #fff;
   cursor: pointer;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   box-shadow: inset 1px 1px 12px 1px #ffffff05;
 }
 
@@ -178,6 +188,11 @@
   font-size: 18px;
   font-weight: 400;
 }
+
+.premium {
+  margin-bottom: 20px;
+}
+
 /* Lists */
 .info-box ul {
   list-style: none;
@@ -200,12 +215,14 @@
   padding: 10px 14px;
   background: #348AF733;
   border: #348AF7 1px solid;
-  border-radius: 8px;
+  border-radius: 48px;
   color: #FFFFFF;
   cursor: pointer;
   width: 100%;
-  margin: 10px 0; 
+  margin-bottom: 20px;
+
 }
+
 .Strategy-btn {
   display: flex;
   align-items: center;
@@ -222,22 +239,22 @@
   color: #FFFFFF;
   cursor: pointer;
   width: 100%;
-  margin: 10px 0;
-
+  margin: 20px 0;
   box-shadow: inset 1px 1px 12px 1px #ffffff05;
 }
-.delete-btn{
+
+.delete-btn {
   font-size: 18px;
   font-weight: 400;
   line-height: 20px;
   padding: 10px 14px;
   background: #FB37481F;
   border: #FB3748 1px solid;
-  border-radius: 8px;
+  border-radius: 48px;
   color: #FB3748;
   cursor: pointer;
   width: 100%;
-  margin: 10px 0; 
+  margin-bottom: 20px;
 }
 
 /* Left group: icon + text */
@@ -274,20 +291,21 @@
 }
 
 /* Upgrade box full row */
-
 .upgrade-box {
+  position: relative;
   width: 100%;
-  max-width: 800px;
   border-radius: 16px;
-  padding: 10px 24px;
+  padding: 10px 0;
   backdrop-filter: blur(10px);
-  background: #101117;
+  background: #12141E;
   margin-bottom: 20px;
-  /* OUTER + INNER SHADOW */
-  box-shadow:
-    5px 5px 4px 0px #00000024,          /* outer shadow */
-    inset 1px 1px 12px 1px #FFFFFF05;  /* inner shadow */
+
+  box-shadow: 5px 5px 4px 0px #00000024;
+
+  box-shadow: 1px 1px 12px 1px #FFFFFF05 inset;
+
 }
+
 .upgrade-box::before {
   content: "";
   position: absolute;
@@ -296,14 +314,11 @@
   padding: 1px;
   z-index: -1;
 
-  /* Gradient only top-left */
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.08) 0%,
-    rgba(255, 255, 255, 0.08) 25%,
-    rgba(255, 255, 255, 0.08) 45%,
-    transparent 60%
-  );
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(255, 255, 255, 0.08) 25%,
+      rgba(255, 255, 255, 0.08) 45%,
+      transparent 60%);
 
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
@@ -312,121 +327,151 @@
   mask-composite: exclude;
 
   pointer-events: none;
-
 }
+
 .upgrade-content {
   text-align: center;
   padding: 16px 0;
+  /* border-bottom: 1px solid #FFFFFF1A; */
 }
+
 .upgrade-content h3 {
   font-size: 20px;
-  font-weight: 500;
+  font-weight: 600;
+  margin: 0 30px;
 }
+
 .upgrade-content p {
+  margin: 0 30px;
   margin-top: 8px;
   font-size: 16px;
+  font-size: 400;
   color: #B9BDC7;
+
 }
+
 .Gold-btn {
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 20px;
   padding: 10px 14px;
   background: #FFCB2B33;
-  border: #FFCB2B 1px solid;
-  border-radius: 8px;
+  border: 1px solid #FFCB2B;
+  border-radius: 48px;
   color: #FFFFFF;
   cursor: pointer;
   width: 100%;
-  margin: 10px 0; 
 }
 
-.price-card--gold {
+.adva-btn {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  padding: 10px 14px;
+  background: #348AF733;
+  border: 1px solid #348AF7;
+  border-radius: 48px;
+  color: #FFFFFF;
+  cursor: pointer;
+  width: 100%;
+
+}
+
+.upgrade-card--gold {
   position: relative;
   margin: 0 auto;
-  padding:8px;
-border-radius: 14px;
-   background: url('../../assets/gold-bg.png') ;
+  padding: 8px;
+  border-radius: 14px;
+  background: url('../../assets/gold-member.png');
   background-size: cover;
-  margin: 20px 0;
+  margin: 20px 30px;
 }
-.price-card--gold .price-inner {
+
+.upgrade-card--advanced {
+  position: relative;
+  margin: 0 auto;
+  padding: 8px;
+  border-radius: 14px;
+  background: url('../../assets/advance-pro.png');
+  background-size: cover;
+  margin: 20px 30px;
+}
+
+.upgrade-inner {
   position: relative;
   width: 100%;
-  padding: 24px;
+  padding: 20px;
   border-radius: 12px;
-  /* INNER DARK BOX */
+
   background: rgba(0, 0, 0, 0.30);
   border: 1px solid rgba(255, 255, 255, 0.10);
-  /* GLASS BLUR */
+
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 
-  /* INNER SHADOW */
   box-shadow:
     inset 1px 1px 12px rgba(255, 255, 255, 0.05);
 }
-.price-card--gold .program-headers {
+
+.upgrade-headers {
   display: flex;
   align-items: center;
   justify-content: space-between;
- 
 }
 
-.price-card--gold .program-title {
+.upgrade-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.upgrade-price {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-top: 18px;
+  margin-bottom: 8px;
+}
+
+.upgrade-price .price-amount {
   font-size: 24px;
   font-weight: 500;
   color: #ffffff;
 }
 
-.price-card--gold .program-price {
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
-  margin: 20px 0 0;
-}
-
-.price-card--gold .price-amount {
-  font-size: 28px;
-  font-weight: 500;
-  color: #ffffff;
-}
-
-.price-card--gold .price-period {
-  font-size: 16px;
+.upgrade-price .price-period {
+  font-size: 12px;
   font-weight: 500;
   color: #D0D3D9;
 }
-.price-card--gold .program-note {
-  font-size: 18px;
+
+.upgrade-note {
+  font-size: 14px;
   color: #D0D3D9;
   margin-bottom: 20px;
 }
 
-
-.price-card--gold .program-includes {
-  margin-top: 24px;
+.upgrade-includes {
+  margin-top: 18px;
   padding: 0 16px 16px;
 }
 
-.price-card--gold .program-includes h4 {
-  font-size: 16px;
+.upgrade-includes h4 {
+  font-size: 14px;
   font-weight: 500;
   color: #ffffff;
-  padding: 2px 0;
-  
+  margin-bottom: 12px;
 }
 
-.price-card--gold .program-includes li {
+.upgrade-includes li {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 2px 0;
-  font-size: 16px;
+  padding: 4px 0;
+  font-size: 14px;
   font-weight: 300;
   color: #F0F1F3;
 }
-
 
 
 @media (max-width: 1024px) {
@@ -450,6 +495,7 @@ border-radius: 14px;
     font-size: 16px;
   }
 }
+
 @media (max-width: 768px) {
   .dashboard-layout {
     flex-direction: column;
@@ -460,59 +506,198 @@ border-radius: 14px;
   }
 
   .page-header h1 {
-    font-size: 18px;
+    font-size: 16px;
     line-height: 56px;
-  }
-
-  .manage-profile {
-    font-size: 18px;
-    padding: 16px;
   }
 
   .all-profile-info {
     gap: 16px;
   }
 
+  .all-profile-info {
+    display: flex;
+    padding-bottom: 20px;
+  }
+
+  .info-box {
+    padding-bottom: 0;
+    margin-bottom: 24px;
+  }
+
   .info-box h3 {
-    font-size: 18px;
+    font-size: 16px;
+    padding-top: 0;
+    padding-bottom: 16px;
+    margin-bottom: 16px;
   }
 
   .info-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-    font-size: 15px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: 500;
+    padding-bottom: 16px;
   }
 
   .profile-ans {
-    font-size: 15px;
+    font-size: 14px;
+    font-weight: 400;
   }
 
   .upgrade-btn,
   .Strategy-btn {
-    font-size: 16px;
-    padding: 10px 12px;
-  }
-}
-@media (max-width: 480px) {
-  .content-grid {
-    padding: 12px;
-  }
-
-  .info-box {
-    padding: 12px;
-    border-radius: 12px;
-  }
-
-  .info-box h3 {
-    font-size: 16px;
-  }
-
-  .price {
-    font-size: 18px;
-  }
-
-  .benefits {
     font-size: 14px;
+    padding: 10px 12px;
+    margin-bottom: 16px;
+
+  }
+
+  .delete-btn {
+    font-size: 14px;
+    height: 40px;
+    font-weight: 500;
+    border-radius: 48px;
+  }
+
+  .upgrade-content p {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    margin: 0 24px;
+  }
+
+  .upgrade-includes {
+    margin-top: 12px;
+  }
+
+  .upgrade-includes li {
+    line-height: 20px;
+    font-size: 12px;
+  }
+
+  .upgrade-inner {
+    padding: 12px
+  }
+
+  .upgrade-title {
+    flex: 1;
+  }
+
+  .upgrade-card--advanced {
+    margin: 24px;
+  }
+
+  .upgrade-note {
+    font-size: 12px;
+  }
+
+  .premium {
+    padding-bottom: 16px;
+    margin: 0;
+    font-size: 14px;
+  }
+
+  .price-period {
+    font-size: 12px !important;
+  }
+
+  .upgrade-content h3 {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: #FFFFFF;
+  }
+
+  .upgrade-includes {
+    padding: 0 12px 12px;
+  }
+
+  .upgrade-card--gold {
+    margin: 24px
+  }
+
+  .adva-btn, .Gold-btn {
+    padding: 9px 12px;
+    line-height: 20px;
+    font-weight: 500;
+  }
+
+}
+
+
+
+
+/* ================= PLAN SWITCH ================= */
+
+
+
+.plan-switch {
+  display: flex;
+  justify-content: center;
+  margin: 0 30px;
+  gap: 8px;
+}
+
+.plan-btn {
+  flex: 1;
+  padding: 12px 0;
+  border-radius: 8px;
+  background: #FFFFFF1A;
+  border: 1px solid #FFFFFF33;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  text-align: center;
+
+}
+
+/* Advanced active → BLUE */
+.plan-btn.advanced.active {
+  background: #348AF733;
+  border-color: #348AF7;
+}
+
+/* Gold active → YELLOW */
+.plan-btn.gold.active {
+  background: #FFCB2B33;
+  border-color: #FFCB2B;
+}
+
+
+/* Header wrapper */
+.upgrade-content-header {
+  position: relative;
+  padding-bottom: 20px;
+}
+
+/* Close (X) button */
+.upgrade-close {
+  position: absolute;
+  top: 12px;
+  right: 30px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 1;
+}
+
+.upgrade-close:hover {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .plan-btn {
+    line-height: normal;
+    padding: 6px 12px;
+  }
+
+  .plan-switch {
+    margin: 0 24px;
+  }
+  .upgrade-close{
+    font-size: 17px;
   }
 }

@@ -1,4 +1,3 @@
-import { Play, CircleCheckBig } from 'lucide-react';
 import { paths } from 'src/routes/paths';
 import WistiaPlayer from './WistiaPlayer';
 import './css/Header.css';
@@ -9,7 +8,7 @@ const Header = () => (
     <div className="navbar">
       <div className="navbar-inner">
         <div className="brand">
-          <a href="https://bspconsult.com/" className="brand-link">
+          <a href="/" className="brand-link">
             <img src="img/bsplogo.png" alt="BSP Consult" className="brand-logo" />
             <span className="brand-text">
               <strong>BSP</strong> CONSULT
@@ -18,7 +17,7 @@ const Header = () => (
         </div>
 
         <div className="login">
-          <a href="https://app.bspconsult.com/login" className="btn-white">
+          <a href="/login" className="btn-white">
             Login
             <img src="img/loginLogo.svg" alt="" className="btn-icon" />
           </a>
@@ -29,7 +28,7 @@ const Header = () => (
 
     <div className="bg-effect" />
 
-    <div className="container pl-5 pr-5 pt-65 d-flex flex-column xs-pl-24 xs-pr-24">
+    <div className="hero-section container pl-5 pr-5 pt-65 d-flex flex-column xs-pl-24 xs-pr-24">
       <div className="hero-badge-wrapper">
         <div className="hero-badge">
           <span className="hero-badge-tag">Proven</span>
@@ -44,7 +43,7 @@ const Header = () => (
       </h1>
       <div className="watch-video-text">
 
-        <span> <img src="img/play.svg" alt="Play" className="play-icon" /> Watch the 8-minute video to understand how it actually works</span>
+        <span> <img src="img/play.svg" alt="Play" className="play-icon" /> Watch the 8-minute video to understand how it works</span>
       </div>
       <WistiaPlayer videoId="s9dfisq9e7" wrapper="wistia-player-container-1" />
 
@@ -88,11 +87,6 @@ const Header = () => (
             <span className="star full"><img src="img/star.svg" alt="star" /></span>
             <span className="star full"><img src="img/star.svg" alt="star" /></span>
             <span className="star full"><img src="img/star-alt.svg" alt="star" /></span>
-            {/* last star = 80% filled */}
-            {/* <span className="star partial">
-      <img src="img/star.svg" alt="star" />
-      <span className="star-fill"><img src="img/star.svg" alt="star" /></span>
-    </span> */}
           </div>
           <div className="rating-text">
             <strong>4.8 | </strong> <strong>487 </strong>Reviews

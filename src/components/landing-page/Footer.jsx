@@ -9,8 +9,7 @@ const Footer = () => (
       {/* Left */}
       <div className="footer-left">
         <div className="footer-logo">
-          <img src="/img/logo-icon.svg" alt="BSP Consult" />
-          {/* <span>BSP CONSULT</span> */}
+          <img src="/img/logo-footer.png" alt="BSP Consult" />
         </div>
 
         <p className="footer-desc">
@@ -32,10 +31,10 @@ const Footer = () => (
       <div className="footer-links">
         <h4>Company</h4>
         <ul>
-          <li><a href="https://www.instagram.com/bspconsult/">Instagram</a></li>
-          <li><a href="#">Terms & Conditions</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Contact Us</a></li>
+          <li><a href="https://www.instagram.com/bspconsult/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href="/terms-condition">Terms & Conditions</a></li>
+          <li><a href="https://bspconsult.com/privacy-policy">Privacy Policy</a></li>
+          <li><a href="mailto:management@bspconsult.com">Contact Us</a></li>
         </ul>
       </div>
 
@@ -57,7 +56,7 @@ const Footer = () => (
           <img src="/img/ap.svg" alt="App Store" width={145} height={50} />
         </a>
       </div>
-      </div>
+    </div>
     <div className="footer-bottom">
       © 2026 BSP Consult. All rights reserved.
     </div>

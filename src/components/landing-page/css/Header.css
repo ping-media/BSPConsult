@@ -278,7 +278,7 @@ div#wistia-player-container-1 {
   font-weight: 600;
   color: #FFFFFF;
   /* background: rgba(255, 255, 255, 0.12); */
-  background: #2E2F36;
+  background: #2e2f361f;
   backdrop-filter: blur(10px) saturate(160%);
   -webkit-backdrop-filter: blur(10px) saturate(160%);
 
@@ -286,6 +286,7 @@ div#wistia-player-container-1 {
   border: 1px solid #58595E;
 
   transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+  text-decoration: none;
 }
 
 .btn-icon {
@@ -596,6 +597,10 @@ div#wistia-player-container-1 {
     height: 20px;
   }
 
+  .hero-section{
+    padding: 60px 24px !important;
+  }
+
   /* very small phones → 1 per row */
   @media (max-width: 480px) {
     .feature-item {
@@ -637,14 +642,5 @@ div#wistia-player-container-1 {
   }
 }
 
-@media (max-width: 400px) {
-   .play-icon {
-    width: 12px;
-    height: 12px;
-    position: relative;
-    left: 5px;
-    
-  }
-  
-}
+
 

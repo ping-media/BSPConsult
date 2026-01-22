@@ -33,9 +33,17 @@ export default function PaymentSuccess() {
                         {/* HEADER */}
                         <div className="lock-header">
                             <span>Payment Successful</span>
-                            <button type="button" className="lock-close">
+                            {/* <button type="button" className="lock-close">
                                 <CloseIcon />
-                            </button>
+                            </button> */}
+                            <button
+  type="button"
+  className="lock-close"
+  onClick={() => navigate(paths.home)}
+>
+  <CloseIcon />
+</button>
+
                         </div>
 
                         <div className="lock-divider" />

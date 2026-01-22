@@ -66,6 +66,16 @@
   -webkit-backdrop-filter: blur(12px);
 }
 
+.dashboard-content .price-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 385px;
+}
+
+.dashboard-content .program-desc{
+  margin-bottom: 0px;
+}
 
 .program-title {
   font-size: 24px;
@@ -89,6 +99,10 @@
   margin-bottom: 32px;
 }
 
+.dashboard-content .price-card:not(.is-featured) .program-desc{
+  /* margin-bottom: 64px; */
+}
+
 .program-price {
   font-size: 36px;
   font-weight: 600;
@@ -103,6 +117,7 @@
   color: #D0D3D9;
   letter-spacing: -0.6px;
   margin-bottom: 20px;
+  line-height: 24px;
 }
 
 .program-btn {
@@ -152,6 +167,7 @@
   margin-bottom: 0;
   padding: 6px 0;
   font-weight: 100;
+  line-height: 24px;
 }
 
 .program-includes li.active {
@@ -176,12 +192,28 @@
   right: 0;
   top: 50%;
   height: 1px;
-  background: rgb(255, 255, 255);
+  background: #F0F1F3;
   transform: translateY(-50%);
 }
 
 .program-includes li.inactive svg {
   color: #374151;
+}
+
+@media (min-width: 1440px) {
+  .program-includes li{
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 1550px) {
+ .program-title {
+  font-size: 20px;
+  font-weight: 500;
+}
+.best-value-badge{
+  font-size: 12px;
+}
 }
 
 /* RESPONSIVE */
@@ -213,7 +245,7 @@
   }
 
   .price-amount {
-    font-size: 28px !important;
+    font-size: 24px !important;
     /* BIG number */
     font-weight: 600;
     color: #ffffff;
@@ -247,6 +279,16 @@
   .best-value-badge {
     position: static; 
     /* margin-bottom: 8px; */
+  }
+  .program-note{
+    font-size: 14px;
+  }
+  .section-price .heading-h5{
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+  .section-price .features-badge{
+    margin-bottom: 16px;
   }
 }
 
@@ -318,7 +360,7 @@
     margin-bottom: 8px;
   }
   .program-includes{
-    margin-top: 12px;
+    margin-top: 22px;
   }
   .price-card{
     padding: 12px;
@@ -332,4 +374,19 @@
     line-height: 10px;
   
   }
+}
+
+.price-selector {
+  display: none;
+}
+
+.program-btn.is-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+
+.section-prices {
+  padding: 20px 0;
 }
