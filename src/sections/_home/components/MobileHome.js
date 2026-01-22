@@ -1259,9 +1259,8 @@ export default function MobileHome() {
           {/* BODY */}
           <div className="membership">
             <Typography sx={{ color: '#FFF', textAlign: 'center', fontSize: '14px', lineHeight: '20px', fontWeight: 500 }}>
-              Are you sure you would like to get an email at
-              <br />
-              <strong>{user?.email}</strong> to reset your <br /> password?
+              Are you sure you would like to get an email at 
+              <strong> {user?.email}</strong> to reset your password?
             </Typography>
           </div>
 
