@@ -126,7 +126,7 @@
 //               </Box>
 //             </Box> 
 //           </Box>
-          
+
 //     </Paper>
 //   );
 // }
@@ -170,12 +170,12 @@ export default function Success() {
                                 <CloseIcon />
                             </button> */}
                             <button
-  type="button"
-  className="lock-close"
-  onClick={() => navigate(paths.home)}
->
-  <CloseIcon />
-</button>
+                                type="button"
+                                className="lock-close"
+                                onClick={() => navigate(paths.home)}
+                            >
+                                <CloseIcon />
+                            </button>
 
                         </div>
 
@@ -209,9 +209,15 @@ export default function Success() {
                                 Log Out
                             </button>
 
-                            <button type="button" className="lock-unlock">
-                                <a href="/home">Get Started</a>
+                            <button
+                                type="button"
+                                style={{color: '#FFF', cursor: 'pointer'}}
+                                className="lock-unlock"
+                                onClick={() => navigate(paths.home)}
+                            >
+                                Get Started
                             </button>
+
                         </div>
 
                     </div>
