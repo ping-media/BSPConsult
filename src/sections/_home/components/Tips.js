@@ -327,6 +327,17 @@ export default function Tips({ setCurrentPage }) {
     fetchInsightsTips();
     fetchBetTips();
   }, [fetchInsightsTips, fetchBetTips]);
+  
+  useEffect(() => {
+  if (openUpgrade) {
+    if (hasNoSubscription || isSilver) {
+      setSelectedPlan('advanced');
+    } else if (isAdvanced) {
+      setSelectedPlan('gold');
+    }
+  }
+}, [openUpgrade, hasNoSubscription, isSilver, isAdvanced]);
+
 
   function formatDate(dateString) {
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
