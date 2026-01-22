@@ -1242,7 +1242,7 @@ export default function MobileHome() {
               className="lock-close"
               onClick={() => setOpenResetPassword(false)}
             >
-              <CloseIcon />
+              <CloseIcon sx={{ fontSize: 20 }} />
             </button>
           </div>
 

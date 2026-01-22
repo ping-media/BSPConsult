@@ -70,6 +70,7 @@
 }
 
 .lock-close {
+  padding-top: 4px;
   background: transparent;
   border: none;
   color: #ffffff;
