@@ -86,7 +86,7 @@
 
 .brand-top p {
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.21px;
 }
 .brand-top span{
@@ -456,6 +456,8 @@
 
   /* LOGO CONTAINER */
  .brand-top {
+  display: flex;
+  flex-direction: column;
     position: static !important;
     inset: unset !important;
     left: auto !important;
@@ -466,13 +468,13 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin: 0 auto 36px;
+    margin: 0 auto 16px;
     text-align: center;
   }
 
   /* LOGO IMAGE */
   .brand-top img {
-    height: 28px;
+    height: 60px;
     display: block;
   }
 
@@ -480,7 +482,7 @@
   .brand-top p {
     margin: 0;
     text-align: center;
-    font-size: 14px;
+    font-size: 22.5px;
     line-height: 1;
   }
   /* LOGIN CARD CENTER */
@@ -493,7 +495,7 @@
 
   /* TITLE */
   .login-title {
-    font-size: 26px;
+    font-size: 24px;
     text-align: center;
     margin-bottom: 20px;
   }
@@ -504,7 +506,7 @@
   }
 
   .input-label {
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .input-field {
@@ -529,21 +531,21 @@
   /* BUTTON */
   .login-btn {
     height: 46px;
-    font-size: 15px;
+    font-size: 16px;
     border-radius: 24px;
   }
 
   /* REGISTER */
   .register-link {
     text-align: center;
-    font-size: 13px;
+    font-size: 14px;
     margin-top: 18px;
   }
 
   /* TERMS */
   .terms-text {
     text-align: center;
-    font-size: 13px;
+    font-size: 14px;
     margin-top: 18px;
     padding-bottom: 24px;
   }
