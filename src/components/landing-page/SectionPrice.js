@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router';
 import { useState } from 'react';
 import { paths } from 'src/routes/paths';
 
-// Stripe must stay OUTSIDE component
 const stripePromise = loadStripe("pk_live_51NAUESCf4YXq1rsyBMpbCD1Yqi5kocGdjxYqcqknpppNXXnUKKCVxar7NqInLJRCJTCEVkbqQPppP7nvve8E053I00P0pVQI8d");
 
 const programs = [
@@ -62,17 +61,17 @@ const includes = [
 // eslint-disable-next-line react/prop-types
 export default function PriceSection({ onProgramSelect }) {
   const navigate = useNavigate();
-const [activeProgram, setActiveProgram] = useState('silver');
-  
-const handleProgramClick = (programId) => {
-  if (onProgramSelect) {
-    onProgramSelect(programId);
-  } else {
-    navigate(paths.register, {
-      state: { program: programId },
-    });
-  }
-};
+  const [activeProgram, setActiveProgram] = useState('silver');
+
+  const handleProgramClick = (programId) => {
+    if (onProgramSelect) {
+      onProgramSelect(programId);
+    } else {
+      navigate(paths.register, {
+        state: { program: programId },
+      });
+    }
+  };
 
 
 
@@ -86,21 +85,9 @@ const handleProgramClick = (programId) => {
         <h5 className="heading-h5">Choose Your Program</h5>
         <h2 className="heading-h2">There is real opportunity in tennis betting only through structure, discipline and a clear strategy.</h2>
       </div>
-      {/* MOBILE PROGRAM SELECTOR */}
-{/* <div className="price-selector">
-  {programs.map((p) => (
-    <button
-    type='button'
-      key={p.id}
-      className={`selector-btn ${activeProgram === p.id ? 'active' : ''}`}
-      onClick={() => setActiveProgram(p.id)}
-    >
-      {p.name.split(' ')[0]}
-    </button>
-  ))}
-</div> */}
 
-<div className="price-grid">
+
+      <div className="price-grid">
 
         {programs.map((program) => (
           <div

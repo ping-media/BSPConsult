@@ -10,7 +10,6 @@ const Footer = () => (
       <div className="footer-left">
         <div className="footer-logo">
           <img src="/img/logo-footer.png" alt="BSP Consult" />
-          {/* <span>BSP CONSULT</span> */}
         </div>
 
         <p className="footer-desc">

@@ -7,10 +7,10 @@ import './css/Tetimonials.css';
 const TestimonialItem = ({ src, label }) => (
   <div className="testimonial-card">
     <div className="testimonial-image-wrapper">
-  <div className="testimonial-image-box">
-    <img src={src} alt={label} />
-  </div>
-</div>
+      <div className="testimonial-image-box">
+        <img src={src} alt={label} />
+      </div>
+    </div>
 
     <div className="testimonial-footer">
       <div className="testimonial-label">{label}</div>
@@ -51,25 +51,25 @@ const TestimonialsSection = () => {
   const [canScrollRight, setCanScrollRight] = useState(true);
 
   // Update arrow states
-useEffect(() => {
-  const container = scrollRef.current;
-  if (!container) {
-    return () => {}; // ✅ satisfies ESLint
-  }
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) {
+      return () => { }; // ✅ satisfies ESLint
+    }
 
-  const updateButtons = () => {
-    const { scrollLeft, scrollWidth, clientWidth } = container;
-    setCanScrollLeft(scrollLeft > 0);
-    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 5);
-  };
+    const updateButtons = () => {
+      const { scrollLeft, scrollWidth, clientWidth } = container;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 5);
+    };
 
-  updateButtons();
-  container.addEventListener('scroll', updateButtons);
+    updateButtons();
+    container.addEventListener('scroll', updateButtons);
 
-  return () => {
-    container.removeEventListener('scroll', updateButtons);
-  };
-}, []);
+    return () => {
+      container.removeEventListener('scroll', updateButtons);
+    };
+  }, []);
 
 
   // Arrow scroll (card by card)
@@ -94,10 +94,10 @@ useEffect(() => {
       <div className="container-3 mx-auto text-center mb-65">
         <div className="features-badge">Testimonials From Members</div>
 
-   <h5 className="heading-h5">
-  Messages from members applying the
-  <span className="desktop-line-break"> method day   <br className="mobile-only-br" />to day</span>
-</h5>
+        <h5 className="heading-h5">
+          Messages from members applying the
+          <span className="desktop-line-break"> method day   <br className="mobile-only-br" />to day</span>
+        </h5>
 
 
         <h2 className="heading-h2">

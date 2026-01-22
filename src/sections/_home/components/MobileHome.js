@@ -163,13 +163,6 @@ export default function MobileHome() {
 
   const [value, setValue] = useState(0);
 
-  // const checkExpireDate = () => {
-  //   const sec = user.expire_date ? user.expire_date.seconds * 1000 : 0;
-  //   const expireDate = new Date(sec);
-  //   const currentDate = new Date();
-  //   return currentDate.getTime() < expireDate.getTime();
-  // };
-
   const isSilverSubscribed = user.membership !== '1' && checkExpireDate();
   const isGoldSubscribed = user.membership === '10' && checkExpireDate();
 
@@ -651,7 +644,6 @@ export default function MobileHome() {
     width: '100%',
     height: '100%',
     border: 'none',
-    // Additional styles
   };
   const iframeContainerStyle = {
     position: 'relative',
@@ -1256,7 +1248,6 @@ export default function MobileHome() {
 
           <div className="lock-divider" />
 
-          {/* BODY */}
           <div className="membership">
             <Typography sx={{ color: '#FFF', textAlign: 'center', fontSize: '14px', lineHeight: '20px', fontWeight: 500 }}>
               Are you sure you would like to get an email at 
@@ -1451,7 +1442,7 @@ export default function MobileHome() {
                     )}
                   </div>
 
-                  {/* MODULE LIST (ALWAYS INSIDE SAME BOX) */}
+                  {/* MODULE LIST */}
                   <div className="modules-list">
                     {modules.map((module, index) => (
                       <div
@@ -1492,7 +1483,7 @@ export default function MobileHome() {
 
 
 
-        {/* TAB 2 – MASTERCLASS ZONE */}
+        {/* TAB 2 – BSP Masterclass */}
         {value === 2 && (
           <div className="tab-panel">
             <div className="courses-wrapper">

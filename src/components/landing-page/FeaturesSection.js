@@ -12,11 +12,11 @@ const FeaturesSection = () => (
           From Emotions to Structure
         </div>
 
-      <div className="features-text">
+        <div className="features-text">
 
-      <RevealText
-        className="features-description desktop-only"
-        text={`Chasing losses. Following random tips. Betting on instinct.
+          <RevealText
+            className="features-description desktop-only"
+            text={`Chasing losses. Following random tips. Betting on instinct.
       The pattern is always the same: you win, you lose, you tilt and
        you bet again to recover. Most bettors don’t fail because they’re 
        unlucky. They fail because they bet emotionally without 
@@ -26,11 +26,11 @@ const FeaturesSection = () => (
           clear structure and the right tools.\n 
           This is the foundation of how BSP works.
           `}
-      />
+          />
 
-    <RevealText
-      className="features-description mobile-only"
-      text={`If you’ve ever chased a loss, trusted a random tip, or bet on instinct,
+          <RevealText
+            className="features-description mobile-only"
+            text={`If you’ve ever chased a loss, trusted a random tip, or bet on instinct,
     you’ve lived the cycle:\n
     You win. You lose. You tilt. You repeat.\n
     The problem isn’t knowledge of a sport — it’s emotional betting without structure or proper odds evaluation.\n
@@ -38,9 +38,9 @@ const FeaturesSection = () => (
     Our system replaces emotion with structure.\n
     No instincts. No guesswork. Just a clear, data-driven strategy.\n
     Betting becomes a process backed by a clear structure and the right tools.`}
-    />
+          />
+        </div>
       </div>
-  </div>
     </div>
   </section>
 );
