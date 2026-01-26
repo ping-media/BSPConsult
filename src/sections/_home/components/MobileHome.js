@@ -1439,7 +1439,7 @@ export default function MobileHome() {
                       //     Purchase Membership
                       //   </button>
                       // </div>
-                        <div className="locked-wrapper">
+                        <div className="locked-wrapper" style={{marginBottom:'22px'}}>
                       <div className="g-lock">
                         <img src="/img/locked-premium.svg" alt="Locked" />
                       </div>

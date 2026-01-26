@@ -381,7 +381,7 @@ const handleSubscription = () => {
                     className="video-iframe"
                   />
                 ) : (
-                  <div className="locked-wrapper">
+                  <div className="locked-wrapper" style={{marginBottom:'32px'}}>
                   <div className='g-lock'>
                     <img src="/img/locked-premium.svg" alt="Locked" />
                   </div>
