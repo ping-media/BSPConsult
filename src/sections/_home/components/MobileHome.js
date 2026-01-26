@@ -167,7 +167,7 @@ export default function MobileHome() {
   const isGoldSubscribed = user.membership === '10' && checkExpireDate();
 
   const isSubscribed =
-    ['8', '9', '10'].includes(String(user?.membership)) &&
+    ['9', '10'].includes(String(user?.membership)) &&
     checkExpireDate();
 
 
@@ -1426,19 +1426,45 @@ export default function MobileHome() {
 
 
                     ) : (
-                      <div className="locked-wrapper">
-                        <div className='g-lock'>
-                          <img src="/img/locked-premium.svg" alt="Locked" />
-                        </div>
-                        <h3>Essential Video Content Locked</h3>
-                        <button
-                          type="button"
-                          className="update-btn"
-                          onClick={handleSubscription}
-                        >
-                          Purchase Membership
-                        </button>
+                      // <div className="locked-wrapper">
+                      //   <div className='g-lock'>
+                      //     <img src="/img/locked-premium.svg" alt="Locked" />
+                      //   </div>
+                      //   <h3>Essential Video Content Locked</h3>
+                      //   <button
+                      //     type="button"
+                      //     className="update-btn"
+                      //     onClick={handleSubscription}
+                      //   >
+                      //     Purchase Membership
+                      //   </button>
+                      // </div>
+                        <div className="locked-wrapper">
+                      <div className="g-lock">
+                        <img src="/img/locked-premium.svg" alt="Locked" />
                       </div>
+                      <h3 className="locked-text">Advanced Content Locked</h3>
+                      <p className="locked-para">One click away from full access</p>
+                      <button
+                        type="button"
+                        className="update-btn"
+                        
+                       onClick={() => {
+                    if (hasNoSubscription) {
+                      handleSubscription(user?.membership);
+                      return;
+                    }
+
+                    if (isSilver) setSelectedPlan('advanced');
+                    if (isAdvanced) setSelectedPlan('gold');
+
+                    setOpenUpgrade(true);
+                  }}
+                      >
+                        {!hasAnyMembership ? 'Purchase Membership' : 'Upgrade Now'}
+                      </button>
+
+                    </div>
                     )}
                   </div>
 
@@ -1510,7 +1536,12 @@ export default function MobileHome() {
                       <button
                         type="button"
                         className="update-btn"
-                        onClick={() => setgOpenUpgrade(true)} // opens the dialog
+                        onClick={() => {
+                           if (hasNoSubscription) {
+                      handleSubscription(user?.membership);
+                      return;
+                    }
+                          setgOpenUpgrade(true)}} 
                       >
                         {!hasAnyMembership ? 'Purchase Membership' : 'Upgrade Now'}
                       </button>
